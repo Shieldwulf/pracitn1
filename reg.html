@@ -273,7 +273,7 @@ footer{
 </div>
 
 <div class="card-body">
-<button class="card-btn" onclick="openModal('Registration Form')">
+<button class="card-btn" onclick="openModal('Registration Form', 'regform.html')">
 ➕ REGISTER NEW USER
 </button>
 </div>
@@ -329,15 +329,24 @@ const modal=document.getElementById("iframeModal");
 const iframe=document.getElementById("contentIframe");
 const title=document.getElementById("modalTitle");
 
-function openModal(text){
+// Enhanced to accept a target URL string
+function openModal(text, pageUrl){
 
 title.innerText=text;
 
-iframe.srcdoc=`
-<h2 style="padding:30px;text-align:center;">
-${text}
-</h2>
-`;
+if(pageUrl){
+    // If a page URL is provided, load the external html document file
+    iframe.removeAttribute("srcdoc");
+    iframe.src = pageUrl;
+} else {
+    // Fallback if no specific file is assigned yet
+    iframe.removeAttribute("src");
+    iframe.srcdoc=`
+    <h2 style="padding:30px;text-align:center;">
+    ${text}
+    </h2>
+    `;
+}
 
 modal.classList.add("active");
 
@@ -351,7 +360,9 @@ modal.classList.remove("active");
 
 document.body.style.overflow="";
 
+// Reset both triggers on closure to keep components clean
 iframe.srcdoc="";
+iframe.src="";
 
 }
 
