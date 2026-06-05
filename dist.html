@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITN Campaign | Distribution Portal</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+    background:linear-gradient(135deg,#e6f2f9 0%,#cde5f0 100%);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+/* HEADER STYLE CONFIGURATIONS */
+header{
+    background:linear-gradient(95deg,#4A90B8,#2C6E8F);
+    padding:20px;
+    border-bottom:3px solid #FFD966;
+    box-shadow:0 4px 12px rgba(0,0,0,.12);
+}
+
+.header-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.header-title{
+    flex:1;
+}
+
+.header-title h1{
+    color:white;
+    font-size:2rem;
+}
+
+.header-title p{
+    color:#FFE5B4;
+    margin-top:5px;
+    font-size:.9rem;
+}
+
+.header-logos{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.logo-item{
+    background:white;
+    padding:8px 12px;
+    border-radius:12px;
+    text-align:center;
+}
+
+.logo-icon{
+    font-size:22px;
+}
+
+.logo-text{
+    font-size:.7rem;
+    font-weight:bold;
+    color:#2C6E8F;
+}
+
+/* DASHBOARD TILES WORKSPACE */
+main{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:20px;
+    padding:25px 15px;
+}
+
+.card{
+    width:100%;
+    max-width:320px;
+    background:white;
+    border-radius:24px;
+    overflow:hidden;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card-header{
+    background:linear-gradient(95deg,#4A90B8,#2C6E8F);
+    color:white;
+    padding:30px 20px;
+}
+
+.card-header .icon{
+    font-size:3rem;
+    margin-bottom:10px;
+}
+
+.card-header h2{
+    font-size:1.4rem;
+}
+
+.card-body{
+    padding:20px;
+}
+
+.card-btn{
+    width:100%;
+    border:none;
+    border-radius:50px;
+    padding:14px;
+    cursor:pointer;
+    font-weight:bold;
+    color:white;
+    background:linear-gradient(95deg,#4A90B8,#2C6E8F);
+}
+
+/* BRANDED SYSTEM FOOTER */
+footer{
+    background:#2C6E8F;
+    color:#FFE5B4;
+    text-align:center;
+    padding:15px;
+    font-size:.8rem;
+}
+
+/* DYNAMIC MODAL CONTAINER WINDOWS */
+.iframe-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    z-index:999;
+    justify-content:center;
+    align-items:center;
+}
+
+.iframe-modal.active{
+    display:flex;
+}
+
+.modal-container{
+    width:95%;
+    max-width:900px;
+    height:90vh;
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+}
+
+.modal-header{
+    background:#2C6E8F;
+    color:white;
+    padding:12px 15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-weight:bold;
+}
+
+.close-iframe-btn{
+    border:none;
+    border-radius:30px;
+    padding:6px 12px;
+    cursor:pointer;
+    background:#e53e3e;
+    color:white;
+    font-weight:bold;
+}
+
+.modal-content-area{
+    width:100%;
+    height:calc(100% - 50px);
+    overflow-y:auto;
+    padding:25px;
+    background-color:#ffffff;
+}
+
+/* INPUT FORM AND GRID INTERNALS */
+.form-title {
+    text-align:center;
+    color:#2C6E8F;
+    font-size:1.6rem;
+    margin-bottom:20px;
+    font-weight:600;
+}
+
+.section-banner {
+    background-color:#E3F2FD;
+    color:#2C6E8F;
+    padding:10px 18px;
+    border-radius:12px;
+    font-weight:bold;
+    font-size:1rem;
+    margin:20px 0 15px 0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.form-grid-2 {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.form-grid-3 {
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:15px;
+}
+
+.form-group {
+    margin-bottom:15px;
+}
+
+.form-group label {
+    display:block;
+    color:#2C6E8F;
+    font-weight:600;
+    font-size:0.9rem;
+    margin-bottom:6px;
+}
+
+.form-group label span.label-note {
+    font-weight:normal;
+    font-size:0.8rem;
+    color:#4A90B8;
+    margin-left:5px;
+}
+
+.screenshot-input {
+    width:100%;
+    padding:12px 18px;
+    border:1.5px solid #cbd5e1;
+    border-radius:24px;
+    font-size:0.95rem;
+    outline:none;
+    color:#2d3748;
+    background-color:#ffffff;
+    transition:border-color 0.2s;
+}
+
+.screenshot-input:focus {
+    border-color:#4A90B8;
+}
+
+.screenshot-input:disabled {
+    background-color:#f1f5f9;
+    color:#64748b;
+    cursor:not-allowed;
+}
+
+/* GATEKEEPER CONSENT SECTOR */
+.consent-card {
+    border:2px dashed #4A90B8;
+    border-radius:16px;
+    padding:20px;
+    background-color:#f8fafc;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.radio-group {
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    margin-top:12px;
+}
+
+.radio-label {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-weight:bold;
+    color:#2C6E8F;
+    cursor:pointer;
+}
+
+/* BUTTON ACTION PANELS */
+.action-btn {
+    background:linear-gradient(95deg,#4A90B8,#2C6E8F);
+    color:white;
+    border:none;
+    padding:14px 30px;
+    border-radius:50px;
+    font-weight:bold;
+    cursor:pointer;
+    width:100%;
+    font-size:1rem;
+    box-shadow:0 4px 10px rgba(44,110,143,0.2);
+    margin-top:15px;
+}
+
+.action-btn:hover {
+    opacity:0.95;
+}
+
+/* DATA TABLE RECORD LAYOUTS */
+.table-wrapper {
+    overflow-x:auto;
+    margin-top:10px;
+}
+
+table {
+    width:100%;
+    border-collapse:collapse;
+    font-size:0.85rem;
+    text-align:left;
+}
+
+th, td {
+    padding:12px;
+    border:1px solid #e2e8f0;
+}
+
+th {
+    background-color:#2C6E8F;
+    color:white;
+}
+
+tr:nth-child(even) {
+    background-color:#f8fafc;
+}
+
+.hidden {
+    display:none;
+}
+
+/* SUMMARY VERIFICATION REVIEW OVERLAYS */
+.summary-box {
+    background:#f8fafc;
+    border:1px solid #cbd5e1;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:15px;
+}
+.summary-line {
+    display:flex;
+    justify-content:space-between;
+    padding:8px 0;
+    border-bottom:1px solid #edf2f7;
+}
+
+/* SCREEN LAYOUT BREAKPOINTS */
+@media(max-width:768px){
+    .header-top{ flex-direction:column; text-align:center; }
+    .header-title h1{ font-size:1.4rem; }
+    .header-title p{ font-size:.8rem; }
+    .header-logos{ justify-content:center; }
+    .card{ max-width:100%; }
+    .modal-container{ width:100%; height:100vh; border-radius:0; }
+    footer{ font-size:.75rem; }
+    .form-grid-2, .form-grid-3 { grid-template-columns:1fr; gap:0; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-top">
+        <div class="header-title">
+            <h1>🏥 ITN Mass Campaign</h1>
+            <p>Insecticide-Treated Nets | Universal Distribution Workspace</p>
+        </div>
+        <div class="header-logos">
+            <div class="logo-item">
+                <div class="logo-icon">🦟</div>
+                <div class="logo-text">NMCP</div>
+            </div>
+            <div class="logo-item">
+                <div class="logo-icon">🏛️</div>
+                <div class="logo-text">MOH</div>
+            </div>
+            <div class="logo-item">
+                <div class="logo-icon">🌍</div>
+                <div class="logo-text">WORLD VISION</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="card">
+        <div class="card-header">
+            <div class="icon">📦</div>
+            <h2>DISTRIBUTION</h2>
+        </div>
+        <div class="card-body">
+            <button class="card-btn" onclick="openEngineModal('dist')">
+                🚚 DISTRIBUTE NETS
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div class="icon">📋</div>
+            <h2>RECORDS</h2>
+        </div>
+        <div class="card-body">
+            <button class="card-btn" onclick="openEngineModal('rec')">
+                👁️ VIEW LEDGERS
+            </button>
+        </div>
+    </div>
+</main>
+
+<footer>
+    POWERED BY ICF-SL © 2026 | ITN Mass Campaign Distribution System
+</footer>
+
+<!-- SYSTEM FORM LAYOUT DIALOG LAYER -->
+<div class="iframe-modal" id="iframeModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <span id="modalTitle">Form Application</span>
+            <button class="close-iframe-btn" onclick="closeEngineModal()">✕ Close</button>
+        </div>
+        
+        <div class="modal-content-area">
+            
+            <!-- DISTRIBUTION FORM VIEW -->
+            <div id="distributionView" class="hidden">
+                <div class="form-title">🚚 Log ITN Distribution Delivery</div>
+                
+                <div class="consent-card" id="consentCardDist">
+                    <label style="font-weight:bold; color:#2C6E8F; font-size:1rem;">
+                        Is the beneficiary present and consenting to receive nets? *
+                    </label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="distConsent" value="yes" onchange="evaluateConsent(this.value)"> Yes
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="distConsent" value="no" onchange="evaluateConsent(this.value)"> No
+                        </label>
+                    </div>
+                </div>
+
+                <div id="mainFormBodyDist" class="hidden">
+                    <form id="itnDistForm" onsubmit="event.preventDefault();">
+                        <div class="section-banner">🔑 Token Authorization Lookup</div>
+                        <div class="form-group">
+                            <label for="distToken">Input Token Reference * <span class="label-note">(Try typing: AB_76123456 or KM_77654321)</span></label>
+                            <input type="text" id="distToken" class="screenshot-input" placeholder="LETTERS_PHONENUMBER" oninput="processTokenLookup(this.value)" required>
+                            <div id="lookupStatusNote" style="font-size:0.8rem; margin-top:5px; color:#4A90B8; font-weight:600;"></div>
+                        </div>
+
+                        <div class="section-banner">📍 Household Identification</div>
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="distRegion">Region *</label>
+                                <select id="distRegion" class="screenshot-input" onchange="cascadeDistricts()" required>
+                                    <option value="">Select Region...</option>
+                                    <option value="Northern Region">Northern Region</option>
+                                    <option value="Southern Region">Southern Region</option>
+                                    <option value="Eastern Region">Eastern Region</option>
+                                    <option value="Western Area">Western Area</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="distDistrict">District *</label>
+                                <select id="distDistrict" class="screenshot-input" onchange="cascadeChiefdoms()" required disabled>
+                                    <option value="">Select...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="distChiefdom">Chiefdom *</label>
+                                <select id="distChiefdom" class="screenshot-input" required disabled>
+                                    <option value="">Select Chiefdom...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="distFacility">Health Facility *</label>
+                                <input type="text" id="distFacility" class="screenshot-input" placeholder="Enter Facility Name" required>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="distCommunity">Community / Village *</label>
+                                <input type="text" id="distCommunity" class="screenshot-input" placeholder="Enter Village Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="distHeadName">Household Head Name *</label>
+                                <input type="text" id="distHeadName" class="screenshot-input" placeholder="Beneficiary Full Name" required>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="distDate">Distribution Date *</label>
+                                <input type="date" id="distDate" class="screenshot-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="distTime">Distribution Time *</label>
+                                <input type="time" id="distTime" class="screenshot-input" required>
+                            </div>
+                        </div>
+
+                        <div class="section-banner">📦 Inventory Handout Details</div>
+                        <div class="form-grid-3">
+                            <div class="form-group">
+                                <label for="distTotalMembers">Household Size *</label>
+                                <input type="number" id="distTotalMembers" class="screenshot-input" min="1" placeholder="Size" oninput="calculateFallbackAllocations()" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="distItnAllocated">Total ITN to be Distributed</label>
+                                <input type="text" id="distItnAllocated" class="screenshot-input" readonly style="font-weight:bold; color:#2C6E8F; background-color: #f1f5f9;" placeholder="Auto-filled from Token">
+                            </div>
+                            <div class="form-group">
+                                <label for="distItnDelivered">ITN Distributed *</label>
+                                <input type="number" id="distItnDelivered" class="screenshot-input" min="0" placeholder="Qty Disbursed" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>GPS Coordinates</label>
+                            <input type="text" id="distGps" class="screenshot-input" readonly style="font-family:monospace; background-color: #f1f5f9;">
+                        </div>
+
+                        <button type="button" class="action-btn" onclick="buildSummary()">Review Distribution Summary</button>
+                    </form>
+                </div>
+
+                <div id="summarySectionDist" class="hidden">
+                    <div class="section-banner">📋 Verification Summary Review</div>
+                    <div class="summary-box" id="summaryViewContentDist"></div>
+                    <div class="form-grid-2">
+                        <button type="button" class="action-btn" style="background:#718096;" onclick="bounceBackToEdit()">Back to Edit</button>
+                        <button type="button" class="action-btn" style="background:#38a169;" onclick="commitDistributionRecord()">Confirm Disbursal Submission</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RECORDS SPREADSHEET LEDGER -->
+            <div id="recordsView" class="hidden">
+                <div class="form-title">📋 Consolidated ITN Distribution Register</div>
+                
+                <div class="table-wrapper">
+                    <table id="datatableDist">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Token Reference</th>
+                                <th>Region</th>
+                                <th>District</th>
+                                <th>Chiefdom</th>
+                                <th>Facility</th>
+                                <th>Household Head</th>
+                                <th>Total Members</th>
+                                <th>Target ITNs</th>
+                                <th>ITN Distributed</th>
+                                <th>GeoCoordinate</th>
+                                <th>Dist Date & Time</th>
+                                <th>System Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody id="datatableBodyDist">
+                            <tr id="emptyPlaceholderDist">
+                                <td colspan="13" style="text-align:center; color:#a0aec0; padding:20px;">No distribution delivery entries compiled in this session.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+// Mock Session Operational Global Configurations
+const LOGGED_USER = "system_agent_sl";
+
+// Pre-seeded Registration Baseline Records to test Token Linking features
+const mockRegistrationDatabase = [
+    {
+        token: "AB_76123456", region: "Northern Region", district: "Falaba", chiefdom: "Wara Wara Zagala",
+        facility: "Falaba Community Hospital", community: "Kabala Highway Village", headName: "Alimamy Bangura",
+        totalMembers: 3, itnAllocated: "2"
+    },
+    {
+        token: "KM_77654321", region: "Western Area", district: "Western Area Rural", chiefdom: "Waterloo",
+        facility: "Waterloo Health Post", community: "Bassa Town Section", headName: "Kadiatu Mansaray",
+        totalMembers: 5, itnAllocated: "3"
+    }
+];
+
+// Geopolitical Structural Cascade Nodes Mapping
+const administrativeTree = {
+    "Northern Region": { "Falaba": ["Wara Wara Zagala"] },
+    "Southern Region": { "Bonthe": ["Nongoma Bullom"] },
+    "Eastern Region": { "kono": ["Generic Kono Chiefdom"] },
+    "Western Area": { "Western Area Rural": ["Waterloo"] }
+};
+
+// Modal Trigger Configurations Framework
+function openEngineModal(type) {
+    const modal = document.getElementById("iframeModal");
+    const title = document.getElementById("modalTitle");
+    const distView = document.getElementById("distributionView");
+    const recView = document.getElementById("recordsView");
+    
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+    
+    distView.classList.add("hidden");
+    recView.classList.add("hidden");
+    
+    if (type === 'dist') {
+        title.innerText = "ITN Field Distribution Logistics Panel";
+        distView.classList.remove("hidden");
+    } else {
+        title.innerText = "Distribution Records Ledger Matrix";
+        recView.classList.remove("hidden");
+    }
+}
+
+function closeEngineModal() {
+    document.getElementById("iframeModal").classList.remove("active");
+    document.body.style.overflow = "";
+}
+
+// Evaluate Gatekeeper Consent Actions Switch
+function evaluateConsent(status) {
+    const mainFormBody = document.getElementById("mainFormBodyDist");
+    if(status === 'yes') {
+        mainFormBody.classList.remove("hidden");
+        const now = new Date();
+        document.getElementById("distDate").value = now.toISOString().split('T')[0];
+        document.getElementById("distTime").value = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+        generateTelemetryGPS();
+    } else {
+        mainFormBody.classList.add("hidden");
+        alert("Consent Denied. Distribution parameters resetting.");
+        resetFormEngine();
+    }
+}
+
+// Background Simulated Precision Satellite GPS Capture
+function generateTelemetryGPS() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                document.getElementById('distGps').value = `${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)}`;
+            },
+            () => {
+                const simulatedLat = (8.4800 + Math.random() * 0.01).toFixed(5);
+                const simulatedLon = (-13.2300 - Math.random() * 0.01).toFixed(5);
+                document.getElementById('distGps').value = `${simulatedLat}, ${simulatedLon} (Simulated)`;
+            }
+        );
+    }
+}
+
+// Structural Dropdown Cascade Intercept Mechanics
+function cascadeDistricts() {
+    const regionVal = document.getElementById("distRegion").value;
+    const districtSelect = document.getElementById("distDistrict");
+    const chiefdomSelect = document.getElementById("distChiefdom");
+    
+    districtSelect.innerHTML = '<option value="">Select...</option>';
+    chiefdomSelect.innerHTML = '<option value="">Select Chiefdom...</option>';
+    chiefdomSelect.disabled = true;
+    
+    if(!regionVal) {
+        districtSelect.disabled = true;
+        return;
+    }
+    
+    const districts = Object.keys(administrativeTree[regionVal]);
+    districts.forEach(d => {
+        let opt = document.createElement("option");
+        opt.value = d;
+        opt.innerText = d;
+        districtSelect.appendChild(opt);
+    });
+    districtSelect.disabled = false;
+}
+
+function cascadeChiefdoms() {
+    const regionVal = document.getElementById("distRegion").value;
+    const districtVal = document.getElementById("distDistrict").value;
+    const chiefdomSelect = document.getElementById("distChiefdom");
+    
+    chiefdomSelect.innerHTML = '<option value="">Select Chiefdom...</option>';
+    
+    if(!districtVal) {
+        chiefdomSelect.disabled = true;
+        return;
+    }
+    
+    const chiefdoms = administrativeTree[regionVal][districtVal];
+    chiefdoms.forEach(c => {
+        let opt = document.createElement("option");
+        opt.value = c;
+        opt.innerText = c;
+        chiefdomSelect.appendChild(opt);
+    });
+    chiefdomSelect.disabled = false;
+}
+
+// Real-time Token Cross-matching Verification Vector
+function processTokenLookup(rawToken) {
+    // Alphanumeric sanitization and strict capitalization enforcement
+    const upperToken = rawToken.toUpperCase().replace(/[^A-Z0-9_]/g, '');
+    document.getElementById("distToken").value = upperToken;
+    const noteEl = document.getElementById("lookupStatusNote");
+    
+    // Look up token signatures inside the contextual baseline registry
+    const matchedRecord = mockRegistrationDatabase.find(record => record.token === upperToken);
+    
+    if(matchedRecord) {
+        noteEl.innerHTML = "✅ Linked Record Verification Successful.";
+        noteEl.style.color = "#38a169";
+        
+        // Populate matching profile data points instantly
+        document.getElementById("distRegion").value = matchedRecord.region;
+        cascadeDistricts();
+        document.getElementById("distDistrict").value = matchedRecord.district;
+        cascadeChiefdoms();
+        document.getElementById("distChiefdom").value = matchedRecord.chiefdom;
+        document.getElementById("distFacility").value = matchedRecord.facility;
+        document.getElementById("distCommunity").value = matchedRecord.community;
+        document.getElementById("distHeadName").value = matchedRecord.headName;
+        document.getElementById("distTotalMembers").value = matchedRecord.totalMembers;
+        document.getElementById("distItnAllocated").value = matchedRecord.itnAllocated;
+    } else {
+        noteEl.innerHTML = "🔍 Scanning Token Database... Manual/Fallback validation mode active.";
+        noteEl.style.color = "#4A90B8";
+        calculateFallbackAllocations();
+    }
+}
+
+// Fallback logic for calculating targeted nets if token is customized
+function calculateFallbackAllocations() {
+    const matchedRecord = mockRegistrationDatabase.find(record => record.token === document.getElementById("distToken").value);
+    if(matchedRecord) return; // Prevent overwriting active verified links
+    
+    const total = parseInt(document.getElementById("distTotalMembers").value) || 0;
+    let fallbackQty = "";
+    if (total > 0) {
+        if (total < 2) fallbackQty = 1;
+        else if (total >= 2 && total < 4) fallbackQty = 2;
+        else fallbackQty = 3;
+    }
+    document.getElementById("distItnAllocated").value = fallbackQty;
+}
+
+// Compile Distribution Context Review Summary Sheet
+function buildSummary() {
+    const requiredInputs = ["distToken", "distRegion", "distDistrict", "distChiefdom", "distFacility", "distCommunity", "distHeadName", "distDate", "distTime", "distItnDelivered"];
+    for(let id of requiredInputs) {
+        if(!document.getElementById(id).value) {
+            alert("Please complete all required distribution parameters prior to compiling validation data reviews.");
+            return;
+        }
+    }
+    
+    const summaryTarget = document.getElementById("summaryViewContentDist");
+    summaryTarget.innerHTML = `
+        <div class="summary-line"><strong>Authenticated Token Reference:</strong> <span style="font-weight:bold; color:#2C6E8F;">${document.getElementById("distToken").value}</span></div>
+        <div class="summary-line"><strong>Geographic Chain Path:</strong> <span>${document.getElementById("distRegion").value} ➔ ${document.getElementById("distDistrict").value} ➔ ${document.getElementById("distChiefdom").value}</span></div>
+        <div class="summary-line"><strong>Locality Infrastructure:</strong> <span>${document.getElementById("distFacility").value} (${document.getElementById("distCommunity").value})</span></div>
+        <div class="summary-line"><strong>Household Representative Head:</strong> <span>${document.getElementById("distHeadName").value}</span></div>
+        <div class="summary-line"><strong>Target vs Disbursed Metrics:</strong> <span>Target Allocation: ${document.getElementById("distItnAllocated").value} Net(s) | Handed Out: <strong>${document.getElementById("distItnDelivered").value} Nets</strong></span></div>
+        <div class="summary-line"><strong>Logistical Execution Time:</strong> <span>${document.getElementById("distDate").value} at ${document.getElementById("distTime").value}</span></div>
+        <div class="summary-line"><strong>Satellite GPS Coordinates Baseline:</strong> <span>${document.getElementById("distGps").value}</span></div>
+    `;
+    
+    document.getElementById("itnDistForm").classList.add("hidden");
+    document.getElementById("summarySectionDist").classList.remove("hidden");
+}
+
+function bounceBackToEdit() {
+    document.getElementById("summarySectionDist").classList.add("hidden");
+    document.getElementById("itnDistForm").classList.remove("hidden");
+}
+
+// Commit Compiled Disbursal Log Entry to Tailored Distribution Ledger View Grid
+function commitDistributionRecord() {
+    const tbody = document.getElementById("datatableBodyDist");
+    const emptyRow = document.getElementById("emptyPlaceholderDist");
+    if(emptyRow) emptyRow.remove();
+    
+    const tr = document.createElement("tr");
+    const currentTimeStamp = new Date().toLocaleString();
+    
+    tr.innerHTML = `
+        <td><span style="background:#edf2f7; padding:3px 8px; border-radius:6px; font-weight:600; color:#2C6E8F;">${LOGGED_USER}</span></td>
+        <td><strong style="color:#2C6E8F;">${document.getElementById("distToken").value}</strong></td>
+        <td>${document.getElementById("distRegion").value}</td>
+        <td>${document.getElementById("distDistrict").value}</td>
+        <td>${document.getElementById("distChiefdom").value}</td>
+        <td>${document.getElementById("distFacility").value}</td>
+        <td><strong>${document.getElementById("distHeadName").value}</strong></td>
+        <td>${document.getElementById("distTotalMembers").value}</td>
+        <td>${document.getElementById("distItnAllocated").value}</td>
+        <td style="text-align:center; font-weight:bold; color:#38a169; background:#f0fff4;">${document.getElementById("distItnDelivered").value}</td>
+        <td style="font-family:monospace; font-size:11px;">${document.getElementById("distGps").value}</td>
+        <td><strong>${document.getElementById("distDate").value} @ ${document.getElementById("distTime").value}</strong></td>
+        <td><small style="color:#4a5568;">${currentTimeStamp}</small></td>
+    `;
+    
+    tbody.appendChild(tr);
+    alert("Distribution delivery successfully recorded and synchronized into systemic session database.");
+    resetFormEngine();
+}
+
+function resetFormEngine() {
+    document.getElementById("distToken").value = "";
+    document.getElementById("lookupStatusNote").innerText = "";
+    document.getElementById("distRegion").value = "";
+    cascadeDistricts();
+    document.getElementById("distFacility").value = "";
+    document.getElementById("distCommunity").value = "";
+    document.getElementById("distHeadName").value = "";
+    document.getElementById("distDate").value = "";
+    document.getElementById("distTime").value = "";
+    document.getElementById("distTotalMembers").value = "";
+    document.getElementById("distItnAllocated").value = "";
+    document.getElementById("distItnDelivered").value = "";
+    document.getElementById("distGps").value = "";
+    
+    const radios = document.getElementsByName("distConsent");
+    radios.forEach(r => r.checked = false);
+    
+    document.getElementById("mainFormBodyDist").classList.add("hidden");
+    document.getElementById("summarySectionDist").classList.add("hidden");
+    document.getElementById("itnDistForm").classList.remove("hidden");
+    closeEngineModal();
+}
+</script>
+
+</body>
+</html>
