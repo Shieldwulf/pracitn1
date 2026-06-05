@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITN Campaign | Registration Portal</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+    background:linear-gradient(135deg,#e6f2f9 0%,#cde5f0 100%);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+/* HEADER STYLE CONFIGURATIONS */
+header{
+    background:linear-gradient(95deg,#4A90B8,#2C6E8F);
+    padding:20px;
+    border-bottom:3px solid #FFD966;
+    box-shadow:0 4px 12px rgba(0,0,0,.12);
+}
+
+.header-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.header-title{
+    flex:1;
+}
+
+.header-title h1{
+    color:white;
+    font-size:2rem;
+}
+
+.header-title p{
+    color:#FFE5B4;
+    margin-top:5px;
+    font-size:.9rem;
+}
+
+.header-logos{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.logo-item{
+    background:white;
+    padding:8px 12px;
+    border-radius:12px;
+    text-align:center;
+}
+
+.logo-icon{
+    font-size:22px;
+}
+
+.logo-text{
+    font-size:.7rem;
+    font-weight:bold;
+    color:#2C6E8F;
+}
+
+/* DASHBOARD TILES WORKSPACE */
+main{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:20px;
+    padding:25px 15px;
+}
+
+.card{
+    width:100%;
+    max-width:320px;
+    background:white;
+    border-radius:24px;
+    overflow:hidden;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card-header{
+    background:linear-gradient(95deg,#4A90B8,#2C6E8F);
+    color:white;
+    padding:30px 20px;
+}
+
+.card-header .icon{
+    font-size:3rem;
+    margin-bottom:10px;
+}
+
+.card-header h2{
+    font-size:1.5rem;
+}
+
+.card-body{
+    padding:20px;
+}
+
+.card-btn{
+    width:100%;
+    border:none;
+    border-radius:50px;
+    padding:14px;
+    cursor:pointer;
+    font-weight:bold;
+    color:white;
+    background:linear-gradient(95deg,#4A90B8,#2C6E8F);
+}
+
+/* BRANDED SYSTEM FOOTER */
+footer{
+    background:#2C6E8F;
+    color:#FFE5B4;
+    text-align:center;
+    padding:15px;
+    font-size:.8rem;
+}
+
+/* DYNAMIC MODAL CONTAINER WINDOWS */
+.iframe-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    z-index:999;
+    justify-content:center;
+    align-items:center;
+}
+
+.iframe-modal.active{
+    display:flex;
+}
+
+.modal-container{
+    width:95%;
+    max-width:850px;
+    height:90vh;
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+}
+
+.modal-header{
+    background:#2C6E8F;
+    color:white;
+    padding:12px 15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-weight:bold;
+}
+
+.close-iframe-btn{
+    border:none;
+    border-radius:30px;
+    padding:6px 12px;
+    cursor:pointer;
+    background:#e53e3e;
+    color:white;
+    font-weight:bold;
+}
+
+.modal-content-area{
+    width:100%;
+    height:calc(100% - 50px);
+    overflow-y:auto;
+    padding:25px;
+    background-color:#ffffff;
+}
+
+/* INPUT FORM AND GRID INTERNALS */
+.form-title {
+    text-align:center;
+    color:#2C6E8F;
+    font-size:1.6rem;
+    margin-bottom:20px;
+    font-weight:600;
+}
+
+.section-banner {
+    background-color:#E3F2FD;
+    color:#2C6E8F;
+    padding:10px 18px;
+    border-radius:12px;
+    font-weight:bold;
+    font-size:1rem;
+    margin:20px 0 15px 0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.form-grid-2 {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.form-grid-3 {
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:15px;
+}
+
+.form-group {
+    margin-bottom:15px;
+}
+
+.form-group label {
+    display:block;
+    color:#2C6E8F;
+    font-weight:600;
+    font-size:0.9rem;
+    margin-bottom:6px;
+}
+
+.form-group label span.label-note {
+    font-weight:normal;
+    font-size:0.8rem;
+    color:#4A90B8;
+    margin-left:5px;
+}
+
+.screenshot-input {
+    width:100%;
+    padding:12px 18px;
+    border:1.5px solid #cbd5e1;
+    border-radius:24px;
+    font-size:0.95rem;
+    outline:none;
+    color:#2d3748;
+    background-color:#ffffff;
+    transition:border-color 0.2s;
+}
+
+.screenshot-input:focus {
+    border-color:#4A90B8;
+}
+
+.screenshot-input:disabled {
+    background-color:#f1f5f9;
+    color:#64748b;
+    cursor:not-allowed;
+}
+
+/* GATEKEEPER CONSENT SECTOR */
+.consent-card {
+    border:2px dashed #4A90B8;
+    border-radius:16px;
+    padding:20px;
+    background-color:#f8fafc;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.radio-group {
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    margin-top:12px;
+}
+
+.radio-label {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-weight:bold;
+    color:#2C6E8F;
+    cursor:pointer;
+}
+
+/* BUTTON ACTION PANELS */
+.action-btn {
+    background:linear-gradient(95deg,#4A90B8,#2C6E8F);
+    color:white;
+    border:none;
+    padding:14px 30px;
+    border-radius:50px;
+    font-weight:bold;
+    cursor:pointer;
+    width:100%;
+    font-size:1rem;
+    box-shadow:0 4px 10px rgba(44,110,143,0.2);
+    margin-top:15px;
+}
+
+.action-btn:hover {
+    opacity:0.95;
+}
+
+.error-text {
+    color:#e53e3e;
+    font-size:0.8rem;
+    margin-top:5px;
+    font-weight:500;
+    display:none;
+}
+
+/* DATA TABLE RECORD LAYOUTS */
+.table-wrapper {
+    overflow-x:auto;
+}
+
+table {
+    width:100%;
+    border-collapse:collapse;
+    font-size:0.85rem;
+    text-align:left;
+}
+
+th, td {
+    padding:12px;
+    border:1px solid #e2e8f0;
+}
+
+th {
+    background-color:#2C6E8F;
+    color:white;
+}
+
+tr:nth-child(even) {
+    background-color:#f8fafc;
+}
+
+.hidden {
+    display:none;
+}
+
+/* SUMMARY VERIFICATION REVIEW OVERLAYS */
+.summary-box {
+    background:#f8fafc;
+    border:1px solid #cbd5e1;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:15px;
+}
+.summary-line {
+    display:flex;
+    justify-content:space-between;
+    padding:8px 0;
+    border-bottom:1px solid #edf2f7;
+}
+
+/* SCREEN LAYOUT BREAKPOINTS */
+@media(max-width:768px){
+    .header-top{ flex-direction:column; text-align:center; }
+    .header-title h1{ font-size:1.4rem; }
+    .header-title p{ font-size:.8rem; }
+    .header-logos{ justify-content:center; }
+    .card{ max-width:100%; }
+    .modal-container{ width:100%; height:100vh; border-radius:0; }
+    footer{ font-size:.75rem; }
+    .form-grid-2, .form-grid-3 { grid-template-columns:1fr; gap:0; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-top">
+        <div class="header-title">
+            <h1>🏥 ITN Mass Campaign</h1>
+            <p>Insecticide-Treated Nets | Universal Coverage | Malaria Prevention</p>
+        </div>
+        <div class="header-logos">
+            <div class="logo-item">
+                <div class="logo-icon">🦟</div>
+                <div class="logo-text">NMCP</div>
+            </div>
+            <div class="logo-item">
+                <div class="logo-icon">🏛️</div>
+                <div class="logo-text">MOH</div>
+            </div>
+            <div class="logo-item">
+                <div class="logo-icon">🌍</div>
+                <div class="logo-text">WORLD VISION</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="card">
+        <div class="card-header">
+            <div class="icon">📝</div>
+            <h2>REGISTRATION</h2>
+        </div>
+        <div class="card-body">
+            <button class="card-btn" onclick="openEngineModal('reg')">
+                ➕ REGISTER NEW USER
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div class="icon">📋</div>
+            <h2>RECORDS</h2>
+        </div>
+        <div class="card-body">
+            <button class="card-btn" onclick="openEngineModal('rec')">
+                👁️ VIEW RECORDS
+            </button>
+        </div>
+    </div>
+</main>
+
+<footer>
+    POWERED BY ICF-SL © 2026 | ITN Mass Campaign Management System
+</footer>
+
+<!-- SYSTEM FORM LAYOUT DIALOG LAYER -->
+<div class="iframe-modal" id="iframeModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <span id="modalTitle">Form Application</span>
+            <button class="close-iframe-btn" onclick="closeEngineModal()">✕ Close</button>
+        </div>
+        
+        <div class="modal-content-area">
+            
+            <!-- REGISTER FORM INNER WRAPPER VIEW -->
+            <div id="registrationView" class="hidden">
+                <div class="form-title">🏡 Register New Household</div>
+                
+                <!-- Field Consent Validator Checkbox Grid -->
+                <div class="consent-card" id="consentCard">
+                    <label style="font-weight:bold; color:#2C6E8F; font-size:1rem;">
+                        Does the household head give consent to start registration? *
+                    </label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="householdConsent" value="yes" onchange="evaluateConsent(this.value)"> Yes
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="householdConsent" value="no" onchange="evaluateConsent(this.value)"> No
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Main Form Body Structure -->
+                <div id="mainFormBody" class="hidden">
+                    <form id="itnEntryForm" onsubmit="event.preventDefault();">
+                        
+                        <!-- Pill Section 1: Household Identification -->
+                        <div class="section-banner">📍 Household Identification</div>
+                        
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="regRegion">Region *</label>
+                                <select id="regRegion" class="screenshot-input" onchange="cascadeDistricts()" required>
+                                    <option value="">Select Region...</option>
+                                    <option value="Northern Region">Northern Region</option>
+                                    <option value="Southern Region">Southern Region</option>
+                                    <option value="Eastern Region">Eastern Region</option>
+                                    <option value="Western Area">Western Area</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="regDistrict">District *</label>
+                                <select id="regDistrict" class="screenshot-input" onchange="cascadeChiefdoms()" required disabled>
+                                    <option value="">Select...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="regChiefdom">Chiefdom *</label>
+                                <select id="regChiefdom" class="screenshot-input" required disabled>
+                                    <option value="">Select Chiefdom...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="regFacility">Health Facility *</label>
+                                <input type="text" id="regFacility" class="screenshot-input" placeholder="Enter Facility Name" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="regCommunity">Community / Village *</label>
+                            <input type="text" id="regCommunity" class="screenshot-input" placeholder="Enter Village Name" required>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="regDate">Registration Date *</label>
+                                <input type="date" id="regDate" class="screenshot-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="regTime">Registration Time *</label>
+                                <input type="time" id="regTime" class="screenshot-input" required>
+                            </div>
+                        </div>
+
+                        <!-- Pill Section 2: Head of Household -->
+                        <div class="section-banner">👤 Head of Household</div>
+                        
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="regFirstName">First Name *</label>
+                                <input type="text" id="regFirstName" class="screenshot-input" oninput="runLiveCalculations()" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="regLastName">Last Name *</label>
+                                <input type="text" id="regLastName" class="screenshot-input" oninput="runLiveCalculations()" required>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="regPhone">Phone Number (9 digits)</label>
+                                <input type="text" id="regPhone" class="screenshot-input" oninput="runLiveCalculations()" placeholder="e.g. 76123456" required>
+                                <div class="error-text" id="phoneError">Phone number must be exactly 9 digits.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="regSex">Sex</label>
+                                <select id="regSex" class="screenshot-input">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Pill Section 3: Household Composition -->
+                        <div class="section-banner">👥 Household Composition</div>
+                        
+                        <div class="form-grid-3">
+                            <div class="form-group">
+                                <label for="regUnder5">Under 5</label>
+                                <input type="number" id="regUnder5" class="screenshot-input" min="0" oninput="runLiveCalculations()" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="regPregnant">Pregnant Women</label>
+                                <input type="number" id="regPregnant" class="screenshot-input" min="0" oninput="runLiveCalculations()" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="regAbove5">Above 5</label>
+                                <input type="number" id="regAbove5" class="screenshot-input" min="0" oninput="runLiveCalculations()" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="regTotal">Total Members <span class="label-note">Auto-calculates from above fields</span></label>
+                            <input type="text" id="regTotal" class="screenshot-input" readonly style="background-color: #f1f5f9; font-weight: bold; color: #2C6E8F;" placeholder="Automatically calculated..." required>
+                        </div>
+
+                        <!-- Pill Section 4: Net Distribution -->
+                        <div class="section-banner">🦟 Net Distribution</div>
+                        
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="regItnIssued">ITNs to be Issued <span class="label-note">Based on composition total</span></label>
+                                <input type="text" id="regItnIssued" class="screenshot-input" readonly style="font-weight:bold; color:#2C6E8F; background-color: #f1f5f9;">
+                            </div>
+                            <div class="form-group">
+                                <label for="regToken">Generated Token</label>
+                                <input type="text" id="regToken" class="screenshot-input" readonly style="font-weight:bold; color:#4A90B8; background-color: #f1f5f9;">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>GPS Coordinates</label>
+                            <input type="text" id="regGps" class="screenshot-input" readonly style="font-family:monospace; background-color: #f1f5f9;">
+                        </div>
+
+                        <button type="button" class="action-btn" onclick="buildRegistrationSummary()">Review Registration Summary</button>
+                    </form>
+                </div>
+
+                <!-- Registration Summary View Layer -->
+                <div id="summarySection" class="hidden">
+                    <div class="section-banner">📋 Verification Summary Review</div>
+                    <div class="summary-box" id="summaryViewContent"></div>
+                    <div class="form-grid-2">
+                        <button type="button" class="action-btn" style="background:#718096;" onclick="bounceBackToEdit()">Back to Edit</button>
+                        <button type="button" class="action-btn" style="background:#38a169;" onclick="commitRegistrationRecord()">Submit Registration</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RECORDS SPREADSHEET TABLE LEDGER VIEW -->
+            <div id="recordsView" class="hidden">
+                <div class="form-title">📋 Consolidated Household Registers</div>
+                <div class="table-wrapper">
+                    <table id="datatable">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Region</th>
+                                <th>District</th>
+                                <th>Chiefdom</th>
+                                <th>Health Facility</th>
+                                <th>Household Head</th>
+                                <th>Under 5</th>
+                                <th>Pregnant</th>
+                                <th>Household Total</th>
+                                <th>GeoCoordinate</th>
+                                <th>Reg Date & Time</th>
+                                <th>System Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody id="datatableBody">
+                            <tr id="emptyPlaceholder">
+                                <td colspan="12" style="text-align:center; color:#a0aec0; padding:20px;">No records compiled in system session.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+// Mock Session Operational Global Configurations
+const LOGGED_USER = "system_agent_sl";
+
+// Geopolitical Structural Cascade Nodes Mapping
+const administrativeTree = {
+    "Northern Region": { "Falaba": ["Wara Wara Zagala"] },
+    "Southern Region": { "Bonthe": ["Nongoma Bullom"] },
+    "Eastern Region": { "kono": ["Generic Kono Chiefdom"] },
+    "Western Area": { "Western Area Rural": ["Waterloo"] }
+};
+
+// Modal Trigger Configurations Framework
+function openEngineModal(type) {
+    const modal = document.getElementById("iframeModal");
+    const title = document.getElementById("modalTitle");
+    const regView = document.getElementById("registrationView");
+    const recView = document.getElementById("recordsView");
+    
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+    
+    if(type === 'reg') {
+        title.innerText = "Registration Form Engine";
+        regView.classList.remove("hidden");
+        recView.classList.add("hidden");
+    } else {
+        title.innerText = "Records View Dashboard Grid";
+        recView.classList.remove("hidden");
+        regView.classList.add("hidden");
+    }
+}
+
+function closeEngineModal() {
+    document.getElementById("iframeModal").classList.remove("active");
+    document.body.style.overflow = "";
+}
+
+// Evaluate Gatekeeper Consent Actions Switch
+function evaluateConsent(status) {
+    const mainFormBody = document.getElementById("mainFormBody");
+    if(status === 'yes') {
+        mainFormBody.classList.remove("hidden");
+        
+        // Auto-populate local Date and Time parameters cleanly
+        const now = new Date();
+        document.getElementById("regDate").value = now.toISOString().split('T')[0];
+        
+        const localHours = String(now.getHours()).padStart(2, '0');
+        const localMinutes = String(now.getMinutes()).padStart(2, '0');
+        document.getElementById("regTime").value = `${localHours}:${localMinutes}`;
+        
+        generateTelemetryGPS();
+    } else {
+        mainFormBody.classList.add("hidden");
+        alert("Consent Denied. Form parameters re-zeroed.");
+        resetFormEngine();
+    }
+}
+
+// Background Simulated Precision Satellite GPS Capture
+function generateTelemetryGPS() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                document.getElementById('regGps').value = `${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)}`;
+            },
+            () => {
+                const simulatedLat = (8.4800 + Math.random() * 0.01).toFixed(5);
+                const simulatedLon = (-13.2300 - Math.random() * 0.01).toFixed(5);
+                document.getElementById('regGps').value = `${simulatedLat}, ${simulatedLon} (Simulated)`;
+            }
+        );
+    }
+}
+
+// Structural Dropdown Cascade Intercept Mechanics
+function cascadeDistricts() {
+    const regionVal = document.getElementById("regRegion").value;
+    const districtSelect = document.getElementById("regDistrict");
+    const chiefdomSelect = document.getElementById("regChiefdom");
+    
+    districtSelect.innerHTML = '<option value="">Select...</option>';
+    chiefdomSelect.innerHTML = '<option value="">Select Chiefdom...</option>';
+    chiefdomSelect.disabled = true;
+    
+    if(!regionVal) {
+        districtSelect.disabled = true;
+        return;
+    }
+    
+    const districts = Object.keys(administrativeTree[regionVal]);
+    districts.forEach(d => {
+        let opt = document.createElement("option");
+        opt.value = d;
+        opt.innerText = d;
+        districtSelect.appendChild(opt);
+    });
+    districtSelect.disabled = false;
+}
+
+function cascadeChiefdoms() {
+    const regionVal = document.getElementById("regRegion").value;
+    const districtVal = document.getElementById("regDistrict").value;
+    const chiefdomSelect = document.getElementById("regChiefdom");
+    
+    chiefdomSelect.innerHTML = '<option value="">Select Chiefdom...</option>';
+    
+    if(!districtVal) {
+        chiefdomSelect.disabled = true;
+        return;
+    }
+    
+    const chiefdoms = administrativeTree[regionVal][districtVal];
+    chiefdoms.forEach(c => {
+        let opt = document.createElement("option");
+        opt.value = c;
+        opt.innerText = c;
+        chiefdomSelect.appendChild(opt);
+    });
+    chiefdomSelect.disabled = false;
+}
+
+// Comprehensive Live Calculation Engine Control System
+function runLiveCalculations() {
+    const phoneInput = document.getElementById("regPhone");
+    phoneInput.value = phoneInput.value.replace(/\D/g, '').slice(0, 9);
+
+    const first = document.getElementById("regFirstName").value.trim();
+    const last = document.getElementById("regLastName").value.trim();
+    const phone = phoneInput.value.trim();
+    
+    const u5 = parseInt(document.getElementById("regUnder5").value) || 0;
+    const preg = parseInt(document.getElementById("regPregnant").value) || 0;
+    const above5 = parseInt(document.getElementById("regAbove5").value) || 0;
+    
+    const total = u5 + preg + above5;
+    
+    const checkFieldsPopulated = document.getElementById("regUnder5").value !== "" || 
+                                 document.getElementById("regPregnant").value !== "" || 
+                                 document.getElementById("regAbove5").value !== "";
+                                 
+    document.getElementById("regTotal").value = checkFieldsPopulated ? total : "";
+    
+    let calculatedToken = "";
+    if (first.length >= 2 && last.length >= 1) {
+        const letters = first.substring(0, 2).toUpperCase() + last.substring(0, 1).toUpperCase();
+        calculatedToken = `${letters}_${phone}`;
+    }
+    document.getElementById("regToken").value = calculatedToken;
+    
+    let netQuantity = "";
+    if (checkFieldsPopulated && total > 0) {
+        if (total < 2) netQuantity = 1;
+        else if (total >= 2 && total < 4) netQuantity = 2;
+        else if (total >= 4) netQuantity = 3;
+    }
+    document.getElementById("regItnIssued").value = netQuantity;
+}
+
+// Compile Registration Context Review Summaries Sheet
+function buildRegistrationSummary() {
+    const phoneVal = document.getElementById("regPhone").value.trim();
+    const phoneErr = document.getElementById("phoneError");
+    
+    if(phoneVal.length !== 9) {
+        phoneErr.style.display = "block";
+        document.getElementById("regPhone").focus();
+        return;
+    } else {
+        phoneErr.style.display = "none";
+    }
+    
+    const requiredInputs = ["regRegion", "regDistrict", "regChiefdom", "regFacility", "regCommunity", "regDate", "regTime", "regFirstName", "regLastName"];
+    for(let id of requiredInputs) {
+        if(!document.getElementById(id).value) {
+            alert("Please fill out all required parameters before proceeding.");
+            return;
+        }
+    }
+    
+    const summaryTarget = document.getElementById("summaryViewContent");
+    summaryTarget.innerHTML = `
+        <div class="summary-line"><strong>Geographic Chain Path:</strong> <span>${document.getElementById("regRegion").value} ➔ ${document.getElementById("regDistrict").value} ➔ ${document.getElementById("regChiefdom").value}</span></div>
+        <div class="summary-line"><strong>Assigned Health Facility & Locality:</strong> <span>${document.getElementById("regFacility").value} (${document.getElementById("regCommunity").value})</span></div>
+        <div class="summary-line"><strong>Registration Entry Time:</strong> <span>${document.getElementById("regDate").value} at ${document.getElementById("regTime").value}</span></div>
+        <div class="summary-line"><strong>Household Representative Head:</strong> <span>${document.getElementById("regFirstName").value} ${document.getElementById("regLastName").value} (${document.getElementById("regSex").value})</span></div>
+        <div class="summary-line"><strong>Calculated Routing Token:</strong> <span style="font-weight:bold; color:#4A90B8;">${document.getElementById("regToken").value}</span></div>
+        <div class="summary-line"><strong>Demographic Sizing:</strong> <span>Total Members: ${document.getElementById("regTotal").value} | Under 5: ${document.getElementById("regUnder5").value || 0} | Pregnant: ${document.getElementById("regPregnant").value || 0}</span></div>
+        <div class="summary-line"><strong>Allocated ITN Inventory Handout:</strong> <span style="font-weight:bold; color:#38a169;">${document.getElementById("regItnIssued").value} Net(s)</span></div>
+        <div class="summary-line"><strong>Satellite GPS Coordinates Baseline:</strong> <span>${document.getElementById("regGps").value}</span></div>
+    `;
+    
+    document.getElementById("itnEntryForm").classList.add("hidden");
+    document.getElementById("summarySection").classList.remove("hidden");
+}
+
+function bounceBackToEdit() {
+    document.getElementById("summarySection").classList.add("hidden");
+    document.getElementById("itnEntryForm").classList.remove("hidden");
+}
+
+// Synchronize Compiled Form Variables into Active Memory Matrix Ledger
+function commitRegistrationRecord() {
+    const tbody = document.getElementById("datatableBody");
+    const emptyRow = document.getElementById("emptyPlaceholder");
+    if(emptyRow) emptyRow.remove();
+    
+    const tr = document.createElement("tr");
+    const currentTimeStamp = new Date().toLocaleString();
+    const primaryFullName = `${document.getElementById("regFirstName").value} ${document.getElementById("regLastName").value}`;
+    
+    tr.innerHTML = `
+        <td><span style="background:#edf2f7; padding:3px 8px; border-radius:6px; font-weight:600; color:#2C6E8F;">${LOGGED_USER}</span></td>
+        <td>${document.getElementById("regRegion").value}</td>
+        <td>${document.getElementById("regDistrict").value}</td>
+        <td>${document.getElementById("regChiefdom").value}</td>
+        <td>${document.getElementById("regFacility").value}</td>
+        <td><strong>${primaryFullName}</strong><br><small style="color:#718096">Token: ${document.getElementById("regToken").value}</small></td>
+        <td>${document.getElementById("regUnder5").value || 0}</td>
+        <td>${document.getElementById("regPregnant").value || 0}</td>
+        <td>${document.getElementById("regTotal").value}</td>
+        <td style="font-family:monospace; font-size:11px; color:#2d3748;">${document.getElementById("regGps").value}</td>
+        <td><strong>${document.getElementById("regDate").value} @ ${document.getElementById("regTime").value}</strong></td>
+        <td><small style="color:#4a5568;">${currentTimeStamp}</small></td>
+    `;
+    
+    tbody.appendChild(tr);
+    alert("Record successfully synchronized into session registers ledger storage.");
+    resetFormEngine();
+}
+
+function resetFormEngine() {
+    // Clear All Values and Inputs Safely
+    document.getElementById("regRegion").value = "";
+    cascadeDistricts();
+    document.getElementById("regFacility").value = "";
+    document.getElementById("regCommunity").value = "";
+    document.getElementById("regDate").value = "";
+    document.getElementById("regTime").value = "";
+    document.getElementById("regFirstName").value = "";
+    document.getElementById("regLastName").value = "";
+    document.getElementById("regPhone").value = "";
+    document.getElementById("regUnder5").value = "";
+    document.getElementById("regPregnant").value = "";
+    document.getElementById("regAbove5").value = "";
+    document.getElementById("regTotal").value = "";
+    document.getElementById("regToken").value = "";
+    document.getElementById("regItnIssued").value = "";
+    document.getElementById("regGps").value = "";
+    
+    const radios = document.getElementsByName("householdConsent");
+    radios.forEach(r => r.checked = false);
+    
+    document.getElementById("mainFormBody").classList.add("hidden");
+    document.getElementById("summarySection").classList.add("hidden");
+    document.getElementById("itnEntryForm").classList.remove("hidden");
+    closeEngineModal();
+}
+</script>
+
+</body>
+</html>
