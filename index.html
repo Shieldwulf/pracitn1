@@ -394,9 +394,9 @@
             messageArea.textContent = '';
             messageArea.style.color = '#e74c3c';
 
-            // 1. Registrator Authentication
+            // 1. Registrator Authentication (Changed from reg.html to regform.html)
             if (username === 'reg2026' && password === '12345') {
-                window.location.href = 'reg.html';
+                window.location.href = 'regform.html';
             } 
             // 2. Distributor Authentication
             else if (username === 'dist2026' && password === '12345') {
@@ -406,7 +406,7 @@
             else if ((username === 'dash2025' || username === 'dash2026') && password === '12345') {
                 window.location.href = 'dash.html';
             } 
-            // 4. Super User Authentication (Opens all 3 resources)
+            // 4. Super User Authentication (Changed target tab from reg.html to regform.html)
             else if (username === 'super2026' && password === '12345') {
                 messageArea.style.color = '#27ae60';
                 messageArea.textContent = 'Opening all administration panels...';
@@ -416,7 +416,7 @@
                 window.open('dash.html', '_blank');
                 
                 // Redirect current tab to registration view
-                window.location.href = 'reg.html';
+                window.location.href = 'regform.html';
             } 
             // Invalid credentials fallback
             else {
