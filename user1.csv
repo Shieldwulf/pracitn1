@@ -1,182 +1,182 @@
-username,password,role,assigned_district,assigned_chiefdom,access_level
-admin01,12345,admin,All,All,Full System Access
-admin02,12345,admin,All,All,Full System Access
-admin03,12345,admin,All,All,Full System Access
-admin04,12345,admin,All,All,Full System Access
-admin05,12345,admin,All,All,Full System Access
-nat01,12345,national,All,All,All Districts + Monitoring
-nat02,12345,national,All,All,All Districts + Monitoring
-nat03,12345,national,All,All,All Districts + Monitoring
-nat04,12345,national,All,All,All Districts + Monitoring
-nat05,12345,national,All,All,All Districts + Monitoring
-nat06,12345,national,All,All,All Districts + Monitoring
-nat07,12345,national,All,All,All Districts + Monitoring
-nat08,12345,national,All,All,All Districts + Monitoring
-nat09,12345,national,All,All,All Districts + Monitoring
-nat10,12345,national,All,All,All Districts + Monitoring
-nat11,12345,national,All,All,All Districts + Monitoring
-nat12,12345,national,All,All,All Districts + Monitoring
-nat13,12345,national,All,All,All Districts + Monitoring
-nat14,12345,national,All,All,All Districts + Monitoring
-nat15,12345,national,All,All,All Districts + Monitoring
-nat16,12345,national,All,All,All Districts + Monitoring
-nat17,12345,national,All,All,All Districts + Monitoring
-nat18,12345,national,All,All,All Districts + Monitoring
-nat19,12345,national,All,All,All Districts + Monitoring
-nat20,12345,national,All,All,All Districts + Monitoring
-dash01,12345,dashboard,All,All,Dashboard Only
-dash02,12345,dashboard,All,All,Dashboard Only
-dash03,12345,dashboard,All,All,Dashboard Only
-dash04,12345,dashboard,All,All,Dashboard Only
-dash05,12345,dashboard,All,All,Dashboard Only
-dash06,12345,dashboard,All,All,Dashboard Only
-dash07,12345,dashboard,All,All,Dashboard Only
-dash08,12345,dashboard,All,All,Dashboard Only
-dash09,12345,dashboard,All,All,Dashboard Only
-dash10,12345,dashboard,All,All,Dashboard Only
-whm01,12345,warehouse,All,All,Stock + Dashboard (All Regions)
-whm02,12345,warehouse,All,All,Stock + Dashboard (All Regions)
-whm03,12345,warehouse,All,All,Stock + Dashboard (All Regions)
-whm04,12345,warehouse,All,All,Stock + Dashboard (All Regions)
-whm05,12345,warehouse,All,All,Stock + Dashboard (All Regions)
-whm06,12345,warehouse,All,All,Stock + Dashboard (All Regions)
-whm07,12345,warehouse,All,All,Stock + Dashboard (All Regions)
-whm08,12345,warehouse,All,All,Stock + Dashboard (All Regions)
-whm09,12345,warehouse,All,All,Stock + Dashboard (All Regions)
-whm10,12345,warehouse,All,All,Stock + Dashboard (All Regions)
-whm11,12345,warehouse,All,All,Stock + Dashboard (All Regions)
-whm12,12345,warehouse,All,All,Stock + Dashboard (All Regions)
-whm13,12345,warehouse,All,All,Stock + Dashboard (All Regions)
-whm14,12345,warehouse,All,All,Stock + Dashboard (All Regions)
-whm15,12345,warehouse,All,All,Stock + Dashboard (All Regions)
-whm16,12345,warehouse,All,All,Stock + Dashboard (All Regions)
-reg01,12345,registrar,Bo,,Registration Only
-reg02,12345,registrar,Bombali,,Registration Only
-reg03,12345,registrar,Bonthe,,Registration Only
-reg04,12345,registrar,Falaba,,Registration Only
-reg05,12345,registrar,Kailahun,,Registration Only
-reg06,12345,registrar,Kambia,,Registration Only
-reg07,12345,registrar,Karene,,Registration Only
-reg08,12345,registrar,Kenema,,Registration Only
-reg09,12345,registrar,Koinadugu,,Registration Only
-reg10,12345,registrar,Kono,,Registration Only
-reg11,12345,registrar,Moyamba,,Registration Only
-reg12,12345,registrar,Port Loko,,Registration Only
-reg13,12345,registrar,Pujehun,,Registration Only
-reg14,12345,registrar,Tonkolili,,Registration Only
-reg15,12345,registrar,Western Area Rural,,Registration Only
-reg16,12345,registrar,Western Area Urban,,Registration Only
-reg17,12345,registrar,Bo,,Registration Only
-reg18,12345,registrar,Bombali,,Registration Only
-reg19,12345,registrar,Bonthe,,Registration Only
-reg20,12345,registrar,Falaba,,Registration Only
-reg21,12345,registrar,Kailahun,,Registration Only
-reg22,12345,registrar,Kambia,,Registration Only
-reg23,12345,registrar,Karene,,Registration Only
-reg24,12345,registrar,Kenema,,Registration Only
-reg25,12345,registrar,Koinadugu,,Registration Only
-reg26,12345,registrar,Kono,,Registration Only
-reg27,12345,registrar,Moyamba,,Registration Only
-reg28,12345,registrar,Port Loko,,Registration Only
-reg29,12345,registrar,Pujehun,,Registration Only
-reg30,12345,registrar,Tonkolili,,Registration Only
-reg31,12345,registrar,Western Area Rural,,Registration Only
-reg32,12345,registrar,Western Area Urban,,Registration Only
-reg33,12345,registrar,Bo,,Registration Only
-reg34,12345,registrar,Bombali,,Registration Only
-reg35,12345,registrar,Bonthe,,Registration Only
-reg36,12345,registrar,Falaba,,Registration Only
-reg37,12345,registrar,Kailahun,,Registration Only
-reg38,12345,registrar,Kambia,,Registration Only
-reg39,12345,registrar,Karene,,Registration Only
-reg40,12345,registrar,Kenema,,Registration Only
-reg41,12345,registrar,Koinadugu,,Registration Only
-reg42,12345,registrar,Kono,,Registration Only
-reg43,12345,registrar,Moyamba,,Registration Only
-reg44,12345,registrar,Port Loko,,Registration Only
-reg45,12345,registrar,Pujehun,,Registration Only
-reg46,12345,registrar,Tonkolili,,Registration Only
-reg47,12345,registrar,Western Area Rural,,Registration Only
-reg48,12345,registrar,Western Area Urban,,Registration Only
-reg49,12345,registrar,Bo,,Registration Only
-reg50,12345,registrar,Bombali,,Registration Only
-dist01,12345,distributor,Bo,,Distribution Only
-dist02,12345,distributor,Bombali,,Distribution Only
-dist03,12345,distributor,Bonthe,,Distribution Only
-dist04,12345,distributor,Falaba,,Distribution Only
-dist05,12345,distributor,Kailahun,,Distribution Only
-dist06,12345,distributor,Kambia,,Distribution Only
-dist07,12345,distributor,Karene,,Distribution Only
-dist08,12345,distributor,Kenema,,Distribution Only
-dist09,12345,distributor,Koinadugu,,Distribution Only
-dist10,12345,distributor,Kono,,Distribution Only
-dist11,12345,distributor,Moyamba,,Distribution Only
-dist12,12345,distributor,Port Loko,,Distribution Only
-dist13,12345,distributor,Pujehun,,Distribution Only
-dist14,12345,distributor,Tonkolili,,Distribution Only
-dist15,12345,distributor,Western Area Rural,,Distribution Only
-dist16,12345,distributor,Western Area Urban,,Distribution Only
-dist17,12345,distributor,Bo,,Distribution Only
-dist18,12345,distributor,Bombali,,Distribution Only
-dist19,12345,distributor,Bonthe,,Distribution Only
-dist20,12345,distributor,Falaba,,Distribution Only
-dist21,12345,distributor,Kailahun,,Distribution Only
-dist22,12345,distributor,Kambia,,Distribution Only
-dist23,12345,distributor,Karene,,Distribution Only
-dist24,12345,distributor,Kenema,,Distribution Only
-dist25,12345,distributor,Koinadugu,,Distribution Only
-dist26,12345,distributor,Kono,,Distribution Only
-dist27,12345,distributor,Moyamba,,Distribution Only
-dist28,12345,distributor,Port Loko,,Distribution Only
-dist29,12345,distributor,Pujehun,,Distribution Only
-dist30,12345,distributor,Tonkolili,,Distribution Only
-dist31,12345,distributor,Western Area Rural,,Distribution Only
-dist32,12345,distributor,Western Area Urban,,Distribution Only
-dist33,12345,distributor,Bo,,Distribution Only
-dist34,12345,distributor,Bombali,,Distribution Only
-dist35,12345,distributor,Bonthe,,Distribution Only
-dist36,12345,distributor,Falaba,,Distribution Only
-dist37,12345,distributor,Kailahun,,Distribution Only
-dist38,12345,distributor,Kambia,,Distribution Only
-dist39,12345,distributor,Karene,,Distribution Only
-dist40,12345,distributor,Kenema,,Distribution Only
-dist41,12345,distributor,Koinadugu,,Distribution Only
-dist42,12345,distributor,Kono,,Distribution Only
-dist43,12345,distributor,Moyamba,,Distribution Only
-dist44,12345,distributor,Port Loko,,Distribution Only
-dist45,12345,distributor,Pujehun,,Distribution Only
-dist46,12345,distributor,Tonkolili,,Distribution Only
-dist47,12345,distributor,Western Area Rural,,Distribution Only
-dist48,12345,distributor,Western Area Urban,,Distribution Only
-dist49,12345,distributor,Bo,,Distribution Only
-dist50,12345,distributor,Bombali,,Distribution Only
-chisup01,12345,chisup,,Bo City Council,Chiefdom Level Only (Monitoring + Stock)
-chisup02,12345,chisup,,Badjia Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup03,12345,chisup,,Bagbwe Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup04,12345,chisup,,Baoma Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup05,12345,chisup,,Bargbo Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup06,12345,chisup,,Biriwa Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup07,12345,chisup,,Bombali Sebora Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup08,12345,chisup,,Bumpe Ngao Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup09,12345,chisup,,Dema Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup10,12345,chisup,,Gaura Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup11,12345,chisup,,Imperi Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup12,12345,chisup,,Jong Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup13,12345,chisup,,Kaffu Bullom Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup14,12345,chisup,,Kaiyamba Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup15,12345,chisup,,Kholifa Rowalla Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup16,12345,chisup,,Kori Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup17,12345,chisup,,Koya (Port Loko) Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup18,12345,chisup,,Kpanga Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup19,12345,chisup,,Luawa Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup20,12345,chisup,,Magbema Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup21,12345,chisup,,Makarie Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup22,12345,chisup,,Marampa Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup23,12345,chisup,,Nimikoro Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup24,12345,chisup,,Nongowa Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup25,12345,chisup,,Safroko Limba Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup26,12345,chisup,,Samu Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup27,12345,chisup,,Sanda Loko Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup28,12345,chisup,,Sella Limba Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup29,12345,chisup,,Tikonko Chiefdom,Chiefdom Level Only (Monitoring + Stock)
-chisup30,12345,chisup,,Tonko Limba Chiefdom,Chiefdom Level Only (Monitoring + Stock)
+username	password	role	assigned_district	assigned_chiefdom	access_level
+admin01	12345	admin	All	All	Full System Access
+admin02	12345	admin	All	All	Full System Access
+admin03	12345	admin	All	All	Full System Access
+admin04	12345	admin	All	All	Full System Access
+admin05	12345	admin	All	All	Full System Access
+nat01	12345	national	All	All	All Districts + Monitoring
+nat02	12345	national	All	All	All Districts + Monitoring
+nat03	12345	national	All	All	All Districts + Monitoring
+nat04	12345	national	All	All	All Districts + Monitoring
+nat05	12345	national	All	All	All Districts + Monitoring
+nat06	12345	national	All	All	All Districts + Monitoring
+nat07	12345	national	All	All	All Districts + Monitoring
+nat08	12345	national	All	All	All Districts + Monitoring
+nat09	12345	national	All	All	All Districts + Monitoring
+nat10	12345	national	All	All	All Districts + Monitoring
+nat11	12345	national	All	All	All Districts + Monitoring
+nat12	12345	national	All	All	All Districts + Monitoring
+nat13	12345	national	All	All	All Districts + Monitoring
+nat14	12345	national	All	All	All Districts + Monitoring
+nat15	12345	national	All	All	All Districts + Monitoring
+nat16	12345	national	All	All	All Districts + Monitoring
+nat17	12345	national	All	All	All Districts + Monitoring
+nat18	12345	national	All	All	All Districts + Monitoring
+nat19	12345	national	All	All	All Districts + Monitoring
+nat20	12345	national	All	All	All Districts + Monitoring
+dash01	12345	dashboard	All	All	Dashboard Only
+dash02	12345	dashboard	All	All	Dashboard Only
+dash03	12345	dashboard	All	All	Dashboard Only
+dash04	12345	dashboard	All	All	Dashboard Only
+dash05	12345	dashboard	All	All	Dashboard Only
+dash06	12345	dashboard	All	All	Dashboard Only
+dash07	12345	dashboard	All	All	Dashboard Only
+dash08	12345	dashboard	All	All	Dashboard Only
+dash09	12345	dashboard	All	All	Dashboard Only
+dash10	12345	dashboard	All	All	Dashboard Only
+whm01	12345	warehouse	All	All	Stock + Dashboard (All Regions)
+whm02	12345	warehouse	All	All	Stock + Dashboard (All Regions)
+whm03	12345	warehouse	All	All	Stock + Dashboard (All Regions)
+whm04	12345	warehouse	All	All	Stock + Dashboard (All Regions)
+whm05	12345	warehouse	All	All	Stock + Dashboard (All Regions)
+whm06	12345	warehouse	All	All	Stock + Dashboard (All Regions)
+whm07	12345	warehouse	All	All	Stock + Dashboard (All Regions)
+whm08	12345	warehouse	All	All	Stock + Dashboard (All Regions)
+whm09	12345	warehouse	All	All	Stock + Dashboard (All Regions)
+whm10	12345	warehouse	All	All	Stock + Dashboard (All Regions)
+whm11	12345	warehouse	All	All	Stock + Dashboard (All Regions)
+whm12	12345	warehouse	All	All	Stock + Dashboard (All Regions)
+whm13	12345	warehouse	All	All	Stock + Dashboard (All Regions)
+whm14	12345	warehouse	All	All	Stock + Dashboard (All Regions)
+whm15	12345	warehouse	All	All	Stock + Dashboard (All Regions)
+whm16	12345	warehouse	All	All	Stock + Dashboard (All Regions)
+reg01	12345	registrar	Bo		Registration Only
+reg02	12345	registrar	Bombali		Registration Only
+reg03	12345	registrar	Bonthe		Registration Only
+reg04	12345	registrar	Falaba		Registration Only
+reg05	12345	registrar	Kailahun		Registration Only
+reg06	12345	registrar	Kambia		Registration Only
+reg07	12345	registrar	Karene		Registration Only
+reg08	12345	registrar	Kenema		Registration Only
+reg09	12345	registrar	Koinadugu		Registration Only
+reg10	12345	registrar	Kono		Registration Only
+reg11	12345	registrar	Moyamba		Registration Only
+reg12	12345	registrar	Port Loko		Registration Only
+reg13	12345	registrar	Pujehun		Registration Only
+reg14	12345	registrar	Tonkolili		Registration Only
+reg15	12345	registrar	Western Area Rural		Registration Only
+reg16	12345	registrar	Western Area Urban		Registration Only
+reg17	12345	registrar	Bo		Registration Only
+reg18	12345	registrar	Bombali		Registration Only
+reg19	12345	registrar	Bonthe		Registration Only
+reg20	12345	registrar	Falaba		Registration Only
+reg21	12345	registrar	Kailahun		Registration Only
+reg22	12345	registrar	Kambia		Registration Only
+reg23	12345	registrar	Karene		Registration Only
+reg24	12345	registrar	Kenema		Registration Only
+reg25	12345	registrar	Koinadugu		Registration Only
+reg26	12345	registrar	Kono		Registration Only
+reg27	12345	registrar	Moyamba		Registration Only
+reg28	12345	registrar	Port Loko		Registration Only
+reg29	12345	registrar	Pujehun		Registration Only
+reg30	12345	registrar	Tonkolili		Registration Only
+reg31	12345	registrar	Western Area Rural		Registration Only
+reg32	12345	registrar	Western Area Urban		Registration Only
+reg33	12345	registrar	Bo		Registration Only
+reg34	12345	registrar	Bombali		Registration Only
+reg35	12345	registrar	Bonthe		Registration Only
+reg36	12345	registrar	Falaba		Registration Only
+reg37	12345	registrar	Kailahun		Registration Only
+reg38	12345	registrar	Kambia		Registration Only
+reg39	12345	registrar	Karene		Registration Only
+reg40	12345	registrar	Kenema		Registration Only
+reg41	12345	registrar	Koinadugu		Registration Only
+reg42	12345	registrar	Kono		Registration Only
+reg43	12345	registrar	Moyamba		Registration Only
+reg44	12345	registrar	Port Loko		Registration Only
+reg45	12345	registrar	Pujehun		Registration Only
+reg46	12345	registrar	Tonkolili		Registration Only
+reg47	12345	registrar	Western Area Rural		Registration Only
+reg48	12345	registrar	Western Area Urban		Registration Only
+reg49	12345	registrar	Bo		Registration Only
+reg50	12345	registrar	Bombali		Registration Only
+dist01	12345	distributor	Bo		distributor
+dist02	12345	distributor	Bombali		distributor
+dist03	12345	distributor	Bonthe		distributor
+dist04	12345	distributor	Falaba		distributor
+dist05	12345	distributor	Kailahun		distributor
+dist06	12345	distributor	Kambia		distributor
+dist07	12345	distributor	Karene		distributor
+dist08	12345	distributor	Kenema		distributor
+dist09	12345	distributor	Koinadugu		distributor
+dist10	12345	distributor	Kono		distributor
+dist11	12345	distributor	Moyamba		distributor
+dist12	12345	distributor	Port Loko		distributor
+dist13	12345	distributor	Pujehun		distributor
+dist14	12345	distributor	Tonkolili		distributor
+dist15	12345	distributor	Western Area Rural		distributor
+dist16	12345	distributor	Western Area Urban		distributor
+dist17	12345	distributor	Bo		distributor
+dist18	12345	distributor	Bombali		distributor
+dist19	12345	distributor	Bonthe		distributor
+dist20	12345	distributor	Falaba		distributor
+dist21	12345	distributor	Kailahun		distributor
+dist22	12345	distributor	Kambia		distributor
+dist23	12345	distributor	Karene		distributor
+dist24	12345	distributor	Kenema		distributor
+dist25	12345	distributor	Koinadugu		distributor
+dist26	12345	distributor	Kono		distributor
+dist27	12345	distributor	Moyamba		distributor
+dist28	12345	distributor	Port Loko		distributor
+dist29	12345	distributor	Pujehun		distributor
+dist30	12345	distributor	Tonkolili		distributor
+dist31	12345	distributor	Western Area Rural		distributor
+dist32	12345	distributor	Western Area Urban		distributor
+dist33	12345	distributor	Bo		distributor
+dist34	12345	distributor	Bombali		distributor
+dist35	12345	distributor	Bonthe		distributor
+dist36	12345	distributor	Falaba		distributor
+dist37	12345	distributor	Kailahun		distributor
+dist38	12345	distributor	Kambia		distributor
+dist39	12345	distributor	Karene		distributor
+dist40	12345	distributor	Kenema		distributor
+dist41	12345	distributor	Koinadugu		distributor
+dist42	12345	distributor	Kono		distributor
+dist43	12345	distributor	Moyamba		distributor
+dist44	12345	distributor	Port Loko		distributor
+dist45	12345	distributor	Pujehun		distributor
+dist46	12345	distributor	Tonkolili		distributor
+dist47	12345	distributor	Western Area Rural		distributor
+dist48	12345	distributor	Western Area Urban		distributor
+dist49	12345	distributor	Bo		distributor
+dist50	12345	distributor	Bombali		distributor
+chisup01	12345	chisup		Bo City Council	Chiefdom Level Only (Monitoring + Stock)
+chisup02	12345	chisup		Badjia Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup03	12345	chisup		Bagbwe Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup04	12345	chisup		Baoma Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup05	12345	chisup		Bargbo Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup06	12345	chisup		Biriwa Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup07	12345	chisup		Bombali Sebora Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup08	12345	chisup		Bumpe Ngao Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup09	12345	chisup		Dema Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup10	12345	chisup		Gaura Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup11	12345	chisup		Imperi Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup12	12345	chisup		Jong Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup13	12345	chisup		Kaffu Bullom Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup14	12345	chisup		Kaiyamba Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup15	12345	chisup		Kholifa Rowalla Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup16	12345	chisup		Kori Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup17	12345	chisup		Koya (Port Loko) Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup18	12345	chisup		Kpanga Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup19	12345	chisup		Luawa Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup20	12345	chisup		Magbema Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup21	12345	chisup		Makarie Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup22	12345	chisup		Marampa Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup23	12345	chisup		Nimikoro Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup24	12345	chisup		Nongowa Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup25	12345	chisup		Safroko Limba Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup26	12345	chisup		Samu Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup27	12345	chisup		Sanda Loko Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup28	12345	chisup		Sella Limba Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup29	12345	chisup		Tikonko Chiefdom	Chiefdom Level Only (Monitoring + Stock)
+chisup30	12345	chisup		Tonko Limba Chiefdom	Chiefdom Level Only (Monitoring + Stock)
