@@ -100,56 +100,56 @@ reg47	12345	registrar	Western Area Rural		Registration Only
 reg48	12345	registrar	Western Area Urban		Registration Only
 reg49	12345	registrar	Bo		Registration Only
 reg50	12345	registrar	Bombali		Registration Only
-dist01	12345	distributor	Bo		distributor
-dist02	12345	distributor	Bombali		distributor
-dist03	12345	distributor	Bonthe		distributor
-dist04	12345	distributor	Falaba		distributor
-dist05	12345	distributor	Kailahun		distributor
-dist06	12345	distributor	Kambia		distributor
-dist07	12345	distributor	Karene		distributor
-dist08	12345	distributor	Kenema		distributor
-dist09	12345	distributor	Koinadugu		distributor
-dist10	12345	distributor	Kono		distributor
-dist11	12345	distributor	Moyamba		distributor
-dist12	12345	distributor	Port Loko		distributor
-dist13	12345	distributor	Pujehun		distributor
-dist14	12345	distributor	Tonkolili		distributor
-dist15	12345	distributor	Western Area Rural		distributor
-dist16	12345	distributor	Western Area Urban		distributor
-dist17	12345	distributor	Bo		distributor
-dist18	12345	distributor	Bombali		distributor
-dist19	12345	distributor	Bonthe		distributor
-dist20	12345	distributor	Falaba		distributor
-dist21	12345	distributor	Kailahun		distributor
-dist22	12345	distributor	Kambia		distributor
-dist23	12345	distributor	Karene		distributor
-dist24	12345	distributor	Kenema		distributor
-dist25	12345	distributor	Koinadugu		distributor
-dist26	12345	distributor	Kono		distributor
-dist27	12345	distributor	Moyamba		distributor
-dist28	12345	distributor	Port Loko		distributor
-dist29	12345	distributor	Pujehun		distributor
-dist30	12345	distributor	Tonkolili		distributor
-dist31	12345	distributor	Western Area Rural		distributor
-dist32	12345	distributor	Western Area Urban		distributor
-dist33	12345	distributor	Bo		distributor
-dist34	12345	distributor	Bombali		distributor
-dist35	12345	distributor	Bonthe		distributor
-dist36	12345	distributor	Falaba		distributor
-dist37	12345	distributor	Kailahun		distributor
-dist38	12345	distributor	Kambia		distributor
-dist39	12345	distributor	Karene		distributor
-dist40	12345	distributor	Kenema		distributor
-dist41	12345	distributor	Koinadugu		distributor
-dist42	12345	distributor	Kono		distributor
-dist43	12345	distributor	Moyamba		distributor
-dist44	12345	distributor	Port Loko		distributor
-dist45	12345	distributor	Pujehun		distributor
-dist46	12345	distributor	Tonkolili		distributor
-dist47	12345	distributor	Western Area Rural		distributor
-dist48	12345	distributor	Western Area Urban		distributor
-dist49	12345	distributor	Bo		distributor
-dist50	12345	distributor	Bombali		distributor
+dist01	12345	distributor	Bo		Distribution Only
+dist02	12345	distributor	Bombali		Distribution Only
+dist03	12345	distributor	Bonthe		Distribution Only
+dist04	12345	distributor	Falaba		Distribution Only
+dist05	12345	distributor	Kailahun		Distribution Only
+dist06	12345	distributor	Kambia		Distribution Only
+dist07	12345	distributor	Karene		Distribution Only
+dist08	12345	distributor	Kenema		Distribution Only
+dist09	12345	distributor	Koinadugu		Distribution Only
+dist10	12345	distributor	Kono		Distribution Only
+dist11	12345	distributor	Moyamba		Distribution Only
+dist12	12345	distributor	Port Loko		Distribution Only
+dist13	12345	distributor	Pujehun		Distribution Only
+dist14	12345	distributor	Tonkolili		Distribution Only
+dist15	12345	distributor	Western Area Rural		Distribution Only
+dist16	12345	distributor	Western Area Urban		Distribution Only
+dist17	12345	distributor	Bo		Distribution Only
+dist18	12345	distributor	Bombali		Distribution Only
+dist19	12345	distributor	Bonthe		Distribution Only
+dist20	12345	distributor	Falaba		Distribution Only
+dist21	12345	distributor	Kailahun		Distribution Only
+dist22	12345	distributor	Kambia		Distribution Only
+dist23	12345	distributor	Karene		Distribution Only
+dist24	12345	distributor	Kenema		Distribution Only
+dist25	12345	distributor	Koinadugu		Distribution Only
+dist26	12345	distributor	Kono		Distribution Only
+dist27	12345	distributor	Moyamba		Distribution Only
+dist28	12345	distributor	Port Loko		Distribution Only
+dist29	12345	distributor	Pujehun		Distribution Only
+dist30	12345	distributor	Tonkolili		Distribution Only
+dist31	12345	distributor	Western Area Rural		Distribution Only
+dist32	12345	distributor	Western Area Urban		Distribution Only
+dist33	12345	distributor	Bo		Distribution Only
+dist34	12345	distributor	Bombali		Distribution Only
+dist35	12345	distributor	Bonthe		Distribution Only
+dist36	12345	distributor	Falaba		Distribution Only
+dist37	12345	distributor	Kailahun		Distribution Only
+dist38	12345	distributor	Kambia		Distribution Only
+dist39	12345	distributor	Karene		Distribution Only
+dist40	12345	distributor	Kenema		Distribution Only
+dist41	12345	distributor	Koinadugu		Distribution Only
+dist42	12345	distributor	Kono		Distribution Only
+dist43	12345	distributor	Moyamba		Distribution Only
+dist44	12345	distributor	Port Loko		Distribution Only
+dist45	12345	distributor	Pujehun		Distribution Only
+dist46	12345	distributor	Tonkolili		Distribution Only
+dist47	12345	distributor	Western Area Rural		Distribution Only
+dist48	12345	distributor	Western Area Urban		Distribution Only
+dist49	12345	distributor	Bo		Distribution Only
+dist50	12345	distributor	Bombali		Distribution Only
 chisup01	12345	chisup		Bo City Council	Chiefdom Level Only (Monitoring + Stock)
 chisup02	12345	chisup		Badjia Chiefdom	Chiefdom Level Only (Monitoring + Stock)
 chisup03	12345	chisup		Bagbwe Chiefdom	Chiefdom Level Only (Monitoring + Stock)
