@@ -520,8 +520,14 @@ function showScreen(screenId) {
 }
 
 function doLogout() {
-  if(confirm("Are you sure you want to log out?")) {
-    showToast("Logged out successfully");
+  if (confirm("Are you sure you want to log out?")) {
+    // Clear session data
+    sessionStorage.clear();
+    localStorage.removeItem("itn_logged_user");
+    localStorage.removeItem("itn_user_role");
+    localStorage.removeItem("itn_user_district");
+    // Redirect to sign-in page
+    window.location.href = "index.html";
   }
 }
 
