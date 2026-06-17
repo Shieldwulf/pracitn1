@@ -209,7 +209,6 @@ input::placeholder{color:#aac4a8;}
   flex-shrink:0;
 }
 </style>
-<base target="_blank">
 </head>
 <body>
 <div class="shell">
@@ -301,11 +300,6 @@ input::placeholder{color:#aac4a8;}
 </div>
 
 <script>
-/* ═══════════════════════════════════════════════
-   CONFIG: Raw GitHub CSV URL for user1.csv
-   ═══════════════════════════════════════════════ */
-const CSV_URL = 'https://raw.githubusercontent.com/Shieldwulf/pracitn1/main/user1.csv';
-
 /* ── NETWORK INDICATOR ── */
 function setNet(online) {
   const pill  = document.getElementById('netPill');
@@ -322,221 +316,160 @@ window.addEventListener('online',  () => setNet(true));
 window.addEventListener('offline', () => setNet(false));
 setNet(navigator.onLine);
 
-/* ── PASSWORD TOGGLE ── */
+/* ── SHOW / HIDE PASSWORD ── */
+let pwdVisible = false;
 function togglePwd() {
-  const pw = document.getElementById('password');
-  pw.type = pw.type === 'password' ? 'text' : 'password';
+  const inp = document.getElementById('password');
+  const ico = document.getElementById('eyeIcon');
+  pwdVisible = !pwdVisible;
+  inp.type = pwdVisible ? 'text' : 'password';
+  ico.innerHTML = pwdVisible
+    ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
+    : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
 }
 
-/* ── CSV PARSER (lightweight, no external libs) ── */
-function parseCSVLine(line) {
-  const result = [];
+const USER_CREDENTIALS = [{"username": "admin01", "password": "12345", "role": "admin", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Full System Access"}, {"username": "admin02", "password": "12345", "role": "admin", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Full System Access"}, {"username": "admin03", "password": "12345", "role": "admin", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Full System Access"}, {"username": "admin04", "password": "12345", "role": "admin", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Full System Access"}, {"username": "admin05", "password": "12345", "role": "admin", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Full System Access"}, {"username": "nat01", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat02", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat03", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat04", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat05", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat06", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat07", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat08", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat09", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat10", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat11", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat12", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat13", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat14", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat15", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat16", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat17", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat18", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat19", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "nat20", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring"}, {"username": "dash01", "password": "12345", "role": "dashboard", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Dashboard Only"}, {"username": "dash02", "password": "12345", "role": "dashboard", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Dashboard Only"}, {"username": "dash03", "password": "12345", "role": "dashboard", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Dashboard Only"}, {"username": "dash04", "password": "12345", "role": "dashboard", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Dashboard Only"}, {"username": "dash05", "password": "12345", "role": "dashboard", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Dashboard Only"}, {"username": "dash06", "password": "12345", "role": "dashboard", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Dashboard Only"}, {"username": "dash07", "password": "12345", "role": "dashboard", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Dashboard Only"}, {"username": "dash08", "password": "12345", "role": "dashboard", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Dashboard Only"}, {"username": "dash09", "password": "12345", "role": "dashboard", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Dashboard Only"}, {"username": "dash10", "password": "12345", "role": "dashboard", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Dashboard Only"}, {"username": "whm01", "password": "12345", "role": "warehouse", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Stock + Dashboard (All Regions)"}, {"username": "whm02", "password": "12345", "role": "warehouse", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Stock + Dashboard (All Regions)"}, {"username": "whm03", "password": "12345", "role": "warehouse", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Stock + Dashboard (All Regions)"}, {"username": "whm04", "password": "12345", "role": "warehouse", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Stock + Dashboard (All Regions)"}, {"username": "whm05", "password": "12345", "role": "warehouse", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Stock + Dashboard (All Regions)"}, {"username": "whm06", "password": "12345", "role": "warehouse", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Stock + Dashboard (All Regions)"}, {"username": "whm07", "password": "12345", "role": "warehouse", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Stock + Dashboard (All Regions)"}, {"username": "whm08", "password": "12345", "role": "warehouse", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Stock + Dashboard (All Regions)"}, {"username": "whm09", "password": "12345", "role": "warehouse", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Stock + Dashboard (All Regions)"}, {"username": "whm10", "password": "12345", "role": "warehouse", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Stock + Dashboard (All Regions)"}, {"username": "whm11", "password": "12345", "role": "warehouse", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Stock + Dashboard (All Regions)"}, {"username": "whm12", "password": "12345", "role": "warehouse", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Stock + Dashboard (All Regions)"}, {"username": "whm13", "password": "12345", "role": "warehouse", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Stock + Dashboard (All Regions)"}, {"username": "whm14", "password": "12345", "role": "warehouse", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Stock + Dashboard (All Regions)"}, {"username": "whm15", "password": "12345", "role": "warehouse", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Stock + Dashboard (All Regions)"}, {"username": "whm16", "password": "12345", "role": "warehouse", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Stock + Dashboard (All Regions)"}, {"username": "reg01", "password": "12345", "role": "registrar", "assigned_district": "Bo", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg02", "password": "12345", "role": "registrar", "assigned_district": "Bombali", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg03", "password": "12345", "role": "registrar", "assigned_district": "Bonthe", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg04", "password": "12345", "role": "registrar", "assigned_district": "Falaba", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg05", "password": "12345", "role": "registrar", "assigned_district": "Kailahun", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg06", "password": "12345", "role": "registrar", "assigned_district": "Kambia", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg07", "password": "12345", "role": "registrar", "assigned_district": "Karene", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg08", "password": "12345", "role": "registrar", "assigned_district": "Kenema", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg09", "password": "12345", "role": "registrar", "assigned_district": "Koinadugu", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg10", "password": "12345", "role": "registrar", "assigned_district": "Kono", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg11", "password": "12345", "role": "registrar", "assigned_district": "Moyamba", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg12", "password": "12345", "role": "registrar", "assigned_district": "Port Loko", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg13", "password": "12345", "role": "registrar", "assigned_district": "Pujehun", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg14", "password": "12345", "role": "registrar", "assigned_district": "Tonkolili", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg15", "password": "12345", "role": "registrar", "assigned_district": "Western Area Rural", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg16", "password": "12345", "role": "registrar", "assigned_district": "Western Area Urban", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg17", "password": "12345", "role": "registrar", "assigned_district": "Bo", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg18", "password": "12345", "role": "registrar", "assigned_district": "Bombali", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg19", "password": "12345", "role": "registrar", "assigned_district": "Bonthe", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg20", "password": "12345", "role": "registrar", "assigned_district": "Falaba", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg21", "password": "12345", "role": "registrar", "assigned_district": "Kailahun", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg22", "password": "12345", "role": "registrar", "assigned_district": "Kambia", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg23", "password": "12345", "role": "registrar", "assigned_district": "Karene", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg24", "password": "12345", "role": "registrar", "assigned_district": "Kenema", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg25", "password": "12345", "role": "registrar", "assigned_district": "Koinadugu", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg26", "password": "12345", "role": "registrar", "assigned_district": "Kono", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg27", "password": "12345", "role": "registrar", "assigned_district": "Moyamba", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg28", "password": "12345", "role": "registrar", "assigned_district": "Port Loko", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg29", "password": "12345", "role": "registrar", "assigned_district": "Pujehun", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg30", "password": "12345", "role": "registrar", "assigned_district": "Tonkolili", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg31", "password": "12345", "role": "registrar", "assigned_district": "Western Area Rural", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg32", "password": "12345", "role": "registrar", "assigned_district": "Western Area Urban", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg33", "password": "12345", "role": "registrar", "assigned_district": "Bo", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg34", "password": "12345", "role": "registrar", "assigned_district": "Bombali", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg35", "password": "12345", "role": "registrar", "assigned_district": "Bonthe", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg36", "password": "12345", "role": "registrar", "assigned_district": "Falaba", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg37", "password": "12345", "role": "registrar", "assigned_district": "Kailahun", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg38", "password": "12345", "role": "registrar", "assigned_district": "Kambia", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg39", "password": "12345", "role": "registrar", "assigned_district": "Karene", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg40", "password": "12345", "role": "registrar", "assigned_district": "Kenema", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg41", "password": "12345", "role": "registrar", "assigned_district": "Koinadugu", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg42", "password": "12345", "role": "registrar", "assigned_district": "Kono", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg43", "password": "12345", "role": "registrar", "assigned_district": "Moyamba", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg44", "password": "12345", "role": "registrar", "assigned_district": "Port Loko", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg45", "password": "12345", "role": "registrar", "assigned_district": "Pujehun", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg46", "password": "12345", "role": "registrar", "assigned_district": "Tonkolili", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg47", "password": "12345", "role": "registrar", "assigned_district": "Western Area Rural", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg48", "password": "12345", "role": "registrar", "assigned_district": "Western Area Urban", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg49", "password": "12345", "role": "registrar", "assigned_district": "Bo", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "reg50", "password": "12345", "role": "registrar", "assigned_district": "Bombali", "assigned_chiefdom": "", "access_level": "Registration Only"}, {"username": "dist01", "password": "12345", "role": "distributor", "assigned_district": "Bo", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist02", "password": "12345", "role": "distributor", "assigned_district": "Bombali", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist03", "password": "12345", "role": "distributor", "assigned_district": "Bonthe", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist04", "password": "12345", "role": "distributor", "assigned_district": "Falaba", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist05", "password": "12345", "role": "distributor", "assigned_district": "Kailahun", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist06", "password": "12345", "role": "distributor", "assigned_district": "Kambia", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist07", "password": "12345", "role": "distributor", "assigned_district": "Karene", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist08", "password": "12345", "role": "distributor", "assigned_district": "Kenema", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist09", "password": "12345", "role": "distributor", "assigned_district": "Koinadugu", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist10", "password": "12345", "role": "distributor", "assigned_district": "Kono", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist11", "password": "12345", "role": "distributor", "assigned_district": "Moyamba", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist12", "password": "12345", "role": "distributor", "assigned_district": "Port Loko", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist13", "password": "12345", "role": "distributor", "assigned_district": "Pujehun", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist14", "password": "12345", "role": "distributor", "assigned_district": "Tonkolili", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist15", "password": "12345", "role": "distributor", "assigned_district": "Western Area Rural", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist16", "password": "12345", "role": "distributor", "assigned_district": "Western Area Urban", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist17", "password": "12345", "role": "distributor", "assigned_district": "Bo", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist18", "password": "12345", "role": "distributor", "assigned_district": "Bombali", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist19", "password": "12345", "role": "distributor", "assigned_district": "Bonthe", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist20", "password": "12345", "role": "distributor", "assigned_district": "Falaba", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist21", "password": "12345", "role": "distributor", "assigned_district": "Kailahun", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist22", "password": "12345", "role": "distributor", "assigned_district": "Kambia", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist23", "password": "12345", "role": "distributor", "assigned_district": "Karene", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist24", "password": "12345", "role": "distributor", "assigned_district": "Kenema", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist25", "password": "12345", "role": "distributor", "assigned_district": "Koinadugu", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist26", "password": "12345", "role": "distributor", "assigned_district": "Kono", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist27", "password": "12345", "role": "distributor", "assigned_district": "Moyamba", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist28", "password": "12345", "role": "distributor", "assigned_district": "Port Loko", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist29", "password": "12345", "role": "distributor", "assigned_district": "Pujehun", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist30", "password": "12345", "role": "distributor", "assigned_district": "Tonkolili", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist31", "password": "12345", "role": "distributor", "assigned_district": "Western Area Rural", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist32", "password": "12345", "role": "distributor", "assigned_district": "Western Area Urban", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist33", "password": "12345", "role": "distributor", "assigned_district": "Bo", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist34", "password": "12345", "role": "distributor", "assigned_district": "Bombali", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist35", "password": "12345", "role": "distributor", "assigned_district": "Bonthe", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist36", "password": "12345", "role": "distributor", "assigned_district": "Falaba", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist37", "password": "12345", "role": "distributor", "assigned_district": "Kailahun", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist38", "password": "12345", "role": "distributor", "assigned_district": "Kambia", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist39", "password": "12345", "role": "distributor", "assigned_district": "Karene", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist40", "password": "12345", "role": "distributor", "assigned_district": "Kenema", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist41", "password": "12345", "role": "distributor", "assigned_district": "Koinadugu", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist42", "password": "12345", "role": "distributor", "assigned_district": "Kono", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist43", "password": "12345", "role": "distributor", "assigned_district": "Moyamba", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist44", "password": "12345", "role": "distributor", "assigned_district": "Port Loko", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist45", "password": "12345", "role": "distributor", "assigned_district": "Pujehun", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist46", "password": "12345", "role": "distributor", "assigned_district": "Tonkolili", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist47", "password": "12345", "role": "distributor", "assigned_district": "Western Area Rural", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist48", "password": "12345", "role": "distributor", "assigned_district": "Western Area Urban", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist49", "password": "12345", "role": "distributor", "assigned_district": "Bo", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "dist50", "password": "12345", "role": "distributor", "assigned_district": "Bombali", "assigned_chiefdom": "", "access_level": "Distribution Only"}, {"username": "chisup01", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Bo City Council", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup02", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Badjia Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup03", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Bagbwe Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup04", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Baoma Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup05", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Bargbo Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup06", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Biriwa Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup07", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Bombali Sebora Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup08", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Bumpe Ngao Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup09", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Dema Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup10", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Gaura Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup11", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Imperi Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup12", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Jong Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup13", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Kaffu Bullom Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup14", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Kaiyamba Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup15", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Kholifa Rowalla Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup16", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Kori Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup17", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Koya (Port Loko) Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup18", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Kpanga Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup19", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Luawa Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup20", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Magbema Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup21", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Makarie Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup22", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Marampa Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup23", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Nimikoro Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup24", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Nongowa Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup25", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Safroko Limba Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup26", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Samu Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup27", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Sanda Loko Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup28", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Sella Limba Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup29", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Tikonko Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "chisup30", "password": "12345", "role": "chisup", "assigned_district": "", "assigned_chiefdom": "Tonko Limba Chiefdom", "access_level": "Chiefdom Level Only (Monitoring + Stock)"}, {"username": "admin", "password": "12345", "role": "admin", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Full System Access", "route": "landing.html"}, {"username": "nat", "password": "12345", "role": "national", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "All Districts + Monitoring", "route": "portal.html"}, {"username": "dash", "password": "12345", "role": "dashboard", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Dashboard Only", "route": "dash.html"}, {"username": "whm", "password": "12345", "role": "warehouse", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Stock + Dashboard (All Regions)", "route": "stock.html"}, {"username": "inde", "password": "12345", "role": "independent", "monitor_role": "independent", "assigned_district": "All", "assigned_chiefdom": "All", "access_level": "Independent Monitoring", "route": "monitor.html"}, {"username": "chisup", "password": "12345", "role": "chisup", "monitor_role": "chiefdom", "assigned_district": "", "assigned_chiefdom": "All", "access_level": "Chiefdom Level Only (Monitoring + Stock)", "route": "monitor.html"}, {"username": "reg", "password": "12345", "role": "registrar", "assigned_district": "All", "assigned_chiefdom": "", "access_level": "Registration Only", "route": "regform.html"}, {"username": "dist", "password": "12345", "role": "distributor", "assigned_district": "All", "assigned_chiefdom": "", "access_level": "Distribution Only", "route": "dist.html"}];
+
+function parseCsvLine(line) {
+  const out = [];
   let current = '';
   let inQuotes = false;
   for (let i = 0; i < line.length; i++) {
-    const char = line[i];
-    if (char === '"' && !inQuotes) {
-      inQuotes = true;
-    } else if (char === '"' && inQuotes) {
-      inQuotes = false;
-    } else if (char === ',' && !inQuotes) {
-      result.push(current.trim());
-      current = '';
-    } else {
-      current += char;
+    const ch = line[i];
+    if (ch === '"') {
+      if (inQuotes && line[i + 1] === '"') {
+        current += '"';
+        i++;
+      } else {
+        inQuotes = !inQuotes;
+      }
+      continue;
     }
+    if (ch === ',' && !inQuotes) {
+      out.push(current);
+      current = '';
+      continue;
+    }
+    current += ch;
   }
-  result.push(current.trim());
-  return result;
+  out.push(current);
+  return out;
 }
 
-function parseCSV(text) {
-  const lines = text.trim().split(/\r?\n/).filter(l => l.trim());
-  if (lines.length === 0) return [];
-  const headers = parseCSVLine(lines[0]);
+function parseCsvToObjects(text) {
+  const lines = String(text || '')
+    .replace(/\r\n/g, '\n')
+    .replace(/\r/g, '\n')
+    .split('\n')
+    .map(l => l.trim())
+    .filter(Boolean);
+
+  if (!lines.length) return [];
+  const header = parseCsvLine(lines[0]).map(h => h.trim());
   const rows = [];
   for (let i = 1; i < lines.length; i++) {
-    const values = parseCSVLine(lines[i]);
-    const row = {};
-    headers.forEach((h, idx) => {
-      row[h] = values[idx] !== undefined ? values[idx] : '';
+    const cols = parseCsvLine(lines[i]);
+    const obj = {};
+    header.forEach((key, idx) => {
+      obj[key] = (cols[idx] ?? '').trim();
     });
-    rows.push(row);
+    rows.push(obj);
   }
   return rows;
 }
 
-/* ── USER LOADER (fetch from GitHub raw) ── */
-let cachedUsers = null;
-let loadPromise = null;
-
-async function loadUsers() {
-  if (cachedUsers) return cachedUsers;
-  if (loadPromise) return loadPromise;
-
-  loadPromise = fetch(CSV_URL)
-    .then(r => {
-      if (!r.ok) throw new Error('Failed to load user database (' + r.status + ')');
-      return r.text();
-    })
-    .then(text => {
-      cachedUsers = parseCSV(text);
-      return cachedUsers;
-    })
-    .catch(err => {
-      console.error('CSV load error:', err);
-      throw err;
-    });
-
-  return loadPromise;
+let __credentialCache = null;
+async function getCredentialList() {
+  if (__credentialCache) return __credentialCache;
+  try {
+    const res = await fetch('user.csv', { cache: 'no-store' });
+    if (!res.ok) throw new Error('Failed to fetch user.csv');
+    const text = await res.text();
+    const parsed = parseCsvToObjects(text);
+    __credentialCache = parsed.length ? parsed : USER_CREDENTIALS;
+    return __credentialCache;
+  } catch (err) {
+    __credentialCache = USER_CREDENTIALS;
+    return __credentialCache;
+  }
 }
 
-function getCredentialList() {
-  return loadUsers();
+function normalizeMonitorRole(user) {
+  const explicit = String(user.monitor_role || '').trim().toLowerCase();
+  if (explicit) return explicit;
+
+  const role = String(user.role || '').trim().toLowerCase();
+  if (role === 'national') return 'national';
+  if (role === 'independent') return 'independent';
+  if (role === 'chisup') return 'chiefdom';
+
+  const username = String(user.username || '').trim().toLowerCase();
+  if (username.startsWith('nat')) return 'national';
+  if (username.startsWith('inde') || username.startsWith('ind')) return 'independent';
+  if (username.startsWith('chisup')) return 'chiefdom';
+  return '';
 }
 
-function normalizeMonitorRole(role) {
-  if (!role) return '';
-  const r = role.toLowerCase().trim();
-  if (r.includes('chief')) return 'chiefdom';
-  if (r.includes('nat')) return 'national';
-  if (r.includes('indep')) return 'independent';
-  return r;
-}
-
-function parseAllowedPages(pagesStr) {
-  if (!pagesStr) return [];
-  return pagesStr.split('|').map(p => p.trim()).filter(p => p.length > 0);
+function parseAllowedPages(raw) {
+  return String(raw || '')
+    .split('|')
+    .map(p => p.trim())
+    .filter(Boolean);
 }
 
 function resolveUserRoute(user) {
-  const role = (user.role || '').toLowerCase().trim();
-  const landing = user.landing_page || 'index.html';
-  const allowed = parseAllowedPages(user.allowed_pages);
+  const explicitRoute = String(user.route || '').trim();
+  if (explicitRoute) return explicitRoute;
 
-  if (!allowed.includes('index.html')) {
-    allowed.unshift('index.html');
-  }
-
-  if (allowed.includes(landing)) {
-    return landing;
-  }
-
-  if (role === 'admin') return allowed.includes('landing.html') ? 'landing.html' : allowed[0];
-  if (role === 'national') return allowed.includes('portal.html') ? 'portal.html' : allowed[0];
-  if (role === 'dashboard') return allowed.includes('dash.html') ? 'dash.html' : allowed[0];
-  if (role === 'warehouse') return allowed.includes('stock.html') ? 'stock.html' : allowed[0];
-  if (role === 'registrar') return allowed.includes('regform.html') ? 'regform.html' : allowed[0];
-  if (role === 'distributor') return allowed.includes('dist.html') ? 'dist.html' : allowed[0];
-  if (role === 'chisup') return allowed.includes('monitor.html') ? 'monitor.html' : allowed[0];
-  if (role === 'independent') return allowed.includes('monitor.html') ? 'monitor.html' : allowed[0];
-
-  return allowed[0] || 'index.html';
-}
-
-/* ── ERROR DISPLAY ── */
-function showError(msg) {
-  let errDiv = document.getElementById('loginError');
-  if (!errDiv) {
-    errDiv = document.createElement('div');
-    errDiv.id = 'loginError';
-    errDiv.style.cssText = 'background:#fc8181;color:#fff;padding:12px 16px;border-radius:10px;margin-bottom:18px;font-size:13px;font-weight:600;text-align:center;display:none;';
-    const formArea = document.querySelector('.form-area');
-    if (formArea) formArea.insertBefore(errDiv, formArea.firstChild);
-  }
-  errDiv.textContent = msg;
-  errDiv.style.display = 'block';
-  setTimeout(() => { errDiv.style.display = 'none'; }, 4000);
+  const role = (user.role || '').trim().toLowerCase();
+  if (role === 'admin') return 'landing.html';
+  if (role === 'registrar') return 'regform.html';
+  if (role === 'distributor') return 'dist.html';
+  if (role === 'national') return 'portal.html';
+  if (role === 'independent' || role === 'chisup') return 'monitor.html';
+  if (['dashboard', 'warehouse'].includes(role)) return 'dash.html';
+  return 'index.html';
 }
 
 /* ── SIGN IN ── */
 async function handleSignIn() {
-  const username = document.getElementById('username').value.trim().toLowerCase();
-  const password = document.getElementById('password').value;
-  const remember = document.getElementById('remember')?.checked || false;
-
-  if (!username || !password) {
-    showError('Please enter both username and password.');
+  const u = document.getElementById('identity').value.trim();
+  const p = document.getElementById('password').value;
+  if (!u || !p) {
+    alert('Please enter your username and password.');
     return;
   }
 
-  const btn = document.querySelector('.btn-signin');
-  const originalBtnHTML = btn.innerHTML;
-  btn.innerHTML = '<span>Loading…</span>';
-  btn.disabled = true;
+  const list = await getCredentialList();
+  const user = list.find(row =>
+    String(row.username || '').trim().toLowerCase() === u.toLowerCase() &&
+    String(row.password || '') === p
+  );
 
-  try {
-    const list = await getCredentialList();
-    const user = list.find(u => u.username.toLowerCase() === username && u.password === password);
-
-    if (!user) {
-      showError('Invalid username or password.');
-      btn.innerHTML = originalBtnHTML;
-      btn.disabled = false;
-      return;
-    }
-
-    const allowedPages = parseAllowedPages(user.allowed_pages);
-    const monitorRole = normalizeMonitorRole(user.monitor_role);
-
-    const sessionUser = {
-      username: user.username,
-      role: user.role,
-      assigned_district: user.assigned_district || '',
-      assigned_chiefdom: user.assigned_chiefdom || '',
-      access_level: user.access_level || '',
-      monitor_role: monitorRole,
-      landing_page: user.landing_page || '',
-      allowed_pages: allowedPages,
-      region: user.region || '',
-      district: user.district || '',
-      chiefdom: user.chiefdom || '',
-      health_facility: user.health_facility || '',
-      community: user.community || '',
-      route: resolveUserRoute(user)
-    };
-
-    const storage = remember ? localStorage : sessionStorage;
-    storage.setItem('currentUser', JSON.stringify(sessionUser));
-    storage.setItem('itnSessionExpiry', String(Date.now() + (remember ? 7*24*60*60*1000 : 24*60*60*1000)));
-
-    window.location.href = sessionUser.route;
-  } catch (err) {
-    showError('Unable to load user database. Check your internet connection and CSV_URL.');
-    btn.innerHTML = originalBtnHTML;
-    btn.disabled = false;
+  if (!user) {
+    alert('Invalid username or password.');
+    return;
   }
+
+  const sessionUser = {
+    username: user.username,
+    role: user.role,
+    monitor_role: normalizeMonitorRole(user),
+    assigned_district: user.assigned_district || '',
+    assigned_chiefdom: user.assigned_chiefdom || '',
+    access_level: user.access_level || '',
+    allowed_pages: parseAllowedPages(user.allowed_pages),
+    region: user.region || '',
+    district: user.district || '',
+    chiefdom: user.chiefdom || '',
+    health_facility: user.health_facility || '',
+    community: user.community || '',
+    route: resolveUserRoute(user)
+  };
+
+  sessionStorage.setItem('currentUser', JSON.stringify(sessionUser));
+  window.location.href = sessionUser.route;
 }
-
-/* ── AUTO-REDIRECT IF ALREADY LOGGED IN ── */
-(function autoRedirect() {
-  const stored = sessionStorage.getItem('currentUser') || localStorage.getItem('currentUser');
-  if (stored) {
-    try {
-      const user = JSON.parse(stored);
-      const expiry = parseInt(sessionStorage.getItem('itnSessionExpiry') || localStorage.getItem('itnSessionExpiry') || '0', 10);
-      if (expiry > Date.now() && user.route) {
-        window.location.href = user.route;
-      }
-    } catch (e) {
-      // ignore corrupt session
-    }
-  }
-})();
-
-/* ── ENTER KEY SUPPORT ── */
-document.addEventListener('DOMContentLoaded', function() {
-  // Pre-load CSV in background so login is instant
-  loadUsers().catch(() => {});
-
-  document.getElementById('password')?.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') handleSignIn();
-  });
-  document.getElementById('username')?.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') document.getElementById('password').focus();
-  });
-});
 </script>
 </body>
 </html>
-
