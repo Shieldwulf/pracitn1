@@ -67,8 +67,9 @@ body{
   color:#d1dbe8;margin-bottom:8px;
 }
 .partners-row{
-  display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;
+  display:flex;gap:12px;overflow-x:auto;padding-bottom:2px;
   -ms-overflow-style:none;scrollbar-width:none;
+  justify-content:center;
 }
 .partners-row::-webkit-scrollbar{display:none;}
 .partner-tile{
@@ -78,7 +79,7 @@ body{
   display:flex;align-items:center;justify-content:center;
   padding:4px;overflow:hidden;
 }
-.partner-tile img{max-height:36px;max-width:100%;object-fit:contain;}
+.partner-tile img{width:36px;height:36px;object-fit:contain;display:block;}
 .campaign-badge{
   text-align:center;
   margin-top:10px;
@@ -99,7 +100,7 @@ body{
   font-size:11px;font-weight:700;color:#4a7048;
   letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;
 }
-.module-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.module-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;grid-auto-rows:1fr;}
 .module-card{
   background:#fff;
   border-radius:20px;
@@ -130,6 +131,7 @@ body{
   flex-shrink:0;
 }
 </style>
+<base target="_blank">
 </head>
 <body>
 <div class="shell">
@@ -228,3 +230,4 @@ setNet(navigator.onLine);
 </script>
 </body>
 </html>
+
