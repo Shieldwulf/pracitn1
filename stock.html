@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stock Management — ITN Mass Campaign 2027</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Segoe UI',Arial,sans-serif;
+  background:#e8eceb;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+}
+.shell{
+  width:100%;
+  max-width:430px;
+  min-height:100vh;
+  background:#f0f4ed;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 0 40px rgba(0,0,0,0.14);
+  position:relative;
+}
+.status-bar{
+  background:#6b7a8d;
+  color:#e2e8f0;
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  padding:10px 20px 8px;
+  font-size:12px;
+  font-weight:500;
+  flex-shrink:0;
+}
+.status-right{display:flex;gap:10px;align-items:center;}
+.net-pill{
+  display:flex;align-items:center;gap:5px;
+  padding:3px 8px 3px 6px;
+  border-radius:20px;
+  font-size:10px;font-weight:700;letter-spacing:0.3px;
+  transition:background 0.4s,color 0.4s;
+}
+.net-pill.online{background:rgba(104,211,145,0.22);color:#68d391;}
+.net-pill.offline{background:rgba(252,129,129,0.22);color:#fc8181;}
+.net-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;transition:background 0.4s,box-shadow 0.4s;}
+.net-pill.online .net-dot{background:#68d391;box-shadow:0 0 0 2px rgba(104,211,145,0.3);}
+.net-pill.offline .net-dot{background:#fc8181;box-shadow:0 0 0 2px rgba(252,129,129,0.3);}
+
+/* Header */
+.header-band{
+  background:#6b7a8d;
+  padding:12px 20px 16px;
+  flex-shrink:0;
+  border-radius:0 0 28px 28px;
+}
+.header-top{
+  display:flex;align-items:center;gap:10px;margin-bottom:10px;
+}
+.back-btn{
+  background:rgba(255,255,255,0.18);
+  border:none;color:#fff;
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;
+  text-decoration:none;
+  transition:background 0.15s;
+}
+.back-btn:hover{background:rgba(255,255,255,0.28);}
+.back-btn svg{width:18px;height:18px;}
+.header-title{
+  flex:1;
+  color:#fff;
+  font-size:17px;font-weight:700;letter-spacing:0.3px;
+}
+.campaign-badge{
+  text-align:center;
+  padding-top:6px;
+  border-top:1px solid rgba(255,255,255,0.12);
+}
+.campaign-badge span{
+  display:inline-block;
+  background:rgba(255,255,255,0.14);
+  color:#fff;
+  font-size:11px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;
+  padding:5px 16px;
+  border-radius:20px;
+}
+
+/* Content */
+.content-area{flex:1;padding:20px 16px;}
+.section-label{
+  font-size:11px;font-weight:700;color:#4a7048;
+  letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;
+}
+
+/* Module grid (2 columns) */
+.module-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.module-card{
+  background:#fff;
+  border-radius:20px;
+  border:0.5px solid #d4e4cf;
+  padding:20px 14px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  text-decoration:none;
+  cursor:pointer;
+  transition:background 0.15s,transform 0.12s;
+  min-height:140px;
+  -webkit-tap-highlight-color:transparent;
+  position:relative;
+  overflow:hidden;
+}
+.module-card:hover{background:#e8f2e5;transform:translateY(-2px);}
+.module-card:active{transform:scale(0.98);}
+.module-icon{
+  width:44px;height:44px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+}
+.module-icon svg{width:22px;height:22px;}
+.module-title{font-size:14px;font-weight:700;color:#1c2b1c;line-height:1.25;}
+.module-sub{font-size:11px;color:#7a9e76;line-height:1.4;}
+
+/* Stock count badge on card */
+.card-count{
+  position:absolute;top:12px;right:12px;
+  background:#4a7048;color:#fff;
+  font-size:10px;font-weight:700;
+  padding:2px 7px;border-radius:10px;
+  letter-spacing:0.2px;
+}
+.card-count.green{background:#2e7d32;}
+.card-count.orange{background:#e65100;}
+.card-count.blue{background:#1565c0;}
+
+/* Full-width cards */
+.module-card-full{
+  background:#fff;
+  border-radius:20px;
+  border:0.5px solid #d4e4cf;
+  padding:18px 18px;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:14px;
+  text-decoration:none;
+  cursor:pointer;
+  transition:background 0.15s,transform 0.12s;
+  margin-bottom:14px;
+  -webkit-tap-highlight-color:transparent;
+}
+.module-card-full:hover{background:#e8f2e5;transform:translateY(-2px);}
+.module-card-full:active{transform:scale(0.98);}
+.module-card-full .module-icon{flex-shrink:0;}
+.module-card-full .card-text{flex:1;}
+.module-card-full .module-title{font-size:14px;font-weight:700;color:#1c2b1c;margin-bottom:2px;}
+.module-card-full .module-sub{font-size:11px;color:#7a9e76;}
+.arrow-icon{width:20px;height:20px;color:#b0c4ae;flex-shrink:0;}
+
+/* Logout card */
+.logout-card{
+  background:#fff;
+  border-radius:20px;
+  border:0.5px solid #f5c6c6;
+  padding:18px 18px;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:14px;
+  text-decoration:none;
+  cursor:pointer;
+  transition:background 0.15s,transform 0.12s;
+  margin-bottom:14px;
+  -webkit-tap-highlight-color:transparent;
+}
+.logout-card:hover{background:#fdf0f0;transform:translateY(-2px);}
+.logout-card:active{transform:scale(0.98);}
+.logout-card .module-title{color:#c0392b;}
+.logout-card .module-sub{font-size:11px;color:#e57373;}
+
+/* ── MODAL OVERLAY ── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.45);
+  z-index:200;
+  justify-content:flex-end;align-items:flex-end;
+}
+.modal-overlay.active{display:flex;}
+.modal-sheet{
+  width:100%;max-width:430px;
+  background:#f0f4ed;
+  border-radius:24px 24px 0 0;
+  padding:24px 20px 36px;
+  animation:slideUp 0.28s ease-out;
+}
+@keyframes slideUp{from{transform:translateY(80px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.modal-handle{
+  width:40px;height:4px;background:#d0dac8;
+  border-radius:4px;margin:0 auto 20px;
+}
+.modal-title{
+  font-size:16px;font-weight:700;color:#1c2b1c;
+  margin-bottom:6px;
+}
+.modal-sub{font-size:12px;color:#7a9e76;margin-bottom:20px;}
+.input-row{margin-bottom:14px;}
+.input-label{font-size:12px;font-weight:600;color:#4a7048;margin-bottom:5px;letter-spacing:0.3px;}
+.input-field{
+  width:100%;padding:11px 14px;
+  border:1.5px solid #d4e4cf;
+  border-radius:12px;
+  font-size:14px;color:#1c2b1c;
+  background:#fff;outline:none;
+  transition:border-color 0.15s;
+  font-family:inherit;
+}
+.input-field:focus{border-color:#4a7048;}
+.input-field::placeholder{color:#b0c4ae;}
+.modal-btn{
+  width:100%;padding:14px;
+  background:#4a7048;color:#fff;
+  border:none;border-radius:14px;
+  font-size:15px;font-weight:700;
+  cursor:pointer;margin-top:8px;
+  transition:background 0.15s,transform 0.1s;
+  font-family:inherit;
+}
+.modal-btn:hover{background:#3a5a38;}
+.modal-btn:active{transform:scale(0.98);}
+.modal-btn-cancel{
+  width:100%;padding:12px;
+  background:transparent;color:#7a9e76;
+  border:1.5px solid #d4e4cf;border-radius:14px;
+  font-size:14px;font-weight:600;
+  cursor:pointer;margin-top:8px;
+  transition:background 0.15s;
+  font-family:inherit;
+}
+.modal-btn-cancel:hover{background:#e8f2e5;}
+
+/* ── RECORDS MODAL ── */
+.records-sheet{
+  width:100%;max-width:430px;
+  background:#f0f4ed;
+  border-radius:24px 24px 0 0;
+  padding:24px 20px 36px;
+  max-height:80vh;overflow-y:auto;
+  animation:slideUp 0.28s ease-out;
+}
+.records-table-wrap{
+  background:#fff;
+  border-radius:16px;
+  border:0.5px solid #d4e4cf;
+  overflow:hidden;
+  margin-bottom:16px;
+}
+table.rec-table{
+  width:100%;border-collapse:collapse;
+  font-size:12px;
+}
+.rec-table thead tr{background:#4a7048;}
+.rec-table thead th{
+  color:#fff;font-weight:700;font-size:11px;
+  padding:10px 10px;text-align:left;letter-spacing:0.2px;
+}
+.rec-table tbody tr{border-bottom:1px solid #edf2ea;}
+.rec-table tbody tr:last-child{border-bottom:none;}
+.rec-table tbody tr:nth-child(even){background:#f7faf5;}
+.rec-table tbody td{
+  padding:10px 10px;color:#1c2b1c;
+  font-size:11px;vertical-align:middle;
+}
+.rec-tag{
+  display:inline-block;padding:2px 7px;
+  border-radius:8px;font-size:10px;font-weight:700;
+}
+.rec-tag.in{background:#d7f0d7;color:#2e7d32;}
+.rec-tag.out{background:#ffe5cc;color:#b74e00;}
+.rec-tag.rem{background:#ddf0ff;color:#1565c0;}
+
+/* Remaining highlight */
+.remaining-summary{
+  background:#fff;border-radius:14px;
+  border:0.5px solid #d4e4cf;
+  padding:14px 16px;display:flex;align-items:center;gap:12px;
+  margin-bottom:14px;
+}
+.remaining-summary .rs-icon{
+  width:42px;height:42px;border-radius:12px;
+  background:#ddf0ff;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.remaining-summary .rs-icon svg{width:20px;height:20px;color:#1565c0;}
+.remaining-summary .rs-label{font-size:12px;color:#7a9e76;font-weight:500;}
+.remaining-summary .rs-value{font-size:22px;font-weight:800;color:#1565c0;}
+
+/* Toast */
+.toast{
+  position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+  background:#2e7d32;color:#fff;padding:10px 22px;
+  border-radius:30px;font-size:13px;font-weight:600;
+  box-shadow:0 4px 20px rgba(0,0,0,0.18);
+  opacity:0;transition:opacity 0.3s;z-index:999;
+  pointer-events:none;white-space:nowrap;
+}
+.toast.show{opacity:1;}
+
+.footer-strip{
+  background:#6b7a8d;color:#d1dbe8;
+  text-align:center;padding:14px;
+  font-size:12px;font-weight:600;letter-spacing:0.5px;
+  border-radius:20px 20px 0 0;
+  flex-shrink:0;
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <div class="status-right">
+      <div class="net-pill online" id="netPill">
+        <div class="net-dot"></div>
+        <span id="netLabel">Online</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div class="header-band">
+    <div class="header-top">
+      <a class="back-btn" href="landing.html" title="Back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </a>
+      <div class="header-title">Stock Management</div>
+    </div>
+    <div class="campaign-badge">
+      <span>ITN Mass Campaign 2027</span>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content-area">
+
+    <!-- Remaining ITNs Summary Banner -->
+    <div class="remaining-summary">
+      <div class="rs-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+        </svg>
+      </div>
+      <div>
+        <div class="rs-label">ITN Remaining</div>
+        <div class="rs-value" id="displayRemaining">—</div>
+      </div>
+    </div>
+
+    <div class="section-label">Stock Modules</div>
+
+    <!-- 2-column grid: Received + Distributed -->
+    <div class="module-grid">
+
+      <!-- ITN Received -->
+      <div class="module-card" onclick="openModal('receive')">
+        <span class="card-count green" id="badgeReceived">0</span>
+        <div class="module-icon" style="background:#ddf0d8;color:#2e6e28;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v14m0 0l-4-4m4 4l4-4"/><path d="M5 20h14"/>
+          </svg>
+        </div>
+        <div class="module-title">ITN Received</div>
+        <div class="module-sub">From national supply</div>
+      </div>
+
+      <!-- ITN Distributed -->
+      <div class="module-card" onclick="openModal('distribute')">
+        <span class="card-count orange" id="badgeDistributed">0</span>
+        <div class="module-icon" style="background:#fde8c8;color:#b06010;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21V7m0 0l-4 4m4-4 4 4"/><path d="M5 4h14"/>
+          </svg>
+        </div>
+        <div class="module-title">ITN Distributed</div>
+        <div class="module-sub">To health facility</div>
+      </div>
+
+    </div>
+
+    <!-- ITN Remaining card (full width, computed) -->
+    <div class="module-card-full" onclick="openModal('remaining')">
+      <div class="module-icon" style="background:#ddf0ff;color:#1565c0;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+        </svg>
+      </div>
+      <div class="card-text">
+        <div class="module-title">ITN Remaining</div>
+        <div class="module-sub">Auto-calculated balance</div>
+      </div>
+      <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </div>
+
+    <!-- Records card (full width) -->
+    <div class="module-card-full" onclick="openRecords()">
+      <div class="module-icon" style="background:#eee4ff;color:#6b46c1;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 12h6"/><path d="M9 16h6"/><path d="M9 8h6"/><path d="M5 3h11l3 3v15H5z"/>
+        </svg>
+      </div>
+      <div class="card-text">
+        <div class="module-title">Records</div>
+        <div class="module-sub">View all transactions</div>
+      </div>
+      <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </div>
+
+    <!-- Logout card (full width) -->
+    <a class="logout-card" href="index.html">
+      <div class="module-icon" style="background:#fde8e8;color:#c0392b;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 16l4-4m0 0l-4-4m4 4H7"/><path d="M3 21V3h10"/>
+        </svg>
+      </div>
+      <div class="card-text">
+        <div class="module-title">Log Out</div>
+        <div class="module-sub">Return to home screen</div>
+      </div>
+      <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </a>
+
+  </div>
+
+  <div class="footer-strip">Powered By ICF-SL</div>
+</div><!-- end .shell -->
+
+<!-- ── RECEIVE MODAL ── -->
+<div class="modal-overlay" id="modalReceive">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">ITN Received from National</div>
+    <div class="modal-sub">Enter the quantity of ITNs received</div>
+    <div class="input-row">
+      <div class="input-label">QUANTITY RECEIVED</div>
+      <input class="input-field" type="number" min="0" id="inputReceived" placeholder="e.g. 500">
+    </div>
+    <div class="input-row">
+      <div class="input-label">DATE RECEIVED</div>
+      <input class="input-field" type="date" id="inputReceiveDate">
+    </div>
+    <div class="input-row">
+      <div class="input-label">NOTES (OPTIONAL)</div>
+      <input class="input-field" type="text" id="inputReceiveNote" placeholder="Add a note…">
+    </div>
+    <button class="modal-btn" onclick="submitReceive()">Save Record</button>
+    <button class="modal-btn-cancel" onclick="closeModal('modalReceive')">Cancel</button>
+  </div>
+</div>
+
+<!-- ── DISTRIBUTE MODAL ── -->
+<div class="modal-overlay" id="modalDistribute">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">ITN Distributed to Facility</div>
+    <div class="modal-sub">Enter the quantity of ITNs distributed</div>
+    <div class="input-row">
+      <div class="input-label">FACILITY NAME</div>
+      <input class="input-field" type="text" id="inputFacility" placeholder="Health facility name">
+    </div>
+    <div class="input-row">
+      <div class="input-label">QUANTITY DISTRIBUTED</div>
+      <input class="input-field" type="number" min="0" id="inputDistributed" placeholder="e.g. 200">
+    </div>
+    <div class="input-row">
+      <div class="input-label">DATE DISTRIBUTED</div>
+      <input class="input-field" type="date" id="inputDistributeDate">
+    </div>
+    <button class="modal-btn" onclick="submitDistribute()">Save Record</button>
+    <button class="modal-btn-cancel" onclick="closeModal('modalDistribute')">Cancel</button>
+  </div>
+</div>
+
+<!-- ── REMAINING INFO MODAL ── -->
+<div class="modal-overlay" id="modalRemaining">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">ITN Remaining Balance</div>
+    <div class="modal-sub">Calculated automatically from received minus distributed</div>
+
+    <div style="background:#fff;border-radius:16px;border:0.5px solid #d4e4cf;padding:20px;margin-bottom:14px;text-align:center;">
+      <div style="font-size:13px;color:#7a9e76;font-weight:600;margin-bottom:6px;">TOTAL RECEIVED</div>
+      <div style="font-size:28px;font-weight:800;color:#2e7d32;" id="infoReceived">0</div>
+      <div style="height:1px;background:#edf2ea;margin:14px 0;"></div>
+      <div style="font-size:13px;color:#7a9e76;font-weight:600;margin-bottom:6px;">TOTAL DISTRIBUTED</div>
+      <div style="font-size:28px;font-weight:800;color:#b74e00;" id="infoDistributed">0</div>
+      <div style="height:1px;background:#edf2ea;margin:14px 0;"></div>
+      <div style="font-size:13px;color:#7a9e76;font-weight:600;margin-bottom:6px;">REMAINING</div>
+      <div style="font-size:36px;font-weight:800;color:#1565c0;" id="infoRemaining">0</div>
+    </div>
+    <button class="modal-btn-cancel" onclick="closeModal('modalRemaining')">Close</button>
+  </div>
+</div>
+
+<!-- ── RECORDS MODAL ── -->
+<div class="modal-overlay" id="modalRecords">
+  <div class="records-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Records</div>
+    <div class="modal-sub" style="margin-bottom:14px;">ITN Received · Distributed · Remaining</div>
+
+    <div class="records-table-wrap">
+      <table class="rec-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>ITN Rec. (National)</th>
+            <th>ITN Rec. (Facility)</th>
+            <th>ITN Remaining</th>
+          </tr>
+        </thead>
+        <tbody id="recordsBody">
+          <tr><td colspan="4" style="text-align:center;color:#b0c4ae;padding:20px;">No records yet</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button class="modal-btn-cancel" onclick="closeModal('modalRecords')">Close</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">Record saved!</div>
+
+<script>
+// ── State ──
+let totalReceived = 0;
+let totalDistributed = 0;
+let records = []; // {date, received, distributed, remaining}
+
+// Set today as default date
+(function(){
+  const today = new Date().toISOString().slice(0,10);
+  document.getElementById('inputReceiveDate').value = today;
+  document.getElementById('inputDistributeDate').value = today;
+})();
+
+function get(id){ return document.getElementById(id); }
+
+function updateUI(){
+  const rem = totalReceived - totalDistributed;
+  get('displayRemaining').textContent = rem.toLocaleString();
+  get('badgeReceived').textContent = totalReceived.toLocaleString();
+  get('badgeDistributed').textContent = totalDistributed.toLocaleString();
+  get('infoReceived').textContent = totalReceived.toLocaleString();
+  get('infoDistributed').textContent = totalDistributed.toLocaleString();
+  get('infoRemaining').textContent = rem.toLocaleString();
+}
+
+// ── Modals ──
+function openModal(type){
+  if(type === 'receive')     get('modalReceive').classList.add('active');
+  if(type === 'distribute')  get('modalDistribute').classList.add('active');
+  if(type === 'remaining'){
+    updateUI();
+    get('modalRemaining').classList.add('active');
+  }
+}
+function openRecords(){
+  buildRecordsTable();
+  get('modalRecords').classList.add('active');
+}
+function closeModal(id){
+  get(id).classList.remove('active');
+}
+
+// Close overlay on backdrop click
+document.querySelectorAll('.modal-overlay').forEach(el=>{
+  el.addEventListener('click', function(e){
+    if(e.target === this) this.classList.remove('active');
+  });
+});
+
+// ── Submit Receive ──
+function submitReceive(){
+  const qty = parseInt(get('inputReceived').value) || 0;
+  const date = get('inputReceiveDate').value || new Date().toISOString().slice(0,10);
+  if(qty <= 0){ alert('Please enter a valid quantity.'); return; }
+
+  totalReceived += qty;
+  addRecord(date, qty, 0);
+  get('inputReceived').value = '';
+  get('inputReceiveNote').value = '';
+  updateUI();
+  closeModal('modalReceive');
+  showToast('Received record saved!');
+}
+
+// ── Submit Distribute ──
+function submitDistribute(){
+  const qty = parseInt(get('inputDistributed').value) || 0;
+  const date = get('inputDistributeDate').value || new Date().toISOString().slice(0,10);
+  const remaining = totalReceived - totalDistributed;
+  if(qty <= 0){ alert('Please enter a valid quantity.'); return; }
+  if(qty > remaining){ alert('Cannot distribute more than remaining stock (' + remaining + ').'); return; }
+
+  totalDistributed += qty;
+  addRecord(date, 0, qty);
+  get('inputDistributed').value = '';
+  get('inputFacility').value = '';
+  updateUI();
+  closeModal('modalDistribute');
+  showToast('Distribution record saved!');
+}
+
+// ── Records ──
+function addRecord(date, recv, dist){
+  const rem = totalReceived - totalDistributed;
+  records.push({ date, recv, dist, rem });
+}
+
+function buildRecordsTable(){
+  const tbody = get('recordsBody');
+  if(records.length === 0){
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#b0c4ae;padding:20px;">No records yet</td></tr>';
+    return;
+  }
+  tbody.innerHTML = records.map(r => `
+    <tr>
+      <td>${r.date}</td>
+      <td>${r.recv > 0 ? '<span class="rec-tag in">+'+r.recv+'</span>' : '—'}</td>
+      <td>${r.dist > 0 ? '<span class="rec-tag out">-'+r.dist+'</span>' : '—'}</td>
+      <td><span class="rec-tag rem">${r.rem}</span></td>
+    </tr>
+  `).join('');
+}
+
+// ── Toast ──
+function showToast(msg){
+  const t = get('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=> t.classList.remove('show'), 2500);
+}
+
+// ── Network indicator ──
+function setNet(online){
+  const pill = get('netPill');
+  const label = get('netLabel');
+  if(online){
+    pill.className = 'net-pill online';
+    label.textContent = 'Online';
+  } else {
+    pill.className = 'net-pill offline';
+    label.textContent = 'Offline';
+  }
+}
+window.addEventListener('online',  () => setNet(true));
+window.addEventListener('offline', () => setNet(false));
+setNet(navigator.onLine);
+
+// Init display
+updateUI();
+</script>
+</body>
+</html>
