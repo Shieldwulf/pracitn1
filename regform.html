@@ -5,137 +5,255 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ICF-SL — Household Registration</title>
 <style>
-/* RESET & BASE */
+/* ===================== RESET & BASE ===================== */
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4ed; display: flex; justify-content: center; min-height: 100vh; }
-.app-shell { width: 100%; max-width: 430px; background: #f0f4ed; min-height: 100vh; display: flex; flex-direction: column; box-shadow: 0 0 30px rgba(0,0,0,0.12); }
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f4ed;
+  display: flex; justify-content: center; min-height: 100vh;
+}
+.app-shell {
+  width: 100%; max-width: 430px;
+  background: #f0f4ed; min-height: 100vh;
+  display: flex; flex-direction: column;
+  box-shadow: 0 0 30px rgba(0,0,0,0.12);
+}
 
-/* STATUS BAR */
-.status-bar { background: #6b7a8d; color: #e2e8f0; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px 8px; font-size: 12px; font-weight: 500; flex-shrink: 0; }
+/* ===================== STATUS BAR ===================== */
+.status-bar {
+  background: #6b7a8d; color: #e2e8f0;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 20px 8px; font-size: 12px; font-weight: 500;
+  flex-shrink: 0;
+}
 
-/* HEADER */
+/* ===================== HEADER ===================== */
 .header-band { background: #6b7a8d; padding: 12px 20px 14px; flex-shrink: 0; border-radius: 0 0 28px 28px; }
 .centre-logo-wrap { display: flex; justify-content: center; margin-bottom: 6px; }
-.centre-logo-wrap img { height: 58px; width: auto; object-fit: contain; border-radius: 10px; background: #fff; padding: 5px 12px; }
-.partners-label { text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #d1dbe8; margin-bottom: 8px; }
+.logo-box {
+  height: 58px; display: flex; align-items: center; justify-content: center;
+  background: #fff; border-radius: 10px; padding: 5px 24px;
+  font-size: 18px; font-weight: 700; color: #1c2b1c; letter-spacing: 1px;
+}
+.partners-label {
+  text-align: center; font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: #d1dbe8; margin-bottom: 8px;
+}
 .partner-logos { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 8px; }
-.partner-logo { background: #fff; border-radius: 12px; height: 52px; display: flex; align-items: center; justify-content: center; padding: 5px; overflow: hidden; }
-.partner-logo img { max-height: 36px; max-width: 100%; object-fit: contain; }
+.partner-logo {
+  background: #fff; border-radius: 12px; height: 52px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 5px; overflow: hidden;
+  font-size: 10px; font-weight: 700; color: #4a5568;
+}
+.partner-logo-empty {
+  background: #7a8da0; border: 1.5px dashed #9ab0c8; border-radius: 12px;
+  height: 46px; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: #d1dbe8;
+}
 
-/* SUB-HEADER */
-.sub-header { background: #6b7a8d; padding: 12px 16px 14px; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-.back-btn { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.18); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.15s; }
+/* Sub-screen header */
+.sub-header {
+  background: #6b7a8d; padding: 12px 16px 14px;
+  display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+}
+.back-btn {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(255,255,255,0.18); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background 0.15s;
+}
 .back-btn:hover { background: rgba(255,255,255,0.3); }
 .sub-title { font-size: 15px; font-weight: 700; color: #fff; }
-.sub-sub { font-size: 10px; color: #c5d0dc; margin-top: 2px; }
+.sub-sub   { font-size: 10px; color: #c5d0dc; margin-top: 2px; }
 
-/* PROGRESS */
+/* Step dots + progress */
 .step-dots { display:flex; justify-content:center; gap:7px; padding: 10px 0 4px; background: #6b7a8d; flex-shrink:0; }
 .dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.25); transition:all 0.3s; }
 .dot.active { background:#68d391; width:20px; border-radius:4px; }
-.dot.done { background:rgba(104,211,145,0.55); }
+.dot.done   { background:rgba(104,211,145,0.55); }
 .prog-wrap { background: rgba(255,255,255,0.15); border-radius:10px; height:4px; overflow:hidden; margin: 0 16px 5px; flex-shrink:0; }
 .prog-fill { height:100%; background:#68d391; border-radius:10px; transition:width 0.4s; }
 .prog-labels { display:flex; justify-content:space-between; padding: 0 16px 8px; font-size:10px; color:#a8b8c8; background:#6b7a8d; flex-shrink:0; }
 
-/* CONTENT */
+/* ===================== CONTENT ===================== */
 .content-area { padding: 20px 16px; flex: 1; }
-.section-label { font-size: 11px; font-weight: 700; color: #4a7048; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
+.section-label {
+  font-size: 11px; font-weight: 700; color: #4a7048;
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px;
+}
 
-/* DASHBOARD CARDS */
+/* ===================== 2×2 HOME CARDS ===================== */
 .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.dash-card { background: #fff; border-radius: 20px; border: 0.5px solid #d4e4cf; padding: 30px 18px 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; cursor: pointer; text-decoration: none; transition: background 0.15s, transform 0.12s; min-height: 200px; -webkit-tap-highlight-color: transparent; }
+.dash-card {
+  background: #fff; border-radius: 20px; border: 0.5px solid #d4e4cf;
+  padding: 30px 18px 28px;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 14px;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.15s, transform 0.12s;
+  min-height: 200px; -webkit-tap-highlight-color: transparent;
+}
 .dash-card:hover { background: #e8f2e5; transform: translateY(-2px); }
 .dash-card:active { transform: scale(0.96); }
 .dash-card.logout { border-color: #fcd5d5; }
 .dash-card.logout:hover { background: #fff0f0; }
 .card-icon { width: 68px; height: 68px; border-radius: 20px; display: flex; align-items: center; justify-content: center; }
 .card-icon svg { width: 34px; height: 34px; }
-.ci-blue { background: #d6e8ff; }
-.ci-green { background: #ddf0d8; }
-.ci-amber { background: #fde8c8; }
-.ci-red { background: #fde8e8; }
+.ci-blue   { background: #d6e8ff; }
+.ci-green  { background: #ddf0d8; }
+.ci-amber  { background: #fde8c8; }
+.ci-red    { background: #fde8e8; }
 .card-label { font-size: 15px; font-weight: 700; color: #1c2b1c; text-align: center; line-height: 1.3; }
 .card-sublabel { font-size: 12px; color: #7a9e76; text-align: center; }
 .dash-card.logout .card-label { color: #b02828; }
 
-/* FORM BODY */
+/* ===================== FORM BODY ===================== */
 .form-body { flex: 1; padding: 16px; overflow-y: auto; }
+
+/* ===================== FORM SECTION CARD ===================== */
 .form-section { background:#fff; border-radius:18px; border:0.5px solid #d4e4cf; overflow:hidden; margin-bottom: 2px; }
-.sec-hdr { display:flex; align-items:center; gap:10px; padding:13px 16px 11px; border-bottom:0.5px solid #eef4ec; }
+.sec-hdr {
+  display:flex; align-items:center; gap:10px;
+  padding:13px 16px 11px; border-bottom:0.5px solid #eef4ec;
+}
 .sec-icon { width:34px; height:34px; border-radius:11px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .sec-icon svg { width:18px; height:18px; }
 .sec-title { font-size:13px; font-weight:700; color:#1c2b1c; }
-.sec-desc { font-size:10px; color:#5a7258; margin-top:1px; }
+.sec-desc  { font-size:10px; color:#5a7258; margin-top:1px; }
 .sec-fields { padding:14px 16px 16px; display:flex; flex-direction:column; gap:12px; }
 
-/* FIELDS */
+/* ===================== FIELDS ===================== */
 .field { display:flex; flex-direction:column; gap:5px; }
+.field-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .flabel { font-size:11px; font-weight:600; color:#4a7048; }
 .flabel .req { color:#e53e3e; margin-left:2px; }
 .hint { font-size:10px; color:#8aab88; margin-top:2px; }
 
 input[type=text],input[type=number],input[type=tel],input[type=date],select,textarea {
-  width:100%; padding:10px 12px; border:1px solid #d4e4cf; border-radius:10px; font-size:13px; color:#1c2b1c; background:#f8fbf7; outline:none; font-family:inherit; appearance:none; -webkit-appearance:none; transition:border-color 0.15s, box-shadow 0.15s;
+  width:100%; padding:10px 12px; border:1px solid #d4e4cf; border-radius:10px;
+  font-size:13px; color:#1c2b1c; background:#f8fbf7; outline:none;
+  font-family:inherit; appearance:none; -webkit-appearance:none;
+  transition:border-color 0.15s, box-shadow 0.15s;
 }
-input:focus, select:focus, textarea:focus { border-color:#4a7048; box-shadow:0 0 0 3px rgba(74,112,72,0.12); background:#fff; }
+input:focus, select:focus, textarea:focus {
+  border-color:#4a7048; box-shadow:0 0 0 3px rgba(74,112,72,0.12); background:#fff;
+}
 input[readonly] { background:#eef4ec; color:#555; cursor:not-allowed; }
-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234a7048' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; padding-right:32px; }
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234a7048' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 12px center; padding-right:32px;
+}
 textarea { resize:none; min-height:64px; line-height:1.5; }
 
 .err-msg { font-size:10px; color:#e53e3e; display:none; margin-top:2px; }
 .field.err input,.field.err select,.field.err textarea { border-color:#e53e3e !important; box-shadow:0 0 0 3px rgba(229,62,62,0.1) !important; }
 .field.err .err-msg { display:block; }
 
+/* radio pills */
 .radio-group,.check-group { display:flex; flex-wrap:wrap; gap:7px; margin-top:2px; }
-.rpill { display:flex; align-items:center; gap:6px; padding:8px 13px; border:1px solid #d4e4cf; border-radius:20px; cursor:pointer; font-size:12px; color:#2d4a2d; background:#f8fbf7; transition:all 0.15s; user-select:none; }
+.rpill {
+  display:flex; align-items:center; gap:6px;
+  padding:8px 13px; border:1px solid #d4e4cf; border-radius:20px;
+  cursor:pointer; font-size:12px; color:#2d4a2d; background:#f8fbf7;
+  transition:all 0.15s; user-select:none;
+}
 .rpill input { display:none; }
 .rpill.sel { background:#ddf0d8; border-color:#4a7048; color:#2e6e28; font-weight:700; }
 
+/* GPS row */
 .gps-row { display:flex; gap:8px; }
 .gps-row input { flex:1; }
-.gps-btn { padding:10px 13px; background:#4a7048; color:#fff; border:none; border-radius:10px; cursor:pointer; font-size:12px; font-weight:600; white-space:nowrap; transition:background 0.15s; display:flex; align-items:center; gap:5px; }
+.gps-btn {
+  padding:10px 13px; background:#4a7048; color:#fff; border:none;
+  border-radius:10px; cursor:pointer; font-size:12px; font-weight:600;
+  white-space:nowrap; transition:background 0.15s;
+  display:flex; align-items:center; gap:5px;
+}
 .gps-btn:hover { background:#2e5c28; }
 
-.consent-box { background:#fff8e6; border:1px solid #f0c040; border-radius:14px; padding:14px 16px; font-size:12px; color:#6b4c00; line-height:1.65; }
+/* consent box */
+.consent-box {
+  background:#fff8e6; border:1px solid #f0c040; border-radius:14px;
+  padding:14px 16px; font-size:12px; color:#6b4c00; line-height:1.65;
+}
 .consent-box strong { display:block; margin-bottom:6px; font-size:13px; color:#4a3200; }
 
-.token-display { background:#1c2b1c; color:#68d391; font-family:monospace; font-size:18px; font-weight:700; letter-spacing:2px; border-radius:12px; padding:13px 16px; text-align:center; word-break:break-all; }
+/* token */
+.token-display {
+  background:#1c2b1c; color:#68d391; font-family:monospace;
+  font-size:18px; font-weight:700; letter-spacing:2px;
+  border-radius:12px; padding:13px 16px; text-align:center;
+  word-break:break-all;
+}
+/* itn badge */
 .itn-badge { background:#ddf0d8; border-radius:12px; padding:12px 16px; text-align:center; }
-.itn-num { font-size:38px; font-weight:700; color:#2e6e28; line-height:1; }
+.itn-num  { font-size:38px; font-weight:700; color:#2e6e28; line-height:1; }
 .itn-text { font-size:12px; color:#4a7048; margin-top:4px; }
+/* total auto-calc */
 .auto-field { background:#eef4ec !important; color:#2e5c28 !important; font-weight:700; }
 
-/* NAV BUTTONS */
+/* ===================== NAV BUTTONS ===================== */
 .nav-btns { display:flex; gap:10px; padding:12px 16px 18px; background:#f0f4ed; flex-shrink:0; }
-.btn-back { flex:1; padding:13px; background:transparent; color:#4a5568; border:1px solid #d4e4cf; border-radius:14px; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px; transition:background 0.15s; }
+.btn-back {
+  flex:1; padding:13px; background:transparent; color:#4a5568;
+  border:1px solid #d4e4cf; border-radius:14px;
+  font-size:13px; font-weight:600; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:5px;
+  transition:background 0.15s;
+}
 .btn-back:hover { background:#eef4ec; }
-.btn-next { flex:2; padding:13px; background:#6b7a8d; color:#fff; border:none; border-radius:14px; font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; transition:background 0.15s, transform 0.1s; }
+.btn-next {
+  flex:2; padding:13px; background:#6b7a8d; color:#fff;
+  border:none; border-radius:14px;
+  font-size:14px; font-weight:700; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  transition:background 0.15s, transform 0.1s;
+}
 .btn-next:hover { background:#4a5568; }
 .btn-next:active { transform:scale(0.98); }
-.btn-submit-final { flex:2; padding:13px; background:#2e6e28; color:#fff; border:none; border-radius:14px; font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; transition:background 0.15s, transform 0.1s; }
+.btn-submit-final {
+  flex:2; padding:13px; background:#2e6e28; color:#fff;
+  border:none; border-radius:14px;
+  font-size:14px; font-weight:700; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  transition:background 0.15s, transform 0.1s;
+}
 .btn-submit-final:hover { background:#1c4a18; }
 .btn-submit-final:active { transform:scale(0.98); }
 
-/* SUMMARY */
+/* ===================== SUMMARY ===================== */
 .sum-card { background:#fff; border-radius:18px; border:0.5px solid #d4e4cf; margin-bottom:12px; overflow:hidden; }
-.sum-card-hdr { display:flex; align-items:center; gap:8px; padding:11px 14px; background:#f5faf3; border-bottom:0.5px solid #eef4ec; font-size:12px; font-weight:700; color:#2e6e28; }
+.sum-card-hdr {
+  display:flex; align-items:center; gap:8px;
+  padding:11px 14px; background:#f5faf3;
+  border-bottom:0.5px solid #eef4ec;
+  font-size:12px; font-weight:700; color:#2e6e28;
+}
 .sum-card-hdr svg { width:15px; height:15px; flex-shrink:0; }
-.sum-row { display:flex; justify-content:space-between; align-items:flex-start; padding:8px 14px; border-bottom:0.5px solid #f0f7ee; gap:10px; }
+.sum-row {
+  display:flex; justify-content:space-between; align-items:flex-start;
+  padding:8px 14px; border-bottom:0.5px solid #f0f7ee; gap:10px;
+}
 .sum-row:last-child { border-bottom:none; }
 .sk { font-size:11px; color:#5a7258; font-weight:500; min-width:115px; flex-shrink:0; }
 .sv { font-size:12px; color:#1c2b1c; font-weight:600; text-align:right; word-break:break-word; }
 
-/* RECORDS */
+/* ===================== RECORDS ===================== */
 .records-wrap { flex:1; overflow:auto; padding:12px; }
 .rec-table { width:100%; border-collapse:collapse; font-size:11px; }
-.rec-table th { background:#6b7a8d; color:#fff; padding:9px 8px; text-align:left; font-size:10px; font-weight:700; letter-spacing:0.3px; white-space:nowrap; position:sticky; top:0; }
+.rec-table th {
+  background:#6b7a8d; color:#fff; padding:9px 8px;
+  text-align:left; font-size:10px; font-weight:700;
+  letter-spacing:0.3px; white-space:nowrap; position:sticky; top:0;
+}
 .rec-table td { padding:8px 8px; border-bottom:0.5px solid #eef4ec; color:#1c2b1c; white-space:nowrap; }
 .rec-table tr:nth-child(even) td { background:#f5faf3; }
 .rec-table tr:hover td { background:#e8f2e5; }
 .no-records { text-align:center; padding:40px 16px; color:#7a9e76; font-size:13px; line-height:1.8; }
 
-/* TARGET */
+/* ===================== TARGET ===================== */
 .tgt-card { background:#fff; border-radius:18px; border:0.5px solid #d4e4cf; padding:18px; margin-bottom:12px; }
 .tgt-row { display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:0.5px solid #eef4ec; }
 .tgt-row:last-child { border-bottom:none; }
@@ -144,54 +262,103 @@ textarea { resize:none; min-height:64px; line-height:1.5; }
 .tbar-wrap { height:6px; background:#eef4ec; border-radius:10px; margin-top:14px; overflow:hidden; }
 .tbar-fill { height:100%; border-radius:10px; background:#4a7048; transition:width 0.6s; }
 
-/* SCREENS & ANIMATIONS */
+/* ===================== SCREENS ===================== */
 .screen { display:none; flex-direction:column; min-height:100vh; }
 .screen.active { display:flex; }
+
+/* ===================== ANIMATIONS ===================== */
 @keyframes slideIn { from{opacity:0;transform:translateX(28px)} to{opacity:1;transform:translateX(0)} }
 @keyframes slideInBack { from{opacity:0;transform:translateX(-28px)} to{opacity:1;transform:translateX(0)} }
-.anim-in { animation:slideIn 0.28s ease; }
+.anim-in   { animation:slideIn 0.28s ease; }
 .anim-back { animation:slideInBack 0.28s ease; }
 
-/* FOOTER & TOAST */
-.footer-strip { background: #6b7a8d; color: #d1dbe8; text-align: center; padding: 13px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; flex-shrink:0; }
-.toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(100px); background:#2d6a2d; color:#fff; padding:13px 22px; border-radius:14px; font-size:14px; font-weight:600; box-shadow:0 4px 20px rgba(0,0,0,0.2); transition:transform 0.35s ease; z-index:9999; white-space:nowrap; pointer-events:none; }
+/* ===================== FOOTER ===================== */
+.footer-strip {
+  background: #6b7a8d; color: #d1dbe8;
+  text-align: center; padding: 13px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.5px; flex-shrink:0;
+}
+
+/* ===================== TOAST ===================== */
+.toast {
+  position:fixed; bottom:28px; left:50%;
+  transform:translateX(-50%) translateY(100px);
+  background:#2d6a2d; color:#fff; padding:13px 22px;
+  border-radius:14px; font-size:14px; font-weight:600;
+  box-shadow:0 4px 20px rgba(0,0,0,0.2);
+  transition:transform 0.35s ease; z-index:9999; white-space:nowrap;
+  pointer-events:none;
+}
 .toast.show { transform:translateX(-50%) translateY(0); }
+
+/* ── ONLINE / OFFLINE INDICATOR ── */
+.net-indicator {
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(0,0,0,0.25); border-radius: 20px;
+  padding: 3px 8px 3px 6px; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.3px; transition: background 0.4s;
+}
+.net-indicator.online  { background: rgba(104,211,145,0.25); color: #68d391; }
+.net-indicator.offline { background: rgba(229,62,62,0.25);   color: #fc8181; }
+.net-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  flex-shrink: 0; transition: background 0.4s;
+}
+.net-indicator.online  .net-dot { background: #68d391; box-shadow: 0 0 0 2px rgba(104,211,145,0.35); }
+.net-indicator.offline .net-dot { background: #fc8181; box-shadow: 0 0 0 2px rgba(252,129,129,0.35); }
 </style>
+<base target="_blank">
 </head>
 <body>
 
 <div class="app-shell screen active" id="homeScreen">
-  <div class="status-bar"><div style="display:flex;gap:8px;align-items:center;margin-left:auto;"><div style="background:rgba(0,0,0,0.25); border-radius: 20px; padding: 3px 8px 3px 6px; font-size: 10px; font-weight: 700; color: #68d391;">ONLINE</div></div></div>
+  <div class="status-bar">
+    <div style="display:flex;gap:8px;align-items:center;margin-left:auto;">
+      <div class="net-indicator online" id="netIndicatorHome">
+        <div class="net-dot"></div><span id="netLabelHome">Online</span>
+      </div>
+    </div>
+  </div>
   <div class="header-band">
-    <div class="centre-logo-wrap"><img id="icfHome" alt="ICF-SL" src=""></div>
+    <div class="centre-logo-wrap"><div class="logo-box">ICF-SL</div></div>
     <div class="partners-label">Partners</div>
     <div class="partner-logos">
-      <div class="partner-logo"><img id="mohLogo" alt="MoH" src=""></div>
-      <div class="partner-logo"><img id="nmcpLogo" alt="NMCP" src=""></div>
-      <div class="partner-logo"><img id="pmiLogo" alt="PMI" src=""></div>
-      <div class="partner-logo" style="background:#7a8da0;"></div>
+      <div class="partner-logo">MOH</div>
+      <div class="partner-logo">NMCP</div>
+      <div class="partner-logo">PMI</div>
+      <div class="partner-logo-empty">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9ab0c8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      </div>
     </div>
   </div>
   <div class="content-area">
     <div class="section-label">Modules</div>
     <div class="card-grid">
       <div class="dash-card" onclick="startReg()">
-        <div class="card-icon ci-blue"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div class="card-icon ci-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
         <div class="card-label">Register New Household</div>
         <div class="card-sublabel">Start registration</div>
       </div>
       <div class="dash-card" onclick="showScreen('recordsScreen')">
-        <div class="card-icon ci-green"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <div class="card-icon ci-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
         <div class="card-label">Records</div>
         <div class="card-sublabel">View registrations</div>
       </div>
       <div class="dash-card" onclick="showScreen('targetScreen')">
-        <div class="card-icon ci-amber"><svg viewBox="0 0 24 24" fill="none" stroke="#b06010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <div class="card-icon ci-amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#b06010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </div>
         <div class="card-label">Target</div>
         <div class="card-sublabel">Coverage goals</div>
       </div>
       <div class="dash-card logout" onclick="doLogout()">
-        <div class="card-icon ci-red"><svg viewBox="0 0 24 24" fill="none" stroke="#b02828" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></div>
+        <div class="card-icon ci-red">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#b02828" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </div>
         <div class="card-label">Log Out</div>
         <div class="card-sublabel">Exit session</div>
       </div>
@@ -201,9 +368,18 @@ textarea { resize:none; min-height:64px; line-height:1.5; }
 </div>
 
 <div class="app-shell screen" id="regScreen">
-  <div class="status-bar"><div style="margin-left:auto; background:rgba(0,0,0,0.25); border-radius: 20px; padding: 3px 8px 3px 6px; font-size: 10px; font-weight: 700; color: #68d391;">ONLINE</div></div>
+  <div class="status-bar">
+    <div style="display:flex;gap:8px;align-items:center;margin-left:auto;">
+      <div class="net-indicator online" id="netIndicatorReg">
+        <div class="net-dot"></div><span id="netLabelReg">Online</span>
+      </div>
+    </div>
+  </div>
   <div class="sub-header">
-    <button class="back-btn" id="regBackBtn" onclick="regGoBack()"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="back-btn" id="regBackBtn" onclick="regGoBack()">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div style="height:36px;border-radius:7px;background:#fff;padding:3px 12px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#1c2b1c;font-size:14px;">ICF-SL</div>
     <div>
       <div class="sub-title">Household Registration</div>
       <div class="sub-sub" id="regStepLabel">Step 1 of 5</div>
@@ -212,19 +388,29 @@ textarea { resize:none; min-height:64px; line-height:1.5; }
   <div class="step-dots" id="regDots"></div>
   <div class="prog-wrap"><div class="prog-fill" id="regProg" style="width:20%"></div></div>
   <div class="prog-labels"><span id="regStepName">Consent</span><span id="regPct">20%</span></div>
+
   <div class="form-body" id="regFormBody"></div>
+
   <div class="nav-btns">
-    <button class="btn-back" id="navBack" onclick="regGoBack()" style="display:none;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Back</button>
-    <button class="btn-next" id="navNext" onclick="regGoNext()">Next <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
-    <button class="btn-submit-final" id="navSubmit" onclick="finalSubmit()" style="display:none;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Confirm &amp; Submit</button>
+    <button class="btn-back" id="navBack" onclick="regGoBack()" style="display:none;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Back
+    </button>
+    <button class="btn-next"         id="navNext"   onclick="regGoNext()">Next <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+    <button class="btn-submit-final" id="navSubmit" onclick="finalSubmit()" style="display:none;">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Confirm &amp; Submit
+    </button>
   </div>
   <div class="footer-strip">Powered By ICF-SL</div>
 </div>
 
 <div class="app-shell screen" id="recordsScreen">
-  <div class="status-bar"></div>
+  <div class="status-bar">
+    <div style="display:flex;gap:6px;"></div>
+  </div>
   <div class="sub-header">
-    <button class="back-btn" onclick="showScreen('homeScreen')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="back-btn" onclick="showScreen('homeScreen')">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
     <div><div class="sub-title">Records</div><div class="sub-sub">All registered households</div></div>
   </div>
   <div class="records-wrap" id="recordsWrap"></div>
@@ -232,9 +418,15 @@ textarea { resize:none; min-height:64px; line-height:1.5; }
 </div>
 
 <div class="app-shell screen" id="targetScreen">
-  <div class="status-bar"></div>
+  <div class="status-bar">
+    <div style="display:flex;gap:8px;align-items:center;margin-left:auto;">
+      <div class="net-indicator online" id="netIndicatorTgt"><div class="net-dot"></div><span id="netLabelTgt">Online</span></div>
+    </div>
+  </div>
   <div class="sub-header">
-    <button class="back-btn" onclick="showScreen('homeScreen')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="back-btn" onclick="showScreen('homeScreen')">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
     <div><div class="sub-title">Target</div><div class="sub-sub">Registration targets &amp; progress</div></div>
   </div>
   <div class="form-body">
@@ -268,614 +460,235 @@ function loadRecords(){ try{ return JSON.parse(localStorage.getItem(SKEY)||'[]')
 function saveRecords(r){ localStorage.setItem(SKEY,JSON.stringify(r)); }
 function getTarget(){ return parseInt(localStorage.getItem(TKEY)||'500'); }
 
-// ===================== APP STATE =====================
-let currentStep = 1;
-const totalSteps = 5;
-let formData = {
-  consent: '', region: '', district: '', chiefdom: '', healthFacility: '', community: '', townVillage: '', gps: '',
-  firstName: '', lastName: '', phone: '', under5: 0, pregnant: 0, above5: 0, totalMembers: 0, itnIssued: 0, token: ''
-};
-
-const GEO_DATA = {
-  "Northern Region": { districts: ["Falaba", "Bombali", "Koinadugu", "Tonkolili"], chiefdoms: ["Wara Wara Zagala", "Wara Wara Yagala", "Biriwa", "Sella Limba", "Gbanti", "Kasunko"] },
-  "Southern Region": { districts: ["Bonthe", "Bo", "Moyamba", "Pujehun"], chiefdoms: ["Nongoma Bullom", "Sittia", "Imperri", "Yawbeko", "Bum", "Kanda Kassah"] },
-  "Eastern Region": { districts: ["Kono", "Kenema", "Kailahun"], chiefdoms: ["Nimi Koro", "Nimi Yalama", "Tankoro", "Faiama", "Gbane", "Soa"] },
-  "Western Area": { districts: ["Western Area Rural", "Western Area Urban"], chiefdoms: ["Waterloo", "Newton", "Benguema", "Tombo", "Central", "East"] }
-};
-
-const stepsConfig = {
-  1: { name: "Consent", render: renderConsent },
-  2: { name: "Geographics", render: renderLocation },
-  3: { name: "Identity Context", render: renderIdentity },
-  4: { name: "Demographics & Metrics", render: renderComposition },
-  5: { name: "Summary", render: renderSummary }
-};
-
-// ===================== INIT =====================
-window.addEventListener('DOMContentLoaded', () => {
-  updateTargetUI();
-});
-
-// ===================== SCREEN CONTROLLER =====================
-function showScreen(screenId) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  const target = document.getElementById(screenId);
-  target.classList.add('active');
-  if(screenId === 'homeScreen') {
-    updateTargetUI();
-  } else if(screenId === 'recordsScreen') {
-    buildRecordsTable();
-  }
+// ===================== SCREENS =====================
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(id==='recordsScreen') renderRecords();
+  if(id==='targetScreen') renderTarget();
 }
 
-function doLogout() {
-  if (confirm("Are you sure you want to log out?")) {
-    sessionStorage.clear();
-    localStorage.removeItem("itn_logged_user");
-    localStorage.removeItem("itn_user_role");
-    localStorage.removeItem("itn_user_district");
-    window.location.href = "index.html"; // Change to your actual login page
-  }
+// ===================== REGISTRATION WIZARD =====================
+let step=1;
+const totalSteps=5;
+let formData={};
+
+function startReg(){ step=1; formData={}; buildStep(); showScreen('regScreen'); }
+
+function regGoBack(){
+  if(step>1){ step--; buildStep(); }
+  else showScreen('homeScreen');
 }
 
-// ===================== REGISTRATION FLOW =====================
-function startReg() {
-  currentStep = 1;
-  formData = {
-    consent: '', region: '', district: '', chiefdom: '', healthFacility: '', community: '', townVillage: '', gps: '',
-    firstName: '', lastName: '', phone: '', under5: 0, pregnant: 0, above5: 0, totalMembers: 0, itnIssued: 0, token: ''
-  };
-  showScreen('regScreen');
-  goToStep(1, 'next');
+function regGoNext(){
+  if(validateStep()){ step++; buildStep(); }
 }
 
-function goToStep(stepNum, direction) {
-  currentStep = stepNum;
-  document.getElementById('regStepLabel').innerText = `Step ${currentStep} of ${totalSteps}`;
-  document.getElementById('regStepName').innerText = stepsConfig[currentStep].name;
-  const pct = Math.round((currentStep / totalSteps) * 100);
-  document.getElementById('regPct').innerText = pct + "%";
-  document.getElementById('regProg').style.width = pct + "%";
-
-  const dotsContainer = document.getElementById('regDots');
-  dotsContainer.innerHTML = '';
-  for(let i = 1; i <= totalSteps; i++) {
-    const dot = document.createElement('div');
-    dot.className = 'dot';
-    if(i === currentStep) dot.classList.add('active');
-    else if(i < currentStep) dot.classList.add('done');
-    dotsContainer.appendChild(dot);
-  }
-
-  const body = document.getElementById('regFormBody');
-  body.innerHTML = '';
-  const card = document.createElement('div');
-  card.className = "form-section " + (direction === 'back' ? 'anim-back' : 'anim-in');
-  card.innerHTML = stepsConfig[currentStep].render();
-  body.appendChild(card);
-
-  postRenderStep(currentStep);
-
-  document.getElementById('navBack').style.display = currentStep === 1 ? 'none' : 'flex';
-  if(currentStep === totalSteps) {
-    document.getElementById('navNext').style.display = 'none';
-    document.getElementById('navSubmit').style.display = 'flex';
-  } else {
-    document.getElementById('navNext').style.display = 'flex';
-    document.getElementById('navSubmit').style.display = 'none';
-  }
-}
-
-function regGoNext() {
-  if(validateStep(currentStep)) {
-    saveCurrentStepData(currentStep);
-    if(formData.consent === 'no' && currentStep === 1) {
-      showToast("Consent declined. Returning to main menu.");
-      showScreen('homeScreen');
-      return;
-    }
-    goToStep(currentStep + 1, 'next');
-  } else {
-    showToast("Please correct validation errors before proceeding.");
-  }
-}
-
-function regGoBack() {
-  if (currentStep === 1) {
-    showScreen('homeScreen');
-    return;
-  }
-  saveCurrentStepData(currentStep);
-  goToStep(currentStep - 1, 'back');
-}
-
-// ===================== STEP RENDERING =====================
-function renderConsent() {
-  return `
-  <div class="sec-hdr">
-    <div class="sec-icon ci-blue"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-    <div><div class="sec-title">Consent</div><div class="sec-desc">Acknowledge monitoring accountability compliance parameters</div></div>
-  </div>
-  <div class="sec-fields">
-    <div class="consent-box">
-      <strong>Mandatory Participation Briefing</strong>
-      Do you formally agree to participate in this ICF-SL digital registration project for monitoring accountability, geographic location assessment mapping, and ITN distribution protocols?
-    </div>
-    <div class="field" id="f-consent">
-      <label class="flabel">Give Consent? <span class="req">*</span></label>
-      <div class="radio-group">
-        <div class="rpill ${formData.consent==='yes'?'sel':''}" onclick="selectPill(this,'consent','yes')"><input type="radio" name="consent" value="yes" ${formData.consent==='yes'?'checked':''}> Yes, Continue</div>
-        <div class="rpill ${formData.consent==='no'?'sel':''}" onclick="selectPill(this,'consent','no')"><input type="radio" name="consent" value="no" ${formData.consent==='no'?'checked':''}> No, Terminate</div>
-      </div>
-      <div class="err-msg">Please select an option to confirm choice</div>
-    </div>
-  </div>`;
-}
-
-function renderLocation() {
-  const regions = Object.keys(GEO_DATA);
-  let regionOpts = `<option value="">Select Region...</option>`;
-  regions.forEach(r => { regionOpts += `<option value="${r}" ${formData.region===r?'selected':''}>${r}</option>`; });
-
-  return `
-  <div class="sec-hdr">
-    <div class="sec-icon ci-blue"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-    <div><div class="sec-title">Geo-Hierarchy</div><div class="sec-desc">Select specific administrative boundaries</div></div>
-  </div>
-  <div class="sec-fields">
-    <div class="field" id="f-region">
-      <label class="flabel">Region <span class="req">*</span></label>
-      <select id="region" onchange="onRegionChange()">${regionOpts}</select>
-      <div class="err-msg">Region selection is required</div>
-    </div>
-    <div class="field" id="f-district">
-      <label class="flabel">District <span class="req">*</span></label>
-      <select id="district" onchange="onDistrictChange()"><option value="">Select District...</option></select>
-      <div class="err-msg">District selection is required</div>
-    </div>
-    <div class="field" id="f-chiefdom">
-      <label class="flabel">Chiefdom/Zone <span class="req">*</span></label>
-      <select id="chiefdom"><option value="">Select Chiefdom/Zone...</option></select>
-      <div class="err-msg">Chiefdom selection required</div>
-    </div>
-    <div class="field" id="f-healthFacility">
-      <label class="flabel">Health Facility <span class="req">*</span></label>
-      <input type="text" id="healthFacility" value="${formData.healthFacility||''}" placeholder="Facility name">
-      <div class="err-msg">Facility record string is required</div>
-    </div>
-    <div class="field" id="f-community">
-      <label class="flabel">Community Name</label>
-      <input type="text" id="community" value="${formData.community||''}" placeholder="Community boundary">
-      <div class="err-msg">Community reference description is required</div>
-    </div>
-    <div class="field" id="f-townVillage">
-      <label class="flabel">Town/Village</label>
-      <input type="text" id="townVillage" value="${formData.townVillage||''}" placeholder="Locality metadata">
-      <div class="err-msg">Town or village identifier required</div>
-    </div>
-  </div>`;
-}
-
-function renderIdentity() {
-  return `
-  <div class="sec-hdr">
-    <div class="sec-icon ci-blue"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-    <div><div class="sec-title">Household Head Information</div><div class="sec-desc">Establish secure identity parameters</div></div>
-  </div>
-  <div class="sec-fields">
-    <div class="field" id="f-firstName">
-      <label class="flabel">Household Head First Name <span class="req">*</span></label>
-      <input type="text" id="firstName" value="${formData.firstName||''}" placeholder="First Name">
-      <div class="err-msg">First name is required</div>
-    </div>
-    <div class="field" id="f-lastName">
-      <label class="flabel">Household Head Last Name <span class="req">*</span></label>
-      <input type="text" id="lastName" value="${formData.lastName||''}" placeholder="Last Name">
-      <div class="err-msg">Last name is required</div>
-    </div>
-    <div class="field" id="f-phone">
-      <label class="flabel">Phone Number <span class="req">*</span></label>
-      <input type="tel" id="phone" value="${formData.phone||''}" maxlength="9" placeholder="9 digits total">
-      <span class="hint">Exactly 9 digits required</span>
-      <div class="err-msg">Invalid phone. Exactly 9 digits allowed.</div>
-    </div>
-  </div>`;
-}
-
-function renderComposition() {
-  return `
-  <div class="sec-hdr">
-    <div class="sec-icon ci-blue"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-    <div><div class="sec-title">Household Composition</div><div class="sec-desc">Specify tracking metrics variables</div></div>
-  </div>
-  <div class="sec-fields">
-    <div class="field" id="f-under5">
-      <label class="flabel">Children under 5 <span class="req">*</span></label>
-      <input type="number" id="under5" value="${formData.under5===0?'':formData.under5}" min="0" oninput="executeLiveCalculations()">
-      <div class="err-msg">Value required</div>
-    </div>
-    <div class="field" id="f-pregnant">
-      <label class="flabel">Pregnant Women <span class="req">*</span></label>
-      <input type="number" id="pregnant" value="${formData.pregnant===0?'':formData.pregnant}" min="0" oninput="executeLiveCalculations()">
-      <div class="err-msg">Value required</div>
-    </div>
-    <div class="field" id="f-above5">
-      <label class="flabel">Above 5 (Children 5+ &amp; Adults) <span class="req">*</span></label>
-      <input type="number" id="above5" value="${formData.above5===0?'':formData.above5}" min="0" oninput="executeLiveCalculations()">
-      <div class="err-msg">Value required</div>
-    </div>
-    <div class="field" id="f-totalMembers">
-      <label class="flabel">Total Cumulative Household Size</label>
-      <input type="number" id="totalMembers" value="${formData.totalMembers||0}" class="auto-field" readonly>
-      <span class="hint">Calculated instantly</span>
-      <div class="err-msg">Sum must be greater than zero</div>
-    </div>
-    <div class="field">
-      <label class="flabel">Calculated Allocation (ITN Units)</label>
-      <div class="itn-badge"><div class="itn-num" id="live-itn-badge">0</div><div class="itn-text">ITN Bed Nets Allocated</div></div>
-    </div>
-    <div class="field">
-      <label class="flabel">System Tracking Token</label>
-      <div class="token-display" id="live-token-badge">-------</div>
-    </div>
-    <div class="field" id="f-gps">
-      <label class="flabel">Capture GPS Coordinate <span class="req">*</span></label>
-      <div class="gps-row">
-        <input type="text" id="gps" value="${formData.gps||''}" placeholder="Lat, Lon" readonly>
-        <button class="gps-btn" onclick="triggerGPSCapture()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg> Acquire</button>
-      </div>
-      <div class="err-msg">GPS is required</div>
-    </div>
-  </div>`;
-}
-
-function renderSummary() {
-  executeLiveCalculationsForData();
-  return `
-  <div class="sec-hdr">
-    <div class="sec-icon ci-green"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-    <div><div class="sec-title">Summary</div><div class="sec-desc">Verify data before commit</div></div>
-  </div>
-  <div style="padding:14px; background:#f0f4ed;">
-    <div class="sum-card">
-      <div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Geographic Boundaries</div>
-      <div class="sum-row"><span class="sk">Consent:</span><span class="sv">${formData.consent.toUpperCase()}</span></div>
-      <div class="sum-row"><span class="sk">Region:</span><span class="sv">${formData.region}</span></div>
-      <div class="sum-row"><span class="sk">District:</span><span class="sv">${formData.district}</span></div>
-      <div class="sum-row"><span class="sk">Chiefdom/Zone:</span><span class="sv">${formData.chiefdom}</span></div>
-      <div class="sum-row"><span class="sk">Health Facility:</span><span class="sv">${formData.healthFacility}</span></div>
-      <div class="sum-row"><span class="sk">Community:</span><span class="sv">${formData.community}</span></div>
-      <div class="sum-row"><span class="sk">Town/Village:</span><span class="sv">${formData.townVillage}</span></div>
-      <div class="sum-row"><span class="sk">GPS:</span><span class="sv">${formData.gps}</span></div>
-    </div>
-    <div class="sum-card">
-      <div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Household Head</div>
-      <div class="sum-row"><span class="sk">Full Name:</span><span class="sv">${formData.firstName} ${formData.lastName}</span></div>
-      <div class="sum-row"><span class="sk">Phone:</span><span class="sv">${formData.phone}</span></div>
-      <div class="sum-row"><span class="sk">Under 5:</span><span class="sv">${formData.under5}</span></div>
-      <div class="sum-row"><span class="sk">Pregnant:</span><span class="sv">${formData.pregnant}</span></div>
-      <div class="sum-row"><span class="sk">Above 5:</span><span class="sv">${formData.above5}</span></div>
-      <div class="sum-row"><span class="sk">Total Members:</span><span class="sv">${formData.totalMembers}</span></div>
-    </div>
-    <div class="sum-card">
-      <div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> ITN Allocation</div>
-      <div class="sum-row"><span class="sk">Calculated ITN Issued:</span><span class="sv" style="color:#2e6e28; font-weight:700;">${formData.itnIssued} Units</span></div>
-      <div class="sum-row"><span class="sk">Tracking Token:</span><span class="sv" style="font-family:monospace; background:#222; color:#68d391; padding:2px 6px; border-radius:4px;">${formData.token}</span></div>
-    </div>
-    <div class="sum-card">
-      <div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Registrar</div>
-      <div class="sum-row"><span class="sk">Username:</span><span class="sv">ICF_SL_Registrar_2026</span></div>
-      <div class="sum-row"><span class="sk">Role:</span><span class="sv">Field Registrar</span></div>
-    </div>
-  </div>`;
-}
-
-// ===================== POST RENDER & UI LOGIC =====================
-function postRenderStep(step) {
-  if(step === 2 && formData.region) {
-    onRegionChange();
-    document.getElementById('district').value = formData.district;
-    onDistrictChange();
-    document.getElementById('chiefdom').value = formData.chiefdom;
-  } else if(step === 4) {
-    executeLiveCalculations();
-  }
-}
-
-function selectPill(pillEl, dataFieldName, stringVal) {
-  const container = pillEl.parentElement;
-  container.querySelectorAll('.rpill').forEach(p => p.classList.remove('sel'));
-  pillEl.classList.add('sel');
-  const radio = pillEl.querySelector('input[type="radio"]');
-  if(radio) radio.checked = true;
-  formData[dataFieldName] = stringVal;
-  document.getElementById(`f-${dataFieldName}`).classList.remove('err');
-}
-
-function onRegionChange() {
-  const rVal = document.getElementById('region').value;
-  formData.region = rVal;
-  formData.district = ''; formData.chiefdom = '';
-  const dSelect = document.getElementById('district');
-  const cSelect = document.getElementById('chiefdom');
-  cSelect.innerHTML = '<option value="">Select Chiefdom/Zone...</option>';
-  if(!rVal) { dSelect.innerHTML = '<option value="">Select District...</option>'; return; }
-  let opts = '<option value="">Select District...</option>';
-  GEO_DATA[rVal].districts.forEach(d => { opts += `<option value="${d}">${d}</option>`; });
-  dSelect.innerHTML = opts;
-}
-
-function onDistrictChange() {
-  const rVal = document.getElementById('region').value;
-  const dVal = document.getElementById('district').value;
-  formData.district = dVal; formData.chiefdom = '';
-  const cSelect = document.getElementById('chiefdom');
-  if(!dVal) { cSelect.innerHTML = '<option value="">Select Chiefdom/Zone...</option>'; return; }
-  let opts = '<option value="">Select Chiefdom/Zone...</option>';
-  GEO_DATA[rVal].chiefdoms.forEach(c => { opts += `<option value="${c}">${c}</option>`; });
-  cSelect.innerHTML = opts;
-}
-
-function triggerGPSCapture() {
-  showToast("Searching satellite network...");
-  if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((pos) => {
-      const lat = pos.coords.latitude.toFixed(6);
-      const lon = pos.coords.longitude.toFixed(6);
-      const output = `${lat}, ${lon}`;
-      document.getElementById('gps').value = output;
-      formData.gps = output;
-      document.getElementById('f-gps').classList.remove('err');
-      showToast("Location verified");
-    }, (err) => {
-      const sLat = (8.484 + (Math.random() - 0.5) * 0.02).toFixed(6);
-      const sLon = (-13.234 + (Math.random() - 0.5) * 0.02).toFixed(6);
-      const output = `${sLat}, ${sLon} (SIM)`;
-      document.getElementById('gps').value = output;
-      formData.gps = output;
-      document.getElementById('f-gps').classList.remove('err');
-      showToast("Location simulated successfully");
-    }, { timeout: 6000 });
-  }
-}
-
-function executeLiveCalculations() {
-  const u5 = parseInt(document.getElementById('under5').value) || 0;
-  const preg = parseInt(document.getElementById('pregnant').value) || 0;
-  const ab5 = parseInt(document.getElementById('above5').value) || 0;
-  const tot = u5 + preg + ab5;
-  document.getElementById('totalMembers').value = tot;
-
-  let itn = 0;
-  if (tot > 0) {
-    if (tot <= 2) itn = 1;
-    else if (tot <= 4) itn = 2;
-    else itn = 3;
-  }
-  document.getElementById('live-itn-badge').innerText = itn;
-
-  // Token: First 2 of First Name + First 1 of Last Name + Phone
-  let firstPart = (formData.firstName || "").trim().substring(0, 2).toUpperCase();
-  while(firstPart.length < 2) firstPart += "X";
-  let secondPart = (formData.lastName || "").trim().substring(0, 1).toUpperCase();
-  if(secondPart.length < 1) secondPart = "X";
-  const cleanPhone = (formData.phone || "").trim();
-  document.getElementById('live-token-badge').innerText = `${firstPart}${secondPart}_${cleanPhone}`;
-}
-
-function executeLiveCalculationsForData() {
-  const tot = (parseInt(formData.under5) || 0) + (parseInt(formData.pregnant) || 0) + (parseInt(formData.above5) || 0);
-  formData.totalMembers = tot;
-  let itn = 0;
-  if (tot > 0) {
-    if (tot <= 2) itn = 1;
-    else if (tot <= 4) itn = 2;
-    else itn = 3;
-  }
-  formData.itnIssued = itn;
-
-  let firstPart = (formData.firstName || "").trim().substring(0, 2).toUpperCase();
-  while(firstPart.length < 2) firstPart += "X";
-  let secondPart = (formData.lastName || "").trim().substring(0, 1).toUpperCase();
-  if(secondPart.length < 1) secondPart = "X";
-  const cleanPhone = (formData.phone || "").trim();
-  formData.token = `${firstPart}${secondPart}_${cleanPhone}`;
-}
-
-// ===================== DATA PERSISTENCE =====================
-function saveCurrentStepData(step) {
-  if(step === 2) {
-    formData.region = document.getElementById('region').value;
-    formData.district = document.getElementById('district').value;
-    formData.chiefdom = document.getElementById('chiefdom').value;
-    formData.healthFacility = document.getElementById('healthFacility').value.trim();
-    formData.community = document.getElementById('community').value.trim();
-    formData.townVillage = document.getElementById('townVillage').value.trim();
-  } else if(step === 3) {
-    formData.firstName = document.getElementById('firstName').value.trim();
-    formData.lastName = document.getElementById('lastName').value.trim();
-    formData.phone = document.getElementById('phone').value.trim();
-  } else if(step === 4) {
-    formData.under5 = parseInt(document.getElementById('under5').value) || 0;
-    formData.pregnant = parseInt(document.getElementById('pregnant').value) || 0;
-    formData.above5 = parseInt(document.getElementById('above5').value) || 0;
-    formData.gps = document.getElementById('gps').value;
-    executeLiveCalculationsForData();
-  }
-}
-
-function validateStep(step) {
-  let isValid = true;
-  document.querySelectorAll('.form-section .field.err').forEach(f => f.classList.remove('err'));
-
-  if(step === 1) {
-    if(!formData.consent) { document.getElementById('f-consent').classList.add('err'); isValid = false; }
-  } else if(step === 2) {
-    ['region','district','chiefdom','healthFacility','community','townVillage'].forEach(id => {
-      const el = document.getElementById(id);
-      if(!el || !el.value.trim()) {
-        document.getElementById('f-' + id).classList.add('err');
-        isValid = false;
-      }
-    });
-  } else if(step === 3) {
-    const fn = document.getElementById('firstName').value.trim();
-    const ln = document.getElementById('lastName').value.trim();
-    const ph = document.getElementById('phone').value.trim();
-    if(!fn) { document.getElementById('f-firstName').classList.add('err'); isValid = false; }
-    if(!ln) { document.getElementById('f-lastName').classList.add('err'); isValid = false; }
-    if(!/^\d{9}$/.test(ph)) { document.getElementById('f-phone').classList.add('err'); isValid = false; }
-  } else if(step === 4) {
-    const u5 = parseInt(document.getElementById('under5').value) || 0;
-    const pg = parseInt(document.getElementById('pregnant').value) || 0;
-    const ab5 = parseInt(document.getElementById('above5').value) || 0;
-    const tot = u5 + pg + ab5;
-    const gps = document.getElementById('gps').value.trim();
-    if(u5 < 0 || isNaN(u5)) { document.getElementById('f-under5').classList.add('err'); isValid = false; }
-    if(pg < 0 || isNaN(pg)) { document.getElementById('f-pregnant').classList.add('err'); isValid = false; }
-    if(ab5 < 0 || isNaN(ab5)) { document.getElementById('f-above5').classList.add('err'); isValid = false; }
-    if(tot <= 0) { document.getElementById('f-totalMembers').classList.add('err'); isValid = false; }
-    if(!gps) { document.getElementById('f-gps').classList.add('err'); isValid = false; }
-  }
-  return isValid;
-}
-
-// ===================== FINAL SUBMIT (TIES TO DASHBOARD) =====================
-function finalSubmit() {
-  saveCurrentStepData(currentStep);
-  if(!validateStep(currentStep)) {
-    showToast("Please correct validation errors before submission.");
-    return;
-  }
-  executeLiveCalculationsForData();
-
-  const records = loadRecords();
-  const newRecord = {
-    id: Date.now(),
-    consent: formData.consent, region: formData.region, district: formData.district,
-    chiefdom: formData.chiefdom, healthFacility: formData.healthFacility, community: formData.community,
-    townVillage: formData.townVillage, gps: formData.gps, firstName: formData.firstName, lastName: formData.lastName,
-    phone: formData.phone, under5: formData.under5, pregnant: formData.pregnant, above5: formData.above5,
-    totalMembers: formData.totalMembers, itnIssued: formData.itnIssued, token: formData.token,
-    registrar: 'ICF_SL_Registrar_2026', timestamp: new Date().toISOString()
-  };
-
-  records.push(newRecord);
-  saveRecords(records);
-
-  // === DASHBOARD LIVE SYNC ===
-  updateTargetUI();
-  buildRecordsTable();
-
-  showToast(`Registration complete! ${formData.itnIssued} ITN(s) issued. Token: ${formData.token}`);
-
-  setTimeout(() => {
-    showScreen('homeScreen');
-    updateTargetUI();
-    buildRecordsTable();
-  }, 1800);
-}
-
-// ===================== DASHBOARD: RECORDS =====================
-function buildRecordsTable() {
-  const records = loadRecords();
-  const wrap = document.getElementById('recordsWrap');
-  if(!wrap) return;
-
-  if(records.length === 0) {
-    wrap.innerHTML = `<div class="no-records">No records found yet.<br>Registered households will appear here.</div>`;
-    return;
-  }
-
-  const sorted = records.slice().sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
-  let html = `<table class="rec-table"><thead><tr>
-    <th>#</th><th>Token</th><th>Head of Household</th><th>Phone</th><th>Region</th><th>District</th>
-    <th>Chiefdom</th><th>Facility</th><th>Members</th><th>ITN Issued</th><th>Registrar</th><th>Date</th>
-  </tr></thead><tbody>`;
-
-  sorted.forEach((r, idx) => {
-    const date = new Date(r.timestamp).toLocaleString();
-    html += `<tr>
-      <td>${idx + 1}</td>
-      <td style="font-family:monospace;color:#2e6e28;font-weight:700;">${r.token || '---'}</td>
-      <td>${r.firstName || ''} ${r.lastName || ''}</td>
-      <td>${r.phone || ''}</td>
-      <td>${r.region || ''}</td>
-      <td>${r.district || ''}</td>
-      <td>${r.chiefdom || ''}</td>
-      <td>${r.healthFacility || ''}</td>
-      <td style="text-align:center;">${r.totalMembers || 0}</td>
-      <td style="text-align:center;font-weight:700;color:#b06010;background:#fde8c8;">${r.itnIssued || 0}</td>
-      <td>${r.registrar || '—'}</td>
-      <td>${date}</td>
-    </tr>`;
+function validateStep(){
+  const body=document.getElementById('regFormBody');
+  let ok=true;
+  body.querySelectorAll('input[required], select[required], textarea[required]').forEach(el=>{
+    if(!el.value.trim()){ el.closest('.field').classList.add('err'); ok=false; }
+    else{ el.closest('.field').classList.remove('err'); }
   });
-
-  const totalITN = sorted.reduce((s,r) => s + (parseInt(r.itnIssued) || 0), 0);
-  html += `<tr style="background:#6b7a8d;color:#fff;font-weight:700;">
-    <td colspan="9" style="text-align:right;">TOTAL REGISTRATIONS: ${sorted.length} &nbsp;|&nbsp; TOTAL ITNs ISSUED:</td>
-    <td style="text-align:center;background:#2e6e28;color:#fff;">${totalITN}</td>
-    <td colspan="2"></td>
-  </tr>`;
-
-  html += '</tbody></table>';
-  wrap.innerHTML = html;
+  if(!ok) showToast('Please complete all required fields');
+  return ok;
 }
 
-// ===================== DASHBOARD: TARGET =====================
-function updateTargetUI() {
-  const records = loadRecords();
-  const target = getTarget();
-  const registered = records.length;
-  const totalITNs = records.reduce((sum, r) => sum + (parseInt(r.itnIssued) || 0), 0);
-  const remaining = Math.max(0, target - registered);
-  const pct = target > 0 ? Math.min(100, Math.round((registered / target) * 100)) : 0;
-
-  const elTotal = document.getElementById('tgt-total');
-  const elDone = document.getElementById('tgt-done');
-  const elRem = document.getElementById('tgt-rem');
-  const elItn = document.getElementById('tgt-itn');
-  const elBar = document.getElementById('tgt-bar');
-  const elPct = document.getElementById('tgt-pct');
-
-  if(elTotal) elTotal.innerText = target;
-  if(elDone) elDone.innerText = registered;
-  if(elRem) elRem.innerText = remaining;
-  if(elItn) elItn.innerText = totalITNs;
-  if(elBar) elBar.style.width = pct + '%';
-  if(elPct) elPct.innerText = pct + '% complete';
+function collectStep(){
+  const body=document.getElementById('regFormBody');
+  body.querySelectorAll('input, select, textarea').forEach(el=>{
+    if(el.type==='radio'){
+      if(el.checked) formData[el.name]=el.value;
+    }else if(el.type==='checkbox'){
+      formData[el.name]=el.checked;
+    }else{
+      formData[el.name]=el.value;
+    }
+  });
 }
 
-function setTarget() {
-  const newTarget = parseInt(document.getElementById('newTarget').value);
-  if(newTarget && newTarget > 0) {
-    localStorage.setItem(TKEY, newTarget);
-    updateTargetUI();
-    showToast("Target updated successfully!");
-    document.getElementById('newTarget').value = '';
-  } else {
-    showToast("Please enter a valid target number.");
+function buildStep(){
+  collectStep();
+  const body=document.getElementById('regFormBody');
+  const dots=document.getElementById('regDots');
+  const prog=document.getElementById('regProg');
+  const lbl=document.getElementById('regStepLabel');
+  const name=document.getElementById('regStepName');
+  const pct=document.getElementById('regPct');
+  const back=document.getElementById('navBack');
+  const next=document.getElementById('navNext');
+  const submit=document.getElementById('navSubmit');
+
+  const pctVal=Math.round((step/totalSteps)*100);
+  prog.style.width=pctVal+'%';
+  lbl.textContent='Step '+step+' of '+totalSteps;
+  pct.textContent=pctVal+'%';
+  name.textContent=['Consent','Household Info','Location','Sleeping Spaces','Review & Submit'][step-1]||'';
+
+  dots.innerHTML='';
+  for(let i=1;i<=totalSteps;i++){
+    const d=document.createElement('div');
+    d.className='dot'+(i===step?' active':(i<step?' done':''));
+    dots.appendChild(d);
   }
+
+  back.style.display=step===1?'none':'flex';
+  next.style.display=step===totalSteps?'none':'flex';
+  submit.style.display=step===totalSteps?'flex':'none';
+
+  let html='';
+  if(step===1){
+    html=`
+      <div class="form-section anim-in">
+        <div class="sec-hdr"><div class="sec-icon" style="background:#fff8e6;"><svg viewBox="0 0 24 24" fill="none" stroke="#b06010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div class="sec-title">Informed Consent</div><div class="sec-desc">Head of household must agree</div></div></div>
+        <div class="sec-fields">
+          <div class="consent-box">
+            <strong>Consent to Register</strong>
+            I confirm that I am the head of this household (or authorised representative) and I consent to this household being registered for the ITN Mass Campaign 2027. I understand that ITNs will be distributed based on the number of sleeping spaces recorded.
+          </div>
+          <div class="field"><label class="flabel">Do you consent to registration? <span class="req">*</span></label><div class="radio-group"><label class="rpill ${formData.consent==='yes'?'sel':''}"><input type="radio" name="consent" value="yes" required ${formData.consent==='yes'?'checked':''} onchange="this.closest('.radio-group').querySelectorAll('.rpill').forEach(p=>p.classList.remove('sel'));this.parentElement.classList.add('sel')"> Yes</label><label class="rpill ${formData.consent==='no'?'sel':''}"><input type="radio" name="consent" value="no" required ${formData.consent==='no'?'checked':''} onchange="this.closest('.radio-group').querySelectorAll('.rpill').forEach(p=>p.classList.remove('sel'));this.parentElement.classList.add('sel')"> No</label></div></div>
+        </div>
+      </div>`;
+  }else if(step===2){
+    html=`
+      <div class="form-section anim-in">
+        <div class="sec-hdr"><div class="sec-icon" style="background:#d6e8ff;"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="sec-title">Household Information</div><div class="sec-desc">Basic details about the household</div></div></div>
+        <div class="sec-fields">
+          <div class="field"><label class="flabel">Household Head Name <span class="req">*</span></label><input type="text" name="hhName" class="form-input" placeholder="Full name" required value="${formData.hhName||''}"></div>
+          <div class="field-row">
+            <div class="field"><label class="flabel">Phone Number</label><input type="tel" name="hhPhone" class="form-input" placeholder="07xxxxxxxx" value="${formData.hhPhone||''}"></div>
+            <div class="field"><label class="flabel">ID Number</label><input type="text" name="hhID" class="form-input" placeholder="National ID" value="${formData.hhID||''}"></div>
+          </div>
+        </div>
+      </div>`;
+  }else if(step===3){
+    html=`
+      <div class="form-section anim-in">
+        <div class="sec-hdr"><div class="sec-icon" style="background:#ddf0d8;"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="sec-title">Location</div><div class="sec-desc">Where the household is located</div></div></div>
+        <div class="sec-fields">
+          <div class="field"><label class="flabel">District <span class="req">*</span></label><select name="district" class="form-input" required><option value="">Select district</option><option value="Western Area Urban" ${formData.district==='Western Area Urban'?'selected':''}>Western Area Urban</option><option value="Western Area Rural" ${formData.district==='Western Area Rural'?'selected':''}>Western Area Rural</option><option value="Bo" ${formData.district==='Bo'?'selected':''}>Bo</option><option value="Bombali" ${formData.district==='Bombali'?'selected':''}>Bombali</option><option value="Bonthe" ${formData.district==='Bonthe'?'selected':''}>Bonthe</option><option value="Falaba" ${formData.district==='Falaba'?'selected':''}>Falaba</option><option value="Kailahun" ${formData.district==='Kailahun'?'selected':''}>Kailahun</option><option value="Kambia" ${formData.district==='Kambia'?'selected':''}>Kambia</option><option value="Karene" ${formData.district==='Karene'?'selected':''}>Karene</option><option value="Kenema" ${formData.district==='Kenema'?'selected':''}>Kenema</option><option value="Koinadugu" ${formData.district==='Koinadugu'?'selected':''}>Koinadugu</option><option value="Kono" ${formData.district==='Kono'?'selected':''}>Kono</option><option value="Moyamba" ${formData.district==='Moyamba'?'selected':''}>Moyamba</option><option value="Port Loko" ${formData.district==='Port Loko'?'selected':''}>Port Loko</option><option value="Pujehun" ${formData.district==='Pujehun'?'selected':''}>Pujehun</option><option value="Tonkolili" ${formData.district==='Tonkolili'?'selected':''}>Tonkolili</option></select></div>
+          <div class="field-row">
+            <div class="field"><label class="flabel">Chiefdom <span class="req">*</span></label><input type="text" name="chiefdom" class="form-input" placeholder="Chiefdom" required value="${formData.chiefdom||''}"></div>
+            <div class="field"><label class="flabel">Village / Community <span class="req">*</span></label><input type="text" name="village" class="form-input" placeholder="Village" required value="${formData.village||''}"></div>
+          </div>
+          <div class="field"><label class="flabel">GPS Coordinates</label><div class="gps-row"><input type="text" name="gpsLat" class="form-input" placeholder="Latitude" readonly value="${formData.gpsLat||''}"><input type="text" name="gpsLng" class="form-input" placeholder="Longitude" readonly value="${formData.gpsLng||''}"><button type="button" class="gps-btn" onclick="getGPS()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> GPS</button></div></div>
+        </div>
+      </div>`;
+  }else if(step===4){
+    html=`
+      <div class="form-section anim-in">
+        <div class="sec-hdr"><div class="sec-icon" style="background:#fde8c8;"><svg viewBox="0 0 24 24" fill="none" stroke="#b06010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="sec-title">Sleeping Spaces</div><div class="sec-desc">How many people sleep here?</div></div></div>
+        <div class="sec-fields">
+          <div class="field-row">
+            <div class="field"><label class="flabel">Total Members <span class="req">*</span></label><input type="number" name="members" class="form-input" placeholder="0" min="1" required value="${formData.members||''}" onchange="calcITN()"></div>
+            <div class="field"><label class="flabel">Sleeping Spaces <span class="req">*</span></label><input type="number" name="sleepingSpaces" class="form-input" placeholder="0" min="1" required value="${formData.sleepingSpaces||''}" onchange="calcITN()"></div>
+          </div>
+          <div class="field"><label class="flabel">ITNs Needed (auto) <span class="req">*</span></label><input type="number" name="itnNeeded" class="form-input auto-field" placeholder="0" readonly value="${formData.itnNeeded||''}"></div>
+          <div class="hint">1 ITN is allocated per 2 sleeping spaces (rounded up).</div>
+        </div>
+      </div>`;
+  }else if(step===5){
+    html=`
+      <div class="form-section anim-in">
+        <div class="sec-hdr"><div class="sec-icon" style="background:#d6e8ff;"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><div><div class="sec-title">Review & Submit</div><div class="sec-desc">Confirm details before saving</div></div></div>
+        <div class="sec-fields">
+          <div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Household Details</div><div class="sum-row"><span class="sk">Head of Household</span><span class="sv">${formData.hhName||'-'}</span></div><div class="sum-row"><span class="sk">Phone</span><span class="sv">${formData.hhPhone||'-'}</span></div><div class="sum-row"><span class="sk">ID Number</span><span class="sv">${formData.hhID||'-'}</span></div></div>
+          <div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Location</div><div class="sum-row"><span class="sk">District</span><span class="sv">${formData.district||'-'}</span></div><div class="sum-row"><span class="sk">Chiefdom</span><span class="sv">${formData.chiefdom||'-'}</span></div><div class="sum-row"><span class="sk">Village</span><span class="sv">${formData.village||'-'}</span></div><div class="sum-row"><span class="sk">GPS</span><span class="sv">${(formData.gpsLat&&formData.gpsLng)?formData.gpsLat+', '+formData.gpsLng:'Not captured'}</span></div></div>
+          <div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Sleeping Spaces</div><div class="sum-row"><span class="sk">Total Members</span><span class="sv">${formData.members||'-'}</span></div><div class="sum-row"><span class="sk">Sleeping Spaces</span><span class="sv">${formData.sleepingSpaces||'-'}</span></div><div class="sum-row"><span class="sk">ITNs Needed</span><span class="sv" style="color:#2e6e28;font-size:16px;">${formData.itnNeeded||'-'}</span></div></div>
+        </div>
+      </div>`;
+  }
+  body.innerHTML=html;
 }
 
-// ===================== TOAST =====================
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  if(!t) return;
-  t.innerText = msg;
+function calcITN(){
+  const members=parseInt(document.querySelector('input[name="members"]')?.value)||0;
+  const spaces=parseInt(document.querySelector('input[name="sleepingSpaces"]')?.value)||0;
+  const itnInput=document.querySelector('input[name="itnNeeded"]');
+  if(itnInput) itnInput.value=spaces>0?Math.ceil(spaces/2):0;
+}
+
+function getGPS(){
+  if(!navigator.geolocation){ showToast('GPS not available'); return; }
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const lat=pos.coords.latitude.toFixed(6);
+    const lng=pos.coords.longitude.toFixed(6);
+    const latInput=document.querySelector('input[name="gpsLat"]');
+    const lngInput=document.querySelector('input[name="gpsLng"]');
+    if(latInput) latInput.value=lat;
+    if(lngInput) lngInput.value=lng;
+    showToast('GPS captured');
+  },()=>showToast('GPS failed — allow location'),{enableHighAccuracy:true});
+}
+
+function finalSubmit(){
+  if(!validateStep()) return;
+  collectStep();
+  if(formData.consent!=='yes'){ showToast('Consent is required'); return; }
+  const token='ITN-'+Math.random().toString(36).substr(2,6).toUpperCase();
+  const record={...formData, token, date:new Date().toLocaleDateString(), submittedAt:new Date().toISOString(), status:'Pending'};
+  const records=loadRecords();
+  records.push(record);
+  saveRecords(records);
+  showToast('Household registered! Token: '+token);
+  setTimeout(()=>showScreen('homeScreen'),1200);
+}
+
+// ===================== RECORDS =====================
+function renderRecords(){
+  const wrap=document.getElementById('recordsWrap');
+  const records=loadRecords();
+  if(records.length===0){
+    wrap.innerHTML='<div class="no-records"><div style="font-size:36px;margin-bottom:10px;">📋</div>No registrations yet.<br>Tap "Register New Household" to start.</div>';
+    return;
+  }
+  let html='<table class="rec-table"><thead><tr><th>Date</th><th>Token</th><th>Household</th><th>Village</th><th>ITNs</th></tr></thead><tbody>';
+  records.forEach(r=>{
+    html+=`<tr><td>${r.date||'-'}</td><td>${r.token||'-'}</td><td>${r.hhName||'-'}</td><td>${r.village||'-'}</td><td>${r.itnNeeded||'0'}</td></tr>`;
+  });
+  html+='</tbody></table>';
+  wrap.innerHTML=html;
+}
+
+// ===================== TARGET =====================
+function renderTarget(){
+  const target=getTarget();
+  const records=loadRecords();
+  const done=records.length;
+  const rem=Math.max(0,target-done);
+  const itns=records.reduce((a,r)=>a+(parseInt(r.itnNeeded)||0),0);
+  const pct=target>0?Math.min(100,Math.round((done/target)*100)):0;
+  document.getElementById('tgt-total').textContent=target;
+  document.getElementById('tgt-done').textContent=done;
+  document.getElementById('tgt-rem').textContent=rem;
+  document.getElementById('tgt-itn').textContent=itns;
+  document.getElementById('tgt-bar').style.width=pct+'%';
+  document.getElementById('tgt-pct').textContent=pct+'% complete';
+}
+
+function setTarget(){
+  const val=parseInt(document.getElementById('newTarget').value);
+  if(!val||val<1){ showToast('Enter a valid target'); return; }
+  localStorage.setItem(TKEY,val);
+  showToast('Target updated');
+  renderTarget();
+}
+
+// ===================== UTILS =====================
+function doLogout(){
+  if(confirm('Log out and clear session?')) showToast('Logged out');
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
   t.classList.add('show');
-  clearTimeout(window._toastTimer);
-  window._toastTimer = setTimeout(() => { t.classList.remove('show'); }, 3000);
+  setTimeout(()=>t.classList.remove('show'),2500);
 }
 
-// Cross-tab live sync
-window.addEventListener('storage', (e) => {
-  if(e.key === SKEY) {
-    if(document.getElementById('recordsScreen').classList.contains('active')) buildRecordsTable();
-    updateTargetUI();
-  }
-  if(e.key === TKEY) updateTargetUI();
-});
+// Init
+renderTarget();
 </script>
 </body>
 </html>
