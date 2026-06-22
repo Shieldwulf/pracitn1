@@ -263,6 +263,7 @@ textarea { resize:none; min-height:64px; line-height:1.5; }
 <script>
 // ===================== STORAGE =====================
 const SKEY = 'icfsl_hh_records';
+const SYNC_KEY = 'icfsl_registrations';
 const TKEY = 'icfsl_hh_target';
 function loadRecords(){ try{ return JSON.parse(localStorage.getItem(SKEY)||'[]'); }catch(e){ return []; } }
 function saveRecords(r){ localStorage.setItem(SKEY,JSON.stringify(r)); }
@@ -314,7 +315,7 @@ function doLogout() {
     localStorage.removeItem("itn_logged_user");
     localStorage.removeItem("itn_user_role");
     localStorage.removeItem("itn_user_district");
-    window.location.href = "index.html"; // Change to your actual login page
+    window.location.href = "index.html";
   }
 }
 
@@ -654,7 +655,6 @@ function executeLiveCalculations() {
   }
   document.getElementById('live-itn-badge').innerText = itn;
 
-  // Token: First 2 of First Name + First 1 of Last Name + Phone
   let firstPart = (formData.firstName || "").trim().substring(0, 2).toUpperCase();
   while(firstPart.length < 2) firstPart += "X";
   let secondPart = (formData.lastName || "").trim().substring(0, 1).toUpperCase();
@@ -740,7 +740,7 @@ function validateStep(step) {
   return isValid;
 }
 
-// ===================== FINAL SUBMIT (TIES TO DASHBOARD) =====================
+// ===================== FINAL SUBMIT (TIES TO DASHBOARD + DISTRIBUTION) =====================
 function finalSubmit() {
   saveCurrentStepData(currentStep);
   if(!validateStep(currentStep)) {
@@ -763,6 +763,15 @@ function finalSubmit() {
   records.push(newRecord);
   saveRecords(records);
 
+  // === SYNC TO DISTRIBUTION (dist.html) TOKEN LOOKUP ===
+  const regForDist = records.map(r => ({
+    ...r,
+    headName: (r.firstName || '') + ' ' + (r.lastName || ''),
+    facility: r.healthFacility || '',
+    members: r.totalMembers || 0
+  }));
+  localStorage.setItem('icfsl_registrations', JSON.stringify(regForDist));
+
   // === DASHBOARD LIVE SYNC ===
   updateTargetUI();
   buildRecordsTable();
@@ -776,7 +785,7 @@ function finalSubmit() {
   }, 1800);
 }
 
-// ===================== DASHBOARD: RECORDS =====================
+// ===================== DASHBOARD: RECORDS (WITH CSV) =====================
 function buildRecordsTable() {
   const records = loadRecords();
   const wrap = document.getElementById('recordsWrap');
@@ -788,7 +797,13 @@ function buildRecordsTable() {
   }
 
   const sorted = records.slice().sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
-  let html = `<table class="rec-table"><thead><tr>
+
+  let html = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+    <span style="font-size:12px;color:#5a7258;font-weight:600;">${sorted.length} household(s) registered</span>
+    <button onclick="exportRegCSV()" style="padding:8px 14px;background:#6b7a8d;color:#fff;border:none;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Export CSV</button>
+  </div>`;
+
+  html += `<table class="rec-table"><thead><tr>
     <th>#</th><th>Token</th><th>Head of Household</th><th>Phone</th><th>Region</th><th>District</th>
     <th>Chiefdom</th><th>Facility</th><th>Members</th><th>ITN Issued</th><th>Registrar</th><th>Date</th>
   </tr></thead><tbody>`;
@@ -820,6 +835,29 @@ function buildRecordsTable() {
 
   html += '</tbody></table>';
   wrap.innerHTML = html;
+}
+
+// ===================== CSV EXPORT =====================
+function exportRegCSV() {
+  const records = loadRecords();
+  if(!records.length) { showToast('No records to export'); return; }
+  const keys = ['token','firstName','lastName','phone','region','district','chiefdom','healthFacility','community','townVillage','under5','pregnant','above5','totalMembers','itnIssued','gps','registrar','timestamp'];
+  const headers = ['Token','First Name','Last Name','Phone','Region','District','Chiefdom','Health Facility','Community','Town/Village','Under 5','Pregnant','Above 5','Total Members','ITN Issued','GPS','Registrar','Timestamp'];
+  let csv = headers.join(',') + '\n';
+  records.forEach(r => {
+    csv += keys.map(k => {
+      let v = r[k] ?? '';
+      v = String(v).replace(/"/g, '""');
+      if(v.includes(',') || v.includes('"') || v.includes('\n')) v = '"' + v + '"';
+      return v;
+    }).join(',') + '\n';
+  });
+  const blob = new Blob([csv], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'icfsl_household_registrations.csv';
+  a.click();
+  showToast('CSV exported successfully');
 }
 
 // ===================== DASHBOARD: TARGET =====================
@@ -870,7 +908,7 @@ function showToast(msg) {
 
 // Cross-tab live sync
 window.addEventListener('storage', (e) => {
-  if(e.key === SKEY) {
+  if(e.key === SKEY || e.key === SYNC_KEY) {
     if(document.getElementById('recordsScreen').classList.contains('active')) buildRecordsTable();
     updateTargetUI();
   }
