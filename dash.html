@@ -151,183 +151,6 @@ body {
   margin-top:2px;
 }
 .card-body { padding:14px 16px 16px; }
-.section-title {
-  font-size:11px;
-  font-weight:700;
-  color:#4a7048;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  margin-bottom:12px;
-}
-.metrics-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:16px;
-}
-.metric-card {
-  background:#fff;
-  border-radius:18px;
-  border:0.5px solid #d4e4cf;
-  padding:14px;
-  box-shadow:0 4px 14px rgba(0,0,0,0.04);
-}
-.metric-card.metric-wide { grid-column:1 / -1; }
-.metric-card.clickable { cursor:pointer; }
-.metric-label {
-  font-size:10px;
-  font-weight:700;
-  color:#5a7258;
-  text-transform:uppercase;
-  letter-spacing:0.6px;
-  margin-bottom:6px;
-}
-.metric-value {
-  font-size:24px;
-  font-weight:700;
-  color:#1c2b1c;
-  line-height:1.1;
-}
-.metric-subtext {
-  font-size:11px;
-  color:#7a9e76;
-  margin-top:5px;
-  line-height:1.4;
-}
-.coverage-card {
-  display:grid;
-  grid-template-columns:104px 1fr;
-  gap:12px;
-  align-items:center;
-}
-.pie-wrap {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.pie-chart {
-  width:92px;
-  height:92px;
-  border-radius:50%;
-  background:conic-gradient(#4a7048 0deg, #4a7048 0deg, #e6efe3 0deg, #e6efe3 360deg);
-  position:relative;
-}
-.pie-chart::after {
-  content:'';
-  position:absolute;
-  inset:14px;
-  background:#fff;
-  border-radius:50%;
-}
-.pie-center {
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:18px;
-  font-weight:700;
-  color:#1c2b1c;
-  z-index:1;
-}
-.coverage-controls {
-  display:grid;
-  grid-template-columns:1fr;
-  gap:8px;
-}
-.form-group { margin-bottom:12px; }
-.form-group label {
-  display:block;
-  color:#4a7048;
-  font-weight:600;
-  font-size:11px;
-  margin-bottom:5px;
-}
-.form-input {
-  width:100%;
-  padding:12px 13px;
-  border:1px solid #d4e4cf;
-  border-radius:12px;
-  font-size:13px;
-  color:#1c2b1c;
-  background:#f8fbf7;
-  outline:none;
-  font-family:inherit;
-  transition:border-color 0.15s, box-shadow 0.15s;
-}
-.form-input:focus {
-  border-color:#4a7048;
-  box-shadow:0 0 0 3px rgba(74,112,72,0.12);
-  background:#fff;
-}
-.form-input:disabled { background:#eef4ec; color:#5a7258; }
-.form-grid-2, .form-grid-3 {
-  display:grid;
-  grid-template-columns:1fr;
-  gap:10px;
-}
-.section-banner {
-  background:#eef4ec;
-  color:#4a7048;
-  padding:9px 12px;
-  border-radius:12px;
-  font-weight:700;
-  font-size:11px;
-  margin:2px 0 12px;
-  text-transform:uppercase;
-  letter-spacing:0.5px;
-}
-.radio-group {
-  display:flex;
-  justify-content:center;
-  gap:16px;
-  margin-top:8px;
-}
-.radio-label {
-  display:flex;
-  align-items:center;
-  gap:6px;
-  font-weight:600;
-  cursor:pointer;
-  font-size:12px;
-  color:#2d4a2d;
-}
-.action-btn {
-  width:100%;
-  border:none;
-  padding:14px;
-  border-radius:14px;
-  background:#6b7a8d;
-  color:#fff;
-  font-size:13px;
-  font-weight:700;
-  cursor:pointer;
-  transition:background 0.15s, transform 0.1s;
-}
-.action-btn:hover { background:#4a5568; }
-.action-btn:active { transform:scale(0.98); }
-.action-btn.blue { background:#4a7048; }
-.action-btn.blue:hover { background:#2e5c28; }
-.action-btn.green { background:#2e6e28; }
-.action-btn.green:hover { background:#1c4a18; }
-.token-generation-alert {
-  background:#eef8ff;
-  border:1px solid #b9daf3;
-  border-radius:14px;
-  padding:14px;
-  margin-top:14px;
-  color:#245b82;
-  font-size:12px;
-  line-height:1.6;
-}
-.token-text {
-  display:inline-block;
-  margin-top:8px;
-  font-size:22px;
-  font-weight:700;
-  letter-spacing:1px;
-  color:#1a5fa8;
-}
 .inline-panel {
   background:#f8fbf7;
   padding:14px;
@@ -445,10 +268,235 @@ tr:nth-child(even) td { background:#f7fbf5; }
   transition:background 0.15s;
 }
 .csv-btn:hover { background:#4a5568; }
+.form-group { margin-bottom:12px; }
+.form-group label {
+  display:block;
+  color:#4a7048;
+  font-weight:600;
+  font-size:11px;
+  margin-bottom:5px;
+}
+.form-input {
+  width:100%;
+  padding:12px 13px;
+  border:1px solid #d4e4cf;
+  border-radius:12px;
+  font-size:13px;
+  color:#1c2b1c;
+  background:#f8fbf7;
+  outline:none;
+  font-family:inherit;
+  transition:border-color 0.15s, box-shadow 0.15s;
+}
+.form-input:focus {
+  border-color:#4a7048;
+  box-shadow:0 0 0 3px rgba(74,112,72,0.12);
+  background:#fff;
+}
+
+/* Overview */
+.dash-top-bar {
+  background:#6b7a8d;
+  color:#fff;
+  padding:10px 14px;
+  border-radius:14px;
+  margin-bottom:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.dash-top-title { font-size:13px; font-weight:700; display:block; }
+.dash-top-sub { font-size:9px; color:#b8c8d4; display:block; margin-top:1px; letter-spacing:0.3px; }
+.dash-top-date {
+  display:inline-block;
+  background:rgba(255,255,255,0.14);
+  color:#d1dbe8;
+  font-size:10px;
+  font-weight:600;
+  padding:5px 12px;
+  border-radius:20px;
+  letter-spacing:0.3px;
+}
+.donut-row {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:14px;
+}
+.donut-card {
+  background:#fff;
+  border-radius:16px;
+  border:0.5px solid #d4e4cf;
+  padding:14px 10px 12px;
+  text-align:center;
+}
+.donut-ring {
+  width:108px; height:108px; border-radius:50%;
+  margin:0 auto 8px; position:relative;
+  background:conic-gradient(#e6efe3 0deg, #e6efe3 360deg);
+}
+.donut-ring::after {
+  content:''; position:absolute; inset:24px;
+  background:#fff; border-radius:50%;
+}
+.donut-center-val {
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; font-weight:700; color:#1c2b1c; z-index:1;
+}
+.donut-title {
+  font-size:10px; font-weight:700; color:#4a7048;
+  text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px;
+}
+.donut-legend {
+  display:flex; justify-content:center; gap:10px; flex-wrap:wrap;
+}
+.legend-item {
+  display:flex; align-items:center; gap:4px;
+  font-size:10px; color:#5a7258;
+}
+.legend-dot { width:9px; height:9px; border-radius:2px; flex-shrink:0; }
+.trend-legend { display:flex; gap:12px; }
+.chart-svg-wrap { width:100%; overflow:hidden; border-radius:10px; }
+.bottom-pair {
+  display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;
+}
+.pie-sm-wrap {
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.donut-ring.sm { width:80px; height:80px; }
+.donut-ring.sm::after { inset:18px; }
+.donut-center-val.sm { font-size:14px; }
+.pie-legend-list { display:flex; flex-direction:column; gap:5px; }
+.pie-legend-item {
+  display:flex; align-items:center; gap:6px; font-size:10px; color:#1c2b1c;
+}
+.ki-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:7px 0; border-bottom:0.5px solid #eef4ec;
+}
+.ki-row:last-child { border-bottom:none; }
+.ki-label { font-size:10px; color:#5a7258; }
+.ki-val { font-size:12px; font-weight:700; color:#1c2b1c; }
+.ki-val.green { color:#2e6e28; }
+.ki-val.amber { color:#b06010; }
+.ki-val.blue { color:#1a5fa8; }
+
+/* ═══ Indicator Section ═══ */
+.ind-section {
+  background:#fff;
+  border-radius:18px;
+  border:0.5px solid #d4e4cf;
+  box-shadow:0 6px 16px rgba(0,0,0,0.04);
+  padding:16px;
+  margin-bottom:16px;
+}
+.ind-title {
+  color:#6b7a8d;
+  font-size:12px; font-weight:700;
+  letter-spacing:1.5px; text-transform:uppercase;
+  text-align:center;
+  margin-bottom:14px; padding-bottom:10px;
+  border-bottom:1px solid #eef4ec;
+}
+.ind-grid-custom {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.ind-card {
+  background:#f7fbf5;
+  border:1px solid #e3ece0;
+  border-radius:14px;
+  padding:14px 10px 12px;
+  text-align:center;
+  transition:background 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.ind-card:hover {
+  background:#eef4ec;
+  border-color:#c4d9be;
+  box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+.ind-card-pie {
+  grid-row:1 / 3;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.ind-card-label {
+  color:#5a7258;
+  font-size:9px; font-weight:700;
+  letter-spacing:0.8px; text-transform:uppercase;
+  margin-bottom:8px;
+}
+.ind-card-value {
+  color:#1c2b1c;
+  font-size:30px; font-weight:700;
+  line-height:1; margin-bottom:5px;
+}
+.ind-card-sub {
+  color:#7a9e76;
+  font-size:9px; line-height:1.4;
+}
+.ind-select {
+  padding:6px 26px 6px 10px;
+  background:#fff;
+  border:1px solid #d4e4cf;
+  border-radius:8px;
+  color:#1c2b1c;
+  font-size:10px; font-weight:600;
+  outline:none;
+  font-family:inherit;
+  cursor:pointer;
+  appearance:none;
+  -webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235a7258' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 8px center;
+  transition:border-color 0.15s, box-shadow 0.15s;
+}
+.ind-select:focus {
+  border-color:#4a7048;
+  box-shadow:0 0 0 3px rgba(74,112,72,0.1);
+}
+.ind-select option { background:#fff; color:#1c2b1c; }
+
+/* ═══ Population Pie (inside indicator grid) ═══ */
+.theme-pie {
+  width:90px; height:90px; border-radius:50%;
+  margin:0 auto 8px;
+  position:relative;
+  background:conic-gradient(#d4e4cf 0deg, #d4e4cf 360deg);
+  transition:background 0.6s ease;
+}
+.theme-pie::after {
+  content:''; position:absolute; inset:20px;
+  background:#f7fbf5; border-radius:50%;
+}
+.theme-pie-val {
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; font-weight:700; color:#1c2b1c; z-index:1;
+}
+.pop-legend {
+  display:flex; flex-direction:column; gap:4px; align-items:center;
+}
+.pop-legend-item {
+  display:flex; align-items:center; gap:5px;
+  font-size:9px; color:#5a7258; font-weight:600;
+}
+.pop-legend-dot {
+  width:7px; height:7px; border-radius:2px; flex-shrink:0;
+}
+
 @media (max-width: 390px) {
-  .coverage-card { grid-template-columns:1fr; }
-  .pie-wrap { justify-content:flex-start; }
   .recon-links { grid-template-columns:1fr; }
+  .bottom-pair { grid-template-columns:1fr; }
+  .ind-card-value { font-size:24px; }
+  .theme-pie { width:76px; height:76px; }
+  .theme-pie::after { inset:16px; }
+  .theme-pie-val { font-size:14px; }
 }
 </style>
 </head>
@@ -488,84 +536,109 @@ tr:nth-child(even) td { background:#f7fbf5; }
 
     <!-- ===== OVERVIEW ===== -->
     <div id="view-overview">
-      <div class="metrics-grid">
-        <div class="metric-card">
-          <div class="metric-label">Households Registered</div>
-          <div class="metric-value" id="m-reg">0</div>
-          <div class="metric-subtext">From registration module</div>
+      <div class="dash-top-bar">
+        <div>
+          <span class="dash-top-title">ITN Mass Campaign 2027</span>
+          <span class="dash-top-sub">Mandla, M.P. — Live Dashboard</span>
         </div>
-        <div class="metric-card">
-          <div class="metric-label">ITNs Allocated</div>
-          <div class="metric-value" id="m-itn-alloc">0</div>
-          <div class="metric-subtext">Nets assigned at registration</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-label">ITNs Distributed</div>
-          <div class="metric-value" id="m-itn-dist">0</div>
-          <div class="metric-subtext">Nets actually delivered</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-label">Distribution Rate</div>
-          <div class="metric-value" id="m-rate">0%</div>
-          <div class="metric-subtext">Allocated vs delivered</div>
+        <div style="text-align:right;">
+          <span class="dash-top-date" id="dashDate">—</span>
         </div>
       </div>
-
+      <div class="donut-row">
+        <div class="donut-card">
+          <div class="donut-ring" id="statusDonut"><div class="donut-center-val" id="statusDonutVal">0</div></div>
+          <div class="donut-title">Households by Status</div>
+          <div class="donut-legend" id="statusLegend"></div>
+        </div>
+        <div class="donut-card">
+          <div class="donut-ring" id="ageDonut"><div class="donut-center-val" id="ageDonutVal">0</div></div>
+          <div class="donut-title">Members by Category</div>
+          <div class="donut-legend" id="ageLegend"></div>
+        </div>
+      </div>
       <div class="view-card">
         <div class="card-head">
-          <div class="card-title">Campaign Coverage</div>
-          <div class="card-sub">Registration progress against target</div>
-        </div>
-        <div class="card-body">
-          <div class="coverage-card">
-            <div class="pie-wrap">
-              <div class="pie-chart" id="pieChart">
-                <div class="pie-center" id="pieCenter">0%</div>
-              </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+            <div>
+              <div class="card-title">Positive Trend</div>
+              <div class="card-sub">Registration &amp; Distribution over time</div>
             </div>
-            <div class="coverage-controls">
-              <div class="form-group">
-                <label>Target Households</label>
-                <input type="number" class="form-input" id="dashTarget" value="500" min="1" oninput="refreshAll()">
-              </div>
-              <div class="inline-panel">
-                <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
-                  <span style="font-size:11px;color:#5a7258;">Registered</span>
-                  <span style="font-size:11px;font-weight:700;color:#1c2b1c;" id="cov-reg">0</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
-                  <span style="font-size:11px;color:#5a7258;">Remaining</span>
-                  <span style="font-size:11px;font-weight:700;color:#1c2b1c;" id="cov-rem">500</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
-                  <span style="font-size:11px;color:#5a7258;">Distributed</span>
-                  <span style="font-size:11px;font-weight:700;color:#1c2b1c;" id="cov-dist">0</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;">
-                  <span style="font-size:11px;color:#5a7258;">Total ITNs Out</span>
-                  <span style="font-size:11px;font-weight:700;color:#2e6e28;" id="cov-itn">0</span>
-                </div>
-              </div>
+            <div class="trend-legend">
+              <span class="legend-item"><span class="legend-dot" style="background:#4a7048;"></span>Registered</span>
+              <span class="legend-item"><span class="legend-dot" style="background:#6b7a8d;"></span>Distributed</span>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="view-card">
-        <div class="card-head">
-          <div class="card-title">Regional Breakdown</div>
-          <div class="card-sub">Registrations by region</div>
-        </div>
-        <div class="card-body">
-          <div id="regionBreakdown">
-            <div class="empty-note">No data yet</div>
+        <div class="card-body" style="padding:8px 6px 6px;">
+          <div class="chart-svg-wrap">
+            <svg id="trendChart" viewBox="0 0 380 160" preserveAspectRatio="none" style="width:100%;display:block;"></svg>
           </div>
+        </div>
+      </div>
+      <div class="bottom-pair">
+        <div class="view-card">
+          <div class="card-head"><div class="card-title">Regional Distribution</div><div class="card-sub">Households by region</div></div>
+          <div class="card-body" style="display:flex;align-items:center;gap:12px;padding:12px;">
+            <div class="pie-sm-wrap"><div class="donut-ring sm" id="regionPie"><div class="donut-center-val sm" id="regionPieVal">0</div></div></div>
+            <div class="pie-legend-list" id="regionLegend"></div>
+          </div>
+        </div>
+        <div class="view-card">
+          <div class="card-head"><div class="card-title">Key Indicators</div></div>
+          <div class="card-body" id="keyIndicators" style="padding:10px 14px;"></div>
         </div>
       </div>
     </div>
 
-    <!-- ===== REGISTERED ===== -->
+    <!-- ===== REGISTERED DASHBOARD ===== -->
     <div id="view-registered" class="hidden">
+
+      <!-- Total Coverage Bar Chart — Separate Card -->
+      <div class="view-card">
+        <div class="card-head">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+            <div>
+              <div class="card-title">Total Coverage</div>
+              <div class="card-sub">Registration coverage by district</div>
+            </div>
+            <select class="ind-select" id="regDistrictSelect" onchange="refreshAll()">
+              <option value="">All Districts</option>
+            </select>
+          </div>
+        </div>
+        <div class="card-body" style="padding:8px 6px 6px;">
+          <div class="chart-svg-wrap">
+            <svg id="regCovBarSvg" viewBox="0 0 380 180" preserveAspectRatio="none" style="width:100%;display:block;"></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Registration Indicators -->
+      <div class="ind-section">
+        <div class="ind-title">Registration Indicators</div>
+        <div class="ind-grid-custom">
+          <div class="ind-card ind-card-pie">
+            <div class="ind-card-label">Targeted Population</div>
+            <div class="theme-pie" id="regPopPie">
+              <div class="theme-pie-val" id="regPopVal">0</div>
+            </div>
+            <div class="pop-legend" id="regPopLegend"></div>
+          </div>
+          <div class="ind-card">
+            <div class="ind-card-label">Token Issued</div>
+            <div class="ind-card-value" id="regTokenIssued">0</div>
+            <div class="ind-card-sub">Tokens generated</div>
+          </div>
+          <div class="ind-card">
+            <div class="ind-card-label">ITN Issued</div>
+            <div class="ind-card-value" id="regItnIssued">0</div>
+            <div class="ind-card-sub">ITNs allocated</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table -->
       <div class="view-card">
         <div class="card-head">
           <div style="display:flex;justify-content:space-between;align-items:center;">
@@ -582,11 +655,7 @@ tr:nth-child(even) td { background:#f7fbf5; }
         <div class="card-body" style="padding:0;">
           <div class="table-wrapper">
             <table id="regTable">
-              <thead>
-                <tr>
-                  <th>#</th><th>Token</th><th>Head Name</th><th>Phone</th><th>Region</th><th>District</th><th>Chiefdom</th><th>Facility</th><th>Members</th><th>ITN</th><th>Status</th><th>Date</th>
-                </tr>
-              </thead>
+              <thead><tr><th>#</th><th>Token</th><th>Head Name</th><th>Phone</th><th>Region</th><th>District</th><th>Chiefdom</th><th>Facility</th><th>Members</th><th>ITN</th><th>Status</th><th>Date</th></tr></thead>
               <tbody id="regBody"></tbody>
             </table>
           </div>
@@ -594,8 +663,54 @@ tr:nth-child(even) td { background:#f7fbf5; }
       </div>
     </div>
 
-    <!-- ===== DISTRIBUTED ===== -->
+    <!-- ===== DISTRIBUTED DASHBOARD ===== -->
     <div id="view-distributed" class="hidden">
+
+      <!-- Total Coverage Bar Chart — Separate Card -->
+      <div class="view-card">
+        <div class="card-head">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+            <div>
+              <div class="card-title">Total Coverage</div>
+              <div class="card-sub">Distribution coverage by district</div>
+            </div>
+            <select class="ind-select" id="distDistrictSelect" onchange="refreshAll()">
+              <option value="">All Districts</option>
+            </select>
+          </div>
+        </div>
+        <div class="card-body" style="padding:8px 6px 6px;">
+          <div class="chart-svg-wrap">
+            <svg id="distCovBarSvg" viewBox="0 0 380 180" preserveAspectRatio="none" style="width:100%;display:block;"></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Distribution Indicators -->
+      <div class="ind-section">
+        <div class="ind-title">Distribution Indicators</div>
+        <div class="ind-grid-custom">
+          <div class="ind-card ind-card-pie">
+            <div class="ind-card-label">Targeted Population</div>
+            <div class="theme-pie" id="distPopPie">
+              <div class="theme-pie-val" id="distPopVal">0</div>
+            </div>
+            <div class="pop-legend" id="distPopLegend"></div>
+          </div>
+          <div class="ind-card">
+            <div class="ind-card-label">Token Redeemed</div>
+            <div class="ind-card-value" id="distTokenRedeemed">0</div>
+            <div class="ind-card-sub">Tokens used for distribution</div>
+          </div>
+          <div class="ind-card">
+            <div class="ind-card-label">ITN Distributed</div>
+            <div class="ind-card-value" id="distItnDist">0</div>
+            <div class="ind-card-sub">Nets delivered to households</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table -->
       <div class="view-card">
         <div class="card-head">
           <div style="display:flex;justify-content:space-between;align-items:center;">
@@ -612,11 +727,7 @@ tr:nth-child(even) td { background:#f7fbf5; }
         <div class="card-body" style="padding:0;">
           <div class="table-wrapper">
             <table id="distTable">
-              <thead>
-                <tr>
-                  <th>#</th><th>Token</th><th>Head</th><th>Region</th><th>District</th><th>Chiefdom</th><th>Allocated</th><th>Delivered</th><th>Method</th><th>Date</th>
-                </tr>
-              </thead>
+              <thead><tr><th>#</th><th>Token</th><th>Head</th><th>Region</th><th>District</th><th>Chiefdom</th><th>Allocated</th><th>Delivered</th><th>Method</th><th>Date</th></tr></thead>
               <tbody id="distBody"></tbody>
             </table>
           </div>
@@ -624,7 +735,7 @@ tr:nth-child(even) td { background:#f7fbf5; }
       </div>
     </div>
 
-    <!-- ===== RECONCILIATION ===== -->
+    <!-- ===== RECONCILIATION DASHBOARD ===== -->
     <div id="view-recon" class="hidden">
       <div class="recon-links">
         <div class="sheet-card" onclick="switchView('registered')">
@@ -636,24 +747,12 @@ tr:nth-child(even) td { background:#f7fbf5; }
           <div class="sheet-sub" id="recon-dist-count">0 distributions completed</div>
         </div>
       </div>
-
       <div class="view-card">
-        <div class="card-head">
-          <div class="card-title">Reconciliation Summary</div>
-          <div class="card-sub">Registered vs distributed comparison</div>
-        </div>
-        <div class="card-body">
-          <div id="reconBody">
-            <div class="empty-note">No data to reconcile yet</div>
-          </div>
-        </div>
+        <div class="card-head"><div class="card-title">Reconciliation Summary</div><div class="card-sub">Registered vs distributed comparison</div></div>
+        <div class="card-body"><div id="reconBody"><div class="empty-note">No data to reconcile yet</div></div></div>
       </div>
-
       <div class="view-card">
-        <div class="card-head">
-          <div class="card-title">Token Lookup</div>
-          <div class="card-sub">Check status of any household token</div>
-        </div>
+        <div class="card-head"><div class="card-title">Token Lookup</div><div class="card-sub">Check status of any household token</div></div>
         <div class="card-body">
           <div class="form-group">
             <label>Enter Token</label>
@@ -672,323 +771,404 @@ tr:nth-child(even) td { background:#f7fbf5; }
 <div class="toast" id="toast"></div>
 
 <script>
-/* ═══════════════════ STORAGE KEYS ═══════════════════ */
-const REG_KEY   = 'icfsl_hh_records';
-const SYNC_KEY  = 'icfsl_registrations';
-const DIST_KEY  = 'icfsl_dist_records';
-const TGT_KEY   = 'icfsl_hh_target';
+var REG_KEY='icfsl_hh_records',SYNC_KEY='icfsl_registrations',DIST_KEY='icfsl_dist_records',TGT_KEY='icfsl_hh_target';
+function loadReg(){try{return JSON.parse(localStorage.getItem(REG_KEY)||'[]');}catch(e){return [];}}
+function loadDist(){try{return JSON.parse(localStorage.getItem(DIST_KEY)||'[]');}catch(e){return [];}}
+function getTarget(){return parseInt(localStorage.getItem(TGT_KEY)||'500');}
 
-function loadReg(){ try{ return JSON.parse(localStorage.getItem(REG_KEY)||'[]'); }catch(e){ return []; } }
-function loadDist(){ try{ return JSON.parse(localStorage.getItem(DIST_KEY)||'[]'); }catch(e){ return []; } }
-function getTarget(){ return parseInt(localStorage.getItem(TGT_KEY)||'500'); }
-
-/* ═══════════════════ VIEW SWITCHING ═══════════════════ */
-const views = ['overview','registered','distributed','recon'];
+var views=['overview','registered','distributed','recon'];
 function switchView(id){
-  views.forEach(v => {
-    const el = document.getElementById('view-'+v);
-    if(el) el.classList.toggle('hidden', v !== id);
-  });
-  document.querySelectorAll('.nav-btn').forEach(b => {
-    b.classList.toggle('active', b.textContent.toLowerCase().includes(id.substring(0,4)));
+  views.forEach(function(v){var el=document.getElementById('view-'+v);if(el)el.classList.toggle('hidden',v!==id);});
+  document.querySelectorAll('.nav-btn').forEach(function(b){
+    var t=b.textContent.toLowerCase();
+    if(id==='overview')b.classList.toggle('active',t.indexOf('overview')!==-1);
+    else if(id==='registered')b.classList.toggle('active',t.indexOf('registered')!==-1);
+    else if(id==='distributed')b.classList.toggle('active',t.indexOf('distributed')!==-1);
+    else if(id==='recon')b.classList.toggle('active',t.indexOf('recon')!==-1);
   });
   refreshAll();
 }
 
-/* ═══════════════════ REFRESH ALL DATA ═══════════════════ */
+/* ═══════════════════ DISTRICT DROPDOWNS ═══════════════════ */
+function populateDistrictSelects(){
+  var regs=loadReg(),dists=loadDist(),ds={};
+  regs.forEach(function(r){if(r.district)ds[r.district]=true;});
+  dists.forEach(function(d){if(d.district)ds[d.district]=true;});
+  var arr=Object.keys(ds).sort();
+  var s1=document.getElementById('regDistrictSelect'),s2=document.getElementById('distDistrictSelect');
+  var p1=s1?s1.value:'',p2=s2?s2.value:'';
+  var o='<option value="">All Districts</option>';
+  arr.forEach(function(d){o+='<option value="'+d+'">'+d+'</option>';});
+  if(s1){s1.innerHTML=o;s1.value=p1;}
+  if(s2){s2.innerHTML=o;s2.value=p2;}
+}
+
+/* ═══════════════════ BAR CHART RENDERER ═══════════════════ */
+function renderBarChart(svgId,data,color){
+  var svg=document.getElementById(svgId);
+  if(!svg)return;
+  var W=380,H=180,ml=42,mr=10,mt=28,mb=42;
+  var cw=W-ml-mr,ch=H-mt-mb;
+  var s='';
+  var maxVal=100,gridN=4;
+  for(var gi=0;gi<=gridN;gi++){
+    var gy=mt+(ch/gridN)*gi;
+    var gv=Math.round(maxVal-(maxVal/gridN)*gi);
+    s+='<line x1="'+ml+'" y1="'+gy+'" x2="'+(W-mr)+'" y2="'+gy+'" stroke="#eef4ec" stroke-width="0.7"/>';
+    s+='<text x="'+(ml-5)+'" y="'+(gy+3)+'" text-anchor="end" fill="#8aab88" font-size="7.5" font-family="Segoe UI,Arial,sans-serif">'+gv+'%</text>';
+  }
+  s+='<line x1="'+ml+'" y1="'+(mt+ch)+'" x2="'+(W-mr)+'" y2="'+(mt+ch)+'" stroke="#d4e4cf" stroke-width="0.7"/>';
+  if(!data.length){
+    s+='<text x="'+(W/2)+'" y="'+(H/2)+'" text-anchor="middle" fill="#7a9e76" font-size="11" font-family="Segoe UI,Arial,sans-serif">No data yet</text>';
+    svg.innerHTML=s;return;
+  }
+  var n=data.length;
+  var maxBW=42;
+  var gap=Math.max(6,(cw-n*maxBW)/(n+1));
+  var bW=Math.min(maxBW,(cw-gap*(n+1))/n);
+  bW=Math.max(bW,14);
+  gap=(cw-n*bW)/(n+1);
+  data.forEach(function(d,i){
+    var x=ml+gap+(bW+gap)*i;
+    var bH=Math.max(0,(d.value/maxVal)*ch);
+    var y=mt+ch-bH;
+    if(bH>5){
+      s+='<rect x="'+x+'" y="'+y+'" width="'+bW+'" height="'+bH+'" rx="4" ry="4" fill="'+color+'" opacity="0.82"/>';
+      /* subtle highlight strip */
+      s+='<rect x="'+x+'" y="'+y+'" width="'+(bW*0.35)+'" height="'+bH+'" rx="4" ry="0" fill="#fff" opacity="0.12"/>';
+    }else if(bH>0){
+      s+='<rect x="'+x+'" y="'+y+'" width="'+bW+'" height="'+bH+'" fill="'+color+'" opacity="0.82"/>';
+    }
+    s+='<text x="'+(x+bW/2)+'" y="'+(y-5)+'" text-anchor="middle" fill="#1c2b1c" font-size="9" font-weight="700" font-family="Segoe UI,Arial,sans-serif">'+d.value+'%</text>';
+    var lbl=d.name.length>10?d.name.substring(0,9)+'…':d.name;
+    s+='<text x="'+(x+bW/2)+'" y="'+(mt+ch+14)+'" text-anchor="middle" fill="#5a7258" font-size="7" font-weight="600" font-family="Segoe UI,Arial,sans-serif">'+lbl+'</text>';
+  });
+  svg.innerHTML=s;
+}
+
+/* ═══════════════════ REG COV BAR ═══════════════════ */
+function renderRegCovBar(){
+  var regs=loadReg(),target=getTarget();
+  var sel=document.getElementById('regDistrictSelect');
+  var district=sel?sel.value:'';
+  var dm={};
+  regs.forEach(function(r){var d=r.district||'Unknown';if(!dm[d])dm[d]=0;dm[d]++;});
+  var data;
+  if(district){
+    data=[{name:district,value:target>0?Math.min(100,Math.round(((dm[district]||0)/target)*100)):0}];
+  }else{
+    data=Object.keys(dm).sort().map(function(k){return{name:k,value:target>0?Math.min(100,Math.round((dm[k]/target)*100)):0};});
+  }
+  renderBarChart('regCovBarSvg',data,'#4a7048');
+}
+
+/* ═══════════════════ DIST COV BAR ═══════════════════ */
+function renderDistCovBar(){
+  var regs=loadReg(),dists=loadDist();
+  var sel=document.getElementById('distDistrictSelect');
+  var district=sel?sel.value:'';
+  var am={},dm={};
+  regs.forEach(function(r){var d=r.district||'Unknown';if(!am[d])am[d]=0;am[d]+=(parseInt(r.itnIssued)||0);});
+  dists.forEach(function(r){var d=r.district||'Unknown';if(!dm[d])dm[d]=0;dm[d]+=(parseInt(r.itnDelivered)||0);});
+  var all=Object.keys(am);
+  Object.keys(dm).forEach(function(d){if(all.indexOf(d)===-1)all.push(d);});
+  var data;
+  if(district){
+    var a=am[district]||0,dd=dm[district]||0;
+    data=[{name:district,value:a>0?Math.min(100,Math.round((dd/a)*100)):0}];
+  }else{
+    data=all.sort().map(function(k){var a=am[k]||0,dd=dm[k]||0;return{name:k,value:a>0?Math.min(100,Math.round((dd/a)*100)):0};});
+  }
+  renderBarChart('distCovBarSvg',data,'#6b7a8d');
+}
+
+/* ═══════════════════ POPULATION PIE ═══════════════════ */
+function renderPopPie(pieId,valId,legId,filtered){
+  var under5=filtered.reduce(function(s,r){return s+(parseInt(r.under5)||0);},0);
+  var pregnant=filtered.reduce(function(s,r){return s+(parseInt(r.pregnant)||0);},0);
+  var above5=filtered.reduce(function(s,r){return s+(parseInt(r.above5)||0);},0);
+  var total=under5+pregnant+above5;
+  var el=document.getElementById(pieId);
+  var valEl=document.getElementById(valId);
+  var legEl=document.getElementById(legId);
+  if(valEl)valEl.textContent=total.toLocaleString();
+  if(!el)return;
+  if(total===0){
+    el.style.background='conic-gradient(#d4e4cf 0deg, #d4e4cf 360deg)';
+  }else{
+    var u5d=Math.round((under5/total)*360);
+    var pd=Math.round((pregnant/total)*360);
+    var a5d=360-u5d-pd;
+    var cur=0,grad='';
+    if(under5>0){grad+='#d6e8ff '+cur+'deg, #d6e8ff '+(cur+u5d)+'deg, ';cur+=u5d;}
+    if(pregnant>0){grad+='#fde8c8 '+cur+'deg, #fde8c8 '+(cur+pd)+'deg, ';cur+=pd;}
+    if(above5>0){grad+='#4a7048 '+cur+'deg, #4a7048 '+(cur+a5d)+'deg, ';cur+=a5d;}
+    grad+='#d4e4cf '+cur+'deg, #d4e4cf 360deg';
+    el.style.background='conic-gradient('+grad+')';
+  }
+  if(legEl){
+    legEl.innerHTML=
+      '<div class="pop-legend-item"><span class="pop-legend-dot" style="background:#d6e8ff;"></span>Under 5: '+under5+'</div>'+
+      '<div class="pop-legend-item"><span class="pop-legend-dot" style="background:#fde8c8;"></span>Pregnant: '+pregnant+'</div>'+
+      '<div class="pop-legend-item"><span class="pop-legend-dot" style="background:#4a7048;"></span>Above 5: '+above5+'</div>';
+  }
+}
+
+/* ═══════════════════ UPDATE REG INDICATORS ═══════════════════ */
+function updateRegIndicators(){
+  var regs=loadReg();
+  var sel=document.getElementById('regDistrictSelect');
+  var district=sel?sel.value:'';
+  var filtered=district?regs.filter(function(r){return r.district===district;}):regs;
+  var tokenCount=filtered.length;
+  var itnIssued=filtered.reduce(function(s,r){return s+(parseInt(r.itnIssued)||0);},0);
+  var elTok=document.getElementById('regTokenIssued');
+  if(elTok)elTok.textContent=tokenCount.toLocaleString();
+  var elItn=document.getElementById('regItnIssued');
+  if(elItn)elItn.textContent=itnIssued.toLocaleString();
+  renderRegCovBar();
+  renderPopPie('regPopPie','regPopVal','regPopLegend',filtered);
+}
+
+/* ═══════════════════ UPDATE DIST INDICATORS ═══════════════════ */
+function updateDistIndicators(){
+  var regs=loadReg(),dists=loadDist();
+  var sel=document.getElementById('distDistrictSelect');
+  var district=sel?sel.value:'';
+  var filteredRegs=district?regs.filter(function(r){return r.district===district;}):regs;
+  var filtered=district?dists.filter(function(d){return d.district===district;}):dists;
+  var itnDistributed=filtered.reduce(function(s,r){return s+(parseInt(r.itnDelivered)||0);},0);
+  var tokenRedeemed=filtered.length;
+  var elDist=document.getElementById('distItnDist');
+  if(elDist)elDist.textContent=itnDistributed.toLocaleString();
+  var elTok=document.getElementById('distTokenRedeemed');
+  if(elTok)elTok.textContent=tokenRedeemed.toLocaleString();
+  renderDistCovBar();
+  renderPopPie('distPopPie','distPopVal','distPopLegend',filteredRegs);
+}
+
+/* ═══════════════════ REFRESH ALL ═══════════════════ */
 function refreshAll(){
-  const regs = loadReg();
-  const dists = loadDist();
-  const target = parseInt(document.getElementById('dashTarget').value) || 500;
-
-  // --- Overview Metrics ---
-  const totalReg = regs.length;
-  const totalAlloc = regs.reduce((s,r) => s + (parseInt(r.itnIssued)||0), 0);
-  const totalDist = dists.reduce((s,r) => s + (parseInt(r.itnDelivered)||0), 0);
-  const rate = totalAlloc > 0 ? Math.round((totalDist / totalAlloc) * 100) : 0;
-
-  document.getElementById('m-reg').textContent = totalReg;
-  document.getElementById('m-itn-alloc').textContent = totalAlloc;
-  document.getElementById('m-itn-dist').textContent = totalDist;
-  document.getElementById('m-rate').textContent = rate + '%';
-
-  // --- Coverage Pie ---
-  const covPct = target > 0 ? Math.min(100, Math.round((totalReg / target) * 100)) : 0;
-  const deg = Math.round((covPct / 100) * 360);
-  document.getElementById('pieChart').style.background =
-    'conic-gradient(#4a7048 0deg, #4a7048 ' + deg + 'deg, #e6efe3 ' + deg + 'deg, #e6efe3 360deg)';
-  document.getElementById('pieCenter').textContent = covPct + '%';
-
-  document.getElementById('cov-reg').textContent = totalReg;
-  document.getElementById('cov-rem').textContent = Math.max(0, target - totalReg);
-  document.getElementById('cov-dist').textContent = dists.length;
-  document.getElementById('cov-itn').textContent = totalDist;
-
-  // --- Regional Breakdown ---
-  const regionMap = {};
-  regs.forEach(r => {
-    const reg = r.region || 'Unknown';
-    if(!regionMap[reg]) regionMap[reg] = {count:0, itn:0, dist:0};
-    regionMap[reg].count++;
-    regionMap[reg].itn += (parseInt(r.itnIssued)||0);
-  });
-  dists.forEach(d => {
-    const reg = d.region || 'Unknown';
-    if(!regionMap[reg]) regionMap[reg] = {count:0, itn:0, dist:0};
-    regionMap[reg].dist++;
-  });
-
-  const rbEl = document.getElementById('regionBreakdown');
-  if(Object.keys(regionMap).length === 0){
-    rbEl.innerHTML = '<div class="empty-note">No data yet</div>';
-  } else {
-    let rbHtml = '<div style="display:flex;flex-direction:column;gap:10px;">';
-    Object.keys(regionMap).sort().forEach(reg => {
-      const d = regionMap[reg];
-      const barPct = target > 0 ? Math.min(100, Math.round((d.count / target) * 100)) : 0;
-      rbHtml += '<div>' +
-        '<div style="display:flex;justify-content:space-between;margin-bottom:4px;">' +
-          '<span style="font-size:12px;font-weight:600;color:#1c2b1c;">'+reg+'</span>' +
-          '<span style="font-size:11px;color:#5a7258;">'+d.count+' HH / '+d.itn+' ITN / '+d.dist+' dist</span>' +
-        '</div>' +
-        '<div style="background:#eef4ec;border-radius:10px;height:8px;overflow:hidden;">' +
-          '<div style="background:#4a7048;height:100%;width:'+barPct+'%;border-radius:10px;transition:width 0.5s;"></div>' +
-        '</div>' +
-      '</div>';
-    });
-    rbHtml += '</div>';
-    rbEl.innerHTML = rbHtml;
+  var regs=loadReg(),dists=loadDist(),target=getTarget();
+  var totalReg=regs.length;
+  var totalAlloc=regs.reduce(function(s,r){return s+(parseInt(r.itnIssued)||0);},0);
+  var totalDist=dists.reduce(function(s,r){return s+(parseInt(r.itnDelivered)||0);},0);
+  var rate=totalAlloc>0?Math.round((totalDist/totalAlloc)*100):0;
+  var mR=document.getElementById('m-reg');if(mR)mR.textContent=totalReg;
+  var mA=document.getElementById('m-itn-alloc');if(mA)mA.textContent=totalAlloc;
+  var mD=document.getElementById('m-itn-dist');if(mD)mD.textContent=totalDist;
+  var mRt=document.getElementById('m-rate');if(mRt)mRt.textContent=rate+'%';
+  var covPct=target>0?Math.min(100,Math.round((totalReg/target)*100)):0;
+  var deg=Math.round((covPct/100)*360);
+  var pE=document.getElementById('pieChart');if(pE)pE.style.background='conic-gradient(#4a7048 0deg, #4a7048 '+deg+'deg, #e6efe3 '+deg+'deg, #e6efe3 360deg)';
+  var pC=document.getElementById('pieCenter');if(pC)pC.textContent=covPct+'%';
+  var cR=document.getElementById('cov-reg');if(cR)cR.textContent=totalReg;
+  var cRe=document.getElementById('cov-rem');if(cRe)cRe.textContent=Math.max(0,target-totalReg);
+  var cD=document.getElementById('cov-dist');if(cD)cD.textContent=dists.length;
+  var cI=document.getElementById('cov-itn');if(cI)cI.textContent=totalDist;
+  var rbE=document.getElementById('regionBreakdown');
+  if(rbE){
+    var rm={};
+    regs.forEach(function(r){var g=r.region||'Unknown';if(!rm[g])rm[g]={count:0,itn:0,dist:0};rm[g].count++;rm[g].itn+=(parseInt(r.itnIssued)||0);});
+    dists.forEach(function(d){var g=d.region||'Unknown';if(!rm[g])rm[g]={count:0,itn:0,dist:0};rm[g].dist++;});
+    if(!Object.keys(rm).length){rbE.innerHTML='<div class="empty-note">No data yet</div>';}
+    else{var h='<div style="display:flex;flex-direction:column;gap:10px;">';
+    Object.keys(rm).sort().forEach(function(g){var d=rm[g];var bp=target>0?Math.min(100,Math.round((d.count/target)*100)):0;
+    h+='<div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:12px;font-weight:600;color:#1c2b1c;">'+g+'</span><span style="font-size:11px;color:#5a7258;">'+d.count+' HH / '+d.itn+' ITN / '+d.dist+' dist</span></div><div style="background:#eef4ec;border-radius:10px;height:8px;overflow:hidden;"><div style="background:#4a7048;height:100%;width:'+bp+'%;border-radius:10px;transition:width 0.5s;"></div></div></div>';});
+    h+='</div>';rbE.innerHTML=h;}
   }
-
-  // --- Registered Table ---
-  buildRegTable(regs, dists);
-
-  // --- Distributed Table ---
+  populateDistrictSelects();
+  updateRegIndicators();
+  updateDistIndicators();
+  renderOverviewCharts(regs,dists,target);
+  buildRegTable(regs,dists);
   buildDistTable(dists);
-
-  // --- Reconciliation ---
-  buildRecon(regs, dists);
-
-  // --- Recon counts in links ---
-  document.getElementById('recon-reg-count').textContent = totalReg + ' households registered';
-  document.getElementById('recon-dist-count').textContent = dists.length + ' distributions completed';
+  buildRecon(regs,dists);
+  var rc1=document.getElementById('recon-reg-count');if(rc1)rc1.textContent=totalReg+' households registered';
+  var rc2=document.getElementById('recon-dist-count');if(rc2)rc2.textContent=dists.length+' distributions completed';
 }
 
-/* ═══════════════════ REGISTERED TABLE ═══════════════════ */
-function buildRegTable(regs, dists){
-  const distTokens = new Set(dists.map(d => d.token));
-  const tbody = document.getElementById('regBody');
-  document.getElementById('reg-count').textContent = regs.length + ' record' + (regs.length===1?'':'s');
-
-  if(!regs.length){
-    tbody.innerHTML = '<tr><td colspan="12"><div class="empty-note">No registrations yet</div></td></tr>';
-    return;
-  }
-
-  const sorted = regs.slice().sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
-  let html = '';
-  sorted.forEach((r, i) => {
-    const isDist = distTokens.has(r.token);
-    const date = r.timestamp ? new Date(r.timestamp).toLocaleDateString() : '—';
-    const name = (r.firstName||'') + ' ' + (r.lastName||'');
-    html += '<tr>' +
-      '<td>'+(i+1)+'</td>' +
-      '<td style="font-family:monospace;color:#2e6e28;font-weight:700;">'+(r.token||'—')+'</td>' +
-      '<td>'+name.trim()+'</td>' +
-      '<td>'+(r.phone||'—')+'</td>' +
-      '<td>'+(r.region||'—')+'</td>' +
-      '<td>'+(r.district||'—')+'</td>' +
-      '<td>'+(r.chiefdom||'—')+'</td>' +
-      '<td>'+(r.healthFacility||'—')+'</td>' +
-      '<td style="text-align:center;">'+(r.totalMembers||0)+'</td>' +
-      '<td style="text-align:center;font-weight:700;color:#b06010;">'+(r.itnIssued||0)+'</td>' +
-      '<td><span class="status-badge '+(isDist?'status-distributed':'status-pending')+'">'+(isDist?'Distributed':'Pending')+'</span></td>' +
-      '<td>'+date+'</td>' +
-    '</tr>';
+/* ═══════════════════ TABLES ═══════════════════ */
+function buildRegTable(regs,dists){
+  var dt={};dists.forEach(function(d){dt[d.token]=true;});
+  var tb=document.getElementById('regBody');
+  document.getElementById('reg-count').textContent=regs.length+' record'+(regs.length===1?'':'s');
+  if(!regs.length){tb.innerHTML='<tr><td colspan="12"><div class="empty-note">No registrations yet</div></td></tr>';return;}
+  var sorted=regs.slice().sort(function(a,b){return new Date(b.timestamp)-new Date(a.timestamp);});
+  var h='';
+  sorted.forEach(function(r,i){
+    var isD=!!dt[r.token];
+    var date=r.timestamp?new Date(r.timestamp).toLocaleDateString():'—';
+    var name=(r.firstName||'')+' '+(r.lastName||'');
+    h+='<tr><td>'+(i+1)+'</td><td style="font-family:monospace;color:#2e6e28;font-weight:700;">'+(r.token||'—')+'</td><td>'+name.trim()+'</td><td>'+(r.phone||'—')+'</td><td>'+(r.region||'—')+'</td><td>'+(r.district||'—')+'</td><td>'+(r.chiefdom||'—')+'</td><td>'+(r.healthFacility||'—')+'</td><td style="text-align:center;">'+(r.totalMembers||0)+'</td><td style="text-align:center;font-weight:700;color:#b06010;">'+(r.itnIssued||0)+'</td><td><span class="status-badge '+(isD?'status-distributed':'status-pending')+'">'+(isD?'Distributed':'Pending')+'</span></td><td>'+date+'</td></tr>';
   });
-  tbody.innerHTML = html;
+  tb.innerHTML=h;
 }
 
-/* ═══════════════════ DISTRIBUTED TABLE ═══════════════════ */
 function buildDistTable(dists){
-  const tbody = document.getElementById('distBody');
-  document.getElementById('dist-count').textContent = dists.length + ' record' + (dists.length===1?'':'s');
-
-  if(!dists.length){
-    tbody.innerHTML = '<tr><td colspan="10"><div class="empty-note">No distributions yet</div></td></tr>';
-    return;
-  }
-
-  const sorted = dists.slice().sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
-  let html = '';
-  sorted.forEach((r, i) => {
-    const date = r.timestamp ? new Date(r.timestamp).toLocaleDateString() : (r.date||'—');
-    html += '<tr>' +
-      '<td>'+(i+1)+'</td>' +
-      '<td style="font-family:monospace;color:#2e6e28;font-weight:700;">'+(r.token||'—')+'</td>' +
-      '<td>'+(r.headName||'—')+'</td>' +
-      '<td>'+(r.region||'—')+'</td>' +
-      '<td>'+(r.district||'—')+'</td>' +
-      '<td>'+(r.chiefdom||'—')+'</td>' +
-      '<td style="text-align:center;">'+(r.itnAllocated||0)+'</td>' +
-      '<td style="text-align:center;font-weight:700;color:#2e6e28;">'+(r.itnDelivered||0)+'</td>' +
-      '<td>'+(r.method||'—')+'</td>' +
-      '<td>'+date+'</td>' +
-    '</tr>';
+  var tb=document.getElementById('distBody');
+  document.getElementById('dist-count').textContent=dists.length+' record'+(dists.length===1?'':'s');
+  if(!dists.length){tb.innerHTML='<tr><td colspan="10"><div class="empty-note">No distributions yet</div></td></tr>';return;}
+  var sorted=dists.slice().sort(function(a,b){return new Date(b.timestamp)-new Date(a.timestamp);});
+  var h='';
+  sorted.forEach(function(r,i){
+    var date=r.timestamp?new Date(r.timestamp).toLocaleDateString():(r.date||'—');
+    h+='<tr><td>'+(i+1)+'</td><td style="font-family:monospace;color:#2e6e28;font-weight:700;">'+(r.token||'—')+'</td><td>'+(r.headName||'—')+'</td><td>'+(r.region||'—')+'</td><td>'+(r.district||'—')+'</td><td>'+(r.chiefdom||'—')+'</td><td style="text-align:center;">'+(r.itnAllocated||0)+'</td><td style="text-align:center;font-weight:700;color:#2e6e28;">'+(r.itnDelivered||0)+'</td><td>'+(r.method||'—')+'</td><td>'+date+'</td></tr>';
   });
-  tbody.innerHTML = html;
+  tb.innerHTML=h;
 }
 
 /* ═══════════════════ RECONCILIATION ═══════════════════ */
-function buildRecon(regs, dists){
-  const el = document.getElementById('reconBody');
-  const distTokens = new Set(dists.map(d => d.token));
-  const regTokens = new Set(regs.map(r => r.token));
-  const distributed = dists.filter(d => regTokens.has(d.token));
-  const orphanDist = dists.filter(d => !regTokens.has(d.token));
-  const pending = regs.filter(r => !distTokens.has(r.token));
-
-  if(!regs.length && !dists.length){
-    el.innerHTML = '<div class="empty-note">No data to reconcile yet</div>';
-    return;
-  }
-
-  let html = '<div style="display:flex;flex-direction:column;gap:12px;">';
-
-  html += '<div class="inline-panel" style="border-left:4px solid #2e6e28;">' +
-    '<div style="font-size:12px;font-weight:700;color:#2e6e28;margin-bottom:6px;">Matched: Registered & Distributed</div>' +
-    '<div style="font-size:22px;font-weight:700;color:#1c2b1c;">'+distributed.length+' households</div>' +
-    '<div style="font-size:11px;color:#5a7258;">Token found in both registration and distribution records</div>' +
-  '</div>';
-
-  html += '<div class="inline-panel" style="border-left:4px solid #92400e;">' +
-    '<div style="font-size:12px;font-weight:700;color:#92400e;margin-bottom:6px;">Pending: Registered Only</div>' +
-    '<div style="font-size:22px;font-weight:700;color:#1c2b1c;">'+pending.length+' households</div>' +
-    '<div style="font-size:11px;color:#5a7258;">Registered but ITN not yet distributed</div>' +
-  '</div>';
-
-  if(orphanDist.length > 0){
-    html += '<div class="inline-panel" style="border-left:4px solid #c53030;">' +
-      '<div style="font-size:12px;font-weight:700;color:#c53030;margin-bottom:6px;">Orphan: Distributed Without Registration</div>' +
-      '<div style="font-size:22px;font-weight:700;color:#1c2b1c;">'+orphanDist.length+' records</div>' +
-      '<div style="font-size:11px;color:#5a7258;">Distributed but token not found in registration data</div>' +
-    '</div>';
-  }
-
-  html += '</div>';
-  el.innerHTML = html;
+function buildRecon(regs,dists){
+  var el=document.getElementById('reconBody');
+  var dt={},rt={};
+  dists.forEach(function(d){dt[d.token]=true;});
+  regs.forEach(function(r){rt[r.token]=true;});
+  var matched=dists.filter(function(d){return!!rt[d.token];});
+  var orphan=dists.filter(function(d){return!rt[d.token];});
+  var pending=regs.filter(function(r){return!dt[r.token];});
+  if(!regs.length&&!dists.length){el.innerHTML='<div class="empty-note">No data to reconcile yet</div>';return;}
+  var h='<div style="display:flex;flex-direction:column;gap:12px;">';
+  h+='<div class="inline-panel" style="border-left:4px solid #2e6e28;"><div style="font-size:12px;font-weight:700;color:#2e6e28;margin-bottom:6px;">Matched: Registered & Distributed</div><div style="font-size:22px;font-weight:700;color:#1c2b1c;">'+matched.length+' households</div><div style="font-size:11px;color:#5a7258;">Token found in both registration and distribution records</div></div>';
+  h+='<div class="inline-panel" style="border-left:4px solid #92400e;"><div style="font-size:12px;font-weight:700;color:#92400e;margin-bottom:6px;">Pending: Registered Only</div><div style="font-size:22px;font-weight:700;color:#1c2b1c;">'+pending.length+' households</div><div style="font-size:11px;color:#5a7258;">Registered but ITN not yet distributed</div></div>';
+  if(orphan.length>0){h+='<div class="inline-panel" style="border-left:4px solid #c53030;"><div style="font-size:12px;font-weight:700;color:#c53030;margin-bottom:6px;">Orphan: Distributed Without Registration</div><div style="font-size:22px;font-weight:700;color:#1c2b1c;">'+orphan.length+' records</div><div style="font-size:11px;color:#5a7258;">Distributed but token not found in registration data</div></div>';}
+  h+='</div>';el.innerHTML=h;
 }
 
 /* ═══════════════════ TOKEN LOOKUP ═══════════════════ */
 function lookupToken(){
-  const v = document.getElementById('lookupToken').value.trim();
-  const el = document.getElementById('lookupResult');
-  if(!v){ el.innerHTML = ''; return; }
-
-  const regs = loadReg();
-  const dists = loadDist();
-  const reg = regs.find(r => r.token === v);
-  const dist = dists.find(d => d.token === v);
-
-  if(!reg && !dist){
-    el.innerHTML = '<div class="inline-panel" style="border:1px solid #feb2b2;background:#fde8e8;color:#c53030;border-radius:12px;padding:12px;font-size:12px;text-align:center;">Token not found in any record</div>';
-    return;
-  }
-
-  let html = '<div style="display:flex;flex-direction:column;gap:10px;">';
-
-  if(reg){
-    html += '<div class="inline-panel" style="border:1px solid #b4d9b0;">' +
-      '<div style="font-size:11px;font-weight:700;color:#2e6e28;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Registration Record</div>' +
-      '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#5a7258;">Name:</span><span style="font-size:12px;font-weight:600;">'+(reg.firstName||'')+' '+(reg.lastName||'')+'</span></div>' +
-      '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#5a7258;">Region:</span><span style="font-size:12px;font-weight:600;">'+(reg.region||'—')+'</span></div>' +
-      '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#5a7258;">District:</span><span style="font-size:12px;font-weight:600;">'+(reg.district||'—')+'</span></div>' +
-      '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#5a7258;">Members:</span><span style="font-size:12px;font-weight:600;">'+(reg.totalMembers||0)+'</span></div>' +
-      '<div style="display:flex;justify-content:space-between;"><span style="font-size:11px;color:#5a7258;">ITN Allocated:</span><span style="font-size:12px;font-weight:700;color:#b06010;">'+(reg.itnIssued||0)+'</span></div>' +
-    '</div>';
-  }
-
-  if(dist){
-    html += '<div class="inline-panel" style="border:1px solid #b9daf3;">' +
-      '<div style="font-size:11px;font-weight:700;color:#1a5fa8;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Distribution Record</div>' +
-      '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#5a7258;">Allocated:</span><span style="font-size:12px;font-weight:600;">'+(dist.itnAllocated||0)+'</span></div>' +
-      '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#5a7258;">Delivered:</span><span style="font-size:12px;font-weight:700;color:#2e6e28;">'+(dist.itnDelivered||0)+'</span></div>' +
-      '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#5a7258;">Method:</span><span style="font-size:12px;font-weight:600;">'+(dist.method||'—')+'</span></div>' +
-      '<div style="display:flex;justify-content:space-between;"><span style="font-size:11px;color:#5a7258;">Date:</span><span style="font-size:12px;font-weight:600;">'+(dist.date||'—')+'</span></div>' +
-    '</div>';
-  }
-
-  const status = dist ? '<span class="status-badge status-distributed">Distributed</span>' : '<span class="status-badge status-pending">Pending Distribution</span>';
-  html += '<div style="text-align:center;">'+status+'</div>';
-  html += '</div>';
-  el.innerHTML = html;
+  var v=document.getElementById('lookupToken').value.trim();
+  var el=document.getElementById('lookupResult');
+  if(!v){el.innerHTML='';return;}
+  var regs=loadReg(),dists=loadDist(),reg=null,dist=null;
+  for(var i=0;i<regs.length;i++){if(regs[i].token===v){reg=regs[i];break;}}
+  for(var j=0;j<dists.length;j++){if(dists[j].token===v){dist=dists[j];break;}}
+  if(!reg&&!dist){el.innerHTML='<div class="inline-panel" style="border:1px solid #feb2b2;background:#fde8e8;color:#c53030;border-radius:12px;padding:12px;font-size:12px;text-align:center;">Token not found in any record</div>';return;}
+  var h='<div style="display:flex;flex-direction:column;gap:10px;">';
+  if(reg){h+='<div class="inline-panel" style="border:1px solid #b4d9b0;"><div style="font-size:11px;font-weight:700;color:#2e6e28;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Registration Record</div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#5a7258;">Name:</span><span style="font-size:12px;font-weight:600;">'+(reg.firstName||'')+' '+(reg.lastName||'')+'</span></div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#5a7258;">Region:</span><span style="font-size:12px;font-weight:600;">'+(reg.region||'—')+'</span></div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#5a7258;">District:</span><span style="font-size:12px;font-weight:600;">'+(reg.district||'—')+'</span></div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#5a7258;">Members:</span><span style="font-size:12px;font-weight:600;">'+(reg.totalMembers||0)+'</span></div><div style="display:flex;justify-content:space-between;"><span style="font-size:11px;color:#5a7258;">ITN Allocated:</span><span style="font-size:12px;font-weight:700;color:#b06010;">'+(reg.itnIssued||0)+'</span></div></div>';}
+  if(dist){h+='<div class="inline-panel" style="border:1px solid #b9daf3;"><div style="font-size:11px;font-weight:700;color:#1a5fa8;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Distribution Record</div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#5a7258;">Allocated:</span><span style="font-size:12px;font-weight:600;">'+(dist.itnAllocated||0)+'</span></div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#5a7258;">Delivered:</span><span style="font-size:12px;font-weight:700;color:#2e6e28;">'+(dist.itnDelivered||0)+'</span></div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#5a7258;">Method:</span><span style="font-size:12px;font-weight:600;">'+(dist.method||'—')+'</span></div><div style="display:flex;justify-content:space-between;"><span style="font-size:11px;color:#5a7258;">Date:</span><span style="font-size:12px;font-weight:600;">'+(dist.date||'—')+'</span></div></div>';}
+  var st=dist?'<span class="status-badge status-distributed">Distributed</span>':'<span class="status-badge status-pending">Pending Distribution</span>';
+  h+='<div style="text-align:center;">'+st+'</div></div>';el.innerHTML=h;
 }
 
 /* ═══════════════════ CSV EXPORT ═══════════════════ */
 function exportRegCSV(){
-  const regs = loadReg();
-  if(!regs.length){ showToast('No registration records'); return; }
-  const keys = ['token','firstName','lastName','phone','region','district','chiefdom','healthFacility','community','townVillage','under5','pregnant','above5','totalMembers','itnIssued','gps','registrar','timestamp'];
-  const headers = ['Token','First Name','Last Name','Phone','Region','District','Chiefdom','Facility','Community','Town/Village','Under 5','Pregnant','Above 5','Members','ITN Issued','GPS','Registrar','Timestamp'];
-  let csv = headers.join(',') + '\n';
-  regs.forEach(r => {
-    csv += keys.map(k => { let v = r[k]??''; v = String(v).replace(/"/g,'""'); if(v.includes(',')||v.includes('"')||v.includes('\n')) v='"'+v+'"'; return v; }).join(',') + '\n';
-  });
-  downloadCSV(csv, 'icfsl_dashboard_registrations.csv');
+  var regs=loadReg();if(!regs.length){showToast('No registration records');return;}
+  var keys=['token','firstName','lastName','phone','region','district','chiefdom','healthFacility','community','townVillage','under5','pregnant','above5','totalMembers','itnIssued','gps','registrar','timestamp'];
+  var hdr=['Token','First Name','Last Name','Phone','Region','District','Chiefdom','Facility','Community','Town/Village','Under 5','Pregnant','Above 5','Members','ITN Issued','GPS','Registrar','Timestamp'];
+  var csv=hdr.join(',')+'\n';
+  regs.forEach(function(r){csv+=keys.map(function(k){var v=(r[k]!==undefined&&r[k]!==null)?r[k]:'';v=String(v).replace(/"/g,'""');if(v.includes(',')||v.includes('"')||v.includes('\n'))v='"'+v+'"';return v;}).join(',')+'\n';});
+  downloadCSV(csv,'icfsl_dashboard_registrations.csv');
 }
-
 function exportDistCSV(){
-  const dists = loadDist();
-  if(!dists.length){ showToast('No distribution records'); return; }
-  const keys = ['token','headName','phone','totalMembers','region','district','chiefdom','facility','community','eligible','consent','itnAllocated','itnDelivered','method','date','time','timestamp'];
-  const headers = ['Token','Head Name','Phone','Members','Region','District','Chiefdom','Facility','Community','Eligible','Consent','ITN Allocated','ITN Delivered','Method','Date','Time','Timestamp'];
-  let csv = headers.join(',') + '\n';
-  dists.forEach(r => {
-    csv += keys.map(k => { let v = r[k]??''; v = String(v).replace(/"/g,'""'); if(v.includes(',')||v.includes('"')||v.includes('\n')) v='"'+v+'"'; return v; }).join(',') + '\n';
-  });
-  downloadCSV(csv, 'icfsl_dashboard_distributions.csv');
+  var dists=loadDist();if(!dists.length){showToast('No distribution records');return;}
+  var keys=['token','headName','phone','totalMembers','region','district','chiefdom','facility','community','eligible','consent','itnAllocated','itnDelivered','method','date','time','timestamp'];
+  var hdr=['Token','Head Name','Phone','Members','Region','District','Chiefdom','Facility','Community','Eligible','Consent','ITN Allocated','ITN Delivered','Method','Date','Time','Timestamp'];
+  var csv=hdr.join(',')+'\n';
+  dists.forEach(function(r){csv+=keys.map(function(k){var v=(r[k]!==undefined&&r[k]!==null)?r[k]:'';v=String(v).replace(/"/g,'""');if(v.includes(',')||v.includes('"')||v.includes('\n'))v='"'+v+'"';return v;}).join(',')+'\n';});
+  downloadCSV(csv,'icfsl_dashboard_distributions.csv');
+}
+function downloadCSV(csv,filename){
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();
+  showToast('CSV exported: '+filename);
 }
 
-function downloadCSV(csv, filename){
-  const blob = new Blob([csv], {type:'text/csv'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = filename;
-  a.click();
-  showToast('CSV exported: ' + filename);
+/* ═══════════════════ OVERVIEW CHARTS ═══════════════════ */
+function renderOverviewCharts(regs,dists,target){
+  var dE=document.getElementById('dashDate');
+  if(dE)dE.textContent=new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+  var tR=regs.length,tD=dists.length;
+  renderDonut('statusDonut','statusDonutVal',[{value:tD,color:'#4a7048'},{value:Math.max(0,tR-tD),color:'#d4e4cf'}],tR);
+  var sL=document.getElementById('statusLegend');
+  if(sL)sL.innerHTML='<span class="legend-item"><span class="legend-dot" style="background:#4a7048;"></span>Distributed: '+tD+'</span><span class="legend-item"><span class="legend-dot" style="background:#d4e4cf;border:1px solid #c0d4bc;"></span>Pending: '+Math.max(0,tR-tD)+'</span>';
+  var u5=regs.reduce(function(s,r){return s+(parseInt(r.under5)||0);},0);
+  var pr=regs.reduce(function(s,r){return s+(parseInt(r.pregnant)||0);},0);
+  var a5=regs.reduce(function(s,r){return s+(parseInt(r.above5)||0);},0);
+  var tm=u5+pr+a5;
+  renderDonut('ageDonut','ageDonutVal',[{value:u5,color:'#d6e8ff'},{value:pr,color:'#fde8c8'},{value:a5,color:'#4a7048'}],tm);
+  var aL=document.getElementById('ageLegend');
+  if(aL)aL.innerHTML='<span class="legend-item"><span class="legend-dot" style="background:#d6e8ff;"></span>Under 5: '+u5+'</span><span class="legend-item"><span class="legend-dot" style="background:#fde8c8;"></span>Pregnant: '+pr+'</span><span class="legend-item"><span class="legend-dot" style="background:#4a7048;"></span>Above 5: '+a5+'</span>';
+  renderTrendChart(regs,dists);
+  renderRegionPie(regs);
+  renderKeyIndicators(regs,dists,target);
 }
 
-/* ═══════════════════ TOAST ═══════════════════ */
-function showToast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(window._tt);
-  window._tt = setTimeout(() => t.classList.remove('show'), 3000);
+function renderDonut(elId,centerId,segments,total){
+  var el=document.getElementById(elId),cE=document.getElementById(centerId);
+  if(!el)return;total=total||0;if(cE)cE.textContent=total;
+  if(total===0){el.style.background='conic-gradient(#e6efe3 0deg, #e6efe3 360deg)';return;}
+  var g='',c=0;
+  segments.forEach(function(s){var d=(s.value/total)*360;g+=s.color+' '+c+'deg, '+s.color+' '+(c+d)+'deg, ';c+=d;});
+  g+='#e6efe3 '+c+'deg, #e6efe3 360deg';el.style.background='conic-gradient('+g+')';
 }
 
-/* ═══════════════════ NETWORK STATUS ═══════════════════ */
-function setNet(on){
-  const el = document.getElementById('netPill');
-  const lbl = document.getElementById('netLabel');
-  if(!el) return;
-  el.className = 'net-pill ' + (on?'online':'offline');
-  lbl.textContent = on ? 'Online' : 'Offline';
+function renderTrendChart(regs,dists){
+  var svg=document.getElementById('trendChart');if(!svg)return;
+  var W=380,H=160,ml=36,mr=8,mt=8,mb=28,cw=W-ml-mr,ch=H-mt-mb;
+  var dm={};
+  regs.forEach(function(r){var d=r.timestamp?r.timestamp.substring(0,10):null;if(d){if(!dm[d])dm[d]={r:0,d:0};dm[d].r++;}});
+  dists.forEach(function(r){var d=r.timestamp?r.timestamp.substring(0,10):(r.date||null);if(d){if(!dm[d])dm[d]={r:0,d:0};dm[d].d++;}});
+  var data=Object.keys(dm).sort().map(function(k){return{date:k,r:dm[k].r,d:dm[k].d};});
+  var s='';
+  var maxV=data.length?Math.max(1,Math.max.apply(null,data.map(function(x){return Math.max(x.r,x.d);}))):1;
+  var yM=Math.ceil(maxV*1.25),gN=4;
+  for(var gi=0;gi<=gN;gi++){var gy=mt+(ch/gN)*gi,gv=Math.round(yM-(yM/gN)*gi);
+  s+='<line x1="'+ml+'" y1="'+gy+'" x2="'+(W-mr)+'" y2="'+gy+'" stroke="#eef4ec" stroke-width="0.7"/>';
+  s+='<text x="'+(ml-4)+'" y="'+(gy+3)+'" text-anchor="end" fill="#8aab88" font-size="8" font-family="Segoe UI,Arial,sans-serif">'+gv+'</text>';}
+  s+='<line x1="'+ml+'" y1="'+(mt+ch)+'" x2="'+(W-mr)+'" y2="'+(mt+ch)+'" stroke="#d4e4cf" stroke-width="0.7"/>';
+  if(!data.length){s+='<text x="'+(W/2)+'" y="'+(H/2)+'" text-anchor="middle" fill="#7a9e76" font-size="11" font-family="Segoe UI,Arial,sans-serif">No trend data yet</text>';svg.innerHTML=s;return;}
+  var n=data.length;
+  var pts=data.map(function(d,i){return{x:n>1?ml+(cw/(n-1))*i:ml+cw/2,yr:mt+ch-(d.r/yM)*ch,yd:mt+ch-(d.d/yM)*ch,lbl:d.date.substring(5)};});
+  var ap='M'+pts[0].x+','+(mt+ch);pts.forEach(function(p){ap+=' L'+p.x+','+p.yr;});ap+=' L'+pts[n-1].x+','+(mt+ch)+' Z';
+  s+='<path d="'+ap+'" fill="rgba(74,112,72,0.08)"/>';
+  var rL='';pts.forEach(function(p,i){rL+=(i?'L':'M')+p.x+','+p.yr;});
+  s+='<path d="'+rL+'" fill="none" stroke="#4a7048" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>';
+  var dL='';pts.forEach(function(p,i){dL+=(i?'L':'M')+p.x+','+p.yd;});
+  s+='<path d="'+dL+'" fill="none" stroke="#6b7a8d" stroke-width="2" stroke-dasharray="5,3" stroke-linecap="round" stroke-linejoin="round"/>';
+  pts.forEach(function(p){s+='<circle cx="'+p.x+'" cy="'+p.yr+'" r="3" fill="#4a7048" stroke="#fff" stroke-width="1.5"/>';if(p.yd<mt+ch)s+='<circle cx="'+p.x+'" cy="'+p.yd+'" r="2.5" fill="#6b7a8d" stroke="#fff" stroke-width="1.5"/>';});
+  var step=n>1?Math.max(1,Math.ceil(n/7)):1;
+  pts.forEach(function(p,i){if(i%step===0||i===n-1){s+='<text x="'+p.x+'" y="'+(mt+ch+14)+'" text-anchor="middle" fill="#8aab88" font-size="7.5" font-family="Segoe UI,Arial,sans-serif">'+p.lbl+'</text>';}});
+  svg.innerHTML=s;
 }
-window.addEventListener('online', () => setNet(true));
-window.addEventListener('offline', () => setNet(false));
 
-/* ═══════════════════ CROSS-TAB SYNC ═══════════════════ */
-window.addEventListener('storage', (e) => {
-  if(e.key === REG_KEY || e.key === SYNC_KEY || e.key === DIST_KEY || e.key === TGT_KEY){
-    refreshAll();
-  }
-});
+function renderRegionPie(regs){
+  var el=document.getElementById('regionPie'),lE=document.getElementById('regionLegend');if(!el)return;
+  var map={};regs.forEach(function(r){var g=r.region||'Unknown';if(!map[g])map[g]=0;map[g]++;});
+  var total=0,rc=['#4a7048','#d6e8ff','#fde8c8','#b06010','#6b7a8d','#a78bfa'],rk=Object.keys(map);
+  var segs=rk.map(function(k,i){var v=map[k];total+=v;return{value:v,color:rc[i%rc.length]};});
+  renderDonut('regionPie','regionPieVal',segs,total);
+  if(lE){var sorted=rk.sort(function(a,b){return map[b]-map[a];});
+  lE.innerHTML=sorted.map(function(k){var ci=rk.indexOf(k);return'<div class="pie-legend-item"><span class="legend-dot" style="background:'+rc[ci%rc.length]+';"></span><span>'+k+': '+map[k]+'</span></div>';}).join('');}
+}
 
-/* ═══════════════════ AUTO-REFRESH ═══════════════════ */
-setInterval(refreshAll, 3000);
+function renderKeyIndicators(regs,dists,target){
+  var el=document.getElementById('keyIndicators');if(!el)return;
+  var tR=regs.length,tA=regs.reduce(function(s,r){return s+(parseInt(r.itnIssued)||0);},0);
+  var tD=dists.reduce(function(s,r){return s+(parseInt(r.itnDelivered)||0);},0);
+  var pend=tR-tD,rate=tA>0?Math.round((tD/tA)*100):0;
+  var dRate=tR>0?Math.round((tD/tR)*100):0;
+  var avgM=tR>0?(regs.reduce(function(s,r){return s+(parseInt(r.totalMembers)||0);},0)/tR).toFixed(1):'0';
+  var avgI=tR>0?(tA/tR).toFixed(1):'0';
+  var rs={};regs.forEach(function(r){if(r.region)rs[r.region]=true;});var regCnt=Object.keys(rs).length;
+  el.innerHTML=
+    '<div class="ki-row"><span class="ki-label">Total Registered</span><span class="ki-val blue">'+tR+'</span></div>'+
+    '<div class="ki-row"><span class="ki-label">Total Distributed</span><span class="ki-val green">'+tD+'</span></div>'+
+    '<div class="ki-row"><span class="ki-label">Pending Distribution</span><span class="ki-val amber">'+pend+'</span></div>'+
+    '<div class="ki-row"><span class="ki-label">Distribution Rate</span><span class="ki-val green">'+dRate+'%</span></div>'+
+    '<div class="ki-row"><span class="ki-label">ITN Allocation Rate</span><span class="ki-val">'+rate+'%</span></div>'+
+    '<div class="ki-row"><span class="ki-label">Avg Members / HH</span><span class="ki-val">'+avgM+'</span></div>'+
+    '<div class="ki-row"><span class="ki-label">Avg ITN / HH</span><span class="ki-val">'+avgI+'</span></div>'+
+    '<div class="ki-row"><span class="ki-label">Regions Covered</span><span class="ki-val">'+regCnt+'</span></div>';
+}
 
-/* ═══════════════════ INIT ═══════════════════ */
+/* ═══════════════════ UTILS ═══════════════════ */
+function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(function(){t.classList.remove('show');},3000);}
+function setNet(on){var el=document.getElementById('netPill'),lbl=document.getElementById('netLabel');if(!el)return;el.className='net-pill '+(on?'online':'offline');lbl.textContent=on?'Online':'Offline';}
+window.addEventListener('online',function(){setNet(true);});
+window.addEventListener('offline',function(){setNet(false);});
+window.addEventListener('storage',function(e){if(e.key===REG_KEY||e.key===SYNC_KEY||e.key===DIST_KEY||e.key===TGT_KEY){refreshAll();}});
+setInterval(refreshAll,3000);
 setNet(navigator.onLine);
 refreshAll();
 </script>
