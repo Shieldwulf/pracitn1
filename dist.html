@@ -64,7 +64,7 @@ body{
   height:46px;display:flex;align-items:center;justify-content:center;
 }
 
-/* ── CAMPAIGN BANNER (new — replaces footer text) ── */
+/* ── CAMPAIGN BANNER ── */
 .campaign-banner{
   margin-top:12px;
   text-align:center;
@@ -309,7 +309,6 @@ select{
       <div class="partner-logo"><img src="pmi_evolve.png" alt="PMI Evolve"></div>
       <div class="partner-logo"><img src="usa.png" alt="USA"></div>
     </div>
-    <!-- TASK 1: Campaign banner moved here from footer -->
     <div class="campaign-banner">ITN Mass Campaign 2027</div>
   </div>
   <div class="content-area">
@@ -376,7 +375,7 @@ select{
             </div>
             <div class="field">
               <label class="flabel">Household Members <span class="req">*</span></label>
-              <input type="number" id="totalMembers" min="1" placeholder="e.g. 5">
+              <input type="number" id="totalMembers" min="1" placeholder="e.g. 5" oninput="calcITN()">
             </div>
           </div>
         </div>
@@ -673,8 +672,8 @@ function fillChiefdoms(){
   if(geo[reg]&&geo[reg][dist]) geo[reg][dist].forEach(k=>c.add(new Option(k,k)));
 }
 
-/* ── TOKEN LOOKUP (reads from regform registrations) ── */
-const REG_KEY = 'icfsl_registrations'; // must match regform.html's localStorage key
+/* ── TOKEN LOOKUP (reads from reg.html registrations) ── */
+const REG_KEY = 'icfsl_registrations';
 
 function checkToken(v){
   const st=document.getElementById('tokenStatus');
@@ -695,14 +694,14 @@ function checkToken(v){
       return;
     }
 
-    // Look up in registration records
+    // Look up in registration records from reg.html
     const regs = JSON.parse(localStorage.getItem(REG_KEY)||'[]');
     const match = regs.find(r=>r.token===v.trim());
     if(match){
       st.className='token-status prefilled';
-      st.textContent='✓ Token found — details pre-filled';
+      st.textContent='✓ Token found — details pre-filled from registration';
       // Pre-fill household head name
-      headNameEl.value = match.headName || match.name || '';
+      headNameEl.value = match.headName || match.name || (match.firstName||'')+' '+(match.lastName||'');
       // Pre-fill members if available
       if(match.totalMembers || match.members){
         membersEl.value = match.totalMembers || match.members || '';
@@ -715,9 +714,9 @@ function checkToken(v){
         if(match.district){ document.getElementById('district').value=match.district; fillChiefdoms(); }
         if(match.chiefdom){ document.getElementById('chiefdom').value=match.chiefdom; }
       }
-      if(match.community) document.getElementById('community').value=match.community||'';
-      if(match.facility)  document.getElementById('facility').value=match.facility||'';
-      if(match.phone)     document.getElementById('phone').value=match.phone||'';
+      if(match.community) document.getElementById('community').value=match.community||match.townVillage||'';
+      if(match.facility || match.healthFacility) document.getElementById('facility').value=match.facility||match.healthFacility||'';
+      if(match.phone) document.getElementById('phone').value=match.phone||'';
     } else {
       st.className='token-status available';
       st.textContent='Token available — not yet in registry';
@@ -736,8 +735,6 @@ function selectRadio(el,name,val){
 }
 
 /* ── ITN CALC ── */
-document.getElementById('totalMembers').addEventListener('input',calcITN);
-document.getElementById('itnDelivered').addEventListener('input',calcITN);
 function calcITN(){
   const m=parseInt(document.getElementById('totalMembers').value)||0;
   const n=Math.max(1,Math.ceil(m/2));
@@ -833,9 +830,9 @@ function exportCSV(){
   if(!recs.length){ showToast('No records to export'); return; }
   const keys=['token','headName','phone','totalMembers','region','district','chiefdom','facility','community','eligible','nonEligibleReason','consent','itnAllocated','itnDelivered','method','date','time','timestamp','gps'];
   const headers=['Token','Head Name','Phone','Members','Region','District','Chiefdom','Facility','Community','Eligible','Non-Eligible Reason','Consent','ITN Allocated','ITN Delivered','Method','Date','Time','Timestamp','GPS'];
-  let csv=headers.join(',')+'\\n';
+  let csv=headers.join(',')+'\n';
   recs.forEach(r=>{
-    csv+=keys.map(k=>{ let v=r[k]??''; v=String(v).replace(/"/g,'""'); if(v.includes(',')||v.includes('"')||v.includes('\n')) v='"'+v+'"'; return v; }).join(',')+'\\n';
+    csv+=keys.map(k=>{ let v=r[k]??''; v=String(v).replace(/"/g,'""'); if(v.includes(',')||v.includes('"')||v.includes('\n')) v='"'+v+'"'; return v; }).join(',')+'\n';
   });
   const blob=new Blob([csv],{type:'text/csv'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='icfsl_distribution_records.csv'; a.click();
@@ -873,6 +870,17 @@ function updateTarget(){
 function doLogout(){
   if(confirm('Log out of ICF-SL?')){ window.location.href='index.html'; }
 }
+
+/* ── CROSS-TAB SYNC: update if reg.html writes new registrations ── */
+window.addEventListener('storage', (e) => {
+  if(e.key === REG_KEY) {
+    // Registration data changed — nothing to refresh here unless distScreen is open
+  }
+  if(e.key === KEY) {
+    if(document.getElementById('recordsScreen').classList.contains('active')) renderRecords();
+    if(document.getElementById('targetScreen').classList.contains('active')) updateTarget();
+  }
+});
 
 init();
 </script>
