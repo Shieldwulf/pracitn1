@@ -151,20 +151,6 @@ body {
   margin-top:2px;
 }
 .card-body { padding:14px 16px 16px; }
-.inline-panel {
-  background:#f8fbf7;
-  padding:14px;
-  border-radius:14px;
-  border:1px solid #e3ece0;
-}
-.status-badge {
-  display:inline-flex;
-  padding:3px 8px;
-  border-radius:999px;
-  font-weight:700;
-}
-.status-pending { background:#fef3c7; color:#92400e; }
-.status-distributed { background:#ddf0d8; color:#2e6e28; }
 .empty-note {
   text-align:center;
   padding:18px;
@@ -224,6 +210,20 @@ body {
   box-shadow:0 0 0 3px rgba(74,112,72,0.12);
   background:#fff;
 }
+.inline-panel {
+  background:#f8fbf7;
+  padding:14px;
+  border-radius:14px;
+  border:1px solid #e3ece0;
+}
+.status-badge {
+  display:inline-flex;
+  padding:3px 8px;
+  border-radius:999px;
+  font-weight:700;
+}
+.status-pending { background:#fef3c7; color:#92400e; }
+.status-distributed { background:#ddf0d8; color:#2e6e28; }
 
 /* Overview */
 .dash-top-bar {
@@ -449,7 +449,6 @@ body {
       <button class="nav-btn active" onclick="switchView('overview')">Overview</button>
       <button class="nav-btn" onclick="switchView('registered')">Registered</button>
       <button class="nav-btn" onclick="switchView('distributed')">Distributed</button>
-      <button class="nav-btn" onclick="switchView('reconciliation')">Reconciliation</button>
     </div>
 
     <!-- ===== OVERVIEW ===== -->
@@ -514,6 +513,21 @@ body {
       <div class="view-card">
         <div class="card-head"><div class="card-title">Key Indicators</div></div>
         <div class="card-body" id="keyIndicators" style="padding:10px 14px;"></div>
+      </div>
+
+      <!-- Token Lookup -->
+      <div class="view-card">
+        <div class="card-head">
+          <div class="card-title">Token Lookup</div>
+          <div class="card-sub">Check status of any household token</div>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label>Enter Token</label>
+            <input type="text" class="form-input" id="lookupToken" placeholder="e.g. KAB_123456789" oninput="lookupToken()">
+          </div>
+          <div id="lookupResult"></div>
+        </div>
       </div>
     </div>
 
@@ -613,36 +627,6 @@ body {
       </div>
     </div>
 
-    <!-- ===== RECONCILIATION DASHBOARD ===== -->
-    <div id="view-reconciliation" class="hidden">
-
-      <div class="view-card">
-        <div class="card-head">
-          <div class="card-title">Reconciliation Summary</div>
-          <div class="card-sub">Registered vs distributed comparison</div>
-        </div>
-        <div class="card-body">
-          <div id="reconBody">
-            <div class="empty-note">No data to reconcile yet</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="view-card">
-        <div class="card-head">
-          <div class="card-title">Token Lookup</div>
-          <div class="card-sub">Check status of any household token</div>
-        </div>
-        <div class="card-body">
-          <div class="form-group">
-            <label>Enter Token</label>
-            <input type="text" class="form-input" id="lookupToken" placeholder="e.g. KAB_123456789" oninput="lookupToken()">
-          </div>
-          <div id="lookupResult"></div>
-        </div>
-      </div>
-    </div>
-
   </div>
 
   <div class="footer-strip">ICF-SL — ITN Mass Campaign 2027</div>
@@ -656,7 +640,7 @@ function loadReg(){try{return JSON.parse(localStorage.getItem(REG_KEY)||'[]');}c
 function loadDist(){try{return JSON.parse(localStorage.getItem(DIST_KEY)||'[]');}catch(e){return [];}}
 function getTarget(){return parseInt(localStorage.getItem(TGT_KEY)||'500');}
 
-var views=['overview','registered','distributed','reconciliation'];
+var views=['overview','registered','distributed'];
 function switchView(id){
   views.forEach(function(v){var el=document.getElementById('view-'+v);if(el)el.classList.toggle('hidden',v!==id);});
   document.querySelectorAll('.nav-btn').forEach(function(b){
@@ -664,7 +648,6 @@ function switchView(id){
     if(id==='overview')b.classList.toggle('active',t.indexOf('overview')!==-1);
     else if(id==='registered')b.classList.toggle('active',t.indexOf('registered')!==-1);
     else if(id==='distributed')b.classList.toggle('active',t.indexOf('distributed')!==-1);
-    else if(id==='reconciliation')b.classList.toggle('active',t.indexOf('reconciliation')!==-1);
   });
   refreshAll();
 }
@@ -884,24 +867,6 @@ function refreshAll(){
   updateRegIndicators();
   updateDistIndicators();
   renderOverviewCharts(regs,dists,target);
-  buildRecon(regs,dists);
-}
-
-/* ═══════════════════ RECONCILIATION ═══════════════════ */
-function buildRecon(regs,dists){
-  var el=document.getElementById('reconBody');
-  var dt={},rt={};
-  dists.forEach(function(d){dt[d.token]=true;});
-  regs.forEach(function(r){rt[r.token]=true;});
-  var matched=dists.filter(function(d){return!!rt[d.token];});
-  var orphan=dists.filter(function(d){return!rt[d.token];});
-  var pending=regs.filter(function(r){return!dt[r.token];});
-  if(!regs.length&&!dists.length){el.innerHTML='<div class="empty-note">No data to reconcile yet</div>';return;}
-  var h='<div style="display:flex;flex-direction:column;gap:12px;">';
-  h+='<div class="inline-panel" style="border-left:4px solid #2e6e28;"><div style="font-size:12px;font-weight:700;color:#2e6e28;margin-bottom:6px;">Matched: Registered & Distributed</div><div style="font-size:22px;font-weight:700;color:#1c2b1c;">'+matched.length+' households</div><div style="font-size:11px;color:#5a7258;">Token found in both registration and distribution records</div></div>';
-  h+='<div class="inline-panel" style="border-left:4px solid #92400e;"><div style="font-size:12px;font-weight:700;color:#92400e;margin-bottom:6px;">Pending: Registered Only</div><div style="font-size:22px;font-weight:700;color:#1c2b1c;">'+pending.length+' households</div><div style="font-size:11px;color:#5a7258;">Registered but ITN not yet distributed</div></div>';
-  if(orphan.length>0){h+='<div class="inline-panel" style="border-left:4px solid #c53030;"><div style="font-size:12px;font-weight:700;color:#c53030;margin-bottom:6px;">Orphan: Distributed Without Registration</div><div style="font-size:22px;font-weight:700;color:#1c2b1c;">'+orphan.length+' records</div><div style="font-size:11px;color:#5a7258;">Distributed but token not found in registration data</div></div>';}
-  h+='</div>';el.innerHTML=h;
 }
 
 /* ═══════════════════ TOKEN LOOKUP ═══════════════════ */
