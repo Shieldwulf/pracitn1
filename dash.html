@@ -199,21 +199,6 @@ body {
   white-space:nowrap;
 }
 .toast.show { transform:translateX(-50%) translateY(0); }
-.csv-btn {
-  padding:8px 14px;
-  background:#6b7a8d;
-  color:#fff;
-  border:none;
-  border-radius:10px;
-  font-size:11px;
-  font-weight:600;
-  cursor:pointer;
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
-  transition:background 0.15s;
-}
-.csv-btn:hover { background:#4a5568; }
 .form-group { margin-bottom:12px; }
 .form-group label {
   display:block;
@@ -239,31 +224,6 @@ body {
   box-shadow:0 0 0 3px rgba(74,112,72,0.12);
   background:#fff;
 }
-.table-wrapper {
-  overflow:auto;
-  border:1px solid #eef4ec;
-  border-radius:12px;
-  background:#fff;
-}
-table {
-  width:100%;
-  min-width:760px;
-  border-collapse:collapse;
-  font-size:11px;
-}
-th, td {
-  padding:9px 10px;
-  border-bottom:0.5px solid #eef4ec;
-  text-align:left;
-  white-space:nowrap;
-}
-th {
-  background:#6b7a8d;
-  color:#fff;
-  font-size:10px;
-  letter-spacing:0.4px;
-}
-tr:nth-child(even) td { background:#f7fbf5; }
 
 /* Overview */
 .dash-top-bar {
@@ -603,30 +563,6 @@ tr:nth-child(even) td { background:#f7fbf5; }
           </div>
         </div>
       </div>
-
-      <!-- Registered Households Table -->
-      <div class="view-card">
-        <div class="card-head">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <div class="card-title">Registered Households</div>
-              <div class="card-sub" id="reg-count">0 records</div>
-            </div>
-            <button class="csv-btn" onclick="exportRegCSV()">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              CSV
-            </button>
-          </div>
-        </div>
-        <div class="card-body" style="padding:0;">
-          <div class="table-wrapper">
-            <table id="regTable">
-              <thead><tr><th>#</th><th>Token</th><th>Head Name</th><th>Phone</th><th>Region</th><th>District</th><th>Chiefdom</th><th>Facility</th><th>Members</th><th>ITN</th><th>Status</th><th>Date</th></tr></thead>
-              <tbody id="regBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- ===== DISTRIBUTED DASHBOARD ===== -->
@@ -672,30 +608,6 @@ tr:nth-child(even) td { background:#f7fbf5; }
             <div class="ind-card-label">ITN Distributed</div>
             <div class="ind-card-value" id="distItnDist">0</div>
             <div class="ind-card-sub">Nets delivered to households</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ITN Distributions Table -->
-      <div class="view-card">
-        <div class="card-head">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <div class="card-title">ITN Distributions</div>
-              <div class="card-sub" id="dist-count">0 records</div>
-            </div>
-            <button class="csv-btn" onclick="exportDistCSV()">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              CSV
-            </button>
-          </div>
-        </div>
-        <div class="card-body" style="padding:0;">
-          <div class="table-wrapper">
-            <table id="distTable">
-              <thead><tr><th>#</th><th>Token</th><th>Head</th><th>Region</th><th>District</th><th>Chiefdom</th><th>Allocated</th><th>Delivered</th><th>Method</th><th>Date</th></tr></thead>
-              <tbody id="distBody"></tbody>
-            </table>
           </div>
         </div>
       </div>
@@ -968,51 +880,11 @@ function updateDistIndicators(){
 /* ═══════════════════ REFRESH ALL ═══════════════════ */
 function refreshAll(){
   var regs=loadReg(),dists=loadDist(),target=getTarget();
-  var totalReg=regs.length;
-  var totalAlloc=regs.reduce(function(s,r){return s+(parseInt(r.itnIssued)||0);},0);
-  var totalDist=dists.reduce(function(s,r){return s+(parseInt(r.itnDelivered)||0);},0);
-  var rate=totalAlloc>0?Math.round((totalDist/totalAlloc)*100):0;
-
   populateDistrictSelects();
   updateRegIndicators();
   updateDistIndicators();
   renderOverviewCharts(regs,dists,target);
-  buildRegTable(regs,dists);
-  buildDistTable(dists);
   buildRecon(regs,dists);
-
-  var rc1=document.getElementById('recon-reg-count');if(rc1)rc1.textContent=totalReg+' households registered';
-  var rc2=document.getElementById('recon-dist-count');if(rc2)rc2.textContent=dists.length+' distributions completed';
-}
-
-/* ═══════════════════ TABLES ═══════════════════ */
-function buildRegTable(regs,dists){
-  var dt={};dists.forEach(function(d){dt[d.token]=true;});
-  var tb=document.getElementById('regBody');
-  document.getElementById('reg-count').textContent=regs.length+' record'+(regs.length===1?'':'s');
-  if(!regs.length){tb.innerHTML='<tr><td colspan="12"><div class="empty-note">No registrations yet</div></td></tr>';return;}
-  var sorted=regs.slice().sort(function(a,b){return new Date(b.timestamp)-new Date(a.timestamp);});
-  var h='';
-  sorted.forEach(function(r,i){
-    var isD=!!dt[r.token];
-    var date=r.timestamp?new Date(r.timestamp).toLocaleDateString():'—';
-    var name=(r.firstName||'')+' '+(r.lastName||'');
-    h+='<tr><td>'+(i+1)+'</td><td style="font-family:monospace;color:#2e6e28;font-weight:700;">'+(r.token||'—')+'</td><td>'+name.trim()+'</td><td>'+(r.phone||'—')+'</td><td>'+(r.region||'—')+'</td><td>'+(r.district||'—')+'</td><td>'+(r.chiefdom||'—')+'</td><td>'+(r.healthFacility||'—')+'</td><td style="text-align:center;">'+(r.totalMembers||0)+'</td><td style="text-align:center;font-weight:700;color:#b06010;">'+(r.itnIssued||0)+'</td><td><span class="status-badge '+(isD?'status-distributed':'status-pending')+'">'+(isD?'Distributed':'Pending')+'</span></td><td>'+date+'</td></tr>';
-  });
-  tb.innerHTML=h;
-}
-
-function buildDistTable(dists){
-  var tb=document.getElementById('distBody');
-  document.getElementById('dist-count').textContent=dists.length+' record'+(dists.length===1?'':'s');
-  if(!dists.length){tb.innerHTML='<tr><td colspan="10"><div class="empty-note">No distributions yet</div></td></tr>';return;}
-  var sorted=dists.slice().sort(function(a,b){return new Date(b.timestamp)-new Date(a.timestamp);});
-  var h='';
-  sorted.forEach(function(r,i){
-    var date=r.timestamp?new Date(r.timestamp).toLocaleDateString():(r.date||'—');
-    h+='<tr><td>'+(i+1)+'</td><td style="font-family:monospace;color:#2e6e28;font-weight:700;">'+(r.token||'—')+'</td><td>'+(r.headName||'—')+'</td><td>'+(r.region||'—')+'</td><td>'+(r.district||'—')+'</td><td>'+(r.chiefdom||'—')+'</td><td style="text-align:center;">'+(r.itnAllocated||0)+'</td><td style="text-align:center;font-weight:700;color:#2e6e28;">'+(r.itnDelivered||0)+'</td><td>'+(r.method||'—')+'</td><td>'+date+'</td></tr>';
-  });
-  tb.innerHTML=h;
 }
 
 /* ═══════════════════ RECONCILIATION ═══════════════════ */
@@ -1046,29 +918,6 @@ function lookupToken(){
   if(dist){h+='<div class="inline-panel" style="border:1px solid #b9daf3;"><div style="font-size:11px;font-weight:700;color:#1a5fa8;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Distribution Record</div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#5a7258;">Allocated:</span><span style="font-size:12px;font-weight:600;">'+(dist.itnAllocated||0)+'</span></div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#5a7258;">Delivered:</span><span style="font-size:12px;font-weight:700;color:#2e6e28;">'+(dist.itnDelivered||0)+'</span></div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#5a7258;">Method:</span><span style="font-size:12px;font-weight:600;">'+(dist.method||'—')+'</span></div><div style="display:flex;justify-content:space-between;"><span style="font-size:11px;color:#5a7258;">Date:</span><span style="font-size:12px;font-weight:600;">'+(dist.date||'—')+'</span></div></div>';}
   var st=dist?'<span class="status-badge status-distributed">Distributed</span>':'<span class="status-badge status-pending">Pending Distribution</span>';
   h+='<div style="text-align:center;">'+st+'</div></div>';el.innerHTML=h;
-}
-
-/* ═══════════════════ CSV EXPORT ═══════════════════ */
-function exportRegCSV(){
-  var regs=loadReg();if(!regs.length){showToast('No registration records');return;}
-  var keys=['token','firstName','lastName','phone','region','district','chiefdom','healthFacility','community','townVillage','under5','pregnant','above5','totalMembers','itnIssued','gps','registrar','timestamp'];
-  var hdr=['Token','First Name','Last Name','Phone','Region','District','Chiefdom','Facility','Community','Town/Village','Under 5','Pregnant','Above 5','Members','ITN Issued','GPS','Registrar','Timestamp'];
-  var csv=hdr.join(',')+'\n';
-  regs.forEach(function(r){csv+=keys.map(function(k){var v=(r[k]!==undefined&&r[k]!==null)?r[k]:'';v=String(v).replace(/"/g,'""');if(v.includes(',')||v.includes('"')||v.includes('\n'))v='"'+v+'"';return v;}).join(',')+'\n';});
-  downloadCSV(csv,'icfsl_dashboard_registrations.csv');
-}
-function exportDistCSV(){
-  var dists=loadDist();if(!dists.length){showToast('No distribution records');return;}
-  var keys=['token','headName','phone','totalMembers','region','district','chiefdom','facility','community','eligible','consent','itnAllocated','itnDelivered','method','date','time','timestamp'];
-  var hdr=['Token','Head Name','Phone','Members','Region','District','Chiefdom','Facility','Community','Eligible','Consent','ITN Allocated','ITN Delivered','Method','Date','Time','Timestamp'];
-  var csv=hdr.join(',')+'\n';
-  dists.forEach(function(r){csv+=keys.map(function(k){var v=(r[k]!==undefined&&r[k]!==null)?r[k]:'';v=String(v).replace(/"/g,'""');if(v.includes(',')||v.includes('"')||v.includes('\n'))v='"'+v+'"';return v;}).join(',')+'\n';});
-  downloadCSV(csv,'icfsl_dashboard_distributions.csv');
-}
-function downloadCSV(csv,filename){
-  var blob=new Blob([csv],{type:'text/csv'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();
-  showToast('CSV exported: '+filename);
 }
 
 /* ═══════════════════ OVERVIEW CHARTS ═══════════════════ */
