@@ -163,13 +163,13 @@ textarea { resize:none; min-height:64px; line-height:1.5; }
 <div class="app-shell screen active" id="homeScreen">
   <div class="status-bar"><div style="display:flex;gap:8px;align-items:center;margin-left:auto;"><div style="background:rgba(0,0,0,0.25); border-radius: 20px; padding: 3px 8px 3px 6px; font-size: 10px; font-weight: 700; color: #68d391;">ONLINE</div></div></div>
   <div class="header-band">
-    <div class="centre-logo-wrap"><img id="icfHome" alt="ICF-SL" src=""></div>
+    <div class="centre-logo-wrap"><img id="icfHome" alt="ICF-SL" src="ICF-SL Logo.jpg"></div>
     <div class="partners-label">Partners</div>
     <div class="partner-logos">
-      <div class="partner-logo"><img id="mohLogo" alt="MoH" src=""></div>
-      <div class="partner-logo"><img id="nmcpLogo" alt="NMCP" src=""></div>
-      <div class="partner-logo"><img id="pmiLogo" alt="PMI" src=""></div>
-      <div class="partner-logo" style="background:#7a8da0;"></div>
+      <div class="partner-logo"><img id="mohLogo" alt="MoH" src="moh_logo.png"></div>
+      <div class="partner-logo"><img id="nmcpLogo" alt="NMCP" src="NMCP.png"></div>
+      <div class="partner-logo"><img id="pmiLogo" alt="PMI" src="pmi_evolve.png"></div>
+      <div class="partner-logo"><img id="usaLogo" alt="USA" src="usa.png"></div>
     </div>
   </div>
   <div class="content-area">
@@ -332,7 +332,7 @@ function startReg() {
 
 function goToStep(stepNum, direction) {
   currentStep = stepNum;
-  document.getElementById('regStepLabel').innerText = `Step ${currentStep} of ${totalSteps}`;
+  document.getElementById('regStepLabel').innerText = 'Step ' + currentStep + ' of ' + totalSteps;
   document.getElementById('regStepName').innerText = stepsConfig[currentStep].name;
   const pct = Math.round((currentStep / totalSteps) * 100);
   document.getElementById('regPct').innerText = pct + "%";
@@ -392,183 +392,27 @@ function regGoBack() {
 
 // ===================== STEP RENDERING =====================
 function renderConsent() {
-  return `
-  <div class="sec-hdr">
-    <div class="sec-icon ci-blue"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-    <div><div class="sec-title">Consent</div><div class="sec-desc">Acknowledge monitoring accountability compliance parameters</div></div>
-  </div>
-  <div class="sec-fields">
-    <div class="consent-box">
-      <strong>Mandatory Participation Briefing</strong>
-      Do you formally agree to participate in this ICF-SL digital registration project for monitoring accountability, geographic location assessment mapping, and ITN distribution protocols?
-    </div>
-    <div class="field" id="f-consent">
-      <label class="flabel">Give Consent? <span class="req">*</span></label>
-      <div class="radio-group">
-        <div class="rpill ${formData.consent==='yes'?'sel':''}" onclick="selectPill(this,'consent','yes')"><input type="radio" name="consent" value="yes" ${formData.consent==='yes'?'checked':''}> Yes, Continue</div>
-        <div class="rpill ${formData.consent==='no'?'sel':''}" onclick="selectPill(this,'consent','no')"><input type="radio" name="consent" value="no" ${formData.consent==='no'?'checked':''}> No, Terminate</div>
-      </div>
-      <div class="err-msg">Please select an option to confirm choice</div>
-    </div>
-  </div>`;
+  return '<div class="sec-hdr"><div class="sec-icon ci-blue"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div><div class="sec-title">Consent</div><div class="sec-desc">Acknowledge monitoring accountability compliance parameters</div></div></div><div class="sec-fields"><div class="consent-box"><strong>Mandatory Participation Briefing</strong>Do you formally agree to participate in this ICF-SL digital registration project for monitoring accountability, geographic location assessment mapping, and ITN distribution protocols?</div><div class="field" id="f-consent"><label class="flabel">Give Consent? <span class="req">*</span></label><div class="radio-group"><div class="rpill ' + (formData.consent==='yes'?'sel':'') + '" onclick="selectPill(this,\'consent\',\'yes\')"><input type="radio" name="consent" value="yes" ' + (formData.consent==='yes'?'checked':'') + '> Yes, Continue</div><div class="rpill ' + (formData.consent==='no'?'sel':'') + '" onclick="selectPill(this,\'consent\',\'no\')"><input type="radio" name="consent" value="no" ' + (formData.consent==='no'?'checked':'') + '> No, Terminate</div></div><div class="err-msg">Please select an option to confirm choice</div></div></div>';
 }
 
 function renderLocation() {
   const regions = Object.keys(GEO_DATA);
-  let regionOpts = `<option value="">Select Region...</option>`;
-  regions.forEach(r => { regionOpts += `<option value="${r}" ${formData.region===r?'selected':''}>${r}</option>`; });
-
-  return `
-  <div class="sec-hdr">
-    <div class="sec-icon ci-blue"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-    <div><div class="sec-title">Geo-Hierarchy</div><div class="sec-desc">Select specific administrative boundaries</div></div>
-  </div>
-  <div class="sec-fields">
-    <div class="field" id="f-region">
-      <label class="flabel">Region <span class="req">*</span></label>
-      <select id="region" onchange="onRegionChange()">${regionOpts}</select>
-      <div class="err-msg">Region selection is required</div>
-    </div>
-    <div class="field" id="f-district">
-      <label class="flabel">District <span class="req">*</span></label>
-      <select id="district" onchange="onDistrictChange()"><option value="">Select District...</option></select>
-      <div class="err-msg">District selection is required</div>
-    </div>
-    <div class="field" id="f-chiefdom">
-      <label class="flabel">Chiefdom/Zone <span class="req">*</span></label>
-      <select id="chiefdom"><option value="">Select Chiefdom/Zone...</option></select>
-      <div class="err-msg">Chiefdom selection required</div>
-    </div>
-    <div class="field" id="f-healthFacility">
-      <label class="flabel">Health Facility <span class="req">*</span></label>
-      <input type="text" id="healthFacility" value="${formData.healthFacility||''}" placeholder="Facility name">
-      <div class="err-msg">Facility record string is required</div>
-    </div>
-    <div class="field" id="f-community">
-      <label class="flabel">Community Name</label>
-      <input type="text" id="community" value="${formData.community||''}" placeholder="Community boundary">
-      <div class="err-msg">Community reference description is required</div>
-    </div>
-    <div class="field" id="f-townVillage">
-      <label class="flabel">Town/Village</label>
-      <input type="text" id="townVillage" value="${formData.townVillage||''}" placeholder="Locality metadata">
-      <div class="err-msg">Town or village identifier required</div>
-    </div>
-  </div>`;
+  let regionOpts = '<option value="">Select Region...</option>';
+  regions.forEach(function(r){ regionOpts += '<option value="' + r + '" ' + (formData.region===r?'selected':'') + '>' + r + '</option>'; });
+  return '<div class="sec-hdr"><div class="sec-icon ci-blue"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="sec-title">Geo-Hierarchy</div><div class="sec-desc">Select specific administrative boundaries</div></div></div><div class="sec-fields"><div class="field" id="f-region"><label class="flabel">Region <span class="req">*</span></label><select id="region" onchange="onRegionChange()">' + regionOpts + '</select><div class="err-msg">Region selection is required</div></div><div class="field" id="f-district"><label class="flabel">District <span class="req">*</span></label><select id="district" onchange="onDistrictChange()"><option value="">Select District...</option></select><div class="err-msg">District selection is required</div></div><div class="field" id="f-chiefdom"><label class="flabel">Chiefdom/Zone <span class="req">*</span></label><select id="chiefdom"><option value="">Select Chiefdom/Zone...</option></select><div class="err-msg">Chiefdom selection required</div></div><div class="field" id="f-healthFacility"><label class="flabel">Health Facility <span class="req">*</span></label><input type="text" id="healthFacility" value="' + (formData.healthFacility||'') + '" placeholder="Facility name"><div class="err-msg">Facility record string is required</div></div><div class="field" id="f-community"><label class="flabel">Community Name</label><input type="text" id="community" value="' + (formData.community||'') + '" placeholder="Community boundary"><div class="err-msg">Community reference description is required</div></div><div class="field" id="f-townVillage"><label class="flabel">Town/Village</label><input type="text" id="townVillage" value="' + (formData.townVillage||'') + '" placeholder="Locality metadata"><div class="err-msg">Town or village identifier required</div></div></div>';
 }
 
 function renderIdentity() {
-  return `
-  <div class="sec-hdr">
-    <div class="sec-icon ci-blue"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-    <div><div class="sec-title">Household Head Information</div><div class="sec-desc">Establish secure identity parameters</div></div>
-  </div>
-  <div class="sec-fields">
-    <div class="field" id="f-firstName">
-      <label class="flabel">Household Head First Name <span class="req">*</span></label>
-      <input type="text" id="firstName" value="${formData.firstName||''}" placeholder="First Name">
-      <div class="err-msg">First name is required</div>
-    </div>
-    <div class="field" id="f-lastName">
-      <label class="flabel">Household Head Last Name <span class="req">*</span></label>
-      <input type="text" id="lastName" value="${formData.lastName||''}" placeholder="Last Name">
-      <div class="err-msg">Last name is required</div>
-    </div>
-    <div class="field" id="f-phone">
-      <label class="flabel">Phone Number <span class="req">*</span></label>
-      <input type="tel" id="phone" value="${formData.phone||''}" maxlength="9" placeholder="9 digits total">
-      <span class="hint">Exactly 9 digits required</span>
-      <div class="err-msg">Invalid phone. Exactly 9 digits allowed.</div>
-    </div>
-  </div>`;
+  return '<div class="sec-hdr"><div class="sec-icon ci-blue"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="sec-title">Household Head Information</div><div class="sec-desc">Establish secure identity parameters</div></div></div><div class="sec-fields"><div class="field" id="f-firstName"><label class="flabel">Household Head First Name <span class="req">*</span></label><input type="text" id="firstName" value="' + (formData.firstName||'') + '" placeholder="First Name"><div class="err-msg">First name is required</div></div><div class="field" id="f-lastName"><label class="flabel">Household Head Last Name <span class="req">*</span></label><input type="text" id="lastName" value="' + (formData.lastName||'') + '" placeholder="Last Name"><div class="err-msg">Last name is required</div></div><div class="field" id="f-phone"><label class="flabel">Phone Number <span class="req">*</span></label><input type="tel" id="phone" value="' + (formData.phone||'') + '" maxlength="9" placeholder="9 digits total"><span class="hint">Exactly 9 digits required</span><div class="err-msg">Invalid phone. Exactly 9 digits allowed.</div></div></div>';
 }
 
 function renderComposition() {
-  return `
-  <div class="sec-hdr">
-    <div class="sec-icon ci-blue"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-    <div><div class="sec-title">Household Composition</div><div class="sec-desc">Specify tracking metrics variables</div></div>
-  </div>
-  <div class="sec-fields">
-    <div class="field" id="f-under5">
-      <label class="flabel">Children under 5 <span class="req">*</span></label>
-      <input type="number" id="under5" value="${formData.under5===0?'':formData.under5}" min="0" oninput="executeLiveCalculations()">
-      <div class="err-msg">Value required</div>
-    </div>
-    <div class="field" id="f-pregnant">
-      <label class="flabel">Pregnant Women <span class="req">*</span></label>
-      <input type="number" id="pregnant" value="${formData.pregnant===0?'':formData.pregnant}" min="0" oninput="executeLiveCalculations()">
-      <div class="err-msg">Value required</div>
-    </div>
-    <div class="field" id="f-above5">
-      <label class="flabel">Above 5 (Children 5+ &amp; Adults) <span class="req">*</span></label>
-      <input type="number" id="above5" value="${formData.above5===0?'':formData.above5}" min="0" oninput="executeLiveCalculations()">
-      <div class="err-msg">Value required</div>
-    </div>
-    <div class="field" id="f-totalMembers">
-      <label class="flabel">Total Cumulative Household Size</label>
-      <input type="number" id="totalMembers" value="${formData.totalMembers||0}" class="auto-field" readonly>
-      <span class="hint">Calculated instantly</span>
-      <div class="err-msg">Sum must be greater than zero</div>
-    </div>
-    <div class="field">
-      <label class="flabel">Calculated Allocation (ITN Units)</label>
-      <div class="itn-badge"><div class="itn-num" id="live-itn-badge">0</div><div class="itn-text">ITN Bed Nets Allocated</div></div>
-    </div>
-    <div class="field">
-      <label class="flabel">System Tracking Token</label>
-      <div class="token-display" id="live-token-badge">-------</div>
-    </div>
-    <div class="field" id="f-gps">
-      <label class="flabel">Capture GPS Coordinate <span class="req">*</span></label>
-      <div class="gps-row">
-        <input type="text" id="gps" value="${formData.gps||''}" placeholder="Lat, Lon" readonly>
-        <button class="gps-btn" onclick="triggerGPSCapture()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg> Acquire</button>
-      </div>
-      <div class="err-msg">GPS is required</div>
-    </div>
-  </div>`;
+  return '<div class="sec-hdr"><div class="sec-icon ci-blue"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><div class="sec-title">Household Composition</div><div class="sec-desc">Specify tracking metrics variables</div></div></div><div class="sec-fields"><div class="field" id="f-under5"><label class="flabel">Children under 5 <span class="req">*</span></label><input type="number" id="under5" value="' + (formData.under5===0?'':formData.under5) + '" min="0" oninput="executeLiveCalculations()"><div class="err-msg">Value required</div></div><div class="field" id="f-pregnant"><label class="flabel">Pregnant Women <span class="req">*</span></label><input type="number" id="pregnant" value="' + (formData.pregnant===0?'':formData.pregnant) + '" min="0" oninput="executeLiveCalculations()"><div class="err-msg">Value required</div></div><div class="field" id="f-above5"><label class="flabel">Above 5 (Children 5+ &amp; Adults) <span class="req">*</span></label><input type="number" id="above5" value="' + (formData.above5===0?'':formData.above5) + '" min="0" oninput="executeLiveCalculations()"><div class="err-msg">Value required</div></div><div class="field" id="f-totalMembers"><label class="flabel">Total Cumulative Household Size</label><input type="number" id="totalMembers" value="' + (formData.totalMembers||0) + '" class="auto-field" readonly><span class="hint">Calculated instantly</span><div class="err-msg">Sum must be greater than zero</div></div><div class="field"><label class="flabel">Calculated Allocation (ITN Units)</label><div class="itn-badge"><div class="itn-num" id="live-itn-badge">0</div><div class="itn-text">ITN Bed Nets Allocated</div></div></div><div class="field"><label class="flabel">System Tracking Token</label><div class="token-display" id="live-token-badge">-------</div></div><div class="field" id="f-gps"><label class="flabel">Capture GPS Coordinate <span class="req">*</span></label><div class="gps-row"><input type="text" id="gps" value="' + (formData.gps||'') + '" placeholder="Lat, Lon" readonly><button class="gps-btn" onclick="triggerGPSCapture()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg> Acquire</button></div><div class="err-msg">GPS is required</div></div></div>';
 }
 
 function renderSummary() {
   executeLiveCalculationsForData();
-  return `
-  <div class="sec-hdr">
-    <div class="sec-icon ci-green"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-    <div><div class="sec-title">Summary</div><div class="sec-desc">Verify data before commit</div></div>
-  </div>
-  <div style="padding:14px; background:#f0f4ed;">
-    <div class="sum-card">
-      <div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Geographic Boundaries</div>
-      <div class="sum-row"><span class="sk">Consent:</span><span class="sv">${formData.consent.toUpperCase()}</span></div>
-      <div class="sum-row"><span class="sk">Region:</span><span class="sv">${formData.region}</span></div>
-      <div class="sum-row"><span class="sk">District:</span><span class="sv">${formData.district}</span></div>
-      <div class="sum-row"><span class="sk">Chiefdom/Zone:</span><span class="sv">${formData.chiefdom}</span></div>
-      <div class="sum-row"><span class="sk">Health Facility:</span><span class="sv">${formData.healthFacility}</span></div>
-      <div class="sum-row"><span class="sk">Community:</span><span class="sv">${formData.community}</span></div>
-      <div class="sum-row"><span class="sk">Town/Village:</span><span class="sv">${formData.townVillage}</span></div>
-      <div class="sum-row"><span class="sk">GPS:</span><span class="sv">${formData.gps}</span></div>
-    </div>
-    <div class="sum-card">
-      <div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Household Head</div>
-      <div class="sum-row"><span class="sk">Full Name:</span><span class="sv">${formData.firstName} ${formData.lastName}</span></div>
-      <div class="sum-row"><span class="sk">Phone:</span><span class="sv">${formData.phone}</span></div>
-      <div class="sum-row"><span class="sk">Under 5:</span><span class="sv">${formData.under5}</span></div>
-      <div class="sum-row"><span class="sk">Pregnant:</span><span class="sv">${formData.pregnant}</span></div>
-      <div class="sum-row"><span class="sk">Above 5:</span><span class="sv">${formData.above5}</span></div>
-      <div class="sum-row"><span class="sk">Total Members:</span><span class="sv">${formData.totalMembers}</span></div>
-    </div>
-    <div class="sum-card">
-      <div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> ITN Allocation</div>
-      <div class="sum-row"><span class="sk">Calculated ITN Issued:</span><span class="sv" style="color:#2e6e28; font-weight:700;">${formData.itnIssued} Units</span></div>
-      <div class="sum-row"><span class="sk">Tracking Token:</span><span class="sv" style="font-family:monospace; background:#222; color:#68d391; padding:2px 6px; border-radius:4px;">${formData.token}</span></div>
-    </div>
-    <div class="sum-card">
-      <div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Registrar</div>
-      <div class="sum-row"><span class="sk">Username:</span><span class="sv">ICF_SL_Registrar_2026</span></div>
-      <div class="sum-row"><span class="sk">Role:</span><span class="sv">Field Registrar</span></div>
-    </div>
-  </div>`;
+  return '<div class="sec-hdr"><div class="sec-icon ci-green"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><div><div class="sec-title">Summary</div><div class="sec-desc">Verify data before commit</div></div></div><div style="padding:14px; background:#f0f4ed;"><div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Geographic Boundaries</div><div class="sum-row"><span class="sk">Consent:</span><span class="sv">' + formData.consent.toUpperCase() + '</span></div><div class="sum-row"><span class="sk">Region:</span><span class="sv">' + formData.region + '</span></div><div class="sum-row"><span class="sk">District:</span><span class="sv">' + formData.district + '</span></div><div class="sum-row"><span class="sk">Chiefdom/Zone:</span><span class="sv">' + formData.chiefdom + '</span></div><div class="sum-row"><span class="sk">Health Facility:</span><span class="sv">' + formData.healthFacility + '</span></div><div class="sum-row"><span class="sk">Community:</span><span class="sv">' + formData.community + '</span></div><div class="sum-row"><span class="sk">Town/Village:</span><span class="sv">' + formData.townVillage + '</span></div><div class="sum-row"><span class="sk">GPS:</span><span class="sv">' + formData.gps + '</span></div></div><div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Household Head</div><div class="sum-row"><span class="sk">Full Name:</span><span class="sv">' + formData.firstName + ' ' + formData.lastName + '</span></div><div class="sum-row"><span class="sk">Phone:</span><span class="sv">' + formData.phone + '</span></div><div class="sum-row"><span class="sk">Under 5:</span><span class="sv">' + formData.under5 + '</span></div><div class="sum-row"><span class="sk">Pregnant:</span><span class="sv">' + formData.pregnant + '</span></div><div class="sum-row"><span class="sk">Above 5:</span><span class="sv">' + formData.above5 + '</span></div><div class="sum-row"><span class="sk">Total Members:</span><span class="sv">' + formData.totalMembers + '</span></div></div><div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> ITN Allocation</div><div class="sum-row"><span class="sk">Calculated ITN Issued:</span><span class="sv" style="color:#2e6e28; font-weight:700;">' + formData.itnIssued + ' Units</span></div><div class="sum-row"><span class="sk">Tracking Token:</span><span class="sv" style="font-family:monospace; background:#222; color:#68d391; padding:2px 6px; border-radius:4px;">' + formData.token + '</span></div></div><div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Registrar</div><div class="sum-row"><span class="sk">Username:</span><span class="sv">ICF_SL_Registrar_2026</span></div><div class="sum-row"><span class="sk">Role:</span><span class="sv">Field Registrar</span></div></div></div>';
 }
 
 // ===================== POST RENDER & UI LOGIC =====================
@@ -585,12 +429,12 @@ function postRenderStep(step) {
 
 function selectPill(pillEl, dataFieldName, stringVal) {
   const container = pillEl.parentElement;
-  container.querySelectorAll('.rpill').forEach(p => p.classList.remove('sel'));
+  container.querySelectorAll('.rpill').forEach(function(p){ p.classList.remove('sel'); });
   pillEl.classList.add('sel');
   const radio = pillEl.querySelector('input[type="radio"]');
   if(radio) radio.checked = true;
   formData[dataFieldName] = stringVal;
-  document.getElementById(`f-${dataFieldName}`).classList.remove('err');
+  document.getElementById('f-' + dataFieldName).classList.remove('err');
 }
 
 function onRegionChange() {
@@ -602,7 +446,7 @@ function onRegionChange() {
   cSelect.innerHTML = '<option value="">Select Chiefdom/Zone...</option>';
   if(!rVal) { dSelect.innerHTML = '<option value="">Select District...</option>'; return; }
   let opts = '<option value="">Select District...</option>';
-  GEO_DATA[rVal].districts.forEach(d => { opts += `<option value="${d}">${d}</option>`; });
+  GEO_DATA[rVal].districts.forEach(function(d){ opts += '<option value="' + d + '">' + d + '</option>'; });
   dSelect.innerHTML = opts;
 }
 
@@ -613,25 +457,25 @@ function onDistrictChange() {
   const cSelect = document.getElementById('chiefdom');
   if(!dVal) { cSelect.innerHTML = '<option value="">Select Chiefdom/Zone...</option>'; return; }
   let opts = '<option value="">Select Chiefdom/Zone...</option>';
-  GEO_DATA[rVal].chiefdoms.forEach(c => { opts += `<option value="${c}">${c}</option>`; });
+  GEO_DATA[rVal].chiefdoms.forEach(function(c){ opts += '<option value="' + c + '">' + c + '</option>'; });
   cSelect.innerHTML = opts;
 }
 
 function triggerGPSCapture() {
   showToast("Searching satellite network...");
   if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((pos) => {
+    navigator.geolocation.getCurrentPosition(function(pos) {
       const lat = pos.coords.latitude.toFixed(6);
       const lon = pos.coords.longitude.toFixed(6);
-      const output = `${lat}, ${lon}`;
+      const output = lat + ', ' + lon;
       document.getElementById('gps').value = output;
       formData.gps = output;
       document.getElementById('f-gps').classList.remove('err');
       showToast("Location verified");
-    }, (err) => {
+    }, function(err) {
       const sLat = (8.484 + (Math.random() - 0.5) * 0.02).toFixed(6);
       const sLon = (-13.234 + (Math.random() - 0.5) * 0.02).toFixed(6);
-      const output = `${sLat}, ${sLon} (SIM)`;
+      const output = sLat + ', ' + sLon + ' (SIM)';
       document.getElementById('gps').value = output;
       formData.gps = output;
       document.getElementById('f-gps').classList.remove('err');
@@ -660,7 +504,7 @@ function executeLiveCalculations() {
   let secondPart = (formData.lastName || "").trim().substring(0, 1).toUpperCase();
   if(secondPart.length < 1) secondPart = "X";
   const cleanPhone = (formData.phone || "").trim();
-  document.getElementById('live-token-badge').innerText = `${firstPart}${secondPart}_${cleanPhone}`;
+  document.getElementById('live-token-badge').innerText = firstPart + secondPart + '_' + cleanPhone;
 }
 
 function executeLiveCalculationsForData() {
@@ -679,7 +523,7 @@ function executeLiveCalculationsForData() {
   let secondPart = (formData.lastName || "").trim().substring(0, 1).toUpperCase();
   if(secondPart.length < 1) secondPart = "X";
   const cleanPhone = (formData.phone || "").trim();
-  formData.token = `${firstPart}${secondPart}_${cleanPhone}`;
+  formData.token = firstPart + secondPart + '_' + cleanPhone;
 }
 
 // ===================== DATA PERSISTENCE =====================
@@ -706,31 +550,31 @@ function saveCurrentStepData(step) {
 
 function validateStep(step) {
   let isValid = true;
-  document.querySelectorAll('.form-section .field.err').forEach(f => f.classList.remove('err'));
+  document.querySelectorAll('.form-section .field.err').forEach(function(f){ f.classList.remove('err'); });
 
   if(step === 1) {
     if(!formData.consent) { document.getElementById('f-consent').classList.add('err'); isValid = false; }
   } else if(step === 2) {
-    ['region','district','chiefdom','healthFacility','community','townVillage'].forEach(id => {
-      const el = document.getElementById(id);
+    ['region','district','chiefdom','healthFacility','community','townVillage'].forEach(function(id) {
+      var el = document.getElementById(id);
       if(!el || !el.value.trim()) {
         document.getElementById('f-' + id).classList.add('err');
         isValid = false;
       }
     });
   } else if(step === 3) {
-    const fn = document.getElementById('firstName').value.trim();
-    const ln = document.getElementById('lastName').value.trim();
-    const ph = document.getElementById('phone').value.trim();
+    var fn = document.getElementById('firstName').value.trim();
+    var ln = document.getElementById('lastName').value.trim();
+    var ph = document.getElementById('phone').value.trim();
     if(!fn) { document.getElementById('f-firstName').classList.add('err'); isValid = false; }
     if(!ln) { document.getElementById('f-lastName').classList.add('err'); isValid = false; }
     if(!/^\d{9}$/.test(ph)) { document.getElementById('f-phone').classList.add('err'); isValid = false; }
   } else if(step === 4) {
-    const u5 = parseInt(document.getElementById('under5').value) || 0;
-    const pg = parseInt(document.getElementById('pregnant').value) || 0;
-    const ab5 = parseInt(document.getElementById('above5').value) || 0;
-    const tot = u5 + pg + ab5;
-    const gps = document.getElementById('gps').value.trim();
+    var u5 = parseInt(document.getElementById('under5').value) || 0;
+    var pg = parseInt(document.getElementById('pregnant').value) || 0;
+    var ab5 = parseInt(document.getElementById('above5').value) || 0;
+    var tot = u5 + pg + ab5;
+    var gps = document.getElementById('gps').value.trim();
     if(u5 < 0 || isNaN(u5)) { document.getElementById('f-under5').classList.add('err'); isValid = false; }
     if(pg < 0 || isNaN(pg)) { document.getElementById('f-pregnant').classList.add('err'); isValid = false; }
     if(ab5 < 0 || isNaN(ab5)) { document.getElementById('f-above5').classList.add('err'); isValid = false; }
@@ -740,7 +584,7 @@ function validateStep(step) {
   return isValid;
 }
 
-// ===================== FINAL SUBMIT (TIES TO DASHBOARD + DISTRIBUTION) =====================
+// ===================== FINAL SUBMIT =====================
 function finalSubmit() {
   saveCurrentStepData(currentStep);
   if(!validateStep(currentStep)) {
@@ -749,8 +593,8 @@ function finalSubmit() {
   }
   executeLiveCalculationsForData();
 
-  const records = loadRecords();
-  const newRecord = {
+  var records = loadRecords();
+  var newRecord = {
     id: Date.now(),
     consent: formData.consent, region: formData.region, district: formData.district,
     chiefdom: formData.chiefdom, healthFacility: formData.healthFacility, community: formData.community,
@@ -763,75 +607,59 @@ function finalSubmit() {
   records.push(newRecord);
   saveRecords(records);
 
-  // === SYNC TO DISTRIBUTION (dist.html) TOKEN LOOKUP ===
-  const regForDist = records.map(r => ({
-    ...r,
-    headName: (r.firstName || '') + ' ' + (r.lastName || ''),
-    facility: r.healthFacility || '',
-    members: r.totalMembers || 0
-  }));
+  var regForDist = records.map(function(r) {
+    return {
+      id: r.id,
+      token: r.token,
+      headName: (r.firstName || '') + ' ' + (r.lastName || ''),
+      facility: r.healthFacility || '',
+      members: r.totalMembers || 0,
+      itnIssued: r.itnIssued || 0,
+      region: r.region || '',
+      district: r.district || '',
+      chiefdom: r.chiefdom || '',
+      phone: r.phone || '',
+      timestamp: r.timestamp
+    };
+  });
   localStorage.setItem('icfsl_registrations', JSON.stringify(regForDist));
 
-  // === DASHBOARD LIVE SYNC ===
   updateTargetUI();
   buildRecordsTable();
 
-  showToast(`Registration complete! ${formData.itnIssued} ITN(s) issued. Token: ${formData.token}`);
+  showToast('Registration complete! ' + formData.itnIssued + ' ITN(s) issued. Token: ' + formData.token);
 
-  setTimeout(() => {
+  setTimeout(function() {
     showScreen('homeScreen');
     updateTargetUI();
     buildRecordsTable();
   }, 1800);
 }
 
-// ===================== DASHBOARD: RECORDS (WITH CSV) =====================
+// ===================== RECORDS TABLE =====================
 function buildRecordsTable() {
-  const records = loadRecords();
-  const wrap = document.getElementById('recordsWrap');
+  var records = loadRecords();
+  var wrap = document.getElementById('recordsWrap');
   if(!wrap) return;
 
   if(records.length === 0) {
-    wrap.innerHTML = `<div class="no-records">No records found yet.<br>Registered households will appear here.</div>`;
+    wrap.innerHTML = '<div class="no-records">No records found yet.<br>Registered households will appear here.</div>';
     return;
   }
 
-  const sorted = records.slice().sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+  var sorted = records.slice().sort(function(a,b){ return new Date(b.timestamp) - new Date(a.timestamp); });
 
-  let html = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-    <span style="font-size:12px;color:#5a7258;font-weight:600;">${sorted.length} household(s) registered</span>
-    <button onclick="exportRegCSV()" style="padding:8px 14px;background:#6b7a8d;color:#fff;border:none;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Export CSV</button>
-  </div>`;
+  var html = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><span style="font-size:12px;color:#5a7258;font-weight:600;">' + sorted.length + ' household(s) registered</span><button onclick="exportRegCSV()" style="padding:8px 14px;background:#6b7a8d;color:#fff;border:none;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Export CSV</button></div>';
 
-  html += `<table class="rec-table"><thead><tr>
-    <th>#</th><th>Token</th><th>Head of Household</th><th>Phone</th><th>Region</th><th>District</th>
-    <th>Chiefdom</th><th>Facility</th><th>Members</th><th>ITN Issued</th><th>Registrar</th><th>Date</th>
-  </tr></thead><tbody>`;
+  html += '<table class="rec-table"><thead><tr><th>#</th><th>Token</th><th>Head of Household</th><th>Phone</th><th>Region</th><th>District</th><th>Chiefdom</th><th>Facility</th><th>Members</th><th>ITN Issued</th><th>Registrar</th><th>Date</th></tr></thead><tbody>';
 
-  sorted.forEach((r, idx) => {
-    const date = new Date(r.timestamp).toLocaleString();
-    html += `<tr>
-      <td>${idx + 1}</td>
-      <td style="font-family:monospace;color:#2e6e28;font-weight:700;">${r.token || '---'}</td>
-      <td>${r.firstName || ''} ${r.lastName || ''}</td>
-      <td>${r.phone || ''}</td>
-      <td>${r.region || ''}</td>
-      <td>${r.district || ''}</td>
-      <td>${r.chiefdom || ''}</td>
-      <td>${r.healthFacility || ''}</td>
-      <td style="text-align:center;">${r.totalMembers || 0}</td>
-      <td style="text-align:center;font-weight:700;color:#b06010;background:#fde8c8;">${r.itnIssued || 0}</td>
-      <td>${r.registrar || '—'}</td>
-      <td>${date}</td>
-    </tr>`;
+  sorted.forEach(function(r, idx) {
+    var date = new Date(r.timestamp).toLocaleString();
+    html += '<tr><td>' + (idx + 1) + '</td><td style="font-family:monospace;color:#2e6e28;font-weight:700;">' + (r.token || '---') + '</td><td>' + (r.firstName || '') + ' ' + (r.lastName || '') + '</td><td>' + (r.phone || '') + '</td><td>' + (r.region || '') + '</td><td>' + (r.district || '') + '</td><td>' + (r.chiefdom || '') + '</td><td>' + (r.healthFacility || '') + '</td><td style="text-align:center;">' + (r.totalMembers || 0) + '</td><td style="text-align:center;font-weight:700;color:#b06010;background:#fde8c8;">' + (r.itnIssued || 0) + '</td><td>' + (r.registrar || '—') + '</td><td>' + date + '</td></tr>';
   });
 
-  const totalITN = sorted.reduce((s,r) => s + (parseInt(r.itnIssued) || 0), 0);
-  html += `<tr style="background:#6b7a8d;color:#fff;font-weight:700;">
-    <td colspan="9" style="text-align:right;">TOTAL REGISTRATIONS: ${sorted.length} &nbsp;|&nbsp; TOTAL ITNs ISSUED:</td>
-    <td style="text-align:center;background:#2e6e28;color:#fff;">${totalITN}</td>
-    <td colspan="2"></td>
-  </tr>`;
+  var totalITN = sorted.reduce(function(s,r){ return s + (parseInt(r.itnIssued) || 0); }, 0);
+  html += '<tr style="background:#6b7a8d;color:#fff;font-weight:700;"><td colspan="9" style="text-align:right;">TOTAL REGISTRATIONS: ' + sorted.length + ' &nbsp;|&nbsp; TOTAL ITNs ISSUED:</td><td style="text-align:center;background:#2e6e28;color:#fff;">' + totalITN + '</td><td colspan="2"></td></tr>';
 
   html += '</tbody></table>';
   wrap.innerHTML = html;
@@ -839,81 +667,61 @@ function buildRecordsTable() {
 
 // ===================== CSV EXPORT =====================
 function exportRegCSV() {
-  const records = loadRecords();
+  var records = loadRecords();
   if(!records.length) { showToast('No records to export'); return; }
-  const keys = ['token','firstName','lastName','phone','region','district','chiefdom','healthFacility','community','townVillage','under5','pregnant','above5','totalMembers','itnIssued','gps','registrar','timestamp'];
-  const headers = ['Token','First Name','Last Name','Phone','Region','District','Chiefdom','Health Facility','Community','Town/Village','Under 5','Pregnant','Above 5','Total Members','ITN Issued','GPS','Registrar','Timestamp'];
-  let csv = headers.join(',') + '\n';
-  records.forEach(r => {
-    csv += keys.map(k => {
-      let v = r[k] ?? '';
+  var keys = ['token','firstName','lastName','phone','region','district','chiefdom','healthFacility','community','townVillage','under5','pregnant','above5','totalMembers','itnIssued','gps','registrar','timestamp'];
+  var headers = ['Token','First Name','Last Name','Phone','Region','District','Chiefdom','Health Facility','Community','Town/Village','Under 5','Pregnant','Above 5','Total Members','ITN Issued','GPS','Registrar','Timestamp'];
+  var csv = headers.join(',') + '\n';
+  records.forEach(function(r) {
+    csv += keys.map(function(k) {
+      var v = r[k] !== undefined ? r[k] : '';
       v = String(v).replace(/"/g, '""');
       if(v.includes(',') || v.includes('"') || v.includes('\n')) v = '"' + v + '"';
       return v;
     }).join(',') + '\n';
   });
-  const blob = new Blob([csv], {type:'text/csv'});
-  const a = document.createElement('a');
+  var blob = new Blob([csv], {type:'text/csv'});
+  var a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'icfsl_household_registrations.csv';
   a.click();
   showToast('CSV exported successfully');
 }
 
-// ===================== DASHBOARD: TARGET =====================
+// ===================== TARGET =====================
 function updateTargetUI() {
-  const records = loadRecords();
-  const target = getTarget();
-  const registered = records.length;
-  const totalITNs = records.reduce((sum, r) => sum + (parseInt(r.itnIssued) || 0), 0);
-  const remaining = Math.max(0, target - registered);
-  const pct = target > 0 ? Math.min(100, Math.round((registered / target) * 100)) : 0;
+  var records = loadRecords();
+  var target = getTarget();
+  var registered = records.length;
+  var totalITNs = records.reduce(function(sum, r){ return sum + (parseInt(r.itnIssued) || 0); }, 0);
+  var remaining = Math.max(0, target - registered);
+  var pct = target > 0 ? Math.round((registered / target) * 100) : 0;
 
-  const elTotal = document.getElementById('tgt-total');
-  const elDone = document.getElementById('tgt-done');
-  const elRem = document.getElementById('tgt-rem');
-  const elItn = document.getElementById('tgt-itn');
-  const elBar = document.getElementById('tgt-bar');
-  const elPct = document.getElementById('tgt-pct');
-
-  if(elTotal) elTotal.innerText = target;
-  if(elDone) elDone.innerText = registered;
-  if(elRem) elRem.innerText = remaining;
-  if(elItn) elItn.innerText = totalITNs;
-  if(elBar) elBar.style.width = pct + '%';
-  if(elPct) elPct.innerText = pct + '% complete';
+  var el = function(id){ return document.getElementById(id); };
+  if(el('tgt-total')) el('tgt-total').textContent = target;
+  if(el('tgt-done')) el('tgt-done').textContent = registered;
+  if(el('tgt-rem')) el('tgt-rem').textContent = remaining;
+  if(el('tgt-itn')) el('tgt-itn').textContent = totalITNs;
+  if(el('tgt-bar')) el('tgt-bar').style.width = Math.min(pct, 100) + '%';
+  if(el('tgt-pct')) el('tgt-pct').textContent = pct + '% complete';
 }
 
 function setTarget() {
-  const newTarget = parseInt(document.getElementById('newTarget').value);
-  if(newTarget && newTarget > 0) {
-    localStorage.setItem(TKEY, newTarget);
-    updateTargetUI();
-    showToast("Target updated successfully!");
-    document.getElementById('newTarget').value = '';
-  } else {
-    showToast("Please enter a valid target number.");
-  }
+  var val = parseInt(document.getElementById('newTarget').value);
+  if(!val || val < 1) { showToast('Enter a valid target number'); return; }
+  localStorage.setItem(TKEY, val);
+  document.getElementById('newTarget').value = '';
+  updateTargetUI();
+  showToast('Target updated to ' + val);
 }
 
 // ===================== TOAST =====================
 function showToast(msg) {
-  const t = document.getElementById('toast');
-  if(!t) return;
-  t.innerText = msg;
+  var t = document.getElementById('toast');
+  t.textContent = msg;
   t.classList.add('show');
-  clearTimeout(window._toastTimer);
-  window._toastTimer = setTimeout(() => { t.classList.remove('show'); }, 3000);
+  setTimeout(function(){ t.classList.remove('show'); }, 2800);
 }
-
-// Cross-tab live sync
-window.addEventListener('storage', (e) => {
-  if(e.key === SKEY || e.key === SYNC_KEY) {
-    if(document.getElementById('recordsScreen').classList.contains('active')) buildRecordsTable();
-    updateTargetUI();
-  }
-  if(e.key === TKEY) updateTargetUI();
-});
 </script>
 </body>
 </html>
