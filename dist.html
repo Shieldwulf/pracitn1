@@ -59,10 +59,6 @@ body{
   display:flex;align-items:center;justify-content:center;padding:4px;overflow:hidden;
 }
 .partner-logo img{max-height:36px;max-width:100%;object-fit:contain;}
-.partner-logo-empty{
-  background:#7a8da0;border:1.5px dashed #9ab0c8;border-radius:12px;
-  height:46px;display:flex;align-items:center;justify-content:center;
-}
 
 /* ── CAMPAIGN BANNER ── */
 .campaign-banner{
@@ -168,7 +164,7 @@ input,select,textarea{
 input:focus,select:focus{
   border-color:#4a7048;box-shadow:0 0 0 3px rgba(74,112,72,0.12);background:#fff;
 }
-input[readonly]{background:#eef4ec;color:#2e5c28;font-weight:600;cursor:not-allowed;}
+input[readonly]{background:#eef4ec!important;color:#2e5c28!important;font-weight:700;cursor:not-allowed;}
 input:disabled,select:disabled{background:#eef4ec;color:#8aab88;cursor:not-allowed;}
 select{
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234a7048' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
@@ -290,8 +286,22 @@ select{
   transition:transform 0.35s ease;z-index:9999;white-space:nowrap;pointer-events:none;
 }
 .toast.show{transform:translateX(-50%) translateY(0);}
+
+/* ── AUTO-FILL TAG ── */
+.autofill-tag{
+  display:inline-block;
+  background:#ddf0d8;
+  color:#2e6e28;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  padding:2px 7px;
+  border-radius:6px;
+  margin-left:6px;
+  vertical-align:middle;
+}
 </style>
-<base target="_blank">
 </head>
 <body>
 
@@ -358,23 +368,23 @@ select{
           <div><div class="sec-title">Household Head</div><div class="sec-desc">Basic identification details</div></div>
         </div>
         <div class="sec-fields">
-          <div class="field">
+          <div class="field" id="f-token">
             <label class="flabel">Token Number <span class="req">*</span></label>
             <input type="text" id="token" placeholder="e.g. SL-2027-0001" oninput="checkToken(this.value)">
             <div class="hint">Enter the unique campaign token ID</div>
             <div id="tokenStatus" class="token-status searching" style="display:none">Searching...</div>
           </div>
-          <div class="field">
-            <label class="flabel">Head of Household Name <span class="req">*</span></label>
+          <div class="field" id="f-headName">
+            <label class="flabel">Head of Household Name <span class="req">*</span><span class="autofill-tag" id="headNameTag" style="display:none">auto</span></label>
             <input type="text" id="headName" placeholder="Full name">
           </div>
           <div class="field-row">
-            <div class="field">
-              <label class="flabel">Phone Number</label>
+            <div class="field" id="f-phone">
+              <label class="flabel">Phone Number<span class="autofill-tag" id="phoneTag" style="display:none">auto</span></label>
               <input type="tel" id="phone" placeholder="07X XXX XXXX">
             </div>
-            <div class="field">
-              <label class="flabel">Household Members <span class="req">*</span></label>
+            <div class="field" id="f-totalMembers">
+              <label class="flabel">Household Members <span class="req">*</span><span class="autofill-tag" id="membersTag" style="display:none">auto</span></label>
               <input type="number" id="totalMembers" min="1" placeholder="e.g. 5" oninput="calcITN()">
             </div>
           </div>
@@ -387,27 +397,27 @@ select{
         </div>
         <div class="sec-fields">
           <div class="field-row">
-            <div class="field">
-              <label class="flabel">Region <span class="req">*</span></label>
+            <div class="field" id="f-region">
+              <label class="flabel">Region <span class="req">*</span><span class="autofill-tag" id="regionTag" style="display:none">auto</span></label>
               <select id="region" onchange="fillDistricts()"><option value="">Select</option></select>
             </div>
-            <div class="field">
-              <label class="flabel">District <span class="req">*</span></label>
+            <div class="field" id="f-district">
+              <label class="flabel">District <span class="req">*</span><span class="autofill-tag" id="districtTag" style="display:none">auto</span></label>
               <select id="district" onchange="fillChiefdoms()"><option value="">Select</option></select>
             </div>
           </div>
           <div class="field-row">
-            <div class="field">
-              <label class="flabel">Chiefdom <span class="req">*</span></label>
+            <div class="field" id="f-chiefdom">
+              <label class="flabel">Chiefdom <span class="req">*</span><span class="autofill-tag" id="chiefdomTag" style="display:none">auto</span></label>
               <select id="chiefdom"><option value="">Select</option></select>
             </div>
-            <div class="field">
-              <label class="flabel">Facility</label>
+            <div class="field" id="f-facility">
+              <label class="flabel">Facility<span class="autofill-tag" id="facilityTag" style="display:none">auto</span></label>
               <input type="text" id="facility" placeholder="Health facility name">
             </div>
           </div>
-          <div class="field">
-            <label class="flabel">Community / Village <span class="req">*</span></label>
+          <div class="field" id="f-community">
+            <label class="flabel">Community / Village <span class="req">*</span><span class="autofill-tag" id="communityTag" style="display:none">auto</span></label>
             <input type="text" id="community" placeholder="Village or community name">
           </div>
         </div>
@@ -489,7 +499,6 @@ select{
           <div><div class="sec-title">Confirmation</div><div class="sec-desc">Review before submission</div></div>
         </div>
         <div class="sec-fields" id="summaryBox">
-          <!-- injected by JS -->
         </div>
       </div>
     </div>
@@ -511,7 +520,7 @@ select{
     </div>
   </div>
   <div class="records-wrap" id="recordsWrap">
-    <div class="no-records">📋 No distribution records yet.<br>Complete a distribution to see data here.</div>
+    <div class="no-records">No distribution records yet.<br>Complete a distribution to see data here.</div>
   </div>
   <div class="nav-btns">
     <button class="btn-back" onclick="backHome()">← Home</button>
@@ -571,8 +580,8 @@ select{
 <div class="toast" id="toast"></div>
 
 <script>
-/* ── DATA ── */
-const geo={
+/* ── GEO DATA ── */
+var geo={
   "Western Area":{"Western Area Urban":["Central","East","West"],"Western Area Rural":["Koya","Mountain","York"]},
   "North West":{"Kambia":["Dixon","Gbinle","Samu","Tunkia"],"Port Loko":["Bureh","Kafu Bullom","Lokomasama","Marampa","Masimera"]},
   "North":{"Bombali":["Biriwa","Gbanti Kamaranka","Libeisaygahun","Makari Gbanti","Paki Masabong","Saberi","Tambakha"],"Koinadugu":["Dansogoia","Diang","Folasaba","Kasunko","Mongo","Neya","Sengbe","Sulima","Wara-Wara Bafodia","Wara-Wara Yagala"],"Tonkolili":["Gbonkolenken","Kafe Simiria","Kholifa Mabang","Kholifa Rowalla","Kunike Barina","Kunike","Malal Mara","Tane","Yoni"]},
@@ -581,302 +590,489 @@ const geo={
 };
 
 /* ── INIT ── */
-let currentStep=1;
-const totalSteps=4;
+var currentStep = 1;
+var totalSteps = 4;
+var tokenLookupDone = false;
 
 function init(){
   fillRegions();
   updateTarget();
   renderRecords();
-  window.addEventListener('online',()=>setNet(true));
-  window.addEventListener('offline',()=>setNet(false));
+  window.addEventListener('online', function(){ setNet(true); });
+  window.addEventListener('offline', function(){ setNet(false); });
   setNet(navigator.onLine);
 }
+
 function setNet(on){
-  const el=document.getElementById('netHome'), lbl=document.getElementById('netHomeLabel');
-  if(!el)return;
-  el.className='net-indicator '+(on?'online':'offline');
-  lbl.textContent=on?'Online':'Offline';
+  var el = document.getElementById('netHome');
+  var lbl = document.getElementById('netHomeLabel');
+  if(!el) return;
+  el.className = 'net-indicator ' + (on ? 'online' : 'offline');
+  lbl.textContent = on ? 'Online' : 'Offline';
 }
 
 /* ── NAVIGATION ── */
 function goScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
   document.getElementById(id).classList.add('active');
-  if(id==='recordsScreen') renderRecords();
-  if(id==='targetScreen') updateTarget();
+  if(id === 'recordsScreen') renderRecords();
+  if(id === 'targetScreen') updateTarget();
   window.scrollTo(0,0);
 }
-function backHome(){ goScreen('homeScreen'); currentStep=1; updateStep(); clearForm(); }
+
+function backHome(){
+  goScreen('homeScreen');
+  currentStep = 1;
+  updateStep();
+  clearForm();
+}
 
 function updateStep(){
-  document.getElementById('stepNum').textContent=currentStep;
-  for(let i=1;i<=4;i++){ document.getElementById('step'+i).style.display=(i===currentStep?'block':'none'); }
-  document.getElementById('btnBack').style.display=currentStep===1?'none':'flex';
-  document.getElementById('btnNext').innerHTML=currentStep===4?'Submit Final ✓':'Next →';
-  document.getElementById('btnNext').className=currentStep===4?'btn-submit-final':'btn-next';
-  if(currentStep===4) buildSummary();
+  document.getElementById('stepNum').textContent = currentStep;
+  for(var i = 1; i <= 4; i++){
+    document.getElementById('step' + i).style.display = (i === currentStep ? 'block' : 'none');
+  }
+  document.getElementById('btnBack').style.display = currentStep === 1 ? 'none' : 'flex';
+  document.getElementById('btnNext').innerHTML = currentStep === 4 ? 'Submit Final ✓' : 'Next →';
+  document.getElementById('btnNext').className = currentStep === 4 ? 'btn-submit-final' : 'btn-next';
+  if(currentStep === 4) buildSummary();
 }
 
 function nextStep(){
   if(!validateStep(currentStep)) return;
-  if(currentStep<4){ currentStep++; updateStep(); }
+  if(currentStep < 4){ currentStep++; updateStep(); }
   else{ submitDist(); }
 }
-function prevStep(){ if(currentStep>1){ currentStep--; updateStep(); } }
+
+function prevStep(){
+  if(currentStep > 1){ currentStep--; updateStep(); }
+}
 
 /* ── VALIDATION ── */
 function validateStep(step){
-  let ok=true;
-  const req=id=>{ const el=document.getElementById(id); if(!el||!el.value.trim()){ el.parentElement.classList.add('err'); ok=false; } else { el.parentElement.classList.remove('err'); } };
-  if(step===1){
+  var ok = true;
+  function req(id){
+    var el = document.getElementById(id);
+    if(!el || !el.value.trim()){
+      el.parentElement.classList.add('err');
+      ok = false;
+    } else {
+      el.parentElement.classList.remove('err');
+    }
+  }
+  if(step === 1){
     req('token'); req('headName'); req('totalMembers');
     req('region'); req('district'); req('chiefdom'); req('community');
-    const tok=document.getElementById('token');
-    if(tok.value.trim() && loadDist().some(r=>r.token===tok.value.trim())){
-      tok.parentElement.classList.add('err'); ok=false; showToast('Token already used'); return false;
+    var tok = document.getElementById('token');
+    if(tok.value.trim() && loadDist().some(function(r){ return r.token === tok.value.trim(); })){
+      tok.parentElement.classList.add('err');
+      ok = false;
+      showToast('Token already used');
+      return false;
     }
   }
-  if(step===2){
-    const elig=document.querySelector('input[name="eligible"]:checked');
-    if(!elig){ ok=false; showToast('Select eligibility'); return false; }
-    if(elig.value==='yes'){
-      const con=document.querySelector('input[name="consent"]:checked');
-      if(!con){ ok=false; showToast('Select consent'); return false; }
+  if(step === 2){
+    var elig = document.querySelector('input[name="eligible"]:checked');
+    if(!elig){ ok = false; showToast('Select eligibility'); return false; }
+    if(elig.value === 'yes'){
+      var con = document.querySelector('input[name="consent"]:checked');
+      if(!con){ ok = false; showToast('Select consent'); return false; }
     }
   }
-  if(step===3){
+  if(step === 3){
     req('itnDelivered');
-    const del=parseInt(document.getElementById('itnDelivered').value)||0;
-    const alloc=parseInt(document.getElementById('itnNum').textContent)||0;
-    if(del>alloc){ document.getElementById('itnDelivered').parentElement.classList.add('err'); ok=false; showToast('Cannot exceed allocation'); }
+    var del = parseInt(document.getElementById('itnDelivered').value) || 0;
+    var alloc = parseInt(document.getElementById('itnNum').textContent) || 0;
+    if(del > alloc){
+      document.getElementById('itnDelivered').parentElement.classList.add('err');
+      ok = false;
+      showToast('Cannot exceed allocation');
+    }
   }
   return ok;
 }
 
 /* ── GEO DROPDOWNS ── */
 function fillRegions(){
-  const r=document.getElementById('region'); r.innerHTML='<option value="">Select</option>';
-  Object.keys(geo).forEach(k=>r.add(new Option(k,k)));
-}
-function fillDistricts(){
-  const d=document.getElementById('district'), c=document.getElementById('chiefdom');
-  d.innerHTML='<option value="">Select</option>'; c.innerHTML='<option value="">Select</option>';
-  const reg=document.getElementById('region').value;
-  if(geo[reg]) Object.keys(geo[reg]).forEach(k=>d.add(new Option(k,k)));
-}
-function fillChiefdoms(){
-  const c=document.getElementById('chiefdom');
-  c.innerHTML='<option value="">Select</option>';
-  const reg=document.getElementById('region').value, dist=document.getElementById('district').value;
-  if(geo[reg]&&geo[reg][dist]) geo[reg][dist].forEach(k=>c.add(new Option(k,k)));
+  var r = document.getElementById('region');
+  r.innerHTML = '<option value="">Select</option>';
+  Object.keys(geo).forEach(function(k){ r.add(new Option(k, k)); });
 }
 
-/* ── TOKEN LOOKUP (reads from reg.html registrations) ── */
-const REG_KEY = 'icfsl_registrations';
+function fillDistricts(){
+  var d = document.getElementById('district');
+  var c = document.getElementById('chiefdom');
+  d.innerHTML = '<option value="">Select</option>';
+  c.innerHTML = '<option value="">Select</option>';
+  var reg = document.getElementById('region').value;
+  if(geo[reg]) Object.keys(geo[reg]).forEach(function(k){ d.add(new Option(k, k)); });
+}
+
+function fillChiefdoms(){
+  var c = document.getElementById('chiefdom');
+  c.innerHTML = '<option value="">Select</option>';
+  var reg = document.getElementById('region').value;
+  var dist = document.getElementById('district').value;
+  if(geo[reg] && geo[reg][dist]) geo[reg][dist].forEach(function(k){ c.add(new Option(k, k)); });
+}
+
+/* ── TOKEN LOOKUP & AUTO-FILL ── */
+var REG_KEY = 'icfsl_registrations';
+
+/* Fields that get locked after auto-fill */
+var autofillFields = ['headName', 'phone', 'totalMembers', 'region', 'district', 'chiefdom', 'facility', 'community'];
+var autofillTags = ['headNameTag', 'phoneTag', 'membersTag', 'regionTag', 'districtTag', 'chiefdomTag', 'facilityTag', 'communityTag'];
+
+function showAutoTags(){
+  autofillTags.forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.style.display = 'inline-block';
+  });
+}
+
+function hideAutoTags(){
+  autofillTags.forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.style.display = 'none';
+  });
+}
+
+function lockAutofillFields(){
+  autofillFields.forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.setAttribute('readonly', true);
+  });
+  /* Lock geo selects too */
+  ['region', 'district', 'chiefdom'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.setAttribute('disabled', true);
+  });
+}
+
+function unlockAutofillFields(){
+  autofillFields.forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.removeAttribute('readonly');
+  });
+  ['region', 'district', 'chiefdom'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.removeAttribute('disabled');
+  });
+}
 
 function checkToken(v){
-  const st=document.getElementById('tokenStatus');
-  const headNameEl=document.getElementById('headName');
-  const membersEl=document.getElementById('totalMembers');
+  var st = document.getElementById('tokenStatus');
+  var trimmed = v.trim();
 
-  if(!v.trim()){ st.style.display='none'; return; }
+  /* If token cleared, unlock everything */
+  if(!trimmed){
+    st.style.display = 'none';
+    tokenLookupDone = false;
+    unlockAutofillFields();
+    hideAutoTags();
+    /* Clear only the auto-fillable fields, keep token */
+    autofillFields.forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.value = '';
+    });
+    document.getElementById('itnNum').textContent = '0';
+    /* Reset geo dropdowns */
+    fillDistricts();
+    fillChiefdoms();
+    return;
+  }
 
-  st.style.display='block';
-  st.className='token-status searching';
-  st.textContent='Searching...';
+  st.style.display = 'block';
+  st.className = 'token-status searching';
+  st.textContent = 'Searching...';
+  tokenLookupDone = false;
 
-  setTimeout(()=>{
-    // Check if already distributed
-    if(loadDist().some(r=>r.token===v.trim())){
-      st.className='token-status found';
-      st.textContent='⚠ Token already distributed';
+  setTimeout(function(){
+    /* Check if already distributed */
+    if(loadDist().some(function(r){ return r.token === trimmed; })){
+      st.className = 'token-status found';
+      st.textContent = 'Token already distributed';
+      unlockAutofillFields();
+      hideAutoTags();
       return;
     }
 
-    // Look up in registration records from reg.html
-    const regs = JSON.parse(localStorage.getItem(REG_KEY)||'[]');
-    const match = regs.find(r=>r.token===v.trim());
-    if(match){
-      st.className='token-status prefilled';
-      st.textContent='✓ Token found — details pre-filled from registration';
-      // Pre-fill household head name
-      headNameEl.value = match.headName || match.name || (match.firstName||'')+' '+(match.lastName||'');
-      // Pre-fill members if available
-      if(match.totalMembers || match.members){
-        membersEl.value = match.totalMembers || match.members || '';
-        calcITN();
-      }
-      // Pre-fill location if available
-      if(match.region){
-        const regSel=document.getElementById('region');
-        regSel.value=match.region; fillDistricts();
-        if(match.district){ document.getElementById('district').value=match.district; fillChiefdoms(); }
-        if(match.chiefdom){ document.getElementById('chiefdom').value=match.chiefdom; }
-      }
-      if(match.community) document.getElementById('community').value=match.community||match.townVillage||'';
-      if(match.facility || match.healthFacility) document.getElementById('facility').value=match.facility||match.healthFacility||'';
-      if(match.phone) document.getElementById('phone').value=match.phone||'';
-    } else {
-      st.className='token-status available';
-      st.textContent='Token available — not yet in registry';
+    /* Look up in registration records from regform.html */
+    var regs = [];
+    try { regs = JSON.parse(localStorage.getItem(REG_KEY) || '[]'); } catch(e){ regs = []; }
+    var match = null;
+    for(var i = 0; i < regs.length; i++){
+      if(regs[i].token === trimmed){ match = regs[i]; break; }
     }
-  },400);
+
+    if(match){
+      tokenLookupDone = true;
+      st.className = 'token-status prefilled';
+      st.textContent = 'Token found — all details auto-filled from registration';
+
+      /* 1. Head of Household Name: combine firstName + lastName */
+      var firstName = (match.firstName || '').trim();
+      var lastName = (match.lastName || '').trim();
+      var headName = '';
+      if(match.headName){
+        headName = match.headName.trim();
+      } else {
+        headName = (firstName + ' ' + lastName).trim();
+      }
+      document.getElementById('headName').value = headName;
+
+      /* 2. Phone Number */
+      document.getElementById('phone').value = match.phone || '';
+
+      /* 3. Household Members */
+      var members = match.totalMembers || match.members || 0;
+      document.getElementById('totalMembers').value = members > 0 ? members : '';
+
+      /* 4. Location fields */
+      /* Region */
+      if(match.region){
+        document.getElementById('region').value = match.region;
+        fillDistricts();
+      }
+      /* District */
+      if(match.district){
+        document.getElementById('district').value = match.district;
+        fillChiefdoms();
+      }
+      /* Chiefdom */
+      if(match.chiefdom){
+        document.getElementById('chiefdom').value = match.chiefdom;
+      }
+      /* Facility */
+      var fac = match.healthFacility || match.facility || '';
+      document.getElementById('facility').value = fac;
+
+      /* Community */
+      var comm = match.community || match.townVillage || '';
+      document.getElementById('community').value = comm;
+
+      /* 5. Calculate ITN based on members */
+      calcITN();
+
+      /* 6. Lock fields & show auto tags */
+      lockAutofillFields();
+      showAutoTags();
+
+    } else {
+      st.className = 'token-status available';
+      st.textContent = 'Token not found in registration records';
+      unlockAutofillFields();
+      hideAutoTags();
+    }
+  }, 400);
 }
 
 /* ── RADIO ── */
-function selectRadio(el,name,val){
-  document.querySelectorAll('input[name="'+name+'"]').forEach(r=>r.parentElement.classList.remove('sel'));
-  el.classList.add('sel'); el.querySelector('input').checked=true;
-  if(name==='eligible'){
-    document.getElementById('reasonBox').style.display=val==='no'?'block':'none';
-    document.getElementById('consentBoxWrap').style.display=val==='yes'?'block':'none';
+function selectRadio(el, name, val){
+  document.querySelectorAll('input[name="' + name + '"]').forEach(function(r){
+    r.parentElement.classList.remove('sel');
+  });
+  el.classList.add('sel');
+  el.querySelector('input').checked = true;
+  if(name === 'eligible'){
+    document.getElementById('reasonBox').style.display = val === 'no' ? 'block' : 'none';
+    document.getElementById('consentBoxWrap').style.display = val === 'yes' ? 'block' : 'none';
   }
 }
 
 /* ── ITN CALC ── */
 function calcITN(){
-  const m=parseInt(document.getElementById('totalMembers').value)||0;
-  const n=Math.max(1,Math.ceil(m/2));
-  document.getElementById('itnNum').textContent=n;
+  var m = parseInt(document.getElementById('totalMembers').value) || 0;
+  var n = Math.max(1, Math.ceil(m / 2));
+  document.getElementById('itnNum').textContent = n;
 }
 
 /* ── SUMMARY ── */
 function buildSummary(){
-  const get=id=>document.getElementById(id)?.value||'—';
-  const elig=document.querySelector('input[name="eligible"]:checked')?.value==='yes'?'Yes':'No';
-  const itn=document.getElementById('itnNum').textContent;
-  const del=document.getElementById('itnDelivered').value||'0';
-  const html=`
-    <div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2f855a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>Household</div>
-      <div class="sum-row"><span class="sk">Token</span><span class="sv">${get('token')}</span></div>
-      <div class="sum-row"><span class="sk">Head</span><span class="sv">${get('headName')}</span></div>
-      <div class="sum-row"><span class="sk">Members</span><span class="sv">${get('totalMembers')}</span></div>
-      <div class="sum-row"><span class="sk">Phone</span><span class="sv">${get('phone')}</span></div>
-    </div>
-    <div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2b6cb0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>Location</div>
-      <div class="sum-row"><span class="sk">Region</span><span class="sv">${get('region')}</span></div>
-      <div class="sum-row"><span class="sk">District</span><span class="sv">${get('district')}</span></div>
-      <div class="sum-row"><span class="sk">Chiefdom</span><span class="sv">${get('chiefdom')}</span></div>
-      <div class="sum-row"><span class="sk">Community</span><span class="sv">${get('community')}</span></div>
-      <div class="sum-row"><span class="sk">Facility</span><span class="sv">${get('facility')}</span></div>
-    </div>
-    <div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#319795" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>ITN Details</div>
-      <div class="sum-row"><span class="sk">Eligible</span><span class="sv">${elig}</span></div>
-      <div class="sum-row"><span class="sk">Allocated</span><span class="sv">${itn}</span></div>
-      <div class="sum-row"><span class="sk">Delivered</span><span class="sv">${del}</span></div>
-      <div class="sum-row"><span class="sk">Method</span><span class="sv">${document.querySelector('input[name="method"]:checked')?.value||'—'}</span></div>
-    </div>`;
-  document.getElementById('summaryBox').innerHTML=html;
+  function get(id){ return document.getElementById(id) ? (document.getElementById(id).value || '—') : '—'; }
+  var elig = document.querySelector('input[name="eligible"]:checked');
+  elig = elig ? (elig.value === 'yes' ? 'Yes' : 'No') : '—';
+  var itn = document.getElementById('itnNum').textContent;
+  var del = document.getElementById('itnDelivered').value || '0';
+  var methodEl = document.querySelector('input[name="method"]:checked');
+  var method = methodEl ? methodEl.value : '—';
+  if(method === 'door') method = 'Door-to-door';
+  else if(method === 'fixed') method = 'Fixed site';
+  else if(method === 'school') method = 'School';
+
+  var html = ''
+    + '<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2f855a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>Household</div>'
+    + '<div class="sum-row"><span class="sk">Token</span><span class="sv">' + get('token') + '</span></div>'
+    + '<div class="sum-row"><span class="sk">Head</span><span class="sv">' + get('headName') + '</span></div>'
+    + '<div class="sum-row"><span class="sk">Phone</span><span class="sv">' + get('phone') + '</span></div>'
+    + '<div class="sum-row"><span class="sk">Members</span><span class="sv">' + get('totalMembers') + '</span></div>'
+    + '</div>'
+    + '<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2b6cb0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>Location</div>'
+    + '<div class="sum-row"><span class="sk">Region</span><span class="sv">' + get('region') + '</span></div>'
+    + '<div class="sum-row"><span class="sk">District</span><span class="sv">' + get('district') + '</span></div>'
+    + '<div class="sum-row"><span class="sk">Chiefdom</span><span class="sv">' + get('chiefdom') + '</span></div>'
+    + '<div class="sum-row"><span class="sk">Community</span><span class="sv">' + get('community') + '</span></div>'
+    + '<div class="sum-row"><span class="sk">Facility</span><span class="sv">' + get('facility') + '</span></div>'
+    + '</div>'
+    + '<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#319795" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>ITN Details</div>'
+    + '<div class="sum-row"><span class="sk">Eligible</span><span class="sv">' + elig + '</span></div>'
+    + '<div class="sum-row"><span class="sk">Allocated</span><span class="sv">' + itn + '</span></div>'
+    + '<div class="sum-row"><span class="sk">Delivered</span><span class="sv">' + del + '</span></div>'
+    + '<div class="sum-row"><span class="sk">Method</span><span class="sv">' + method + '</span></div>'
+    + '</div>';
+  document.getElementById('summaryBox').innerHTML = html;
 }
 
 /* ── STORAGE ── */
-const KEY='icfsl_dist_records';
-function loadDist(){ return JSON.parse(localStorage.getItem(KEY)||'[]'); }
-function saveDist(recs){ localStorage.setItem(KEY,JSON.stringify(recs)); }
+var KEY = 'icfsl_dist_records';
+function loadDist(){ try{ return JSON.parse(localStorage.getItem(KEY) || '[]'); }catch(e){ return []; } }
+function saveDist(recs){ localStorage.setItem(KEY, JSON.stringify(recs)); }
 
 function submitDist(){
-  const get=id=>document.getElementById(id)?.value||'';
-  const recs=loadDist();
-  const now=new Date();
-  const ts=now.toISOString();
-  const data={
-    token:get('token').trim(), headName:get('headName'), phone:get('phone'),
-    totalMembers:get('totalMembers'), region:get('region'), district:get('district'),
-    chiefdom:get('chiefdom'), facility:get('facility'), community:get('community'),
-    eligible:document.querySelector('input[name="eligible"]:checked')?.value||'no',
-    nonEligibleReason:get('nonEligibleReason'),
-    consent:document.querySelector('input[name="consent"]:checked')?.value||'no',
-    itnAllocated:document.getElementById('itnNum').textContent,
-    itnDelivered:get('itnDelivered'),
-    method:document.querySelector('input[name="method"]:checked')?.value||'door',
-    date:now.toLocaleDateString(), time:now.toLocaleTimeString(), timestamp:ts,
-    gps:''
+  function get(id){ return document.getElementById(id) ? (document.getElementById(id).value || '') : ''; }
+  var recs = loadDist();
+  var now = new Date();
+  var ts = now.toISOString();
+  var data = {
+    token: get('token').trim(),
+    headName: get('headName'),
+    phone: get('phone'),
+    totalMembers: get('totalMembers'),
+    region: get('region'),
+    district: get('district'),
+    chiefdom: get('chiefdom'),
+    facility: get('facility'),
+    community: get('community'),
+    eligible: (document.querySelector('input[name="eligible"]:checked') || {}).value || 'no',
+    nonEligibleReason: get('nonEligibleReason'),
+    consent: (document.querySelector('input[name="consent"]:checked') || {}).value || 'no',
+    itnAllocated: document.getElementById('itnNum').textContent,
+    itnDelivered: get('itnDelivered'),
+    method: (document.querySelector('input[name="method"]:checked') || {}).value || 'door',
+    date: now.toLocaleDateString(),
+    time: now.toLocaleTimeString(),
+    timestamp: ts,
+    gps: ''
   };
   if(!data.token){ showToast('Token required'); return; }
-  if(recs.some(r=>r.token===data.token)){ showToast('Token already exists'); return; }
-  recs.push(data); saveDist(recs);
+  if(recs.some(function(r){ return r.token === data.token; })){ showToast('Token already exists'); return; }
+  recs.push(data);
+  saveDist(recs);
   showToast('Distribution saved successfully');
   backHome();
 }
 
 function clearForm(){
-  document.querySelectorAll('input,select').forEach(el=>{ if(el.type==='radio') el.checked=false; else el.value=''; });
-  document.querySelectorAll('.rpill').forEach(p=>p.classList.remove('sel'));
-  document.getElementById('itnNum').textContent='0';
-  document.getElementById('tokenStatus').style.display='none';
-  document.getElementById('reasonBox').style.display='none';
-  document.getElementById('consentBoxWrap').style.display='block';
+  document.querySelectorAll('#distScreen input, #distScreen select').forEach(function(el){
+    if(el.type === 'radio') el.checked = false;
+    else el.value = '';
+  });
+  document.querySelectorAll('#distScreen .rpill').forEach(function(p){ p.classList.remove('sel'); });
+  document.getElementById('itnNum').textContent = '0';
+  document.getElementById('tokenStatus').style.display = 'none';
+  document.getElementById('reasonBox').style.display = 'none';
+  document.getElementById('consentBoxWrap').style.display = 'block';
+  tokenLookupDone = false;
+  unlockAutofillFields();
+  hideAutoTags();
+  fillDistricts();
+  fillChiefdoms();
 }
 
 /* ── RECORDS ── */
 function renderRecords(){
-  const recs=loadDist(), wrap=document.getElementById('recordsWrap');
-  document.getElementById('recCount').textContent=recs.length+' record'+(recs.length===1?'':'s');
+  var recs = loadDist();
+  var wrap = document.getElementById('recordsWrap');
+  document.getElementById('recCount').textContent = recs.length + ' record' + (recs.length === 1 ? '' : 's');
   if(!recs.length){
-    wrap.innerHTML='<div class="no-records">📋 No distribution records yet.<br>Complete a distribution to see data here.</div>'; return;
+    wrap.innerHTML = '<div class="no-records">No distribution records yet.<br>Complete a distribution to see data here.</div>';
+    return;
   }
-  const cols=['Token','Region','District','Chiefdom','Facility','Community','HH Head','Members','Allocated','Distributed','GPS','Date','Time','Timestamp'];
-  const keys=['token','region','district','chiefdom','facility','community','headName','totalMembers','itnAllocated','itnDelivered','gps','date','time','timestamp'];
-  let html='<table class="rec-table"><thead><tr>'+cols.map(c=>'<th>'+c+'</th>').join('')+'</tr></thead><tbody>';
-  recs.forEach(r=>{
-    html+='<tr>'+keys.map(k=>'<td>'+(r[k]??'—')+'</td>').join('')+'</tr>';
+  var cols = ['Token','Region','District','Chiefdom','Facility','Community','HH Head','Members','Allocated','Distributed','Date','Time'];
+  var keys = ['token','region','district','chiefdom','facility','community','headName','totalMembers','itnAllocated','itnDelivered','date','time'];
+  var html = '<table class="rec-table"><thead><tr>';
+  cols.forEach(function(c){ html += '<th>' + c + '</th>'; });
+  html += '</tr></thead><tbody>';
+  recs.forEach(function(r){
+    html += '<tr>';
+    keys.forEach(function(k){ html += '<td>' + (r[k] !== undefined ? r[k] : '—') + '</td>'; });
+    html += '</tr>';
   });
-  html+='</tbody></table>'; wrap.innerHTML=html;
+  var totalItn = recs.reduce(function(s, r){ return s + (parseInt(r.itnDelivered) || 0); }, 0);
+  html += '<tr style="background:#6b7a8d;color:#fff;font-weight:700;">'
+    + '<td colspan="9" style="text-align:right;">TOTAL ITNs DISTRIBUTED:</td>'
+    + '<td style="text-align:center;background:#2e6e28;color:#fff;">' + totalItn + '</td>'
+    + '<td colspan="2"></td></tr>';
+  html += '</tbody></table>';
+  wrap.innerHTML = html;
 }
 
 function exportCSV(){
-  const recs=loadDist();
+  var recs = loadDist();
   if(!recs.length){ showToast('No records to export'); return; }
-  const keys=['token','headName','phone','totalMembers','region','district','chiefdom','facility','community','eligible','nonEligibleReason','consent','itnAllocated','itnDelivered','method','date','time','timestamp','gps'];
-  const headers=['Token','Head Name','Phone','Members','Region','District','Chiefdom','Facility','Community','Eligible','Non-Eligible Reason','Consent','ITN Allocated','ITN Delivered','Method','Date','Time','Timestamp','GPS'];
-  let csv=headers.join(',')+'\n';
-  recs.forEach(r=>{
-    csv+=keys.map(k=>{ let v=r[k]??''; v=String(v).replace(/"/g,'""'); if(v.includes(',')||v.includes('"')||v.includes('\n')) v='"'+v+'"'; return v; }).join(',')+'\n';
+  var keys = ['token','headName','phone','totalMembers','region','district','chiefdom','facility','community','eligible','nonEligibleReason','consent','itnAllocated','itnDelivered','method','date','time','timestamp'];
+  var headers = ['Token','Head Name','Phone','Members','Region','District','Chiefdom','Facility','Community','Eligible','Non-Eligible Reason','Consent','ITN Allocated','ITN Delivered','Method','Date','Time','Timestamp'];
+  var csv = headers.join(',') + '\n';
+  recs.forEach(function(r){
+    csv += keys.map(function(k){
+      var v = r[k] !== undefined ? r[k] : '';
+      v = String(v).replace(/"/g, '""');
+      if(v.includes(',') || v.includes('"') || v.includes('\n')) v = '"' + v + '"';
+      return v;
+    }).join(',') + '\n';
   });
-  const blob=new Blob([csv],{type:'text/csv'});
-  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='icfsl_distribution_records.csv'; a.click();
+  var blob = new Blob([csv], {type:'text/csv'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'icfsl_distribution_records.csv';
+  a.click();
   showToast('CSV exported');
 }
 
 /* ── TOAST ── */
 function showToast(msg){
-  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2800);
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 2800);
 }
 
 /* ── TARGET ── */
-const TKEY_DIST = 'icfsl_dist_target';
-function getDistTarget(){ return parseInt(localStorage.getItem(TKEY_DIST)||'500'); }
+var TKEY_DIST = 'icfsl_dist_target';
+function getDistTarget(){ return parseInt(localStorage.getItem(TKEY_DIST) || '500'); }
 function setDistTarget(){
-  const v=parseInt(document.getElementById('newTarget').value);
-  if(v>0){ localStorage.setItem(TKEY_DIST,v); updateTarget(); showToast('Target updated to '+v); }
+  var v = parseInt(document.getElementById('newTarget').value);
+  if(v > 0){
+    localStorage.setItem(TKEY_DIST, v);
+    updateTarget();
+    showToast('Target updated to ' + v);
+  }
 }
+
 function updateTarget(){
-  const recs=loadDist(), t=getDistTarget(), done=recs.length;
-  const rem=Math.max(0,t-done);
-  const pct=t>0?Math.min(100,Math.round((done/t)*100)):0;
-  const totalItn=recs.reduce((s,r)=>s+(parseInt(r.itnDelivered)||0),0);
-  const s=id=>document.getElementById(id);
-  if(s('tgt-total')) s('tgt-total').textContent=t;
-  if(s('tgt-done'))  s('tgt-done').textContent=done;
-  if(s('tgt-rem'))   s('tgt-rem').textContent=rem;
-  if(s('tgt-itn'))   s('tgt-itn').textContent=totalItn;
-  if(s('tgt-bar'))   s('tgt-bar').style.width=pct+'%';
-  if(s('tgt-pct'))   s('tgt-pct').textContent=pct+'% complete';
+  var recs = loadDist();
+  var t = getDistTarget();
+  var done = recs.length;
+  var rem = Math.max(0, t - done);
+  var pct = t > 0 ? Math.min(100, Math.round((done / t) * 100)) : 0;
+  var totalItn = recs.reduce(function(s, r){ return s + (parseInt(r.itnDelivered) || 0); }, 0);
+  function s(id){ return document.getElementById(id); }
+  if(s('tgt-total')) s('tgt-total').textContent = t;
+  if(s('tgt-done'))  s('tgt-done').textContent = done;
+  if(s('tgt-rem'))   s('tgt-rem').textContent = rem;
+  if(s('tgt-itn'))   s('tgt-itn').textContent = totalItn;
+  if(s('tgt-bar'))   s('tgt-bar').style.width = pct + '%';
+  if(s('tgt-pct'))   s('tgt-pct').textContent = pct + '% complete';
 }
 
 /* ── LOGOUT ── */
 function doLogout(){
-  if(confirm('Log out of ICF-SL?')){ window.location.href='index.html'; }
+  if(confirm('Log out of ICF-SL?')){ window.location.href = 'index.html'; }
 }
 
-/* ── CROSS-TAB SYNC: update if reg.html writes new registrations ── */
-window.addEventListener('storage', (e) => {
-  if(e.key === REG_KEY) {
-    // Registration data changed — nothing to refresh here unless distScreen is open
-  }
-  if(e.key === KEY) {
+/* ── CROSS-TAB SYNC ── */
+window.addEventListener('storage', function(e) {
+  if(e.key === KEY){
     if(document.getElementById('recordsScreen').classList.contains('active')) renderRecords();
     if(document.getElementById('targetScreen').classList.contains('active')) updateTarget();
   }
