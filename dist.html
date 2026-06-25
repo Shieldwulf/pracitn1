@@ -168,7 +168,6 @@ select{
 .token-status.available{background:#ddf0d8;color:#2e6e28;border:1px solid #b4d9b0;}
 .token-status.searching{background:#fff8e6;color:#7a5c00;border:1px solid #f0c040;}
 .token-status.prefilled{background:#ddf0d8;color:#2e6e28;border:1px solid #b4d9b0;}
-.token-status.injected{background:#fff8e6;color:#b06010;border:1px solid #f0c040;}
 .itn-badge{background:#ddf0d8;border-radius:12px;padding:12px 16px;text-align:center;}
 .itn-num{font-size:38px;font-weight:700;color:#2e6e28;line-height:1;}
 .itn-text{font-size:12px;color:#4a7048;margin-top:4px;}
@@ -281,7 +280,7 @@ select{
     <div class="campaign-banner">ITN Mass Campaign 2027</div>
   </div>
   <div class="content-area">
-    <div class="section-label">Distribution</div>
+    <div class="section-label">Registration</div>
     <div class="card-grid">
       <a class="dash-card" onclick="goScreen('distScreen')">
         <div class="card-icon ci-blue"><svg viewBox="0 0 24 24" fill="none" stroke="#2b6cb0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
@@ -319,7 +318,7 @@ select{
   </div>
   <div class="form-body" id="formBody">
 
-    <!-- STEP 1: HOUSEHOLD HEAD + LOCATION -->
+    <!-- STEP 1 -->
     <div id="step1">
       <div class="form-section">
         <div class="sec-hdr">
@@ -391,7 +390,7 @@ select{
       </div>
     </div>
 
-    <!-- STEP 2: CONSENT + ITN ALLOCATION -->
+    <!-- STEP 2 -->
     <div id="step2" style="display:none">
       <div class="form-section">
         <div class="sec-hdr">
@@ -428,7 +427,7 @@ select{
       </div>
     </div>
 
-    <!-- STEP 3: CONFIRMATION + DISTRIBUTOR -->
+    <!-- STEP 3 -->
     <div id="step3" style="display:none">
       <div class="form-section dist-card">
         <div class="sec-hdr">
@@ -536,36 +535,86 @@ select{
 <div class="toast" id="toast"></div>
 
 <script>
-/* ── GEO DATA ── */
+/* ═══════════════════════════════════════════════════════════
+   GEO DATA — Merged from both regform.html and original distribution.
+   Registration page uses: "Northern Region", "Southern Region",
+   "Eastern Region", "Western Area" with shared chiefdom lists.
+   Original distribution uses: "North", "North West", "South East", "South"
+   with district-specific chiefdoms.
+   ALL entries are included here so setSelectValue always finds a match.
+   ═══════════════════════════════════════════════════════════ */
 var geo={
-  "Western Area":{"Western Area Urban":["Central","East","West"],"Western Area Rural":["Koya","Mountain","York"]},
-  "North West":{"Kambia":["Dixon","Gbinle","Samu","Tunkia"],"Port Loko":["Bureh","Kafu Bullom","Lokomasama","Marampa","Masimera"]},
-  "North":{"Bombali":["Biriwa","Gbanti Kamaranka","Libeisaygahun","Makari Gbanti","Paki Masabong","Saberi","Tambakha"],"Koinadugu":["Dansogoia","Diang","Folasaba","Kasunko","Mongo","Neya","Sengbe","Sulima","Wara-Wara Bafodia","Wara-Wara Yagala"],"Tonkolili":["Gbonkolenken","Kafe Simiria","Kholifa Mabang","Kholifa Rowalla","Kunike Barina","Kunike","Malal Mara","Tane","Yoni"]},
-  "South East":{"Bo":["Badjia","Bagbo","Bagbwe","Bargbe","Bongor","Jaiama Bongor","Kakua","Komboya","Lugbu","Niawa","Selenga","Tikonko","Valunia","Wonde"],"Bonthe":["Bendu","Bonthe Municipal","Bonthe Island","Dema","Imperri","Jong","Kpanda Kemo","Kwamebai Krim","Largor","Moyamba","Sittia","Sogbeni","Yawbeko"],"Kailahun":["Dea","Jawei","Kissi Kama","Kissi Teng","Kissi Tongi","Luawa","Malema","Mandu","Peje Bongre","Penguia","Upper Bambara","Yawei"],"Kenema":["Dama","Dodo","Gorama Kono","Kandu Leppiama","Koidu Town","Langbama","Lower Bambara","Malegohun","Nyawa","Simiria","Small Bo","Toli","Wondor"],"Kono":["Fiama","Gbane","Gbense","Gorama","Kamara","Lei","Mafindor","Nimikoro","Nimiyama","Sandor","Soa","Tankoro","Toli"]},
-  "South":{"Bo":["Badjia","Bagbo","Bagbwe","Bargbe","Bongor","Jaiama Bongor","Kakua","Komboya","Lugbu","Niawa","Selenga","Tikonko","Valunia","Wonde"],"Bonthe":["Bendu","Bonthe Municipal","Bonthe Island","Dema","Imperri","Jong","Kpanda Kemo","Kwamebai Krim","Largor","Moyamba","Sittia","Sogbeni","Yawbeko"],"Moyamba":["Bagruwa","Bumpeh","Dasse","Fakunya","Kaiyamba","Kori","Kowa","Laiwa","Lower Banta","Ribbi","Timdale","Upper Banta"],"Pujehun":["Barri","Fairo","Galliness","Kpaka","Kpanga Kabonde","Makpele","Malen","Peje","Soro Gbema","Sowa","Yakemo Kpukumu"]}
+  /* ── From regform.html (chiefdoms shared across all districts in region) ── */
+  "Northern Region":{
+    "Falaba":["Wara Wara Zagala","Wara Wara Yagala","Biriwa","Sella Limba","Gbanti","Kasunko"],
+    "Bombali":["Wara Wara Zagala","Wara Wara Yagala","Biriwa","Sella Limba","Gbanti","Kasunko"],
+    "Koinadugu":["Wara Wara Zagala","Wara Wara Yagala","Biriwa","Sella Limba","Gbanti","Kasunko"],
+    "Tonkolili":["Wara Wara Zagala","Wara Wara Yagala","Biriwa","Sella Limba","Gbanti","Kasunko"]
+  },
+  "Southern Region":{
+    "Bonthe":["Nongoma Bullom","Sittia","Imperri","Yawbeko","Bum","Kanda Kassah"],
+    "Bo":["Nongoma Bullom","Sittia","Imperri","Yawbeko","Bum","Kanda Kassah"],
+    "Moyamba":["Nongoma Bullom","Sittia","Imperri","Yawbeko","Bum","Kanda Kassah"],
+    "Pujehun":["Nongoma Bullom","Sittia","Imperri","Yawbeko","Bum","Kanda Kassah"]
+  },
+  "Eastern Region":{
+    "Kono":["Nimi Koro","Nimi Yalama","Tankoro","Faiama","Gbane","Soa"],
+    "Kenema":["Nimi Koro","Nimi Yalama","Tankoro","Faiama","Gbane","Soa"],
+    "Kailahun":["Nimi Koro","Nimi Yalama","Tankoro","Faiama","Gbane","Soa"]
+  },
+  "Western Area":{
+    "Western Area Rural":["Waterloo","Newton","Benguema","Tombo","Central","East"],
+    "Western Area Urban":["Waterloo","Newton","Benguema","Tombo","Central","East"]
+  },
+  /* ── Original distribution page (district-specific chiefdoms) ── */
+  "North West":{
+    "Kambia":["Dixon","Gbinle","Samu","Tunkia"],
+    "Port Loko":["Bureh","Kafu Bullom","Lokomasama","Marampa","Masimera"]
+  },
+  "North":{
+    "Bombali":["Biriwa","Gbanti Kamaranka","Libeisaygahun","Makari Gbanti","Paki Masabong","Saberi","Tambakha"],
+    "Koinadugu":["Dansogoia","Diang","Folasaba","Kasunko","Mongo","Neya","Sengbe","Sulima","Wara-Wara Bafodia","Wara-Wara Yagala"],
+    "Tonkolili":["Gbonkolenken","Kafe Simiria","Kholifa Mabang","Kholifa Rowalla","Kunike Barina","Kunike","Malal Mara","Tane","Yoni"]
+  },
+  "South East":{
+    "Bo":["Badjia","Bagbo","Bagbwe","Bargbe","Bongor","Jaiama Bongor","Kakua","Komboya","Lugbu","Niawa","Selenga","Tikonko","Valunia","Wonde"],
+    "Bonthe":["Bendu","Bonthe Municipal","Bonthe Island","Dema","Imperri","Jong","Kpanda Kemo","Kwamebai Krim","Largor","Moyamba","Sittia","Sogbeni","Yawbeko"],
+    "Kailahun":["Dea","Jawei","Kissi Kama","Kissi Teng","Kissi Tongi","Luawa","Malema","Mandu","Peje Bongre","Penguia","Upper Bambara","Yawei"],
+    "Kenema":["Dama","Dodo","Gorama Kono","Kandu Leppiama","Koidu Town","Langbama","Lower Bambara","Malegohun","Nyawa","Simiria","Small Bo","Toli","Wondor"],
+    "Kono":["Fiama","Gbane","Gbense","Gorama","Kamara","Lei","Mafindor","Nimikoro","Nimiyama","Sandor","Soa","Tankoro","Toli"]
+  },
+  "South":{
+    "Bo":["Badjia","Bagbo","Bagbwe","Bargbe","Bongor","Jaiama Bongor","Kakua","Komboya","Lugbu","Niawa","Selenga","Tikonko","Valunia","Wonde"],
+    "Bonthe":["Bendu","Bonthe Municipal","Bonthe Island","Dema","Imperri","Jong","Kpanda Kemo","Kwamebai Krim","Largor","Moyamba","Sittia","Sogbeni","Yawbeko"],
+    "Moyamba":["Bagruwa","Bumpeh","Dasse","Fakunya","Kaiyamba","Kori","Kowa","Laiwa","Lower Banta","Ribbi","Timdale","Upper Banta"],
+    "Pujehun":["Barri","Fairo","Galliness","Kpaka","Kpanga Kabonde","Makpele","Malen","Peje","Soro Gbema","Sowa","Yakemo Kpukumu"]
+  }
 };
 
 /* ── STATE ── */
-var currentStep=1,totalSteps=3,navStack=[],gpsWatchId=null;
+var currentStep = 1;
+var totalSteps = 3;
+var navStack = [];
+var gpsWatchId = null;
 
-var hhFields=['headName','phone','totalMembers'];
-var hhTags=['headNameTag','phoneTag','membersTag'];
-var locFields=['region','district','chiefdom','facility','community'];
-var locTags=['regionTag','districtTag','chiefdomTag','facilityTag','communityTag'];
-var allAutoFields=hhFields.concat(locFields);
-var allAutoTags=hhTags.concat(locTags);
+var hhFields = ['headName','phone','totalMembers'];
+var hhTags  = ['headNameTag','phoneTag','membersTag'];
+var locFields = ['region','district','chiefdom','facility','community'];
+var locTags  = ['regionTag','districtTag','chiefdomTag','facilityTag','communityTag'];
+var allAutoFields = hhFields.concat(locFields);
+var allAutoTags  = hhTags.concat(locTags);
 
 /* ═══════════════════════════════════════════════════════════
-   REGISTRATION LOOKUP — ALIASES
+   ROBUST REGISTRATION LOOKUP
    ═══════════════════════════════════════════════════════════ */
-var REG_KEYS=[
+var REG_KEYS = [
   'icfsl_registrations','icfsl_reg_records','icfsl_records','registrations',
   'reg_records','icfsl_registration_records','registrationData','regData',
   'hh_registrations','household_registrations','icfsl_household_reg',
   'campaign_registrations','itn_registrations'
 ];
 
-var ALIASES={
+var ALIASES = {
   token:     ['token','Token','tokenNumber','token_number','tokenNo','token_no','tokenId','campaignToken'],
   headName:  ['headName','head_of_household','headOfHousehold','hhHead','householdHead','fullName','name','head_name','hh_name'],
   firstName: ['firstName','first_name','fname','givenName','given_name'],
@@ -574,49 +623,65 @@ var ALIASES={
   members:   ['totalMembers','members','householdMembers','household_members','householdSize','household_size','hhSize','hh_size','numMembers','num_members','familySize','family_size','noOfMembers','no_of_members'],
   region:    ['region','Region','regionName','region_name'],
   district:  ['district','District','districtName','district_name'],
-  chiefdom:  ['Chiefdom','chiefdom','ChiefdomName','chiefdomName','chiefdom_name','chief_dom','ChiefDom','chiefDom'],
+  chiefdom:  ['chiefdom','Chiefdom','chiefdomName','chiefdom_name'],
   facility:  ['healthFacility','health_facility','facility','facilityName','facility_name','hfName','hf_name','healthFacilityName','clinic','healthCenter','health_center'],
   community: ['community','townVillage','town_village','town','village','communityName','community_name','settlement','locality','area']
 };
 
-function getRegField(record, aliasGroup){
-  var keys=ALIASES[aliasGroup];if(!keys) return '';
-  for(var i=0;i<keys.length;i++){
-    var val=record[keys[i]];
-    if(val!==undefined && val!==null && String(val).trim()!=='') return String(val).trim();
+function getRegField(record, aliasGroup) {
+  var keys = ALIASES[aliasGroup];
+  if (!keys) return '';
+  for (var i = 0; i < keys.length; i++) {
+    var val = record[keys[i]];
+    if (val !== undefined && val !== null && String(val).trim() !== '') {
+      return String(val).trim();
+    }
   }
   return '';
 }
 
-function loadAllRegistrations(){
-  var allRegs=[];
-  for(var k=0;k<REG_KEYS.length;k++){
-    try{
-      var raw=localStorage.getItem(REG_KEYS[k]);if(!raw) continue;
-      var parsed=JSON.parse(raw);
-      if(Array.isArray(parsed)&&parsed.length>0){
-        var existingTokens={};
-        for(var e=0;e<allRegs.length;e++){var et=getRegField(allRegs[e],'token');if(et)existingTokens[et]=true;}
-        for(var j=0;j<parsed.length;j++){
-          var pt=getRegField(parsed[j],'token');
-          if(!pt||!existingTokens[pt]){allRegs.push(parsed[j]);if(pt)existingTokens[pt]=true;}
+function loadAllRegistrations() {
+  var allRegs = [];
+  for (var k = 0; k < REG_KEYS.length; k++) {
+    try {
+      var raw = localStorage.getItem(REG_KEYS[k]);
+      if (!raw) continue;
+      var parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        var existingTokens = {};
+        for (var e = 0; e < allRegs.length; e++) {
+          var et = getRegField(allRegs[e], 'token');
+          if (et) existingTokens[et] = true;
         }
-      }else if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed)){
-        var objKeys=Object.keys(parsed);
-        if(objKeys.length>0){
-          var existingTokens2={};
-          for(var e2=0;e2<allRegs.length;e2++){var et2=getRegField(allRegs[e2],'token');if(et2)existingTokens2[et2]=true;}
-          for(var m=0;m<objKeys.length;m++){
-            var objRec=parsed[objKeys[m]];
-            if(objRec&&typeof objRec==='object'){
-              if(!getRegField(objRec,'token')) objRec.token=objKeys[m];
-              var pt2=getRegField(objRec,'token');
-              if(!pt2||!existingTokens2[pt2]){allRegs.push(objRec);if(pt2)existingTokens2[pt2]=true;}
+        for (var j = 0; j < parsed.length; j++) {
+          var pt = getRegField(parsed[j], 'token');
+          if (!pt || !existingTokens[pt]) {
+            allRegs.push(parsed[j]);
+            if (pt) existingTokens[pt] = true;
+          }
+        }
+      } else if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        var objKeys = Object.keys(parsed);
+        if (objKeys.length > 0) {
+          var existingTokens2 = {};
+          for (var e2 = 0; e2 < allRegs.length; e2++) {
+            var et2 = getRegField(allRegs[e2], 'token');
+            if (et2) existingTokens2[et2] = true;
+          }
+          for (var m = 0; m < objKeys.length; m++) {
+            var objRec = parsed[objKeys[m]];
+            if (objRec && typeof objRec === 'object') {
+              if (!getRegField(objRec, 'token')) objRec.token = objKeys[m];
+              var pt2 = getRegField(objRec, 'token');
+              if (!pt2 || !existingTokens2[pt2]) {
+                allRegs.push(objRec);
+                if (pt2) existingTokens2[pt2] = true;
+              }
             }
           }
         }
       }
-    }catch(e){}
+    } catch(e) {}
   }
   return allRegs;
 }
@@ -624,317 +689,625 @@ function loadAllRegistrations(){
 /* ═══════════════════════════════════════════════════════════
    DISTRIBUTOR CREDENTIALS LOOKUP
    ═══════════════════════════════════════════════════════════ */
-var USER_KEYS=['icfsl_user','icfsl_current_user','currentUser','loggedInUser','userData','user','session','icfsl_session','loggedUser','icfsl_logged_user','activeUser','icfsl_active_user','auth_user','authUser','profile','userProfile','user_profile'];
-var USER_ALIASES={
-  name:['fullName','full_name','name','displayName','display_name','fullNameText','headName','userName','user_name','firstLastName'],
+var USER_KEYS = [
+  'icfsl_user','icfsl_current_user','currentUser','loggedInUser',
+  'userData','user','session','icfsl_session','loggedUser',
+  'icfsl_logged_user','activeUser','icfsl_active_user',
+  'auth_user','authUser','profile','userProfile','user_profile'
+];
+
+var USER_ALIASES = {
+  name:     ['fullName','full_name','name','displayName','display_name','fullNameText','headName','userName','user_name','firstLastName'],
   firstName:['firstName','first_name','fname','givenName','given_name'],
-  lastName:['lastName','last_name','lname','surname','familyName','family_name'],
-  username:['username','userName','user_name','userid','userId','user_id','loginId','login_id','accountName','account_name','email'],
-  phone:['phone','phoneNumber','phone_number','telephone','mobile','contact','phoneNo','phone_no','cell','cellNumber','tel']
+  lastName: ['lastName','last_name','lname','surname','familyName','family_name'],
+  username: ['username','userName','user_name','userid','userId','user_id','loginId','login_id','accountName','account_name','email'],
+  phone:    ['phone','phoneNumber','phone_number','telephone','mobile','contact','phoneNo','phone_no','cell','cellNumber','tel']
 };
 
-function getUserField(record,aliasGroup){
-  var keys=USER_ALIASES[aliasGroup];if(!keys) return '';
-  for(var i=0;i<keys.length;i++){var val=record[keys[i]];if(val!==undefined&&val!==null&&String(val).trim()!=='') return String(val).trim();}
+function getUserField(record, aliasGroup) {
+  var keys = USER_ALIASES[aliasGroup];
+  if (!keys) return '';
+  for (var i = 0; i < keys.length; i++) {
+    var val = record[keys[i]];
+    if (val !== undefined && val !== null && String(val).trim() !== '') {
+      return String(val).trim();
+    }
+  }
   return '';
 }
-function loadCurrentUser(){
-  for(var k=0;k<USER_KEYS.length;k++){try{var raw=localStorage.getItem(USER_KEYS[k]);if(!raw)continue;var p=JSON.parse(raw);if(p&&typeof p==='object'&&!Array.isArray(p)) return p;}catch(e){}}
+
+function loadCurrentUser() {
+  for (var k = 0; k < USER_KEYS.length; k++) {
+    try {
+      var raw = localStorage.getItem(USER_KEYS[k]);
+      if (!raw) continue;
+      var parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        return parsed;
+      }
+    } catch(e) {}
+  }
   return null;
 }
-function autoFillDistributor(){
-  var user=loadCurrentUser();if(!user) return;
-  var name=getUserField(user,'name');if(!name){var fn=getUserField(user,'firstName');var ln=getUserField(user,'lastName');name=(fn+' '+ln).trim();}
-  if(name){document.getElementById('distName').value=name;document.getElementById('distName').setAttribute('readonly',true);document.getElementById('distNameTag').style.display='inline-block';}
-  var uname=getUserField(user,'username');if(uname){document.getElementById('distUsername').value=uname;document.getElementById('distUsername').setAttribute('readonly',true);document.getElementById('distUsernameTag').style.display='inline-block';}
-  var uphone=getUserField(user,'phone');if(uphone){document.getElementById('distPhone').value=uphone;document.getElementById('distPhone').setAttribute('readonly',true);document.getElementById('distPhoneTag').style.display='inline-block';}
+
+function autoFillDistributor() {
+  var user = loadCurrentUser();
+  if (!user) return;
+  var name = getUserField(user, 'name');
+  if (!name) {
+    var fn = getUserField(user, 'firstName');
+    var ln = getUserField(user, 'lastName');
+    name = (fn + ' ' + ln).trim();
+  }
+  if (name) {
+    document.getElementById('distName').value = name;
+    document.getElementById('distName').setAttribute('readonly', true);
+    document.getElementById('distNameTag').style.display = 'inline-block';
+  }
+  var uname = getUserField(user, 'username');
+  if (uname) {
+    document.getElementById('distUsername').value = uname;
+    document.getElementById('distUsername').setAttribute('readonly', true);
+    document.getElementById('distUsernameTag').style.display = 'inline-block';
+  }
+  var uphone = getUserField(user, 'phone');
+  if (uphone) {
+    document.getElementById('distPhone').value = uphone;
+    document.getElementById('distPhone').setAttribute('readonly', true);
+    document.getElementById('distPhoneTag').style.display = 'inline-block';
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
-   AUTOMATIC GPS
+   AUTOMATIC GPS CAPTURE
    ═══════════════════════════════════════════════════════════ */
-function startGPS(){
-  var field=document.getElementById('gpsCoords'),status=document.getElementById('gpsStatus');
-  field.value='';field.placeholder='Acquiring location...';status.className='gps-status loading';status.innerHTML='<div class="gps-dot"></div><span>Acquiring GPS signal...</span>';
-  if(!navigator.geolocation){status.className='gps-status fail';status.innerHTML='<div class="gps-dot"></div><span>Geolocation not supported</span> <button class="gps-retry" onclick="startGPS()">Retry</button>';field.placeholder='Not available';return;}
+function startGPS() {
+  var field = document.getElementById('gpsCoords');
+  var status = document.getElementById('gpsStatus');
+  field.value = '';
+  field.placeholder = 'Acquiring location...';
+  status.className = 'gps-status loading';
+  status.innerHTML = '<div class="gps-dot"></div><span>Acquiring GPS signal...</span>';
+  if (!navigator.geolocation) {
+    status.className = 'gps-status fail';
+    status.innerHTML = '<div class="gps-dot"></div><span>Geolocation not supported</span> <button class="gps-retry" onclick="startGPS()">Retry</button>';
+    field.placeholder = 'Not available';
+    return;
+  }
   stopGPS();
-  gpsWatchId=navigator.geolocation.watchPosition(
-    function(pos){var lat=pos.coords.latitude.toFixed(6),lng=pos.coords.longitude.toFixed(6),acc=Math.round(pos.coords.accuracy);field.value=lat+', '+lng;field.placeholder=lat+', '+lng;status.className='gps-status ok';status.innerHTML='<div class="gps-dot"></div><span>Captured (&plusmn;'+acc+'m accuracy)</span> <button class="gps-retry" onclick="startGPS()">Refresh</button>';if(pos.coords.accuracy<=30) stopGPS();},
-    function(err){stopGPS();field.placeholder='Enter coordinates manually';field.removeAttribute('readonly');var msgs={1:'Location permission denied',2:'Location unavailable',3:'Location request timed out'};status.className='gps-status fail';status.innerHTML='<div class="gps-dot"></div><span>'+(msgs[err.code]||'GPS failed')+'</span> <button class="gps-retry" onclick="startGPS()">Retry</button>';},
-    {enableHighAccuracy:true,timeout:15000,maximumAge:0}
+  gpsWatchId = navigator.geolocation.watchPosition(
+    function(pos) {
+      var lat = pos.coords.latitude.toFixed(6);
+      var lng = pos.coords.longitude.toFixed(6);
+      var acc = Math.round(pos.coords.accuracy);
+      field.value = lat + ', ' + lng;
+      field.placeholder = lat + ', ' + lng;
+      status.className = 'gps-status ok';
+      status.innerHTML = '<div class="gps-dot"></div><span>Captured (&plusmn;' + acc + 'm accuracy)</span> <button class="gps-retry" onclick="startGPS()">Refresh</button>';
+      if (pos.coords.accuracy <= 30) stopGPS();
+    },
+    function(err) {
+      stopGPS();
+      field.placeholder = 'Enter coordinates manually';
+      field.removeAttribute('readonly');
+      var msgs = {1:'Location permission denied',2:'Location unavailable',3:'Location request timed out'};
+      status.className = 'gps-status fail';
+      status.innerHTML = '<div class="gps-dot"></div><span>' + (msgs[err.code] || 'GPS failed') + '</span> <button class="gps-retry" onclick="startGPS()">Retry</button>';
+    },
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
   );
 }
-function stopGPS(){if(gpsWatchId!==null&&navigator.geolocation){navigator.geolocation.clearWatch(gpsWatchId);gpsWatchId=null;}}
+
+function stopGPS() {
+  if (gpsWatchId !== null && navigator.geolocation) {
+    navigator.geolocation.clearWatch(gpsWatchId);
+    gpsWatchId = null;
+  }
+}
 
 /* ═══════════════════════════════════════════════════════════
-   NAVIGATION
+   NAVIGATION WITH HISTORY STACK
    ═══════════════════════════════════════════════════════════ */
-function goScreen(id){
-  var cur=document.querySelector('.screen.active');if(cur) navStack.push(cur.id);
-  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+function goScreen(id) {
+  var currentActive = document.querySelector('.screen.active');
+  if (currentActive) navStack.push(currentActive.id);
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
   document.getElementById(id).classList.add('active');
-  if(id==='distScreen'){currentStep=1;updateStep();startGPS();}
-  if(id==='recordsScreen') renderRecords();
-  if(id==='targetScreen') updateTarget();
-  window.scrollTo(0,0);
+  if (id === 'distScreen') { currentStep = 1; updateStep(); startGPS(); }
+  if (id === 'recordsScreen') renderRecords();
+  if (id === 'targetScreen') updateTarget();
+  window.scrollTo(0, 0);
 }
-function goBack(){
-  var cur=document.querySelector('.screen.active');
-  if(cur&&cur.id==='distScreen'){stopGPS();currentStep=1;updateStep();clearForm();}
-  if(navStack.length>0){var prevId=navStack.pop();document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});document.getElementById(prevId).classList.add('active');if(prevId==='recordsScreen') renderRecords();if(prevId==='targetScreen') updateTarget();window.scrollTo(0,0);}
-  else{document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});document.getElementById('homeScreen').classList.add('active');window.scrollTo(0,0);}
+
+function goBack() {
+  var currentActive = document.querySelector('.screen.active');
+  if (currentActive && currentActive.id === 'distScreen') {
+    stopGPS(); currentStep = 1; updateStep(); clearForm();
+  }
+  if (navStack.length > 0) {
+    var prevId = navStack.pop();
+    document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+    document.getElementById(prevId).classList.add('active');
+    if (prevId === 'recordsScreen') renderRecords();
+    if (prevId === 'targetScreen') updateTarget();
+    window.scrollTo(0, 0);
+  } else {
+    document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+    document.getElementById('homeScreen').classList.add('active');
+    window.scrollTo(0, 0);
+  }
 }
 
 /* ── INIT ── */
-function init(){fillRegions();updateTarget();renderRecords();window.addEventListener('online',function(){setNet(true);});window.addEventListener('offline',function(){setNet(false);});setNet(navigator.onLine);}
-function setNet(on){var el=document.getElementById('netHome'),lbl=document.getElementById('netHomeLabel');if(!el)return;el.className='net-indicator '+(on?'online':'offline');lbl.textContent=on?'Online':'Offline';}
+function init(){
+  fillRegions(); updateTarget(); renderRecords();
+  window.addEventListener('online',function(){ setNet(true); });
+  window.addEventListener('offline',function(){ setNet(false); });
+  setNet(navigator.onLine);
+}
 
-/* ── STEP NAV ── */
+function setNet(on){
+  var el=document.getElementById('netHome'),lbl=document.getElementById('netHomeLabel');
+  if(!el)return;
+  el.className='net-indicator '+(on?'online':'offline');
+  lbl.textContent=on?'Online':'Offline';
+}
+
+/* ── STEP NAVIGATION ── */
 function updateStep(){
   document.getElementById('stepNum').textContent=currentStep;
-  for(var i=1;i<=3;i++){document.getElementById('step'+i).style.display=(i===currentStep?'block':'none');}
+  for(var i=1;i<=3;i++){ document.getElementById('step'+i).style.display=(i===currentStep?'block':'none'); }
   document.getElementById('btnBack').style.display=currentStep===1?'none':'flex';
   document.getElementById('btnNext').innerHTML=currentStep===3?'Submit Final ✓':'Next →';
   document.getElementById('btnNext').className=currentStep===3?'btn-submit-final':'btn-next';
-  if(currentStep===3){autoFillDistributor();buildSummary();}
+  if(currentStep===3){ autoFillDistributor(); buildSummary(); }
 }
-function nextStep(){if(!validateStep(currentStep))return;if(currentStep<3){currentStep++;updateStep();}else{submitDist();}}
-function prevStep(){if(currentStep>1){currentStep--;updateStep();}}
+function nextStep(){
+  if(!validateStep(currentStep))return;
+  if(currentStep<3){ currentStep++; updateStep(); }
+  else{ submitDist(); }
+}
+function prevStep(){ if(currentStep>1){ currentStep--; updateStep(); } }
 
 /* ── VALIDATION ── */
 function validateStep(step){
   var ok=true;
-  function req(id){var el=document.getElementById(id);if(!el||!el.value.trim()){el.parentElement.classList.add('err');ok=false;}else{el.parentElement.classList.remove('err');}}
+  function req(id){
+    var el=document.getElementById(id);
+    if(!el||!el.value.trim()){ el.parentElement.classList.add('err'); ok=false; }
+    else{ el.parentElement.classList.remove('err'); }
+  }
   if(step===1){
-    req('token');req('headName');req('totalMembers');req('region');req('district');req('chiefdom');
-    var tok=document.getElementById('token');if(tok.value.trim()&&loadDist().some(function(r){return r.token===tok.value.trim();})){tok.parentElement.classList.add('err');ok=false;showToast('Token already used');return false;}
+    req('token'); req('headName'); req('totalMembers');
+    req('region'); req('district'); req('chiefdom');
+    var tok=document.getElementById('token');
+    if(tok.value.trim()&&loadDist().some(function(r){return r.token===tok.value.trim();})){
+      tok.parentElement.classList.add('err'); ok=false; showToast('Token already used'); return false;
+    }
   }
   if(step===2){
-    var con=document.querySelector('input[name="consent"]:checked');if(!con){ok=false;showToast('Select consent');return false;}if(con.value==='no'){showToast('Consent must be given to proceed');return false;}
-    req('itnDelivered');var del=parseInt(document.getElementById('itnDelivered').value)||0;var alloc=parseInt(document.getElementById('itnNum').textContent)||0;if(del>alloc){document.getElementById('itnDelivered').parentElement.classList.add('err');ok=false;showToast('Cannot exceed allocation');}
+    var con=document.querySelector('input[name="consent"]:checked');
+    if(!con){ ok=false; showToast('Select consent'); return false; }
+    if(con.value==='no'){ showToast('Consent must be given to proceed'); return false; }
+    req('itnDelivered');
+    var del=parseInt(document.getElementById('itnDelivered').value)||0;
+    var alloc=parseInt(document.getElementById('itnNum').textContent)||0;
+    if(del>alloc){ document.getElementById('itnDelivered').parentElement.classList.add('err'); ok=false; showToast('Cannot exceed allocation'); }
   }
-  if(step===3){req('distName');req('distUsername');}
+  if(step===3){ req('distName'); req('distUsername'); }
   return ok;
 }
 
 /* ── GEO DROPDOWNS ── */
-function fillRegions(){var r=document.getElementById('region');r.innerHTML='<option value="">Select</option>';Object.keys(geo).forEach(function(k){r.add(new Option(k,k));});}
-function fillDistricts(){var d=document.getElementById('district'),c=document.getElementById('chiefdom');d.innerHTML='<option value="">Select</option>';c.innerHTML='<option value="">Select</option>';var reg=document.getElementById('region').value;if(geo[reg]) Object.keys(geo[reg]).forEach(function(k){d.add(new Option(k,k));});}
-function fillChiefdoms(){var c=document.getElementById('chiefdom');c.innerHTML='<option value="">Select</option>';var reg=document.getElementById('region').value,dist=document.getElementById('district').value;if(geo[reg]&&geo[reg][dist]) geo[reg][dist].forEach(function(k){c.add(new Option(k,k));});}
+function fillRegions(){
+  var r=document.getElementById('region');
+  r.innerHTML='<option value="">Select</option>';
+  Object.keys(geo).forEach(function(k){ r.add(new Option(k,k)); });
+}
+function fillDistricts(){
+  var d=document.getElementById('district'),c=document.getElementById('chiefdom');
+  d.innerHTML='<option value="">Select</option>';
+  c.innerHTML='<option value="">Select</option>';
+  var reg=document.getElementById('region').value;
+  if(geo[reg]) Object.keys(geo[reg]).forEach(function(k){ d.add(new Option(k,k)); });
+}
+function fillChiefdoms(){
+  var c=document.getElementById('chiefdom');
+  c.innerHTML='<option value="">Select</option>';
+  var reg=document.getElementById('region').value,dist=document.getElementById('district').value;
+  if(geo[reg]&&geo[reg][dist]) geo[reg][dist].forEach(function(k){ c.add(new Option(k,k)); });
+}
 
 /* ═══════════════════════════════════════════════════════════
-   ROBUST SELECT SETTER
-   4-pass matching. If no match found AND injectFlag is true, adds the
-   value as a live option so the select displays it correctly even when the
-   registration form's chiefdom names differ from the hardcoded geo data.
+   ROBUST SELECT VALUE SETTER
+   Tries exact → case-insensitive → contains → word-boundary match.
    ═══════════════════════════════════════════════════════════ */
-function setSelectValue(selectId, value, injectFlag){
-  if(!value) return false;
-  var sel=document.getElementById(selectId);if(!sel) return false;
-  var trimmed=value.trim();if(!trimmed) return false;
-  var opts=sel.options,i;
+function setSelectValue(selectId, value) {
+  if (!value) return false;
+  var sel = document.getElementById(selectId);
+  if (!sel) return false;
+  var trimmed = value.trim();
+  if (!trimmed) return false;
 
-  /* Pass 1: exact */
-  for(i=0;i<opts.length;i++){if(opts[i].value===trimmed){sel.selectedIndex=i;return true;}}
+  var opts = sel.options;
+  var i;
 
-  /* Pass 2: case-insensitive */
-  var lowerVal=trimmed.toLowerCase();
-  for(i=0;i<opts.length;i++){if(opts[i].value&&opts[i].value.toLowerCase()===lowerVal){sel.selectedIndex=i;return true;}}
-
-  /* Pass 3: contains either way */
-  for(i=0;i<opts.length;i++){if(!opts[i].value) continue;var optLower=opts[i].value.toLowerCase();if(optLower.indexOf(lowerVal)!==-1||lowerVal.indexOf(optLower)!==-1){sel.selectedIndex=i;return true;}}
-
-  /* Pass 4: word-boundary scoring */
-  var valWords=lowerVal.replace(/[^a-z0-9]+/g,' ').split(' ').filter(function(w){return w.length>2;});
-  if(valWords.length>0){
-    var bestMatch=-1,bestScore=0;
-    for(i=0;i<opts.length;i++){
-      if(!opts[i].value) continue;
-      var optText=opts[i].value.toLowerCase(),score=0;
-      for(var w=0;w<valWords.length;w++){if(optText.indexOf(valWords[w]) score++;}
-      if(score>=Math.ceil(valWords.length/2)&&score>bestScore){bestScore=score;bestMatch=i;}
+  /* Pass 1: exact match */
+  for (i = 0; i < opts.length; i++) {
+    if (opts[i].value === trimmed) {
+      sel.selectedIndex = i;
+      return true;
     }
-    if(bestMatch!==-1){sel.selectedIndex=bestMatch;return true;}
   }
 
-  /* Pass 5: inject as live option if requested (for chiefdom values not in geo data) */
-  if(injectFlag){
-    var newOpt=document.createElement('option');
-    newOpt.value=trimmed;
-    newOpt.textContent=trimmed;
-    newOpt.style.color='#b06010;
-    newOpt.style.fontStyle='italic';
-    sel.appendChild(newOpt);
-    sel.value=trimmed;
-    sel.selectedIndex=sel.options.length-1;
-    return true;
+  /* Pass 2: case-insensitive match */
+  var lowerVal = trimmed.toLowerCase();
+  for (i = 0; i < opts.length; i++) {
+    if (opts[i].value && opts[i].value.toLowerCase() === lowerVal) {
+      sel.selectedIndex = i;
+      return true;
+    }
+  }
+
+  /* Pass 3: contains match */
+  for (i = 0; i < opts.length; i++) {
+    if (!opts[i].value) continue;
+    var optLower = opts[i].value.toLowerCase();
+    if (optLower.indexOf(lowerVal) !== -1 || lowerVal.indexOf(optLower) !== -1) {
+      sel.selectedIndex = i;
+      return true;
+    }
+  }
+
+  /* Pass 4: word-boundary scoring */
+  var valWords = lowerVal.replace(/[^a-z0-9]+/g,' ').split(' ').filter(function(w){ return w.length > 2; });
+  if (valWords.length > 0) {
+    var bestMatch = -1;
+    var bestScore = 0;
+    for (i = 0; i < opts.length; i++) {
+      if (!opts[i].value) continue;
+      var optText = opts[i].value.toLowerCase();
+      var score = 0;
+      for (var w = 0; w < valWords.length; w++) {
+        if (optText.indexOf(valWords[w]) !== -1) score++;
+      }
+      if (score >= Math.ceil(valWords.length / 2) && score > bestScore) {
+        bestScore = score;
+        bestMatch = i;
+      }
+    }
+    if (bestMatch !== -1) {
+      sel.selectedIndex = bestMatch;
+      return true;
+    }
   }
 
   return false;
 }
 
 /* ── AUTO-FILL HELPERS ── */
-function showTags(ids){ids.forEach(function(id){var el=document.getElementById(id);if(el) el.style.display='inline-block';});}
-function hideTags(ids){ids.forEach(function(id){var el=document.getElementById(id);if(el) el.style.display='none';});}
-function lockFields(ids){ids.forEach(function(id){var el=document.getElementById(id);if(!el) return;if(el.tagName==='SELECT') el.setAttribute('disabled',true);else el.setAttribute('readonly',true);});}
-function unlockFields(ids){ids.forEach(function(id){var el=document.getElementById(id);if(!el) return;el.removeAttribute('disabled');el.removeAttribute('readonly');});}
-function clearFields(ids){ids.forEach(function(id){var el=document.getElementById(id);if(!el) return;el.value='';});}
+function showTags(tagIds){
+  tagIds.forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display='inline-block'; });
+}
+function hideTags(tagIds){
+  tagIds.forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display='none'; });
+}
+function lockFields(fieldIds){
+  fieldIds.forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el) return;
+    if(el.tagName==='SELECT'){ el.setAttribute('disabled',true); }
+    else{ el.setAttribute('readonly',true); }
+  });
+}
+function unlockFields(fieldIds){
+  fieldIds.forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el) return;
+    el.removeAttribute('disabled');
+    el.removeAttribute('readonly');
+  });
+}
+function clearFields(fieldIds){
+  fieldIds.forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el) return;
+    el.value='';
+  });
+}
 
 /* ── TOKEN LOOKUP & AUTO-FILL ── */
 function checkToken(v){
-  var st=document.getElementById('tokenStatus'),trimmed=v.trim();
-  if(!trimmed){st.style.display='none';unlockFields(allAutoFields);hideTags(allAutoTags);clearFields(allAutoFields);document.getElementById('itnNum').textContent='0';fillDistricts();fillChiefdoms();return;}
-  st.style.display='block';st.className='token-status searching';st.textContent='Searching...';
+  var st=document.getElementById('tokenStatus');
+  var trimmed=v.trim();
+
+  if(!trimmed){
+    st.style.display='none';
+    unlockFields(allAutoFields);
+    hideTags(allAutoTags);
+    clearFields(allAutoFields);
+    document.getElementById('itnNum').textContent='0';
+    fillDistricts();
+    fillChiefdoms();
+    return;
+  }
+
+  st.style.display='block';
+  st.className='token-status searching';
+  st.textContent='Searching...';
+
   setTimeout(function(){
-    var allRegs=loadAllRegistrations();
-    if(loadDist().some(function(r){return r.token===trimmed;})){st.className='token-status found';st.textContent='Token already distributed';unlockFields(allAutoFields);hideTags(allAutoTags);return;}
-    var match=null;
-    for(var i=0;i<allRegs.length;i++){var rt=getRegField(allRegs[i],'token');if(rt&&rt.toLowerCase()===trimmed.toLowerCase()){match=allRegs[i];break;}}
+    var allRegs = loadAllRegistrations();
+
+    if(loadDist().some(function(r){ return r.token===trimmed; })){
+      st.className='token-status found';
+      st.textContent='Token already distributed';
+      unlockFields(allAutoFields);
+      hideTags(allAutoTags);
+      return;
+    }
+
+    var match = null;
+    for(var i=0; i<allRegs.length; i++){
+      var regToken = getRegField(allRegs[i], 'token');
+      if(regToken && regToken.toLowerCase() === trimmed.toLowerCase()){
+        match = allRegs[i];
+        break;
+      }
+    }
+
     if(match){
-      st.className='token-status prefilled';st.textContent='Token found — all details auto-filled from registration';
+      st.className='token-status prefilled';
+      st.textContent='Token found — all details auto-filled from registration';
 
-      /* Household Head */
-      var headName=getRegField(match,'headName');
-      if(!headName){var fn=getRegField(match,'firstName');var ln=getRegField(match,'lastName');headName=(fn+' '+ln).trim();}
-      document.getElementById('headName').value=headName;
-      document.getElementById('phone').value=getRegField(match,'phone');
-      var members=getRegField(match,'members');document.getElementById('totalMembers').value=members?members:'';
-      lockFields(hhFields);showTags(hhTags);
+      /* === HOUSEHOLD HEAD === */
+      var headName = getRegField(match, 'headName');
+      if(!headName){
+        var fn = getRegField(match, 'firstName');
+        var ln = getRegField(match, 'lastName');
+        headName = (fn + ' ' + ln).trim();
+      }
+      document.getElementById('headName').value = headName;
+      document.getElementById('phone').value = getRegField(match, 'phone');
+      var members = getRegField(match, 'members');
+      document.getElementById('totalMembers').value = members ? members : '';
+      lockFields(hhFields);
+      showTags(hhTags);
 
-      /* Location — cascade: region → districts → district → chiefdoms → chiefdom */
-      var regVal=getRegField(match,'region');
-      var distVal=getRegField(match,'district');
-      var chiefVal=getRegField(match,'chiefdom');
+      /* === LOCATION — using robust setSelectValue === */
+      var regVal = getRegField(match, 'region');
+      var distVal = getRegField(match, 'district');
+      var chiefVal = getRegField(match, 'chiefdom');
 
-      if(regVal && setSelectValue('region', regVal, false)){
+      /* Region must match before districts can populate */
+      if (regVal && setSelectValue('region', regVal)) {
         fillDistricts();
-        if(distVal && setSelectValue('district', distVal, false)){
+        /* District must match before chiefdoms can populate */
+        if (distVal && setSelectValue('district', distVal)) {
           fillChiefdoms();
-          /* CHIEFDOM: use inject flag so unmatched values from registration get added as live options */
-          if(chiefVal) setSelectValue('chiefdom', chiefVal, true);
+          /* Now set chiefdom */
+          if (chiefVal) setSelectValue('chiefdom', chiefVal);
         }
       }
 
-      document.getElementById('facility').value=getRegField(match,'facility');
-      document.getElementById('community').value=getRegField(match,'community');
-      lockFields(locFields);showTags(locTags);calcITN();
-    }else{
-      st.className='token-status available';st.textContent='Token not found in registration records';unlockFields(allAutoFields);hideTags(allAutoTags);
+      /* Facility and Community are text inputs — direct assign */
+      document.getElementById('facility').value = getRegField(match, 'facility');
+      document.getElementById('community').value = getRegField(match, 'community');
+
+      lockFields(locFields);
+      showTags(locTags);
+      calcITN();
+
+    } else {
+      st.className='token-status available';
+      st.textContent='Token not found in registration records';
+      unlockFields(allAutoFields);
+      hideTags(allAutoTags);
     }
   },400);
 }
 
 /* ── RADIO ── */
-function selectRadio(el,name,val){document.querySelectorAll('input[name="'+name+'"]').forEach(function(r){r.parentElement.classList.remove('sel');});el.classList.add('sel');el.querySelector('input').checked=true;}
+function selectRadio(el,name,val){
+  document.querySelectorAll('input[name="'+name+'"]').forEach(function(r){ r.parentElement.classList.remove('sel'); });
+  el.classList.add('sel');
+  el.querySelector('input').checked=true;
+}
 
 /* ── ITN CALC ── */
-function calcITN(){var m=parseInt(document.getElementById('totalMembers').value)||0;document.getElementById('itnNum').textContent=Math.max(1,Math.ceil(m/2));}
+function calcITN(){
+  var m=parseInt(document.getElementById('totalMembers').value)||0;
+  document.getElementById('itnNum').textContent=Math.max(1,Math.ceil(m/2));
+}
 
 /* ── SUMMARY ── */
 function buildSummary(){
-  function get(id){return document.getElementById(id)?(document.getElementById(id).value||'—'):'—';}
-  var con=document.querySelector('input[name="consent"]:checked');con=con?(con.value==='yes'?'Given':'Refused'):'—';
-  var itn=document.getElementById('itnNum').textContent,del=document.getElementById('itnDelivered').value||'0';
-  var methodEl=document.querySelector('input[name="method"]:checked');var method=methodEl?methodEl.value:'—';if(method==='door')method='Door-to-door';else if(method==='fixed')method='Fixed site';
+  function get(id){ return document.getElementById(id)?(document.getElementById(id).value||'—'):'—'; }
+  var con=document.querySelector('input[name="consent"]:checked');
+  con=con?(con.value==='yes'?'Given':'Refused'):'—';
+  var itn=document.getElementById('itnNum').textContent;
+  var del=document.getElementById('itnDelivered').value||'0';
+  var methodEl=document.querySelector('input[name="method"]:checked');
+  var method=methodEl?methodEl.value:'—';
+  if(method==='door')method='Door-to-door';
+  else if(method==='fixed')method='Fixed site';
   var gps=get('gpsCoords');
+
   document.getElementById('summaryBox').innerHTML=
     '<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2f855a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>Household</div>'
     +'<div class="sum-row"><span class="sk">Token</span><span class="sv">'+get('token')+'</span></div>'
     +'<div class="sum-row"><span class="sk">Head</span><span class="sv">'+get('headName')+'</span></div>'
     +'<div class="sum-row"><span class="sk">Phone</span><span class="sv">'+get('phone')+'</span></div>'
-    +'<div class="sum-row"><span class="sk">Members</span><span class="sv">'+get('totalMembers')+'</span></div></div>'
+    +'<div class="sum-row"><span class="sk">Members</span><span class="sv">'+get('totalMembers')+'</span></div>'
+    +'</div>'
     +'<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2b6cb0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>Location</div>'
     +'<div class="sum-row"><span class="sk">Region</span><span class="sv">'+get('region')+'</span></div>'
     +'<div class="sum-row"><span class="sk">District</span><span class="sv">'+get('district')+'</span></div>'
     +'<div class="sum-row"><span class="sk">Chiefdom</span><span class="sv">'+get('chiefdom')+'</span></div>'
     +'<div class="sum-row"><span class="sk">Community</span><span class="sv">'+get('community')+'</span></div>'
     +'<div class="sum-row"><span class="sk">Facility</span><span class="sv">'+get('facility')+'</span></div>'
-    +'<div class="sum-row"><span class="sk">GPS</span><span class="sv">'+(gps!=='—'?gps:'Not captured')+'</span></div></div>'
+    +'<div class="sum-row"><span class="sk">GPS</span><span class="sv">'+(gps!=='—'?gps:'Not captured')+'</span></div>'
+    +'</div>'
     +'<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#319795" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>ITN Details</div>'
     +'<div class="sum-row"><span class="sk">Consent</span><span class="sv">'+con+'</span></div>'
     +'<div class="sum-row"><span class="sk">Allocated</span><span class="sv">'+itn+'</span></div>'
     +'<div class="sum-row"><span class="sk">Delivered</span><span class="sv">'+del+'</span></div>'
-    +'<div class="sum-row"><span class="sk">Method</span><span class="sv">'+method+'</span></div></div>'
-    +'<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#4a5568" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>Distributor</div>'
-    +'<div class="sum-row"><span class="sk">Name</span><span class="sv">'+get('distName')+'</span></div>'
-    +'<div class="sum-row"><span class="sk">Username</span><span class="sv">'+get('distUsername')+'</span></div>'
-    +'<div class="sum-row"><span class="sk">Telephone</span><span class="sv">'+get('distPhone')+'</span></div></div>';
+    +'<div class="sum-row"><span class="sk">Method</span><span class="sv">'+method+'</span></div>'
+    +'</div>';
 }
 
 /* ── STORAGE ── */
 var KEY='icfsl_dist_records';
-function loadDist(){try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){return [];}}
-function saveDist(r){localStorage.setItem(KEY,JSON.stringify(r));}
+function loadDist(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ return []; } }
+function saveDist(r){ localStorage.setItem(KEY,JSON.stringify(r)); }
 
 function submitDist(){
-  function get(id){return document.getElementById(id)?(document.getElementById(id).value||''):'';}
-  var recs=loadDist(),now=new Date();
-  var data={token:get('token').trim(),headName:get('headName'),phone:get('phone'),totalMembers:get('totalMembers'),region:get('region'),district:get('district'),chiefdom:get('chiefdom'),facility:get('facility'),community:get('community'),gps:get('gpsCoords'),consent:(document.querySelector('input[name="consent"]:checked')||{}).value||'no',itnAllocated:document.getElementById('itnNum').textContent,itnDelivered:get('itnDelivered'),method:(document.querySelector('input[name="method"]:checked')||{}).value||'door',distName:get('distName'),distUsername:get('distUsername'),distPhone:get('distPhone'),date:now.toLocaleDateString(),time:now.toLocaleTimeString(),timestamp:now.toISOString()};
-  if(!data.token){showToast('Token required');return;}
-  if(recs.some(function(r){return r.token===data.token;})){showToast('Token already exists');return;}
-  recs.push(data);saveDist(recs);stopGPS();showToast('Distribution saved successfully');
-  var prevId=navStack.length>0?navStack[navStack.length-1]:'homeScreen';currentStep=1;clearForm();
-  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});document.getElementById(prevId).classList.add('active');navStack.pop();
-  if(prevId==='recordsScreen') renderRecords();if(prevId==='targetScreen') updateTarget();window.scrollTo(0,0);
+  function get(id){ return document.getElementById(id)?(document.getElementById(id).value||''):''; }
+  var recs=loadDist();
+  var now=new Date();
+  var data={
+    token:get('token').trim(),headName:get('headName'),phone:get('phone'),
+    totalMembers:get('totalMembers'),region:get('region'),district:get('district'),
+    chiefdom:get('chiefdom'),facility:get('facility'),community:get('community'),
+    gps:get('gpsCoords'),
+    consent:(document.querySelector('input[name="consent"]:checked')||{}).value||'no',
+    itnAllocated:document.getElementById('itnNum').textContent,
+    itnDelivered:get('itnDelivered'),
+    method:(document.querySelector('input[name="method"]:checked')||{}).value||'door',
+    distName:get('distName'),distUsername:get('distUsername'),distPhone:get('distPhone'),
+    date:now.toLocaleDateString(),time:now.toLocaleTimeString(),
+    timestamp:now.toISOString()
+  };
+  if(!data.token){ showToast('Token required'); return; }
+  if(recs.some(function(r){ return r.token===data.token; })){ showToast('Token already exists'); return; }
+  recs.push(data); saveDist(recs);
+  stopGPS();
+  showToast('Distribution saved successfully');
+  var prevId = navStack.length > 0 ? navStack[navStack.length - 1] : 'homeScreen';
+  currentStep = 1;
+  clearForm();
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(prevId).classList.add('active');
+  navStack.pop();
+  if (prevId === 'recordsScreen') renderRecords();
+  if (prevId === 'targetScreen') updateTarget();
+  window.scrollTo(0, 0);
 }
 
 function clearForm(){
-  document.querySelectorAll('#distScreen input, #distScreen select').forEach(function(el){if(el.type==='radio') el.checked=false;else el.value='';});
-  document.querySelectorAll('#distScreen .rpill').forEach(function(p){p.classList.remove('sel');});
-  document.getElementById('itnNum').textContent='0';document.getElementById('tokenStatus').style.display='none';
-  unlockFields(allAutoFields);hideTags(allAutoTags);fillDistricts();fillChiefdoms();
-  document.getElementById('distName').removeAttribute('readonly');document.getElementById('distUsername').removeAttribute('readonly');document.getElementById('distPhone').removeAttribute('readonly');
-  document.getElementById('distNameTag').style.display='none';document.getElementById('distUsernameTag').style.display='none';document.getElementById('distPhoneTag').style.display='none';
-  document.getElementById('gpsCoords').value='';document.getElementById('gpsCoords').setAttribute('readonly',true);document.getElementById('gpsCoords').placeholder='Acquiring location...';
-  document.getElementById('gpsStatus').className='gps-status loading';document.getElementById('gpsStatus').innerHTML='<div class="gps-dot"></div><span>Acquiring GPS signal...</span>';
+  document.querySelectorAll('#distScreen input, #distScreen select').forEach(function(el){
+    if(el.type==='radio') el.checked=false; else el.value='';
+  });
+  document.querySelectorAll('#distScreen .rpill').forEach(function(p){ p.classList.remove('sel'); });
+  document.getElementById('itnNum').textContent='0';
+  document.getElementById('tokenStatus').style.display='none';
+  unlockFields(allAutoFields);
+  hideTags(allAutoTags);
+  fillDistricts();
+  fillChiefdoms();
+  document.getElementById('distName').removeAttribute('readonly');
+  document.getElementById('distUsername').removeAttribute('readonly');
+  document.getElementById('distPhone').removeAttribute('readonly');
+  document.getElementById('distNameTag').style.display='none';
+  document.getElementById('distUsernameTag').style.display='none';
+  document.getElementById('distPhoneTag').style.display='none';
+  document.getElementById('gpsCoords').value='';
+  document.getElementById('gpsCoords').setAttribute('readonly', true);
+  document.getElementById('gpsCoords').placeholder='Acquiring location...';
+  document.getElementById('gpsStatus').className='gps-status loading';
+  document.getElementById('gpsStatus').innerHTML='<div class="gps-dot"></div><span>Acquiring GPS signal...</span>';
 }
 
 /* ── RECORDS ── */
 function renderRecords(){
   var recs=loadDist(),wrap=document.getElementById('recordsWrap');
   document.getElementById('recCount').textContent=recs.length+' record'+(recs.length===1?'':'s');
-  if(!recs.length){wrap.innerHTML='<div class="no-records">No distribution records yet.<br>Complete a distribution to see data here.</div>';return;}
+  if(!recs.length){
+    wrap.innerHTML='<div class="no-records">No distribution records yet.<br>Complete a distribution to see data here.</div>'; return;
+  }
   var cols=['Token','Region','District','Chiefdom','Community','HH Head','Members','Allocated','Distributed','Distributor','Date','Time'];
   var keys=['token','region','district','chiefdom','community','headName','totalMembers','itnAllocated','itnDelivered','distName','date','time'];
-  var html='<table class="rec-table"><thead><tr>';cols.forEach(function(c){html+='<th>'+c+'</th>';});html+='</tr></thead><tbody>';
-  recs.forEach(function(r){html+='<tr>';keys.forEach(function(k){html+='<td>'+(r[k]!==undefined?r[k]:'—')+'</td>';});html+='</tr>';});
-  var totalItn=recs.reduce(function(s,r){return s+(parseInt(r.itnDelivered)||0);},0);
-  html+='<tr style="background:#6b7a8d;color:#fff;font-weight:700;"><td colspan="8" style="text-align:right;">TOTAL ITNs DISTRIBUTED:</td><td style="text-align:center;background:#2e6e28;color:#fff;">'+totalItn+'</td><td colspan="3"></td></tr>';
-  html+='</tbody></table>';wrap.innerHTML=html;
+  var html='<table class="rec-table"><thead><tr>';
+  cols.forEach(function(c){ html+='<th>'+c+'</th>'; });
+  html+='</tr></thead><tbody>';
+  recs.forEach(function(r){
+    html+='<tr>';
+    keys.forEach(function(k){ html+='<td>'+(r[k]!==undefined?r[k]:'—')+'</td>'; });
+    html+='</tr>';
+  });
+  var totalItn=recs.reduce(function(s,r){ return s+(parseInt(r.itnDelivered)||0); },0);
+  html+='<tr style="background:#6b7a8d;color:#fff;font-weight:700;">'
+    +'<td colspan="8" style="text-align:right;">TOTAL ITNs DISTRIBUTED:</td>'
+    +'<td style="text-align:center;background:#2e6e28;color:#fff;">'+totalItn+'</td>'
+    +'<td colspan="3"></td></tr>';
+  html+='</tbody></table>';
+  wrap.innerHTML=html;
 }
 
 function exportCSV(){
-  var recs=loadDist();if(!recs.length){showToast('No records to export');return;}
+  var recs=loadDist();
+  if(!recs.length){ showToast('No records to export'); return; }
   var keys=['token','headName','phone','totalMembers','region','district','chiefdom','facility','community','gps','consent','itnAllocated','itnDelivered','method','distName','distUsername','distPhone','date','time','timestamp'];
   var headers=['Token','Head Name','Phone','Members','Region','District','Chiefdom','Facility','Community','GPS','Consent','ITN Allocated','ITN Delivered','Method','Distributor Name','Distributor Username','Distributor Phone','Date','Time','Timestamp'];
   var csv=headers.join(',')+'\n';
-  recs.forEach(function(r){csv+=keys.map(function(k){var v=r[k]!==undefined?r[k]:'';v=String(v).replace(/"/g,'""');if(v.includes(',')||v.includes('"')||v.includes('\n')) v='"'+v+'"';return v;}).join(',')+'\n';});
-  var blob=new Blob([csv],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='icfsl_distribution_records.csv';a.click();showToast('CSV exported');
+  recs.forEach(function(r){
+    csv+=keys.map(function(k){
+      var v=r[k]!==undefined?r[k]:'';
+      v=String(v).replace(/"/g,'""');
+      if(v.includes(',')||v.includes('"')||v.includes('\n')) v='"'+v+'"';
+      return v;
+    }).join(',')+'\n';
+  });
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='icfsl_distribution_records.csv';
+  a.click();
+  showToast('CSV exported');
 }
 
 /* ── TOAST ── */
-function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2800);}
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); },2800);
+}
 
 /* ── TARGET ── */
 var TKEY_DIST='icfsl_dist_target';
-function getDistTarget(){return parseInt(localStorage.getItem(TKEY_DIST)||'500');}
-function setDistTarget(){var v=parseInt(document.getElementById('newTarget').value);if(v>0){localStorage.setItem(TKEY_DIST,v);updateTarget();showToast('Target updated to '+v);}}
+function getDistTarget(){ return parseInt(localStorage.getItem(TKEY_DIST)||'500'); }
+function setDistTarget(){
+  var v=parseInt(document.getElementById('newTarget').value);
+  if(v>0){ localStorage.setItem(TKEY_DIST,v); updateTarget(); showToast('Target updated to '+v); }
+}
 function updateTarget(){
-  var recs=loadDist(),t=getDistTarget(),done=recs.length,rem=Math.max(0,t-done);
+  var recs=loadDist(),t=getDistTarget(),done=recs.length;
+  var rem=Math.max(0,t-done);
   var pct=t>0?Math.min(100,Math.round((done/t)*100)):0;
-  var totalItn=recs.reduce(function(s,r){return s+(parseInt(r.itnDelivered)||0);},0);
-  function s(id){return document.getElementById(id);}
-  if(s('tgt-total')) s('tgt-total').textContent=t;if(s('tgt-done')) s('tgt-done').textContent=done;
-  if(s('tgt-rem')) s('tgt-rem').textContent=rem;if(s('tgt-itn')) s('tgt-itn').textContent=totalItn;
-  if(s('tgt-bar')) s('tgt-bar').style.width=pct+'%';if(s('tgt-pct')) s('tgt-pct').textContent=pct+'% complete';
+  var totalItn=recs.reduce(function(s,r){ return s+(parseInt(r.itnDelivered)||0); },0);
+  function s(id){ return document.getElementById(id); }
+  if(s('tgt-total')) s('tgt-total').textContent=t;
+  if(s('tgt-done'))  s('tgt-done').textContent=done;
+  if(s('tgt-rem'))   s('tgt-rem').textContent=rem;
+  if(s('tgt-itn'))   s('tgt-itn').textContent=totalItn;
+  if(s('tgt-bar'))   s('tgt-bar').style.width=pct+'%';
+  if(s('tgt-pct'))   s('tgt-pct').textContent=pct+'% complete';
 }
 
 /* ── LOGOUT ── */
-function doLogout(){if(confirm('Log out of ICF-SL?')){window.location.href='index.html';}}
+function doLogout(){
+  if(confirm('Log out of ICF-SL?')){ window.location.href='index.html'; }
+}
 
 /* ── CROSS-TAB SYNC ── */
-window.addEventListener('storage',function(e){if(e.key===KEY||REG_KEYS.indexOf(e.key)!==-1){if(document.getElementById('recordsScreen').classList.contains('active')) renderRecords();if(document.getElementById('targetScreen').classList.contains('active')) updateTarget();}});
-window.addEventListener('beforeunload',function(){stopGPS();});
+window.addEventListener('storage',function(e){
+  if(e.key===KEY || REG_KEYS.indexOf(e.key) !== -1){
+    if(document.getElementById('recordsScreen').classList.contains('active')) renderRecords();
+    if(document.getElementById('targetScreen').classList.contains('active')) updateTarget();
+  }
+});
+
+window.addEventListener('beforeunload', function(){ stopGPS(); });
 
 init();
 </script>
