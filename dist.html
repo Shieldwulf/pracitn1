@@ -168,6 +168,7 @@ select{
 .token-status.available{background:#ddf0d8;color:#2e6e28;border:1px solid #b4d9b0;}
 .token-status.searching{background:#fff8e6;color:#7a5c00;border:1px solid #f0c040;}
 .token-status.prefilled{background:#ddf0d8;color:#2e6e28;border:1px solid #b4d9b0;}
+.token-status.injected{background:#fff8e6;color:#b06010;border:1px solid #f0c040;}
 .itn-badge{background:#ddf0d8;border-radius:12px;padding:12px 16px;text-align:center;}
 .itn-num{font-size:38px;font-weight:700;color:#2e6e28;line-height:1;}
 .itn-text{font-size:12px;color:#4a7048;margin-top:4px;}
@@ -280,7 +281,7 @@ select{
     <div class="campaign-banner">ITN Mass Campaign 2027</div>
   </div>
   <div class="content-area">
-    <div class="section-label">Registration</div>
+    <div class="section-label">Distribution</div>
     <div class="card-grid">
       <a class="dash-card" onclick="goScreen('distScreen')">
         <div class="card-icon ci-blue"><svg viewBox="0 0 24 24" fill="none" stroke="#2b6cb0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
@@ -317,6 +318,8 @@ select{
     </div>
   </div>
   <div class="form-body" id="formBody">
+
+    <!-- STEP 1: HOUSEHOLD HEAD + LOCATION -->
     <div id="step1">
       <div class="form-section">
         <div class="sec-hdr">
@@ -388,6 +391,7 @@ select{
       </div>
     </div>
 
+    <!-- STEP 2: CONSENT + ITN ALLOCATION -->
     <div id="step2" style="display:none">
       <div class="form-section">
         <div class="sec-hdr">
@@ -424,6 +428,7 @@ select{
       </div>
     </div>
 
+    <!-- STEP 3: CONFIRMATION + DISTRIBUTOR -->
     <div id="step3" style="display:none">
       <div class="form-section dist-card">
         <div class="sec-hdr">
@@ -453,6 +458,7 @@ select{
         <div class="sec-fields" id="summaryBox"></div>
       </div>
     </div>
+
   </div>
   <div class="nav-btns" id="navButtons">
     <button class="btn-back" id="btnBack" onclick="prevStep()">Back</button>
@@ -540,7 +546,7 @@ var geo={
 };
 
 /* ── STATE ── */
-var currentStep=1, totalSteps=3, navStack=[], gpsWatchId=null;
+var currentStep=1,totalSteps=3,navStack=[],gpsWatchId=null;
 
 var hhFields=['headName','phone','totalMembers'];
 var hhTags=['headNameTag','phoneTag','membersTag'];
@@ -551,8 +557,6 @@ var allAutoTags=hhTags.concat(locTags);
 
 /* ═══════════════════════════════════════════════════════════
    REGISTRATION LOOKUP — ALIASES
-   "Chiefdom" with capital C is listed FIRST because some
-   registration forms store the key with that exact casing.
    ═══════════════════════════════════════════════════════════ */
 var REG_KEYS=[
   'icfsl_registrations','icfsl_reg_records','icfsl_records','registrations',
@@ -576,13 +580,10 @@ var ALIASES={
 };
 
 function getRegField(record, aliasGroup){
-  var keys=ALIASES[aliasGroup];
-  if(!keys) return '';
+  var keys=ALIASES[aliasGroup];if(!keys) return '';
   for(var i=0;i<keys.length;i++){
     var val=record[keys[i]];
-    if(val!==undefined && val!==null && String(val).trim()!==''){
-      return String(val).trim();
-    }
+    if(val!==undefined && val!==null && String(val).trim()!=='') return String(val).trim();
   }
   return '';
 }
@@ -591,8 +592,7 @@ function loadAllRegistrations(){
   var allRegs=[];
   for(var k=0;k<REG_KEYS.length;k++){
     try{
-      var raw=localStorage.getItem(REG_KEYS[k]);
-      if(!raw) continue;
+      var raw=localStorage.getItem(REG_KEYS[k]);if(!raw) continue;
       var parsed=JSON.parse(raw);
       if(Array.isArray(parsed)&&parsed.length>0){
         var existingTokens={};
@@ -724,13 +724,15 @@ function fillChiefdoms(){var c=document.getElementById('chiefdom');c.innerHTML='
 
 /* ═══════════════════════════════════════════════════════════
    ROBUST SELECT SETTER
-   4-pass matching: exact → case-insensitive → contains → word-score
+   4-pass matching. If no match found AND injectFlag is true, adds the
+   value as a live option so the select displays it correctly even when the
+   registration form's chiefdom names differ from the hardcoded geo data.
    ═══════════════════════════════════════════════════════════ */
-function setSelectValue(selectId, value){
+function setSelectValue(selectId, value, injectFlag){
   if(!value) return false;
   var sel=document.getElementById(selectId);if(!sel) return false;
   var trimmed=value.trim();if(!trimmed) return false;
-  var opts=sel.options, i;
+  var opts=sel.options,i;
 
   /* Pass 1: exact */
   for(i=0;i<opts.length;i++){if(opts[i].value===trimmed){sel.selectedIndex=i;return true;}}
@@ -749,11 +751,25 @@ function setSelectValue(selectId, value){
     for(i=0;i<opts.length;i++){
       if(!opts[i].value) continue;
       var optText=opts[i].value.toLowerCase(),score=0;
-      for(var w=0;w<valWords.length;w++){if(optText.indexOf(valWords[w])!==-1) score++;}
+      for(var w=0;w<valWords.length;w++){if(optText.indexOf(valWords[w]) score++;}
       if(score>=Math.ceil(valWords.length/2)&&score>bestScore){bestScore=score;bestMatch=i;}
     }
     if(bestMatch!==-1){sel.selectedIndex=bestMatch;return true;}
   }
+
+  /* Pass 5: inject as live option if requested (for chiefdom values not in geo data) */
+  if(injectFlag){
+    var newOpt=document.createElement('option');
+    newOpt.value=trimmed;
+    newOpt.textContent=trimmed;
+    newOpt.style.color='#b06010;
+    newOpt.style.fontStyle='italic';
+    sel.appendChild(newOpt);
+    sel.value=trimmed;
+    sel.selectedIndex=sel.options.length-1;
+    return true;
+  }
+
   return false;
 }
 
@@ -790,11 +806,12 @@ function checkToken(v){
       var distVal=getRegField(match,'district');
       var chiefVal=getRegField(match,'chiefdom');
 
-      if(regVal && setSelectValue('region', regVal)){
+      if(regVal && setSelectValue('region', regVal, false)){
         fillDistricts();
-        if(distVal && setSelectValue('district', distVal)){
+        if(distVal && setSelectValue('district', distVal, false)){
           fillChiefdoms();
-          if(chiefVal) setSelectValue('chiefdom', chiefVal);
+          /* CHIEFDOM: use inject flag so unmatched values from registration get added as live options */
+          if(chiefVal) setSelectValue('chiefdom', chiefVal, true);
         }
       }
 
@@ -837,7 +854,11 @@ function buildSummary(){
     +'<div class="sum-row"><span class="sk">Consent</span><span class="sv">'+con+'</span></div>'
     +'<div class="sum-row"><span class="sk">Allocated</span><span class="sv">'+itn+'</span></div>'
     +'<div class="sum-row"><span class="sk">Delivered</span><span class="sv">'+del+'</span></div>'
-    +'<div class="sum-row"><span class="sk">Method</span><span class="sv">'+method+'</span></div></div>';
+    +'<div class="sum-row"><span class="sk">Method</span><span class="sv">'+method+'</span></div></div>'
+    +'<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#4a5568" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>Distributor</div>'
+    +'<div class="sum-row"><span class="sk">Name</span><span class="sv">'+get('distName')+'</span></div>'
+    +'<div class="sum-row"><span class="sk">Username</span><span class="sv">'+get('distUsername')+'</span></div>'
+    +'<div class="sum-row"><span class="sk">Telephone</span><span class="sv">'+get('distPhone')+'</span></div></div>';
 }
 
 /* ── STORAGE ── */
