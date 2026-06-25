@@ -120,6 +120,7 @@ body{
 .si-amber{background:#fde8c8;}
 .si-teal{background:#d8f4f0;}
 .si-purple{background:#f0e2fa;}
+.si-slate{background:#e2e8f0;}
 .sec-title{font-size:13px;font-weight:700;color:#1c2b1c;}
 .sec-desc{font-size:10px;color:#5a7258;margin-top:1px;}
 .sec-fields{padding:14px 16px 16px;display:flex;flex-direction:column;gap:11px;}
@@ -252,6 +253,25 @@ select{
   margin-left:6px;
   vertical-align:middle;
 }
+.gps-row{display:flex;gap:8px;align-items:center;}
+.gps-row input{flex:1;}
+.gps-status{
+  font-size:10px;font-weight:600;padding:4px 0 0;display:flex;align-items:center;gap:4px;
+}
+.gps-status.ok{color:#2e6e28;}
+.gps-status.fail{color:#c53030;}
+.gps-status.loading{color:#7a5c00;}
+.gps-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.gps-status.ok .gps-dot{background:#2e6e28;}
+.gps-status.fail .gps-dot{background:#c53030;}
+.gps-status.loading .gps-dot{background:#f0c040;animation:gpsPulse 1s ease infinite;}
+@keyframes gpsPulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.gps-retry{
+  background:none;border:none;color:#4a7048;font-size:10px;
+  font-weight:700;cursor:pointer;padding:2px 0;text-decoration:underline;
+}
+.gps-retry:hover{color:#2e6e28;}
+.dist-card .sec-fields{gap:10px;}
 </style>
 </head>
 <body>
@@ -273,7 +293,7 @@ select{
     <div class="campaign-banner">ITN Mass Campaign 2027</div>
   </div>
   <div class="content-area">
-    <div class="section-label">Dashboard</div>
+    <div class="section-label">Registration</div>
     <div class="card-grid">
       <a class="dash-card" onclick="goScreen('distScreen')">
         <div class="card-icon ci-blue"><svg viewBox="0 0 24 24" fill="none" stroke="#2b6cb0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
@@ -303,15 +323,15 @@ select{
 <!-- ======================== DISTRIBUTION ======================== -->
 <div class="app-shell screen" id="distScreen">
   <div class="sub-header">
-    <button class="back-btn" onclick="backHome()"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></button>
+    <button class="back-btn" onclick="goBack()"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></button>
     <div>
       <div class="sub-title">New Distribution</div>
-      <div class="sub-sub">Step <span id="stepNum">1</span> of 4</div>
+      <div class="sub-sub">Step <span id="stepNum">1</span> of 3</div>
     </div>
   </div>
   <div class="form-body" id="formBody">
 
-    <!-- STEP 1: HOUSEHOLD HEAD -->
+    <!-- STEP 1: HOUSEHOLD HEAD + LOCATION -->
     <div id="step1">
       <div class="form-section">
         <div class="sec-hdr">
@@ -342,7 +362,7 @@ select{
         </div>
       </div>
 
-      <!-- STEP 1: LOCATION -->
+      <!-- LOCATION -->
       <div class="form-section">
         <div class="sec-hdr">
           <div class="sec-icon si-green"><svg viewBox="0 0 24 24" fill="none" stroke="#2f855a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></div>
@@ -370,39 +390,29 @@ select{
             </div>
           </div>
           <div class="field" id="f-community">
-            <label class="flabel">Community / Village <span class="req">*</span><span class="autofill-tag" id="communityTag" style="display:none">auto</span></label>
+            <label class="flabel">Community / Village<span class="autofill-tag" id="communityTag" style="display:none">auto</span></label>
             <input type="text" id="community" placeholder="Village or community name">
+          </div>
+          <div class="field" id="f-gps">
+            <label class="flabel">Geo-Coordinates</label>
+            <div class="gps-row">
+              <input type="text" id="gpsCoords" placeholder="Acquiring location..." readonly>
+            </div>
+            <div id="gpsStatus" class="gps-status loading"><div class="gps-dot"></div><span>Acquiring GPS signal...</span></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- STEP 2 -->
+    <!-- STEP 2: CONSENT + ITN ALLOCATION -->
     <div id="step2" style="display:none">
       <div class="form-section">
         <div class="sec-hdr">
           <div class="sec-icon si-amber"><svg viewBox="0 0 24 24" fill="none" stroke="#b7791f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
-          <div><div class="sec-title">Eligibility &amp; Consent</div><div class="sec-desc">Verify and obtain consent</div></div>
+          <div><div class="sec-title">Consent &amp; ITN Allocation</div><div class="sec-desc">Obtain consent and confirm quantity</div></div>
         </div>
         <div class="sec-fields">
           <div class="field">
-            <label class="flabel">Is the household eligible? <span class="req">*</span></label>
-            <div class="radio-group" id="eligibleGroup">
-              <div class="rpill" onclick="selectRadio(this,'eligible','yes')"><input type="radio" name="eligible" value="yes"><span>Yes</span></div>
-              <div class="rpill" onclick="selectRadio(this,'eligible','no')"><input type="radio" name="eligible" value="no"><span>No</span></div>
-            </div>
-          </div>
-          <div class="field" id="reasonBox" style="display:none">
-            <label class="flabel">Reason for non-eligibility</label>
-            <select id="nonEligibleReason">
-              <option value="">Select reason</option>
-              <option>Already received ITNs this campaign</option>
-              <option>Household not registered</option>
-              <option>Token invalid / duplicate</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="field" id="consentBoxWrap">
             <div class="consent-box">
               <strong>Informed Consent</strong>
               I confirm that the household head has been informed about the ITN distribution campaign, understands the purpose of insecticide-treated nets, and consents to receive the allocated quantity.
@@ -412,23 +422,11 @@ select{
               <div class="rpill" onclick="selectRadio(this,'consent','no')"><input type="radio" name="consent" value="no"><span>Consent refused</span></div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- STEP 3 -->
-    <div id="step3" style="display:none">
-      <div class="form-section">
-        <div class="sec-hdr">
-          <div class="sec-icon si-teal"><svg viewBox="0 0 24 24" fill="none" stroke="#319795" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg></div>
-          <div><div class="sec-title">ITN Allocation</div><div class="sec-desc">Calculate and confirm quantity</div></div>
-        </div>
-        <div class="sec-fields">
           <div class="itn-badge">
             <div class="itn-num" id="itnNum">0</div>
             <div class="itn-text">ITNs allocated based on household size</div>
           </div>
-          <div class="field" style="margin-top:10px">
+          <div class="field">
             <label class="flabel">Actual ITNs delivered <span class="req">*</span></label>
             <input type="number" id="itnDelivered" min="0" placeholder="Number of nets given">
           </div>
@@ -437,15 +435,34 @@ select{
             <div class="radio-group">
               <div class="rpill" onclick="selectRadio(this,'method','door')"><input type="radio" name="method" value="door"><span>Door-to-door</span></div>
               <div class="rpill" onclick="selectRadio(this,'method','fixed')"><input type="radio" name="method" value="fixed"><span>Fixed site</span></div>
-              <div class="rpill" onclick="selectRadio(this,'method','school')"><input type="radio" name="method" value="school"><span>School</span></div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- STEP 4 -->
-    <div id="step4" style="display:none">
+    <!-- STEP 3: CONFIRMATION + DISTRIBUTOR -->
+    <div id="step3" style="display:none">
+      <div class="form-section dist-card">
+        <div class="sec-hdr">
+          <div class="sec-icon si-slate"><svg viewBox="0 0 24 24" fill="none" stroke="#4a5568" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+          <div><div class="sec-title">Distributor Details</div><div class="sec-desc">Confirm your identity</div></div>
+        </div>
+        <div class="sec-fields">
+          <div class="field" id="f-distName">
+            <label class="flabel">Full Name <span class="req">*</span><span class="autofill-tag" id="distNameTag" style="display:none">auto</span></label>
+            <input type="text" id="distName" placeholder="Distributor full name">
+          </div>
+          <div class="field" id="f-distUsername">
+            <label class="flabel">Username <span class="req">*</span><span class="autofill-tag" id="distUsernameTag" style="display:none">auto</span></label>
+            <input type="text" id="distUsername" placeholder="System username">
+          </div>
+          <div class="field" id="f-distPhone">
+            <label class="flabel">Telephone<span class="autofill-tag" id="distPhoneTag" style="display:none">auto</span></label>
+            <input type="tel" id="distPhone" placeholder="Contact number">
+          </div>
+        </div>
+      </div>
       <div class="form-section">
         <div class="sec-hdr">
           <div class="sec-icon si-purple"><svg viewBox="0 0 24 24" fill="none" stroke="#805ad5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
@@ -465,7 +482,7 @@ select{
 <!-- ======================== RECORDS ======================== -->
 <div class="app-shell screen" id="recordsScreen">
   <div class="sub-header">
-    <button class="back-btn" onclick="backHome()"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></button>
+    <button class="back-btn" onclick="goBack()"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></button>
     <div>
       <div class="sub-title">Distribution Records</div>
       <div class="sub-sub" id="recCount">0 records</div>
@@ -475,7 +492,7 @@ select{
     <div class="no-records">No distribution records yet.<br>Complete a distribution to see data here.</div>
   </div>
   <div class="nav-btns">
-    <button class="btn-back" onclick="backHome()">← Home</button>
+    <button class="btn-back" onclick="goBack()">← Back</button>
     <button class="btn-next" onclick="exportCSV()">Export CSV</button>
   </div>
 </div>
@@ -483,7 +500,7 @@ select{
 <!-- ======================== TARGET ======================== -->
 <div class="app-shell screen" id="targetScreen">
   <div class="sub-header">
-    <button class="back-btn" onclick="backHome()"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></button>
+    <button class="back-btn" onclick="goBack()"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></button>
     <div>
       <div class="sub-title">Campaign Target</div>
       <div class="sub-sub">Set household distribution goal</div>
@@ -525,7 +542,7 @@ select{
     </div>
   </div>
   <div class="nav-btns">
-    <button class="btn-back" onclick="backHome()">← Home</button>
+    <button class="btn-back" onclick="goBack()">← Back</button>
   </div>
 </div>
 
@@ -543,15 +560,279 @@ var geo={
 
 /* ── STATE ── */
 var currentStep = 1;
-var totalSteps = 4;
+var totalSteps = 3;
+var navStack = [];
+var gpsWatchId = null;
 
-/* All fields that auto-fill from token lookup, grouped by card */
 var hhFields = ['headName','phone','totalMembers'];
 var hhTags  = ['headNameTag','phoneTag','membersTag'];
 var locFields = ['region','district','chiefdom','facility','community'];
 var locTags  = ['regionTag','districtTag','chiefdomTag','facilityTag','communityTag'];
 var allAutoFields = hhFields.concat(locFields);
 var allAutoTags  = hhTags.concat(locTags);
+
+/* ═══════════════════════════════════════════════════════════
+   ROBUST REGISTRATION LOOKUP
+   ═══════════════════════════════════════════════════════════ */
+var REG_KEYS = [
+  'icfsl_registrations','icfsl_reg_records','icfsl_records','registrations',
+  'reg_records','icfsl_registration_records','registrationData','regData',
+  'hh_registrations','household_registrations','icfsl_household_reg',
+  'campaign_registrations','itn_registrations'
+];
+
+var ALIASES = {
+  token:     ['token','Token','tokenNumber','token_number','tokenNo','token_no','tokenId','campaignToken'],
+  headName:  ['headName','head_of_household','headOfHousehold','hhHead','householdHead','fullName','name','head_name','hh_name'],
+  firstName: ['firstName','first_name','fname','givenName','given_name'],
+  lastName:  ['lastName','last_name','lname','surname','familyName','family_name'],
+  phone:     ['phone','phoneNumber','phone_number','contact','telephone','mobile','phoneNo','phone_no','cell','cellNumber'],
+  members:   ['totalMembers','members','householdMembers','household_members','householdSize','household_size','hhSize','hh_size','numMembers','num_members','familySize','family_size','noOfMembers','no_of_members'],
+  region:    ['region','Region','regionName','region_name'],
+  district:  ['district','District','districtName','district_name'],
+  chiefdom:  ['chiefdom','Chiefdom','chiefdomName','chiefdom_name'],
+  facility:  ['healthFacility','health_facility','facility','facilityName','facility_name','hfName','hf_name','healthFacilityName','clinic','healthCenter','health_center'],
+  community: ['community','townVillage','town_village','town','village','communityName','community_name','settlement','locality','area']
+};
+
+function getRegField(record, aliasGroup) {
+  var keys = ALIASES[aliasGroup];
+  if (!keys) return '';
+  for (var i = 0; i < keys.length; i++) {
+    var val = record[keys[i]];
+    if (val !== undefined && val !== null && String(val).trim() !== '') {
+      return String(val).trim();
+    }
+  }
+  return '';
+}
+
+function loadAllRegistrations() {
+  var allRegs = [];
+  for (var k = 0; k < REG_KEYS.length; k++) {
+    try {
+      var raw = localStorage.getItem(REG_KEYS[k]);
+      if (!raw) continue;
+      var parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        var existingTokens = {};
+        for (var e = 0; e < allRegs.length; e++) {
+          var et = getRegField(allRegs[e], 'token');
+          if (et) existingTokens[et] = true;
+        }
+        for (var j = 0; j < parsed.length; j++) {
+          var pt = getRegField(parsed[j], 'token');
+          if (!pt || !existingTokens[pt]) {
+            allRegs.push(parsed[j]);
+            if (pt) existingTokens[pt] = true;
+          }
+        }
+      } else if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        var objKeys = Object.keys(parsed);
+        if (objKeys.length > 0) {
+          var existingTokens2 = {};
+          for (var e2 = 0; e2 < allRegs.length; e2++) {
+            var et2 = getRegField(allRegs[e2], 'token');
+            if (et2) existingTokens2[et2] = true;
+          }
+          for (var m = 0; m < objKeys.length; m++) {
+            var objRec = parsed[objKeys[m]];
+            if (objRec && typeof objRec === 'object') {
+              if (!getRegField(objRec, 'token')) objRec.token = objKeys[m];
+              var pt2 = getRegField(objRec, 'token');
+              if (!pt2 || !existingTokens2[pt2]) {
+                allRegs.push(objRec);
+                if (pt2) existingTokens2[pt2] = true;
+              }
+            }
+          }
+        }
+      }
+    } catch(e) {}
+  }
+  return allRegs;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DISTRIBUTOR CREDENTIALS LOOKUP
+   ═══════════════════════════════════════════════════════════ */
+var USER_KEYS = [
+  'icfsl_user','icfsl_current_user','currentUser','loggedInUser',
+  'userData','user','session','icfsl_session','loggedUser',
+  'icfsl_logged_user','activeUser','icfsl_active_user',
+  'auth_user','authUser','profile','userProfile','user_profile'
+];
+
+var USER_ALIASES = {
+  name:     ['fullName','full_name','name','displayName','display_name','fullNameText','headName','userName','user_name','firstLastName'],
+  firstName:['firstName','first_name','fname','givenName','given_name'],
+  lastName: ['lastName','last_name','lname','surname','familyName','family_name'],
+  username: ['username','userName','user_name','userid','userId','user_id','loginId','login_id','accountName','account_name','email'],
+  phone:    ['phone','phoneNumber','phone_number','telephone','mobile','contact','phoneNo','phone_no','cell','cellNumber','tel']
+};
+
+function getUserField(record, aliasGroup) {
+  var keys = USER_ALIASES[aliasGroup];
+  if (!keys) return '';
+  for (var i = 0; i < keys.length; i++) {
+    var val = record[keys[i]];
+    if (val !== undefined && val !== null && String(val).trim() !== '') {
+      return String(val).trim();
+    }
+  }
+  return '';
+}
+
+function loadCurrentUser() {
+  for (var k = 0; k < USER_KEYS.length; k++) {
+    try {
+      var raw = localStorage.getItem(USER_KEYS[k]);
+      if (!raw) continue;
+      var parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        return parsed;
+      }
+    } catch(e) {}
+  }
+  return null;
+}
+
+function autoFillDistributor() {
+  var user = loadCurrentUser();
+  if (!user) return;
+
+  var name = getUserField(user, 'name');
+  if (!name) {
+    var fn = getUserField(user, 'firstName');
+    var ln = getUserField(user, 'lastName');
+    name = (fn + ' ' + ln).trim();
+  }
+  if (name) {
+    document.getElementById('distName').value = name;
+    document.getElementById('distName').setAttribute('readonly', true);
+    document.getElementById('distNameTag').style.display = 'inline-block';
+  }
+
+  var uname = getUserField(user, 'username');
+  if (uname) {
+    document.getElementById('distUsername').value = uname;
+    document.getElementById('distUsername').setAttribute('readonly', true);
+    document.getElementById('distUsernameTag').style.display = 'inline-block';
+  }
+
+  var uphone = getUserField(user, 'phone');
+  if (uphone) {
+    document.getElementById('distPhone').value = uphone;
+    document.getElementById('distPhone').setAttribute('readonly', true);
+    document.getElementById('distPhoneTag').style.display = 'inline-block';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   AUTOMATIC GPS CAPTURE
+   ═══════════════════════════════════════════════════════════ */
+function startGPS() {
+  var field = document.getElementById('gpsCoords');
+  var status = document.getElementById('gpsStatus');
+
+  field.value = '';
+  field.placeholder = 'Acquiring location...';
+  status.className = 'gps-status loading';
+  status.innerHTML = '<div class="gps-dot"></div><span>Acquiring GPS signal...</span>';
+
+  if (!navigator.geolocation) {
+    status.className = 'gps-status fail';
+    status.innerHTML = '<div class="gps-dot"></div><span>Geolocation not supported</span> <button class="gps-retry" onclick="startGPS()">Retry</button>';
+    field.placeholder = 'Not available';
+    return;
+  }
+
+  stopGPS();
+
+  gpsWatchId = navigator.geolocation.watchPosition(
+    function(pos) {
+      var lat = pos.coords.latitude.toFixed(6);
+      var lng = pos.coords.longitude.toFixed(6);
+      var acc = Math.round(pos.coords.accuracy);
+      field.value = lat + ', ' + lng;
+      field.placeholder = lat + ', ' + lng;
+      status.className = 'gps-status ok';
+      status.innerHTML = '<div class="gps-dot"></div><span>Captured (&plusmn;' + acc + 'm accuracy)</span> <button class="gps-retry" onclick="startGPS()">Refresh</button>';
+
+      if (pos.coords.accuracy <= 30) {
+        stopGPS();
+      }
+    },
+    function(err) {
+      stopGPS();
+      field.placeholder = 'Enter coordinates manually';
+      field.removeAttribute('readonly');
+      var msgs = {
+        1: 'Location permission denied',
+        2: 'Location unavailable',
+        3: 'Location request timed out'
+      };
+      status.className = 'gps-status fail';
+      status.innerHTML = '<div class="gps-dot"></div><span>' + (msgs[err.code] || 'GPS failed') + '</span> <button class="gps-retry" onclick="startGPS()">Retry</button>';
+    },
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+  );
+}
+
+function stopGPS() {
+  if (gpsWatchId !== null && navigator.geolocation) {
+    navigator.geolocation.clearWatch(gpsWatchId);
+    gpsWatchId = null;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NAVIGATION WITH HISTORY STACK
+   ═══════════════════════════════════════════════════════════ */
+function goScreen(id) {
+  var currentActive = document.querySelector('.screen.active');
+  if (currentActive) {
+    navStack.push(currentActive.id);
+  }
+
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+
+  if (id === 'distScreen') {
+    currentStep = 1;
+    updateStep();
+    startGPS();
+  }
+  if (id === 'recordsScreen') renderRecords();
+  if (id === 'targetScreen') updateTarget();
+
+  window.scrollTo(0, 0);
+}
+
+function goBack() {
+  var currentActive = document.querySelector('.screen.active');
+  if (currentActive && currentActive.id === 'distScreen') {
+    stopGPS();
+    currentStep = 1;
+    updateStep();
+    clearForm();
+  }
+
+  if (navStack.length > 0) {
+    var prevId = navStack.pop();
+    document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+    document.getElementById(prevId).classList.add('active');
+
+    if (prevId === 'recordsScreen') renderRecords();
+    if (prevId === 'targetScreen') updateTarget();
+
+    window.scrollTo(0, 0);
+  } else {
+    document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+    document.getElementById('homeScreen').classList.add('active');
+    window.scrollTo(0, 0);
+  }
+}
 
 /* ── INIT ── */
 function init(){
@@ -570,27 +851,21 @@ function setNet(on){
   lbl.textContent=on?'Online':'Offline';
 }
 
-/* ── NAVIGATION ── */
-function goScreen(id){
-  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
-  document.getElementById(id).classList.add('active');
-  if(id==='recordsScreen') renderRecords();
-  if(id==='targetScreen') updateTarget();
-  window.scrollTo(0,0);
-}
-function backHome(){ goScreen('homeScreen'); currentStep=1; updateStep(); clearForm(); }
-
+/* ── STEP NAVIGATION ── */
 function updateStep(){
   document.getElementById('stepNum').textContent=currentStep;
-  for(var i=1;i<=4;i++){ document.getElementById('step'+i).style.display=(i===currentStep?'block':'none'); }
+  for(var i=1;i<=3;i++){ document.getElementById('step'+i).style.display=(i===currentStep?'block':'none'); }
   document.getElementById('btnBack').style.display=currentStep===1?'none':'flex';
-  document.getElementById('btnNext').innerHTML=currentStep===4?'Submit Final ✓':'Next →';
-  document.getElementById('btnNext').className=currentStep===4?'btn-submit-final':'btn-next';
-  if(currentStep===4) buildSummary();
+  document.getElementById('btnNext').innerHTML=currentStep===3?'Submit Final ✓':'Next →';
+  document.getElementById('btnNext').className=currentStep===3?'btn-submit-final':'btn-next';
+  if(currentStep===3){
+    autoFillDistributor();
+    buildSummary();
+  }
 }
 function nextStep(){
   if(!validateStep(currentStep))return;
-  if(currentStep<4){ currentStep++; updateStep(); }
+  if(currentStep<3){ currentStep++; updateStep(); }
   else{ submitDist(); }
 }
 function prevStep(){ if(currentStep>1){ currentStep--; updateStep(); } }
@@ -605,25 +880,26 @@ function validateStep(step){
   }
   if(step===1){
     req('token'); req('headName'); req('totalMembers');
-    req('region'); req('district'); req('chiefdom'); req('community');
+    req('region'); req('district'); req('chiefdom');
     var tok=document.getElementById('token');
     if(tok.value.trim()&&loadDist().some(function(r){return r.token===tok.value.trim();})){
       tok.parentElement.classList.add('err'); ok=false; showToast('Token already used'); return false;
     }
   }
   if(step===2){
-    var elig=document.querySelector('input[name="eligible"]:checked');
-    if(!elig){ ok=false; showToast('Select eligibility'); return false; }
-    if(elig.value==='yes'){
-      var con=document.querySelector('input[name="consent"]:checked');
-      if(!con){ ok=false; showToast('Select consent'); return false; }
+    var con=document.querySelector('input[name="consent"]:checked');
+    if(!con){ ok=false; showToast('Select consent'); return false; }
+    if(con.value==='no'){
+      showToast('Consent must be given to proceed');
+      return false;
     }
-  }
-  if(step===3){
     req('itnDelivered');
     var del=parseInt(document.getElementById('itnDelivered').value)||0;
     var alloc=parseInt(document.getElementById('itnNum').textContent)||0;
     if(del>alloc){ document.getElementById('itnDelivered').parentElement.classList.add('err'); ok=false; showToast('Cannot exceed allocation'); }
+  }
+  if(step===3){
+    req('distName'); req('distUsername');
   }
   return ok;
 }
@@ -680,13 +956,10 @@ function clearFields(fieldIds){
 }
 
 /* ── TOKEN LOOKUP & AUTO-FILL ── */
-var REG_KEY='icfsl_registrations';
-
 function checkToken(v){
   var st=document.getElementById('tokenStatus');
   var trimmed=v.trim();
 
-  /* Token cleared → unlock & clear everything */
   if(!trimmed){
     st.style.display='none';
     unlockFields(allAutoFields);
@@ -703,7 +976,8 @@ function checkToken(v){
   st.textContent='Searching...';
 
   setTimeout(function(){
-    /* Already distributed? */
+    var allRegs = loadAllRegistrations();
+
     if(loadDist().some(function(r){ return r.token===trimmed; })){
       st.className='token-status found';
       st.textContent='Token already distributed';
@@ -712,62 +986,54 @@ function checkToken(v){
       return;
     }
 
-    /* Look up registration records */
-    var regs=[];
-    try{ regs=JSON.parse(localStorage.getItem(REG_KEY)||'[]'); }catch(e){ regs=[]; }
-    var match=null;
-    for(var i=0;i<regs.length;i++){
-      if(regs[i].token===trimmed){ match=regs[i]; break; }
+    var match = null;
+    for(var i=0; i<allRegs.length; i++){
+      var regToken = getRegField(allRegs[i], 'token');
+      if(regToken && regToken.toLowerCase() === trimmed.toLowerCase()){
+        match = allRegs[i];
+        break;
+      }
     }
 
     if(match){
       st.className='token-status prefilled';
       st.textContent='Token found — all details auto-filled from registration';
 
-      /* === HOUSEHOLD HEAD CARD === */
-      /* Combine firstName + lastName for full name */
-      var firstName=(match.firstName||'').trim();
-      var lastName=(match.lastName||'').trim();
-      var headName=(match.headName||'').trim()||(firstName+' '+lastName).trim();
-      document.getElementById('headName').value=headName;
+      var headName = getRegField(match, 'headName');
+      if(!headName){
+        var fn = getRegField(match, 'firstName');
+        var ln = getRegField(match, 'lastName');
+        headName = (fn + ' ' + ln).trim();
+      }
+      document.getElementById('headName').value = headName;
+      document.getElementById('phone').value = getRegField(match, 'phone');
 
-      /* Phone */
-      document.getElementById('phone').value=match.phone||'';
+      var members = getRegField(match, 'members');
+      document.getElementById('totalMembers').value = members ? members : '';
 
-      /* Members */
-      var members=match.totalMembers||match.members||0;
-      document.getElementById('totalMembers').value=members>0?members:'';
-
-      /* Lock HH fields & show tags */
       lockFields(hhFields);
       showTags(hhTags);
 
-      /* === LOCATION CARD === */
-      /* Region → fill district dropdown → fill chiefdom dropdown */
-      if(match.region){
-        document.getElementById('region').value=match.region;
+      var regVal = getRegField(match, 'region');
+      if(regVal){
+        document.getElementById('region').value = regVal;
         fillDistricts();
       }
-      /* District */
-      if(match.district){
-        document.getElementById('district').value=match.district;
+      var distVal = getRegField(match, 'district');
+      if(distVal){
+        document.getElementById('district').value = distVal;
         fillChiefdoms();
       }
-      /* Chiefdom */
-      if(match.chiefdom){
-        document.getElementById('chiefdom').value=match.chiefdom;
+      var chiefVal = getRegField(match, 'chiefdom');
+      if(chiefVal){
+        document.getElementById('chiefdom').value = chiefVal;
       }
-      /* Facility */
-      document.getElementById('facility').value=match.healthFacility||match.facility||'';
+      document.getElementById('facility').value = getRegField(match, 'facility');
+      document.getElementById('community').value = getRegField(match, 'community');
 
-      /* Community */
-      document.getElementById('community').value=match.community||match.townVillage||'';
-
-      /* Lock location fields & show tags */
       lockFields(locFields);
       showTags(locTags);
 
-      /* Recalc ITN */
       calcITN();
 
     } else {
@@ -784,10 +1050,6 @@ function selectRadio(el,name,val){
   document.querySelectorAll('input[name="'+name+'"]').forEach(function(r){ r.parentElement.classList.remove('sel'); });
   el.classList.add('sel');
   el.querySelector('input').checked=true;
-  if(name==='eligible'){
-    document.getElementById('reasonBox').style.display=val==='no'?'block':'none';
-    document.getElementById('consentBoxWrap').style.display=val==='yes'?'block':'none';
-  }
 }
 
 /* ── ITN CALC ── */
@@ -799,15 +1061,15 @@ function calcITN(){
 /* ── SUMMARY ── */
 function buildSummary(){
   function get(id){ return document.getElementById(id)?(document.getElementById(id).value||'—'):'—'; }
-  var elig=document.querySelector('input[name="eligible"]:checked');
-  elig=elig?(elig.value==='yes'?'Yes':'No'):'—';
+  var con=document.querySelector('input[name="consent"]:checked');
+  con=con?(con.value==='yes'?'Given':'Refused'):'—';
   var itn=document.getElementById('itnNum').textContent;
   var del=document.getElementById('itnDelivered').value||'0';
   var methodEl=document.querySelector('input[name="method"]:checked');
   var method=methodEl?methodEl.value:'—';
   if(method==='door')method='Door-to-door';
   else if(method==='fixed')method='Fixed site';
-  else if(method==='school')method='School';
+  var gps=get('gpsCoords');
 
   document.getElementById('summaryBox').innerHTML=
     '<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2f855a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>Household</div>'
@@ -822,9 +1084,10 @@ function buildSummary(){
     +'<div class="sum-row"><span class="sk">Chiefdom</span><span class="sv">'+get('chiefdom')+'</span></div>'
     +'<div class="sum-row"><span class="sk">Community</span><span class="sv">'+get('community')+'</span></div>'
     +'<div class="sum-row"><span class="sk">Facility</span><span class="sv">'+get('facility')+'</span></div>'
+    +'<div class="sum-row"><span class="sk">GPS</span><span class="sv">'+(gps!=='—'?gps:'Not captured')+'</span></div>'
     +'</div>'
     +'<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#319795" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>ITN Details</div>'
-    +'<div class="sum-row"><span class="sk">Eligible</span><span class="sv">'+elig+'</span></div>'
+    +'<div class="sum-row"><span class="sk">Consent</span><span class="sv">'+con+'</span></div>'
     +'<div class="sum-row"><span class="sk">Allocated</span><span class="sv">'+itn+'</span></div>'
     +'<div class="sum-row"><span class="sk">Delivered</span><span class="sv">'+del+'</span></div>'
     +'<div class="sum-row"><span class="sk">Method</span><span class="sv">'+method+'</span></div>'
@@ -844,20 +1107,33 @@ function submitDist(){
     token:get('token').trim(),headName:get('headName'),phone:get('phone'),
     totalMembers:get('totalMembers'),region:get('region'),district:get('district'),
     chiefdom:get('chiefdom'),facility:get('facility'),community:get('community'),
-    eligible:(document.querySelector('input[name="eligible"]:checked')||{}).value||'no',
-    nonEligibleReason:get('nonEligibleReason'),
+    gps:get('gpsCoords'),
     consent:(document.querySelector('input[name="consent"]:checked')||{}).value||'no',
     itnAllocated:document.getElementById('itnNum').textContent,
     itnDelivered:get('itnDelivered'),
     method:(document.querySelector('input[name="method"]:checked')||{}).value||'door',
+    distName:get('distName'),distUsername:get('distUsername'),distPhone:get('distPhone'),
     date:now.toLocaleDateString(),time:now.toLocaleTimeString(),
-    timestamp:now.toISOString(),gps:''
+    timestamp:now.toISOString()
   };
   if(!data.token){ showToast('Token required'); return; }
   if(recs.some(function(r){ return r.token===data.token; })){ showToast('Token already exists'); return; }
   recs.push(data); saveDist(recs);
+
+  stopGPS();
   showToast('Distribution saved successfully');
-  backHome();
+
+  var prevId = navStack.length > 0 ? navStack[navStack.length - 1] : 'homeScreen';
+  currentStep = 1;
+  clearForm();
+
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(prevId).classList.add('active');
+  navStack.pop();
+
+  if (prevId === 'recordsScreen') renderRecords();
+  if (prevId === 'targetScreen') updateTarget();
+  window.scrollTo(0, 0);
 }
 
 function clearForm(){
@@ -867,12 +1143,21 @@ function clearForm(){
   document.querySelectorAll('#distScreen .rpill').forEach(function(p){ p.classList.remove('sel'); });
   document.getElementById('itnNum').textContent='0';
   document.getElementById('tokenStatus').style.display='none';
-  document.getElementById('reasonBox').style.display='none';
-  document.getElementById('consentBoxWrap').style.display='block';
   unlockFields(allAutoFields);
   hideTags(allAutoTags);
   fillDistricts();
   fillChiefdoms();
+  document.getElementById('distName').removeAttribute('readonly');
+  document.getElementById('distUsername').removeAttribute('readonly');
+  document.getElementById('distPhone').removeAttribute('readonly');
+  document.getElementById('distNameTag').style.display='none';
+  document.getElementById('distUsernameTag').style.display='none';
+  document.getElementById('distPhoneTag').style.display='none';
+  document.getElementById('gpsCoords').value='';
+  document.getElementById('gpsCoords').setAttribute('readonly', true);
+  document.getElementById('gpsCoords').placeholder='Acquiring location...';
+  document.getElementById('gpsStatus').className='gps-status loading';
+  document.getElementById('gpsStatus').innerHTML='<div class="gps-dot"></div><span>Acquiring GPS signal...</span>';
 }
 
 /* ── RECORDS ── */
@@ -882,8 +1167,8 @@ function renderRecords(){
   if(!recs.length){
     wrap.innerHTML='<div class="no-records">No distribution records yet.<br>Complete a distribution to see data here.</div>'; return;
   }
-  var cols=['Token','Region','District','Chiefdom','Facility','Community','HH Head','Members','Allocated','Distributed','Date','Time'];
-  var keys=['token','region','district','chiefdom','facility','community','headName','totalMembers','itnAllocated','itnDelivered','date','time'];
+  var cols=['Token','Region','District','Chiefdom','Community','HH Head','Members','Allocated','Distributed','Distributor','Date','Time'];
+  var keys=['token','region','district','chiefdom','community','headName','totalMembers','itnAllocated','itnDelivered','distName','date','time'];
   var html='<table class="rec-table"><thead><tr>';
   cols.forEach(function(c){ html+='<th>'+c+'</th>'; });
   html+='</tr></thead><tbody>';
@@ -894,9 +1179,9 @@ function renderRecords(){
   });
   var totalItn=recs.reduce(function(s,r){ return s+(parseInt(r.itnDelivered)||0); },0);
   html+='<tr style="background:#6b7a8d;color:#fff;font-weight:700;">'
-    +'<td colspan="9" style="text-align:right;">TOTAL ITNs DISTRIBUTED:</td>'
+    +'<td colspan="8" style="text-align:right;">TOTAL ITNs DISTRIBUTED:</td>'
     +'<td style="text-align:center;background:#2e6e28;color:#fff;">'+totalItn+'</td>'
-    +'<td colspan="2"></td></tr>';
+    +'<td colspan="3"></td></tr>';
   html+='</tbody></table>';
   wrap.innerHTML=html;
 }
@@ -904,8 +1189,8 @@ function renderRecords(){
 function exportCSV(){
   var recs=loadDist();
   if(!recs.length){ showToast('No records to export'); return; }
-  var keys=['token','headName','phone','totalMembers','region','district','chiefdom','facility','community','eligible','nonEligibleReason','consent','itnAllocated','itnDelivered','method','date','time','timestamp'];
-  var headers=['Token','Head Name','Phone','Members','Region','District','Chiefdom','Facility','Community','Eligible','Non-Eligible Reason','Consent','ITN Allocated','ITN Delivered','Method','Date','Time','Timestamp'];
+  var keys=['token','headName','phone','totalMembers','region','district','chiefdom','facility','community','gps','consent','itnAllocated','itnDelivered','method','distName','distUsername','distPhone','date','time','timestamp'];
+  var headers=['Token','Head Name','Phone','Members','Region','District','Chiefdom','Facility','Community','GPS','Consent','ITN Allocated','ITN Delivered','Method','Distributor Name','Distributor Username','Distributor Phone','Date','Time','Timestamp'];
   var csv=headers.join(',')+'\n';
   recs.forEach(function(r){
     csv+=keys.map(function(k){
@@ -958,11 +1243,13 @@ function doLogout(){
 
 /* ── CROSS-TAB SYNC ── */
 window.addEventListener('storage',function(e){
-  if(e.key===KEY){
+  if(e.key===KEY || REG_KEYS.indexOf(e.key) !== -1){
     if(document.getElementById('recordsScreen').classList.contains('active')) renderRecords();
     if(document.getElementById('targetScreen').classList.contains('active')) updateTarget();
   }
 });
+
+window.addEventListener('beforeunload', function(){ stopGPS(); });
 
 init();
 </script>
