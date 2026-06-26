@@ -259,6 +259,38 @@ select{
 }
 .gps-retry:hover{color:#2e6e28;}
 .dist-card .sec-fields{gap:10px;}
+.logged-in-card{
+  background:#fff;border-radius:18px;
+  border:0.5px solid #d4e4cf;overflow:hidden;
+}
+.logged-in-card .lic-hdr{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 14px;background:#f5faf3;
+  border-bottom:0.5px solid #eef4ec;
+  font-size:12px;font-weight:700;color:#4a7048;
+}
+.logged-in-card .lic-hdr svg{width:15px;height:15px;flex-shrink:0;}
+.logged-in-card .lic-body{
+  padding:14px 16px 16px;display:flex;align-items:flex-start;gap:14px;
+}
+.logged-in-card .lic-avatar{
+  width:46px;height:46px;border-radius:14px;
+  background:linear-gradient(135deg,#4a7048,#7a9e76);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.logged-in-card .lic-avatar svg{
+  width:24px;height:24px;display:block;stroke:#fff;fill:none;
+  stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+}
+.logged-in-card .lic-info{flex:1;min-width:0;}
+.logged-in-card .lic-eyebrow{
+  font-size:10px;font-weight:800;color:#7a9e76;
+  letter-spacing:1.2px;text-transform:uppercase;margin-bottom:4px;
+}
+.logged-in-card .lic-name{
+  font-size:17px;font-weight:800;color:#1c2b1c;margin-bottom:6px;line-height:1.2;
+}
+.logged-in-card .lic-meta{font-size:12px;color:#5a7258;line-height:1.6;}
 </style>
 </head>
 <body>
@@ -429,7 +461,6 @@ select{
 
     <!-- STEP 3 -->
     <div id="step3" style="display:none">
-      <!-- Confirmation card moved to the top -->
       <div class="form-section">
         <div class="sec-hdr">
           <div class="sec-icon si-purple"><svg viewBox="0 0 24 24" fill="none" stroke="#805ad5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
@@ -437,8 +468,6 @@ select{
         </div>
         <div class="sec-fields" id="summaryBox"></div>
       </div>
-      
-      <!-- Distributor Details card moved to the bottom -->
       <div class="form-section dist-card">
         <div class="sec-hdr">
           <div class="sec-icon si-slate"><svg viewBox="0 0 24 24" fill="none" stroke="#4a5568" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
@@ -459,6 +488,9 @@ select{
           </div>
         </div>
       </div>
+
+      <!-- LOGGED-IN USER CARD — at the bottom of confirmation page -->
+      <div id="loggedInUserCardSlot"></div>
     </div>
 
   </div>
@@ -539,15 +571,9 @@ select{
 
 <script>
 /* ═══════════════════════════════════════════════════════════
-   GEO DATA — Merged from both regform.html and original distribution.
-   Registration page uses: "Northern Region", "Southern Region",
-   "Eastern Region", "Western Area" with shared chiefdom lists.
-   Original distribution uses: "North", "North West", "South East", "South"
-   with district-specific chiefdoms.
-   ALL entries are included here so setSelectValue always finds a match.
+   GEO DATA
    ═══════════════════════════════════════════════════════════ */
 var geo={
-  /* ── From regform.html (chiefdoms shared across all districts in region) ── */
   "Northern Region":{
     "Falaba":["Wara Wara Zagala","Wara Wara Yagala","Biriwa","Sella Limba","Gbanti","Kasunko"],
     "Bombali":["Wara Wara Zagala","Wara Wara Yagala","Biriwa","Sella Limba","Gbanti","Kasunko"],
@@ -569,7 +595,6 @@ var geo={
     "Western Area Rural":["Waterloo","Newton","Benguema","Tombo","Central","East"],
     "Western Area Urban":["Waterloo","Newton","Benguema","Tombo","Central","East"]
   },
-  /* ── Original distribution page (district-specific chiefdoms) ── */
   "North West":{
     "Kambia":["Dixon","Gbinle","Samu","Tunkia"],
     "Port Loko":["Bureh","Kafu Bullom","Lokomasama","Marampa","Masimera"]
@@ -809,7 +834,7 @@ function stopGPS() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   NAVIGATION WITH HISTORY STACK - MODIFIED TO RETURN TO PREVIOUS PAGE
+   NAVIGATION
    ═══════════════════════════════════════════════════════════ */
 function goScreen(id) {
   var currentActive = document.querySelector('.screen.active');
@@ -827,7 +852,6 @@ function goBack() {
   if (currentActive && currentActive.id === 'distScreen') {
     stopGPS(); currentStep = 1; updateStep(); clearForm();
   }
-  // Always go back to the previous page in the navigation stack
   if (navStack.length > 0) {
     var prevId = navStack.pop();
     document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
@@ -836,7 +860,6 @@ function goBack() {
     if (prevId === 'targetScreen') updateTarget();
     window.scrollTo(0, 0);
   } else {
-    // Only go to home screen if there's nothing in the stack
     document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
     document.getElementById('homeScreen').classList.add('active');
     window.scrollTo(0, 0);
@@ -865,7 +888,7 @@ function updateStep(){
   document.getElementById('btnBack').style.display=currentStep===1?'none':'flex';
   document.getElementById('btnNext').innerHTML=currentStep===3?'Submit Final ✓':'Next →';
   document.getElementById('btnNext').className=currentStep===3?'btn-submit-final':'btn-next';
-  if(currentStep===3){ autoFillDistributor(); buildSummary(); }
+  if(currentStep===3){ autoFillDistributor(); buildSummary(); renderLoggedInUserCard(); }
 }
 function nextStep(){
   if(!validateStep(currentStep))return;
@@ -925,7 +948,6 @@ function fillChiefdoms(){
 
 /* ═══════════════════════════════════════════════════════════
    ROBUST SELECT VALUE SETTER
-   Tries exact → case-insensitive → contains → word-boundary match.
    ═══════════════════════════════════════════════════════════ */
 function setSelectValue(selectId, value) {
   if (!value) return false;
@@ -933,42 +955,23 @@ function setSelectValue(selectId, value) {
   if (!sel) return false;
   var trimmed = value.trim();
   if (!trimmed) return false;
-
   var opts = sel.options;
   var i;
-
-  /* Pass 1: exact match */
   for (i = 0; i < opts.length; i++) {
-    if (opts[i].value === trimmed) {
-      sel.selectedIndex = i;
-      return true;
-    }
+    if (opts[i].value === trimmed) { sel.selectedIndex = i; return true; }
   }
-
-  /* Pass 2: case-insensitive match */
   var lowerVal = trimmed.toLowerCase();
   for (i = 0; i < opts.length; i++) {
-    if (opts[i].value && opts[i].value.toLowerCase() === lowerVal) {
-      sel.selectedIndex = i;
-      return true;
-    }
+    if (opts[i].value && opts[i].value.toLowerCase() === lowerVal) { sel.selectedIndex = i; return true; }
   }
-
-  /* Pass 3: contains match */
   for (i = 0; i < opts.length; i++) {
     if (!opts[i].value) continue;
     var optLower = opts[i].value.toLowerCase();
-    if (optLower.indexOf(lowerVal) !== -1 || lowerVal.indexOf(optLower) !== -1) {
-      sel.selectedIndex = i;
-      return true;
-    }
+    if (optLower.indexOf(lowerVal) !== -1 || lowerVal.indexOf(optLower) !== -1) { sel.selectedIndex = i; return true; }
   }
-
-  /* Pass 4: word-boundary scoring */
   var valWords = lowerVal.replace(/[^a-z0-9]+/g,' ').split(' ').filter(function(w){ return w.length > 2; });
   if (valWords.length > 0) {
-    var bestMatch = -1;
-    var bestScore = 0;
+    var bestMatch = -1, bestScore = 0;
     for (i = 0; i < opts.length; i++) {
       if (!opts[i].value) continue;
       var optText = opts[i].value.toLowerCase();
@@ -976,27 +979,16 @@ function setSelectValue(selectId, value) {
       for (var w = 0; w < valWords.length; w++) {
         if (optText.indexOf(valWords[w]) !== -1) score++;
       }
-      if (score >= Math.ceil(valWords.length / 2) && score > bestScore) {
-        bestScore = score;
-        bestMatch = i;
-      }
+      if (score >= Math.ceil(valWords.length / 2) && score > bestScore) { bestScore = score; bestMatch = i; }
     }
-    if (bestMatch !== -1) {
-      sel.selectedIndex = bestMatch;
-      return true;
-    }
+    if (bestMatch !== -1) { sel.selectedIndex = bestMatch; return true; }
   }
-
   return false;
 }
 
 /* ── AUTO-FILL HELPERS ── */
-function showTags(tagIds){
-  tagIds.forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display='inline-block'; });
-}
-function hideTags(tagIds){
-  tagIds.forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display='none'; });
-}
+function showTags(tagIds){ tagIds.forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display='inline-block'; }); }
+function hideTags(tagIds){ tagIds.forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display='none'; }); }
 function lockFields(fieldIds){
   fieldIds.forEach(function(id){
     var el=document.getElementById(id);
@@ -1013,15 +1005,11 @@ function unlockFields(fieldIds){
     el.removeAttribute('readonly');
   });
 }
-function clearFields(fieldIds){
-  fieldIds.forEach(function(id){
-    var el=document.getElementById(id);
-    if(!el) return;
-    el.value='';
-  });
-}
+function clearFields(fieldIds){ fieldIds.forEach(function(id){ var el=document.getElementById(id); if(!el) return; el.value=''; }); }
 
-/* ── TOKEN LOOKUP & AUTO-FILL ── */
+/* ═══════════════════════════════════════════════════════════
+   TOKEN LOOKUP & AUTO-FILL — ORIGINAL setTimeout CHAIN
+   ═══════════════════════════════════════════════════════════ */
 function checkToken(v){
   var st=document.getElementById('tokenStatus');
   var trimmed=v.trim();
@@ -1063,240 +1051,254 @@ function checkToken(v){
 
     if(match){
       st.className='token-status prefilled';
-      st.textContent='Token found — all details auto-filled from registration';
+      st.textContent='Token found — all details auto-filled';
 
-      /* === HOUSEHOLD HEAD === */
-      var headName = getRegField(match, 'headName');
-      if(!headName){
-        var fn = getRegField(match, 'firstName');
-        var ln = getRegField(match, 'lastName');
-        headName = (fn + ' ' + ln).trim();
-      }
-      if(headName){
-        document.getElementById('headName').value = headName;
-        document.getElementById('headName').setAttribute('readonly', true);
-        document.getElementById('headNameTag').style.display = 'inline-block';
-      }
+      /* ── Household fields ── */
+      var hn=getRegField(match,'headName');
+      if(hn){ document.getElementById('headName').value=hn; document.getElementById('headNameTag').style.display='inline-block'; }
+      var ph=getRegField(match,'phone');
+      if(ph){ document.getElementById('phone').value=ph; document.getElementById('phoneTag').style.display='inline-block'; }
+      var mb=getRegField(match,'members');
+      if(mb){ document.getElementById('totalMembers').value=mb; document.getElementById('membersTag').style.display='inline-block'; calcITN(); }
 
-      /* === PHONE === */
-      var phone = getRegField(match, 'phone');
-      if(phone){
-        document.getElementById('phone').value = phone;
-        document.getElementById('phone').setAttribute('readonly', true);
-        document.getElementById('phoneTag').style.display = 'inline-block';
-      }
-
-      /* === MEMBERS === */
-      var members = getRegField(match, 'members');
-      if(members){
-        document.getElementById('totalMembers').value = members;
-        document.getElementById('totalMembers').setAttribute('readonly', true);
-        document.getElementById('membersTag').style.display = 'inline-block';
-        calcITN();
-      }
-
-      /* === LOCATION === */
-      var region = getRegField(match, 'region');
-      var district = getRegField(match, 'district');
-      var chiefdom = getRegField(match, 'chiefdom');
-      var facility = getRegField(match, 'facility');
-      var community = getRegField(match, 'community');
-
-      if(region && setSelectValue('region', region)){
-        document.getElementById('region').setAttribute('disabled', true);
-        document.getElementById('regionTag').style.display = 'inline-block';
-        fillDistricts();
-        if(district && setSelectValue('district', district)){
-          document.getElementById('district').setAttribute('disabled', true);
-          document.getElementById('districtTag').style.display = 'inline-block';
-          fillChiefdoms();
-          if(chiefdom && setSelectValue('chiefdom', chiefdom)){
-            document.getElementById('chiefdom').setAttribute('disabled', true);
-            document.getElementById('chiefdomTag').style.display = 'inline-block';
+      /* ── Location fields — original setTimeout cascade ── */
+      var rg=getRegField(match,'region');
+      if(rg){
+        setSelectValue('region',rg);
+        document.getElementById('regionTag').style.display='inline-block';
+        setTimeout(function(){
+          fillDistricts();
+          var ds=getRegField(match,'district');
+          if(ds){
+            setSelectValue('district',ds);
+            document.getElementById('districtTag').style.display='inline-block';
+            setTimeout(function(){
+              fillChiefdoms();
+              var ch=getRegField(match,'chiefdom');
+              if(ch){
+                setSelectValue('chiefdom',ch);
+                document.getElementById('chiefdomTag').style.display='inline-block';
+              }
+            },50);
           }
-        }
+        },50);
       }
-      if(facility){
-        document.getElementById('facility').value = facility;
-        document.getElementById('facility').setAttribute('readonly', true);
-        document.getElementById('facilityTag').style.display = 'inline-block';
-      }
-      if(community){
-        document.getElementById('community').value = community;
-        document.getElementById('community').setAttribute('readonly', true);
-        document.getElementById('communityTag').style.display = 'inline-block';
-      }
+
+      /* ── Remaining fields ── */
+      var fc=getRegField(match,'facility');
+      if(fc){ document.getElementById('facility').value=fc; document.getElementById('facilityTag').style.display='inline-block'; }
+      var cm=getRegField(match,'community');
+      if(cm){ document.getElementById('community').value=cm; document.getElementById('communityTag').style.display='inline-block'; }
+
+      /* ── Lock all auto-filled fields ── */
+      lockFields(allAutoFields);
+
     } else {
       st.className='token-status available';
-      st.textContent='New token — fill details manually';
+      st.textContent='Token available — enter details manually';
       unlockFields(allAutoFields);
       hideTags(allAutoTags);
     }
-  }, 400);
+  },300);
 }
 
 /* ── ITN CALCULATION ── */
 function calcITN(){
   var m=parseInt(document.getElementById('totalMembers').value)||0;
   var n=Math.ceil(m/2);
+  if(n<1)n=1;
   document.getElementById('itnNum').textContent=n;
 }
 
-/* ── RADIO HELPERS ── */
-function selectRadio(el, groupName, value){
-  document.querySelectorAll('input[name="'+groupName+'"]').forEach(function(r){ r.checked=false; r.parentElement.classList.remove('sel'); });
+/* ── RADIO HELPER ── */
+function selectRadio(el,name,val){
+  document.querySelectorAll('input[name="'+name+'"]').forEach(function(r){
+    r.parentElement.classList.remove('sel');
+    r.checked=false;
+  });
   el.querySelector('input').checked=true;
   el.classList.add('sel');
 }
 
-/* ── BUILD SUMMARY ── */
+/* ── SUMMARY BUILDER ── */
 function buildSummary(){
-  var box=document.getElementById('summaryBox');
-  var h='<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> Household</div>';
-  h+=sRow('Token',gv('token'));
-  h+=sRow('Head Name',gv('headName'));
-  h+=sRow('Phone',gv('phone'));
-  h+=sRow('Members',gv('totalMembers'));
-  h+='</div>';
-  h+='<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Location</div>';
-  h+=sRow('Region',gv('region'));
-  h+=sRow('District',gv('district'));
-  h+=sRow('Chiefdom',gv('chiefdom'));
-  h+=sRow('Facility',gv('facility'));
-  h+=sRow('Community',gv('community'));
-  h+=sRow('GPS',gv('gpsCoords'));
-  h+='</div>';
-  h+='<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Distribution</div>';
   var con=document.querySelector('input[name="consent"]:checked');
-  h+=sRow('Consent',con?con.value==='yes'?'Given':'Refused':'—');
-  h+=sRow('ITNs Allocated',document.getElementById('itnNum').textContent);
-  h+=sRow('ITNs Delivered',gv('itnDelivered'));
   var meth=document.querySelector('input[name="method"]:checked');
-  h+=sRow('Method',meth?(meth.value==='door'?'Door-to-door':'Fixed site'):'—');
-  h+='</div>';
-  box.innerHTML=h;
+  var rows=[
+    ['Token',document.getElementById('token').value],
+    ['Head Name',document.getElementById('headName').value],
+    ['Phone',document.getElementById('phone').value],
+    ['Members',document.getElementById('totalMembers').value],
+    ['Region',document.getElementById('region').value],
+    ['District',document.getElementById('district').value],
+    ['Chiefdom',document.getElementById('chiefdom').value],
+    ['Facility',document.getElementById('facility').value],
+    ['Community',document.getElementById('community').value],
+    ['GPS',document.getElementById('gpsCoords').value],
+    ['Consent',con?con.value:'—'],
+    ['ITNs Allocated',document.getElementById('itnNum').textContent],
+    ['ITNs Delivered',document.getElementById('itnDelivered').value],
+    ['Method',meth?meth.value:'—']
+  ];
+  var html='<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>Distribution Summary</div>';
+  rows.forEach(function(r){
+    html+='<div class="sum-row"><span class="sk">'+r[0]+'</span><span class="sv">'+r[1]+'</span></div>';
+  });
+  html+='</div>';
+  document.getElementById('summaryBox').innerHTML=html;
 }
-function sRow(k,v){ return '<div class="sum-row"><span class="sk">'+k+'</span><span class="sv">'+(v||'—')+'</span></div>'; }
-function gv(id){ var el=document.getElementById(id); return el?el.value.trim():''; }
 
-/* ── SUBMIT ── */
+/* ═══════════════════════════════════════════════════════════
+   LOGGED-IN USER CARD — REUSABLE, INSERTED AT CONFIRMATION BOTTOM
+   ═══════════════════════════════════════════════════════════ */
+function renderLoggedInUserCard(slotId) {
+  if (!slotId) slotId = 'loggedInUserCardSlot';
+  var slot = document.getElementById(slotId);
+  if (!slot) return;
+  function safe(v) { return (v === undefined || v === null || v === '') ? '—' : String(v); }
+  var user = null;
+  try { var sessionRaw = sessionStorage.getItem('currentUser'); if (sessionRaw) user = JSON.parse(sessionRaw); } catch(e) {}
+  if (!user) user = loadCurrentUser();
+  if (!user) { slot.innerHTML = ''; return; }
+  var username = user.username || getUserField(user, 'username') || '';
+  var role = user.role || user.access_level || user.userRole || user.user_role || '';
+  var district = user.assigned_district || user.district || getUserField(user, 'district') || '';
+  var chiefdom = user.assigned_chiefdom || user.chiefdom || '';
+  var access = user.access_level || user.accessLevel || user.access || '';
+  slot.innerHTML =
+    '<div class="logged-in-card">' +
+      '<div class="lic-hdr">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="#4a7048" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' +
+        'Logged-in User</div>' +
+      '<div class="lic-body">' +
+        '<div class="lic-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>' +
+        '<div class="lic-info">' +
+          '<div class="lic-eyebrow">Current session</div>' +
+          '<div class="lic-name">' + safe(username) + '</div>' +
+          '<div class="lic-meta">Role: ' + safe(role) + '<br>District: ' + safe(district) + '<br>Chiefdom: ' + safe(chiefdom) + '<br>Access: ' + safe(access) + '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DATA PERSISTENCE
+   ═══════════════════════════════════════════════════════════ */
+function loadDist(){
+  try{ return JSON.parse(localStorage.getItem('icfsl_distributions')||'[]'); }
+  catch(e){ return []; }
+}
+function saveDist(data){ localStorage.setItem('icfsl_distributions',JSON.stringify(data)); }
+
 function submitDist(){
+  var con=document.querySelector('input[name="consent"]:checked');
+  var meth=document.querySelector('input[name="method"]:checked');
   var rec={
-    token:gv('token'),headName:gv('headName'),phone:gv('phone'),totalMembers:gv('totalMembers'),
-    region:gv('region'),district:gv('district'),chiefdom:gv('chiefdom'),facility:gv('facility'),
-    community:gv('community'),gps:gv('gpsCoords'),
-    itnAllocated:document.getElementById('itnNum').textContent,itnDelivered:gv('itnDelivered'),
-    consent:document.querySelector('input[name="consent"]:checked')?document.querySelector('input[name="consent"]:checked').value:'',
-    method:document.querySelector('input[name="method"]:checked')?document.querySelector('input[name="method"]:checked').value:'',
-    distName:gv('distName'),distUsername:gv('distUsername'),distPhone:gv('distPhone'),
+    token:document.getElementById('token').value.trim(),
+    headName:document.getElementById('headName').value.trim(),
+    phone:document.getElementById('phone').value.trim(),
+    totalMembers:parseInt(document.getElementById('totalMembers').value)||0,
+    region:document.getElementById('region').value,
+    district:document.getElementById('district').value,
+    chiefdom:document.getElementById('chiefdom').value,
+    facility:document.getElementById('facility').value.trim(),
+    community:document.getElementById('community').value.trim(),
+    gps:document.getElementById('gpsCoords').value,
+    consent:con?con.value:'',
+    itnAllocated:parseInt(document.getElementById('itnNum').textContent)||0,
+    itnDelivered:parseInt(document.getElementById('itnDelivered').value)||0,
+    method:meth?meth.value:'',
+    distName:document.getElementById('distName').value.trim(),
+    distUsername:document.getElementById('distUsername').value.trim(),
+    distPhone:document.getElementById('distPhone').value.trim(),
     timestamp:new Date().toISOString()
   };
-  var list=loadDist(); list.push(rec); localStorage.setItem('icfsl_distributions',JSON.stringify(list));
-  showToast('Distribution saved successfully');
+  var all=loadDist(); all.push(rec); saveDist(all);
+  showToast('Distribution saved successfully!');
   stopGPS(); currentStep=1; updateStep(); clearForm(); goBack();
 }
 
-/* ── CLEAR FORM ── */
 function clearForm(){
   ['token','headName','phone','totalMembers','facility','community','gpsCoords','itnDelivered','distName','distUsername','distPhone'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.value='';
+    var el=document.getElementById(id);
+    if(el){el.value='';el.removeAttribute('readonly');el.removeAttribute('disabled');}
   });
   ['region','district','chiefdom'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.selectedIndex=0;
+    var el=document.getElementById(id);
+    if(el){el.selectedIndex=0;el.removeAttribute('disabled');}
   });
-  document.querySelectorAll('.rpill').forEach(function(p){ p.classList.remove('sel'); p.querySelector('input').checked=false; });
-  document.querySelectorAll('.field').forEach(function(f){ f.classList.remove('err'); });
-  document.getElementById('tokenStatus').style.display='none';
+  document.querySelectorAll('.rpill').forEach(function(p){p.classList.remove('sel');p.querySelector('input').checked=false;});
+  document.querySelectorAll('.field.err').forEach(function(f){f.classList.remove('err');});
   document.getElementById('itnNum').textContent='0';
-  unlockFields(allAutoFields); hideTags(allAutoTags);
-  ['distName','distUsername','distPhone'].forEach(function(id){
-    var el=document.getElementById(id); if(el){ el.removeAttribute('readonly'); }
-  });
-  ['distNameTag','distUsernameTag','distPhoneTag'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.style.display='none';
-  });
+  document.getElementById('tokenStatus').style.display='none';
+  hideTags(allAutoTags);
   fillDistricts(); fillChiefdoms();
 }
 
-/* ── LOAD DIST RECORDS ── */
-function loadDist(){
-  try{ return JSON.parse(localStorage.getItem('icfsl_distributions'))||[]; }catch(e){ return []; }
-}
-
-/* ── RENDER RECORDS ── */
 function renderRecords(){
-  var list=loadDist();
+  var data=loadDist();
   var wrap=document.getElementById('recordsWrap');
-  document.getElementById('recCount').textContent=list.length+' record'+(list.length!==1?'s':'');
-  if(!list.length){ wrap.innerHTML='<div class="no-records">No distribution records yet.<br>Complete a distribution to see data here.</div>'; return; }
-  var h='<table class="rec-table"><thead><tr><th>Token</th><th>Head</th><th>ITNs</th><th>Date</th></tr></thead><tbody>';
-  list.slice().reverse().forEach(function(r){
-    var d=r.timestamp?new Date(r.timestamp):'';
-    h+='<tr><td>'+(r.token||'')+'</td><td>'+(r.headName||'')+'</td><td>'+(r.itnDelivered||0)+'</td><td>'+(d?d.toLocaleDateString():'')+'</td></tr>';
+  var count=document.getElementById('recCount');
+  count.textContent=data.length+' record'+(data.length!==1?'s':'');
+  if(!data.length){ wrap.innerHTML='<div class="no-records">No distribution records yet.<br>Complete a distribution to see data here.</div>'; return; }
+  var html='<table class="rec-table"><thead><tr><th>#</th><th>Token</th><th>Head</th><th>Members</th><th>ITNs</th><th>District</th><th>Date</th></tr></thead><tbody>';
+  data.slice().reverse().forEach(function(r,i){
+    var d=r.timestamp?new Date(r.timestamp).toLocaleDateString():'—';
+    html+='<tr><td>'+(i+1)+'</td><td>'+r.token+'</td><td>'+r.headName+'</td><td>'+r.totalMembers+'</td><td>'+r.itnDelivered+'</td><td>'+r.district+'</td><td>'+d+'</td></tr>';
   });
-  h+='</tbody></table>';
-  wrap.innerHTML=h;
+  html+='</tbody></table>';
+  wrap.innerHTML=html;
 }
 
-/* ── EXPORT CSV ── */
 function exportCSV(){
-  var list=loadDist();
-  if(!list.length){ showToast('No records to export'); return; }
-  var headers=['token','headName','phone','totalMembers','region','district','chiefdom','facility','community','gps','itnAllocated','itnDelivered','consent','method','distName','distUsername','distPhone','timestamp'];
-  var csv=headers.join(',')+'\n';
-  list.forEach(function(r){
-    csv+=headers.map(function(h){
-      var v=r[h]||'';
-      return '"'+String(v).replace(/"/g,'""')+'"';
-    }).join(',')+'\n';
+  var data=loadDist();
+  if(!data.length){showToast('No records to export');return;}
+  var headers=['Token','Head Name','Phone','Members','Region','District','Chiefdom','Facility','Community','GPS','Consent','ITN Allocated','ITN Delivered','Method','Distributor','Username','Dist Phone','Timestamp'];
+  var rows=data.map(function(r){
+    return [r.token,r.headName,r.phone,r.totalMembers,r.region,r.district,r.chiefdom,r.facility,r.community,r.gps,r.consent,r.itnAllocated,r.itnDelivered,r.method,r.distName,r.distUsername,r.distPhone,r.timestamp].map(function(v){
+      return '"'+String(v||'').replace(/"/g,'""')+'"';
+    }).join(',');
   });
+  var csv=headers.join(',')+'\n'+rows.join('\n');
   var blob=new Blob([csv],{type:'text/csv'});
-  var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a'); a.href=url;
   a.download='icfsl_distributions_'+new Date().toISOString().slice(0,10)+'.csv';
-  a.click(); URL.revokeObjectURL(a.href);
-  showToast('CSV exported');
+  a.click(); URL.revokeObjectURL(url);
+  showToast('CSV exported!');
 }
 
-/* ── TARGET ── */
 function updateTarget(){
-  var list=loadDist();
-  var tgt=parseInt(localStorage.getItem('icfsl_target'))||500;
-  document.getElementById('newTarget').value=tgt;
-  document.getElementById('tgt-total').textContent=tgt;
-  var done=list.length;
-  var itns=list.reduce(function(s,r){ return s+parseInt(r.itnDelivered||0); },0);
-  var rem=Math.max(0,tgt-done);
-  var pct=tgt?Math.round(done/tgt*100):0;
+  var data=loadDist();
+  var target=parseInt(document.getElementById('newTarget').value)||500;
+  var done=data.length;
+  var itns=data.reduce(function(s,r){return s+(r.itnDelivered||0);},0);
+  var pct=Math.min(100,Math.round(done/target*100));
+  var rem=Math.max(0,target-done);
+  document.getElementById('tgt-bar').style.width=pct+'%';
+  document.getElementById('tgt-pct').textContent=pct+'% complete';
   document.getElementById('tgt-done').textContent=done;
+  document.getElementById('tgt-total').textContent=target;
   document.getElementById('tgt-rem').textContent=rem;
   document.getElementById('tgt-itn').textContent=itns;
-  document.getElementById('tgt-pct').textContent=pct+'% complete';
-  document.getElementById('tgt-bar').style.width=Math.min(100,pct)+'%';
-}
-function setDistTarget(){
-  var v=parseInt(document.getElementById('newTarget').value);
-  if(!v||v<1){ showToast('Enter a valid target'); return; }
-  localStorage.setItem('icfsl_target',v);
-  updateTarget(); showToast('Target updated');
 }
 
-/* ── TOAST ── */
-function showToast(msg){
-  var t=document.getElementById('toast'); t.textContent=msg;
-  t.classList.add('show');
-  setTimeout(function(){ t.classList.remove('show'); },2500);
-}
+function setDistTarget(){ updateTarget(); showToast('Target updated!'); }
 
-/* ── LOGOUT ── */
 function doLogout(){
-  if(confirm('Are you sure you want to logout?')){
-    localStorage.removeItem('icfsl_user');
-    window.location.href='index.html';
-  }
+  sessionStorage.removeItem('currentUser');
+  localStorage.removeItem('icfsl_user');
+  localStorage.removeItem('currentUser');
+  window.location.href='index.html';
 }
 
-/* ── START ── */
-window.addEventListener('DOMContentLoaded', init);
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},2500);
+}
+
+init();
 </script>
 </body>
 </html>
