@@ -259,16 +259,6 @@ select{
 }
 .gps-retry:hover{color:#2e6e28;}
 .dist-card .sec-fields{gap:10px;}
-/* Added for equal card dimensions */
-.card-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.dash-card {
-  height: 220px; /* Fixed height for all cards */
-  width: 100%; /* Full width within grid cell */
-}
 </style>
 </head>
 <body>
@@ -700,46 +690,22 @@ function loadAllRegistrations() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   DISTRIBUTOR CREDENTIALS LOOKUP FROM CSV FILE
+   DISTRIBUTOR CREDENTIALS LOOKUP
    ═══════════════════════════════════════════════════════════ */
-function loadUserFromCSV() {
-  // This function simulates loading user data from user1.csv
-  // In a real implementation, you would need a server-side script to read the CSV file
-  // or use a file input to let the user select the file
-  
-  // For demonstration, we'll use localStorage as a fallback
-  // The actual implementation would require a server to read the CSV file
-  
-  // Try to get the current user from localStorage first
-  var user = null;
-  var USER_KEYS = [
-    'icfsl_user','icfsl_current_user','currentUser','loggedInUser',
-    'userData','user','session','icfsl_session','loggedUser',
-    'icfsl_logged_user','activeUser','icfsl_active_user',
-    'auth_user','authUser','profile','userProfile','user_profile'
-  ];
-  
-  for (var k = 0; k < USER_KEYS.length; k++) {
-    try {
-      var raw = localStorage.getItem(USER_KEYS[k]);
-      if (!raw) continue;
-      var parsed = JSON.parse(raw);
-      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
-        user = parsed;
-        break;
-      }
-    } catch(e) {}
-  }
-  
-  // If no user found in localStorage, you would need to implement
-  // a way to read from user1.csv here
-  // This could be done with:
-  // 1. A file input element that lets the user select the CSV
-  // 2. A server-side API endpoint that returns the user data
-  // 3. Pre-loading the CSV data into a JavaScript variable
-  
-  return user;
-}
+var USER_KEYS = [
+  'icfsl_user','icfsl_current_user','currentUser','loggedInUser',
+  'userData','user','session','icfsl_session','loggedUser',
+  'icfsl_logged_user','activeUser','icfsl_active_user',
+  'auth_user','authUser','profile','userProfile','user_profile'
+];
+
+var USER_ALIASES = {
+  name:     ['fullName','full_name','name','displayName','display_name','fullNameText','headName','userName','user_name','firstLastName'],
+  firstName:['firstName','first_name','fname','givenName','given_name'],
+  lastName: ['lastName','last_name','lname','surname','familyName','family_name'],
+  username: ['username','userName','user_name','userid','userId','user_id','loginId','login_id','accountName','account_name','email'],
+  phone:    ['phone','phoneNumber','phone_number','telephone','mobile','contact','phoneNo','phone_no','cell','cellNumber','tel']
+};
 
 function getUserField(record, aliasGroup) {
   var keys = USER_ALIASES[aliasGroup];
@@ -753,18 +719,23 @@ function getUserField(record, aliasGroup) {
   return '';
 }
 
-var USER_ALIASES = {
-  name:     ['fullName','full_name','name','displayName','display_name','fullNameText','headName','userName','user_name','firstLastName'],
-  firstName:['firstName','first_name','fname','givenName','given_name'],
-  lastName: ['lastName','last_name','lname','surname','familyName','family_name'],
-  username: ['username','userName','user_name','userid','userId','user_id','loginId','login_id','accountName','account_name','email'],
-  phone:    ['phone','phoneNumber','phone_number','telephone','mobile','contact','phoneNo','phone_no','cell','cellNumber','tel']
-};
+function loadCurrentUser() {
+  for (var k = 0; k < USER_KEYS.length; k++) {
+    try {
+      var raw = localStorage.getItem(USER_KEYS[k]);
+      if (!raw) continue;
+      var parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        return parsed;
+      }
+    } catch(e) {}
+  }
+  return null;
+}
 
 function autoFillDistributor() {
-  var user = loadUserFromCSV();
+  var user = loadCurrentUser();
   if (!user) return;
-  
   var name = getUserField(user, 'name');
   if (!name) {
     var fn = getUserField(user, 'firstName');
@@ -776,14 +747,12 @@ function autoFillDistributor() {
     document.getElementById('distName').setAttribute('readonly', true);
     document.getElementById('distNameTag').style.display = 'inline-block';
   }
-  
   var uname = getUserField(user, 'username');
   if (uname) {
     document.getElementById('distUsername').value = uname;
     document.getElementById('distUsername').setAttribute('readonly', true);
     document.getElementById('distUsernameTag').style.display = 'inline-block';
   }
-  
   var uphone = getUserField(user, 'phone');
   if (uphone) {
     document.getElementById('distPhone').value = uphone;
@@ -840,7 +809,7 @@ function stopGPS() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   NAVIGATION WITH HISTORY STACK - Modified to go back to previous page
+   NAVIGATION WITH HISTORY STACK - MODIFIED TO RETURN TO PREVIOUS PAGE
    ═══════════════════════════════════════════════════════════ */
 function goScreen(id) {
   var currentActive = document.querySelector('.screen.active');
@@ -855,13 +824,10 @@ function goScreen(id) {
 
 function goBack() {
   var currentActive = document.querySelector('.screen.active');
-  
-  // If we're on the distribution screen, reset it before going back
   if (currentActive && currentActive.id === 'distScreen') {
     stopGPS(); currentStep = 1; updateStep(); clearForm();
   }
-  
-  // Go back to the previous page in the navigation stack
+  // Always go back to the previous page in the navigation stack
   if (navStack.length > 0) {
     var prevId = navStack.pop();
     document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
@@ -870,7 +836,7 @@ function goBack() {
     if (prevId === 'targetScreen') updateTarget();
     window.scrollTo(0, 0);
   } else {
-    // If no previous page in stack, go to home
+    // Only go to home screen if there's nothing in the stack
     document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
     document.getElementById('homeScreen').classList.add('active');
     window.scrollTo(0, 0);
@@ -1106,17 +1072,231 @@ function checkToken(v){
         var ln = getRegField(match, 'lastName');
         headName = (fn + ' ' + ln).trim();
       }
-      // Continue with the rest of the auto-fill logic...
-      // (This is where the rest of your existing code would continue)
+      if(headName){
+        document.getElementById('headName').value = headName;
+        document.getElementById('headName').setAttribute('readonly', true);
+        document.getElementById('headNameTag').style.display = 'inline-block';
+      }
+
+      /* === PHONE === */
+      var phone = getRegField(match, 'phone');
+      if(phone){
+        document.getElementById('phone').value = phone;
+        document.getElementById('phone').setAttribute('readonly', true);
+        document.getElementById('phoneTag').style.display = 'inline-block';
+      }
+
+      /* === MEMBERS === */
+      var members = getRegField(match, 'members');
+      if(members){
+        document.getElementById('totalMembers').value = members;
+        document.getElementById('totalMembers').setAttribute('readonly', true);
+        document.getElementById('membersTag').style.display = 'inline-block';
+        calcITN();
+      }
+
+      /* === LOCATION === */
+      var region = getRegField(match, 'region');
+      var district = getRegField(match, 'district');
+      var chiefdom = getRegField(match, 'chiefdom');
+      var facility = getRegField(match, 'facility');
+      var community = getRegField(match, 'community');
+
+      if(region && setSelectValue('region', region)){
+        document.getElementById('region').setAttribute('disabled', true);
+        document.getElementById('regionTag').style.display = 'inline-block';
+        fillDistricts();
+        if(district && setSelectValue('district', district)){
+          document.getElementById('district').setAttribute('disabled', true);
+          document.getElementById('districtTag').style.display = 'inline-block';
+          fillChiefdoms();
+          if(chiefdom && setSelectValue('chiefdom', chiefdom)){
+            document.getElementById('chiefdom').setAttribute('disabled', true);
+            document.getElementById('chiefdomTag').style.display = 'inline-block';
+          }
+        }
+      }
+      if(facility){
+        document.getElementById('facility').value = facility;
+        document.getElementById('facility').setAttribute('readonly', true);
+        document.getElementById('facilityTag').style.display = 'inline-block';
+      }
+      if(community){
+        document.getElementById('community').value = community;
+        document.getElementById('community').setAttribute('readonly', true);
+        document.getElementById('communityTag').style.display = 'inline-block';
+      }
+    } else {
+      st.className='token-status available';
+      st.textContent='New token — fill details manually';
+      unlockFields(allAutoFields);
+      hideTags(allAutoTags);
     }
-  }, 300);
+  }, 400);
 }
 
-// The rest of your existing JavaScript code would continue here...
-// (I've included only the parts that needed to be changed to save space)
+/* ── ITN CALCULATION ── */
+function calcITN(){
+  var m=parseInt(document.getElementById('totalMembers').value)||0;
+  var n=Math.ceil(m/2);
+  document.getElementById('itnNum').textContent=n;
+}
 
-// Initialize the application when the page loads
-window.onload = init;
+/* ── RADIO HELPERS ── */
+function selectRadio(el, groupName, value){
+  document.querySelectorAll('input[name="'+groupName+'"]').forEach(function(r){ r.checked=false; r.parentElement.classList.remove('sel'); });
+  el.querySelector('input').checked=true;
+  el.classList.add('sel');
+}
+
+/* ── BUILD SUMMARY ── */
+function buildSummary(){
+  var box=document.getElementById('summaryBox');
+  var h='<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> Household</div>';
+  h+=sRow('Token',gv('token'));
+  h+=sRow('Head Name',gv('headName'));
+  h+=sRow('Phone',gv('phone'));
+  h+=sRow('Members',gv('totalMembers'));
+  h+='</div>';
+  h+='<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Location</div>';
+  h+=sRow('Region',gv('region'));
+  h+=sRow('District',gv('district'));
+  h+=sRow('Chiefdom',gv('chiefdom'));
+  h+=sRow('Facility',gv('facility'));
+  h+=sRow('Community',gv('community'));
+  h+=sRow('GPS',gv('gpsCoords'));
+  h+='</div>';
+  h+='<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Distribution</div>';
+  var con=document.querySelector('input[name="consent"]:checked');
+  h+=sRow('Consent',con?con.value==='yes'?'Given':'Refused':'—');
+  h+=sRow('ITNs Allocated',document.getElementById('itnNum').textContent);
+  h+=sRow('ITNs Delivered',gv('itnDelivered'));
+  var meth=document.querySelector('input[name="method"]:checked');
+  h+=sRow('Method',meth?(meth.value==='door'?'Door-to-door':'Fixed site'):'—');
+  h+='</div>';
+  box.innerHTML=h;
+}
+function sRow(k,v){ return '<div class="sum-row"><span class="sk">'+k+'</span><span class="sv">'+(v||'—')+'</span></div>'; }
+function gv(id){ var el=document.getElementById(id); return el?el.value.trim():''; }
+
+/* ── SUBMIT ── */
+function submitDist(){
+  var rec={
+    token:gv('token'),headName:gv('headName'),phone:gv('phone'),totalMembers:gv('totalMembers'),
+    region:gv('region'),district:gv('district'),chiefdom:gv('chiefdom'),facility:gv('facility'),
+    community:gv('community'),gps:gv('gpsCoords'),
+    itnAllocated:document.getElementById('itnNum').textContent,itnDelivered:gv('itnDelivered'),
+    consent:document.querySelector('input[name="consent"]:checked')?document.querySelector('input[name="consent"]:checked').value:'',
+    method:document.querySelector('input[name="method"]:checked')?document.querySelector('input[name="method"]:checked').value:'',
+    distName:gv('distName'),distUsername:gv('distUsername'),distPhone:gv('distPhone'),
+    timestamp:new Date().toISOString()
+  };
+  var list=loadDist(); list.push(rec); localStorage.setItem('icfsl_distributions',JSON.stringify(list));
+  showToast('Distribution saved successfully');
+  stopGPS(); currentStep=1; updateStep(); clearForm(); goBack();
+}
+
+/* ── CLEAR FORM ── */
+function clearForm(){
+  ['token','headName','phone','totalMembers','facility','community','gpsCoords','itnDelivered','distName','distUsername','distPhone'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.value='';
+  });
+  ['region','district','chiefdom'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.selectedIndex=0;
+  });
+  document.querySelectorAll('.rpill').forEach(function(p){ p.classList.remove('sel'); p.querySelector('input').checked=false; });
+  document.querySelectorAll('.field').forEach(function(f){ f.classList.remove('err'); });
+  document.getElementById('tokenStatus').style.display='none';
+  document.getElementById('itnNum').textContent='0';
+  unlockFields(allAutoFields); hideTags(allAutoTags);
+  ['distName','distUsername','distPhone'].forEach(function(id){
+    var el=document.getElementById(id); if(el){ el.removeAttribute('readonly'); }
+  });
+  ['distNameTag','distUsernameTag','distPhoneTag'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.style.display='none';
+  });
+  fillDistricts(); fillChiefdoms();
+}
+
+/* ── LOAD DIST RECORDS ── */
+function loadDist(){
+  try{ return JSON.parse(localStorage.getItem('icfsl_distributions'))||[]; }catch(e){ return []; }
+}
+
+/* ── RENDER RECORDS ── */
+function renderRecords(){
+  var list=loadDist();
+  var wrap=document.getElementById('recordsWrap');
+  document.getElementById('recCount').textContent=list.length+' record'+(list.length!==1?'s':'');
+  if(!list.length){ wrap.innerHTML='<div class="no-records">No distribution records yet.<br>Complete a distribution to see data here.</div>'; return; }
+  var h='<table class="rec-table"><thead><tr><th>Token</th><th>Head</th><th>ITNs</th><th>Date</th></tr></thead><tbody>';
+  list.slice().reverse().forEach(function(r){
+    var d=r.timestamp?new Date(r.timestamp):'';
+    h+='<tr><td>'+(r.token||'')+'</td><td>'+(r.headName||'')+'</td><td>'+(r.itnDelivered||0)+'</td><td>'+(d?d.toLocaleDateString():'')+'</td></tr>';
+  });
+  h+='</tbody></table>';
+  wrap.innerHTML=h;
+}
+
+/* ── EXPORT CSV ── */
+function exportCSV(){
+  var list=loadDist();
+  if(!list.length){ showToast('No records to export'); return; }
+  var headers=['token','headName','phone','totalMembers','region','district','chiefdom','facility','community','gps','itnAllocated','itnDelivered','consent','method','distName','distUsername','distPhone','timestamp'];
+  var csv=headers.join(',')+'\n';
+  list.forEach(function(r){
+    csv+=headers.map(function(h){
+      var v=r[h]||'';
+      return '"'+String(v).replace(/"/g,'""')+'"';
+    }).join(',')+'\n';
+  });
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='icfsl_distributions_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click(); URL.revokeObjectURL(a.href);
+  showToast('CSV exported');
+}
+
+/* ── TARGET ── */
+function updateTarget(){
+  var list=loadDist();
+  var tgt=parseInt(localStorage.getItem('icfsl_target'))||500;
+  document.getElementById('newTarget').value=tgt;
+  document.getElementById('tgt-total').textContent=tgt;
+  var done=list.length;
+  var itns=list.reduce(function(s,r){ return s+parseInt(r.itnDelivered||0); },0);
+  var rem=Math.max(0,tgt-done);
+  var pct=tgt?Math.round(done/tgt*100):0;
+  document.getElementById('tgt-done').textContent=done;
+  document.getElementById('tgt-rem').textContent=rem;
+  document.getElementById('tgt-itn').textContent=itns;
+  document.getElementById('tgt-pct').textContent=pct+'% complete';
+  document.getElementById('tgt-bar').style.width=Math.min(100,pct)+'%';
+}
+function setDistTarget(){
+  var v=parseInt(document.getElementById('newTarget').value);
+  if(!v||v<1){ showToast('Enter a valid target'); return; }
+  localStorage.setItem('icfsl_target',v);
+  updateTarget(); showToast('Target updated');
+}
+
+/* ── TOAST ── */
+function showToast(msg){
+  var t=document.getElementById('toast'); t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); },2500);
+}
+
+/* ── LOGOUT ── */
+function doLogout(){
+  if(confirm('Are you sure you want to logout?')){
+    localStorage.removeItem('icfsl_user');
+    window.location.href='index.html';
+  }
+}
+
+/* ── START ── */
+window.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
