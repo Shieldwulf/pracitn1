@@ -258,7 +258,6 @@ select{
   font-weight:700;cursor:pointer;padding:2px 0;text-decoration:underline;
 }
 .gps-retry:hover{color:#2e6e28;}
-.dist-card .sec-fields{gap:10px;}
 .logged-in-card{
   background:#fff;border-radius:18px;
   border:0.5px solid #d4e4cf;overflow:hidden;
@@ -468,28 +467,8 @@ select{
         </div>
         <div class="sec-fields" id="summaryBox"></div>
       </div>
-      <div class="form-section dist-card">
-        <div class="sec-hdr">
-          <div class="sec-icon si-slate"><svg viewBox="0 0 24 24" fill="none" stroke="#4a5568" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
-          <div><div class="sec-title">Distributor Details</div><div class="sec-desc">Confirm your identity</div></div>
-        </div>
-        <div class="sec-fields">
-          <div class="field" id="f-distName">
-            <label class="flabel">Full Name <span class="req">*</span><span class="autofill-tag" id="distNameTag" style="display:none">auto</span></label>
-            <input type="text" id="distName" placeholder="Distributor full name">
-          </div>
-          <div class="field" id="f-distUsername">
-            <label class="flabel">Username <span class="req">*</span><span class="autofill-tag" id="distUsernameTag" style="display:none">auto</span></label>
-            <input type="text" id="distUsername" placeholder="System username">
-          </div>
-          <div class="field" id="f-distPhone">
-            <label class="flabel">Telephone<span class="autofill-tag" id="distPhoneTag" style="display:none">auto</span></label>
-            <input type="tel" id="distPhone" placeholder="Contact number">
-          </div>
-        </div>
-      </div>
 
-      <!-- LOGGED-IN USER CARD — at the bottom of confirmation page -->
+      <!-- LOGGED-IN USER CARD -->
       <div id="loggedInUserCardSlot"></div>
     </div>
 
@@ -758,34 +737,6 @@ function loadCurrentUser() {
   return null;
 }
 
-function autoFillDistributor() {
-  var user = loadCurrentUser();
-  if (!user) return;
-  var name = getUserField(user, 'name');
-  if (!name) {
-    var fn = getUserField(user, 'firstName');
-    var ln = getUserField(user, 'lastName');
-    name = (fn + ' ' + ln).trim();
-  }
-  if (name) {
-    document.getElementById('distName').value = name;
-    document.getElementById('distName').setAttribute('readonly', true);
-    document.getElementById('distNameTag').style.display = 'inline-block';
-  }
-  var uname = getUserField(user, 'username');
-  if (uname) {
-    document.getElementById('distUsername').value = uname;
-    document.getElementById('distUsername').setAttribute('readonly', true);
-    document.getElementById('distUsernameTag').style.display = 'inline-block';
-  }
-  var uphone = getUserField(user, 'phone');
-  if (uphone) {
-    document.getElementById('distPhone').value = uphone;
-    document.getElementById('distPhone').setAttribute('readonly', true);
-    document.getElementById('distPhoneTag').style.display = 'inline-block';
-  }
-}
-
 /* ═══════════════════════════════════════════════════════════
    AUTOMATIC GPS CAPTURE
    ═══════════════════════════════════════════════════════════ */
@@ -888,7 +839,7 @@ function updateStep(){
   document.getElementById('btnBack').style.display=currentStep===1?'none':'flex';
   document.getElementById('btnNext').innerHTML=currentStep===3?'Submit Final ✓':'Next →';
   document.getElementById('btnNext').className=currentStep===3?'btn-submit-final':'btn-next';
-  if(currentStep===3){ autoFillDistributor(); buildSummary(); renderLoggedInUserCard(); }
+  if(currentStep===3){ buildSummary(); renderLoggedInUserCard(); }
 }
 function nextStep(){
   if(!validateStep(currentStep))return;
@@ -902,7 +853,7 @@ function validateStep(step){
   var ok=true;
   function req(id){
     var el=document.getElementById(id);
-    if(!el||!el.value.trim()){ el.parentElement.classList.add('err'); ok=false; }
+    if(!el||!el.value.trim()){ if(el) el.parentElement.classList.add('err'); ok=false; }
     else{ el.parentElement.classList.remove('err'); }
   }
   if(step===1){
@@ -922,7 +873,7 @@ function validateStep(step){
     var alloc=parseInt(document.getElementById('itnNum').textContent)||0;
     if(del>alloc){ document.getElementById('itnDelivered').parentElement.classList.add('err'); ok=false; showToast('Cannot exceed allocation'); }
   }
-  if(step===3){ req('distName'); req('distUsername'); }
+  /* Step 3: no distributor fields to validate — removed */
   return ok;
 }
 
@@ -1053,7 +1004,6 @@ function checkToken(v){
       st.className='token-status prefilled';
       st.textContent='Token found — all details auto-filled';
 
-      /* ── Household fields ── */
       var hn=getRegField(match,'headName');
       if(hn){ document.getElementById('headName').value=hn; document.getElementById('headNameTag').style.display='inline-block'; }
       var ph=getRegField(match,'phone');
@@ -1061,7 +1011,6 @@ function checkToken(v){
       var mb=getRegField(match,'members');
       if(mb){ document.getElementById('totalMembers').value=mb; document.getElementById('membersTag').style.display='inline-block'; calcITN(); }
 
-      /* ── Location fields — original setTimeout cascade ── */
       var rg=getRegField(match,'region');
       if(rg){
         setSelectValue('region',rg);
@@ -1084,13 +1033,11 @@ function checkToken(v){
         },50);
       }
 
-      /* ── Remaining fields ── */
       var fc=getRegField(match,'facility');
       if(fc){ document.getElementById('facility').value=fc; document.getElementById('facilityTag').style.display='inline-block'; }
       var cm=getRegField(match,'community');
       if(cm){ document.getElementById('community').value=cm; document.getElementById('communityTag').style.display='inline-block'; }
 
-      /* ── Lock all auto-filled fields ── */
       lockFields(allAutoFields);
 
     } else {
@@ -1149,7 +1096,7 @@ function buildSummary(){
 }
 
 /* ═══════════════════════════════════════════════════════════
-   LOGGED-IN USER CARD — REUSABLE, INSERTED AT CONFIRMATION BOTTOM
+   LOGGED-IN USER CARD — REUSABLE
    ═══════════════════════════════════════════════════════════ */
 function renderLoggedInUserCard(slotId) {
   if (!slotId) slotId = 'loggedInUserCardSlot';
@@ -1193,6 +1140,19 @@ function saveDist(data){ localStorage.setItem('icfsl_distributions',JSON.stringi
 function submitDist(){
   var con=document.querySelector('input[name="consent"]:checked');
   var meth=document.querySelector('input[name="method"]:checked');
+
+  /* Pull distributor info silently from session/storage */
+  var distName = '', distUsername = '', distPhone = '';
+  var user = null;
+  try { var sr = sessionStorage.getItem('currentUser'); if (sr) user = JSON.parse(sr); } catch(e) {}
+  if (!user) user = loadCurrentUser();
+  if (user) {
+    distName = user.username || getUserField(user,'name') || '';
+    if (!distName) { var fn = getUserField(user,'firstName'); var ln = getUserField(user,'lastName'); distName = (fn+' '+ln).trim(); }
+    distUsername = getUserField(user,'username') || '';
+    distPhone = getUserField(user,'phone') || '';
+  }
+
   var rec={
     token:document.getElementById('token').value.trim(),
     headName:document.getElementById('headName').value.trim(),
@@ -1208,9 +1168,9 @@ function submitDist(){
     itnAllocated:parseInt(document.getElementById('itnNum').textContent)||0,
     itnDelivered:parseInt(document.getElementById('itnDelivered').value)||0,
     method:meth?meth.value:'',
-    distName:document.getElementById('distName').value.trim(),
-    distUsername:document.getElementById('distUsername').value.trim(),
-    distPhone:document.getElementById('distPhone').value.trim(),
+    distName:distName,
+    distUsername:distUsername,
+    distPhone:distPhone,
     timestamp:new Date().toISOString()
   };
   var all=loadDist(); all.push(rec); saveDist(all);
@@ -1219,7 +1179,7 @@ function submitDist(){
 }
 
 function clearForm(){
-  ['token','headName','phone','totalMembers','facility','community','gpsCoords','itnDelivered','distName','distUsername','distPhone'].forEach(function(id){
+  ['token','headName','phone','totalMembers','facility','community','gpsCoords','itnDelivered'].forEach(function(id){
     var el=document.getElementById(id);
     if(el){el.value='';el.removeAttribute('readonly');el.removeAttribute('disabled');}
   });
