@@ -259,6 +259,44 @@ select{
 }
 .gps-retry:hover{color:#2e6e28;}
 .dist-card .sec-fields{gap:10px;}
+
+/* ── LOGGED-IN USER CARD (reusable) ── */
+.user-card{
+  background:#fff;
+  border:1px solid #d4e4cf;
+  border-radius:18px;
+  padding:16px 16px 16px 20px;
+  box-shadow:0 10px 24px rgba(31,41,55,0.08);
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+}
+.user-card .user-avatar{
+  width:46px;height:46px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#4a7048,#7a9e76);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.user-card .user-avatar svg{
+  width:24px;height:24px;display:block;stroke:#fff;fill:none;
+  stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+}
+.user-card .user-info{flex:1;min-width:0;}
+.user-card .user-eyebrow{
+  font-size:10px;font-weight:800;
+  color:#7a9e76;letter-spacing:1.2px;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+.user-card .user-name{
+  font-size:18px;font-weight:800;color:#1c2b1c;
+  margin-bottom:5px;
+  line-height:1.2;
+}
+.user-card .user-meta{
+  font-size:12px;color:#5a7258;line-height:1.55;
+}
 </style>
 </head>
 <body>
@@ -429,7 +467,7 @@ select{
 
     <!-- STEP 3 -->
     <div id="step3" style="display:none">
-      <!-- Confirmation card moved to the top -->
+      <!-- Confirmation card -->
       <div class="form-section">
         <div class="sec-hdr">
           <div class="sec-icon si-purple"><svg viewBox="0 0 24 24" fill="none" stroke="#805ad5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
@@ -438,7 +476,7 @@ select{
         <div class="sec-fields" id="summaryBox"></div>
       </div>
       
-      <!-- Distributor Details card moved to the bottom -->
+      <!-- Distributor Details card -->
       <div class="form-section dist-card">
         <div class="sec-hdr">
           <div class="sec-icon si-slate"><svg viewBox="0 0 24 24" fill="none" stroke="#4a5568" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
@@ -459,6 +497,9 @@ select{
           </div>
         </div>
       </div>
+
+      <!-- LOGGED-IN USER CARD — inserted at the end of step 3 -->
+      <div id="userCardSlot"></div>
     </div>
 
   </div>
@@ -539,15 +580,9 @@ select{
 
 <script>
 /* ═══════════════════════════════════════════════════════════
-   GEO DATA — Merged from both regform.html and original distribution.
-   Registration page uses: "Northern Region", "Southern Region",
-   "Eastern Region", "Western Area" with shared chiefdom lists.
-   Original distribution uses: "North", "North West", "South East", "South"
-   with district-specific chiefdoms.
-   ALL entries are included here so setSelectValue always finds a match.
+   GEO DATA
    ═══════════════════════════════════════════════════════════ */
 var geo={
-  /* ── From regform.html (chiefdoms shared across all districts in region) ── */
   "Northern Region":{
     "Falaba":["Wara Wara Zagala","Wara Wara Yagala","Biriwa","Sella Limba","Gbanti","Kasunko"],
     "Bombali":["Wara Wara Zagala","Wara Wara Yagala","Biriwa","Sella Limba","Gbanti","Kasunko"],
@@ -569,7 +604,6 @@ var geo={
     "Western Area Rural":["Waterloo","Newton","Benguema","Tombo","Central","East"],
     "Western Area Urban":["Waterloo","Newton","Benguema","Tombo","Central","East"]
   },
-  /* ── Original distribution page (district-specific chiefdoms) ── */
   "North West":{
     "Kambia":["Dixon","Gbinle","Samu","Tunkia"],
     "Port Loko":["Bureh","Kafu Bullom","Lokomasama","Marampa","Masimera"]
@@ -720,6 +754,17 @@ function getUserField(record, aliasGroup) {
 }
 
 function loadCurrentUser() {
+  /* Check sessionStorage first */
+  try {
+    var sessRaw = sessionStorage.getItem('currentUser');
+    if (sessRaw) {
+      var sessParsed = JSON.parse(sessRaw);
+      if (sessParsed && typeof sessParsed === 'object' && !Array.isArray(sessParsed)) {
+        return sessParsed;
+      }
+    }
+  } catch(e) {}
+  /* Then check localStorage */
   for (var k = 0; k < USER_KEYS.length; k++) {
     try {
       var raw = localStorage.getItem(USER_KEYS[k]);
@@ -759,6 +804,63 @@ function autoFillDistributor() {
     document.getElementById('distPhone').setAttribute('readonly', true);
     document.getElementById('distPhoneTag').style.display = 'inline-block';
   }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   REUSABLE LOGGED-IN USER CARD
+   ═══════════════════════════════════════════════════════════ */
+function renderUserCard(slotId, guard) {
+  var slot = document.getElementById(slotId);
+  if (!slot) return;
+
+  function safe(v) {
+    return (v === undefined || v === null || v === '') ? '—' : String(v);
+  }
+
+  var user = loadCurrentUser();
+
+  if (!user) {
+    if (guard) {
+      window.location.href = 'index.html';
+      return;
+    }
+    slot.innerHTML = '';
+    return;
+  }
+
+  var username = getUserField(user, 'username');
+  var name = getUserField(user, 'name');
+  if (!name) {
+    var fn = getUserField(user, 'firstName');
+    var ln = getUserField(user, 'lastName');
+    name = (fn + ' ' + ln).trim();
+  }
+  var displayName = username || name || '—';
+
+  var role = user.role || getUserField(user, 'name') || '—';
+  var district = user.assigned_district || user.district || '—';
+  var chiefdom = user.assigned_chiefdom || user.chiefdom || '—';
+  var access = user.access_level || user.accessLevel || '—';
+
+  slot.innerHTML =
+    '<div class="user-card">' +
+      '<div class="user-avatar">' +
+        '<svg viewBox="0 0 24 24">' +
+          '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>' +
+          '<circle cx="12" cy="7" r="4"/>' +
+        '</svg>' +
+      '</div>' +
+      '<div class="user-info">' +
+        '<div class="user-eyebrow">Logged-in user</div>' +
+        '<div class="user-name">' + safe(displayName) + '</div>' +
+        '<div class="user-meta">' +
+          'Role: ' + safe(role) + '<br>' +
+          'District: ' + safe(district) + '<br>' +
+          'Chiefdom: ' + safe(chiefdom) + '<br>' +
+          'Access: ' + safe(access) +
+        '</div>' +
+      '</div>' +
+    '</div>';
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -809,7 +911,7 @@ function stopGPS() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   NAVIGATION WITH HISTORY STACK - MODIFIED TO RETURN TO PREVIOUS PAGE
+   NAVIGATION
    ═══════════════════════════════════════════════════════════ */
 function goScreen(id) {
   var currentActive = document.querySelector('.screen.active');
@@ -827,7 +929,6 @@ function goBack() {
   if (currentActive && currentActive.id === 'distScreen') {
     stopGPS(); currentStep = 1; updateStep(); clearForm();
   }
-  // Always go back to the previous page in the navigation stack
   if (navStack.length > 0) {
     var prevId = navStack.pop();
     document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
@@ -836,7 +937,6 @@ function goBack() {
     if (prevId === 'targetScreen') updateTarget();
     window.scrollTo(0, 0);
   } else {
-    // Only go to home screen if there's nothing in the stack
     document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
     document.getElementById('homeScreen').classList.add('active');
     window.scrollTo(0, 0);
@@ -865,7 +965,7 @@ function updateStep(){
   document.getElementById('btnBack').style.display=currentStep===1?'none':'flex';
   document.getElementById('btnNext').innerHTML=currentStep===3?'Submit Final ✓':'Next →';
   document.getElementById('btnNext').className=currentStep===3?'btn-submit-final':'btn-next';
-  if(currentStep===3){ autoFillDistributor(); buildSummary(); }
+  if(currentStep===3){ autoFillDistributor(); buildSummary(); renderUserCard('userCardSlot', false); }
 }
 function nextStep(){
   if(!validateStep(currentStep))return;
@@ -925,7 +1025,6 @@ function fillChiefdoms(){
 
 /* ═══════════════════════════════════════════════════════════
    ROBUST SELECT VALUE SETTER
-   Tries exact → case-insensitive → contains → word-boundary match.
    ═══════════════════════════════════════════════════════════ */
 function setSelectValue(selectId, value) {
   if (!value) return false;
@@ -937,34 +1036,21 @@ function setSelectValue(selectId, value) {
   var opts = sel.options;
   var i;
 
-  /* Pass 1: exact match */
   for (i = 0; i < opts.length; i++) {
-    if (opts[i].value === trimmed) {
-      sel.selectedIndex = i;
-      return true;
-    }
+    if (opts[i].value === trimmed) { sel.selectedIndex = i; return true; }
   }
 
-  /* Pass 2: case-insensitive match */
   var lowerVal = trimmed.toLowerCase();
   for (i = 0; i < opts.length; i++) {
-    if (opts[i].value && opts[i].value.toLowerCase() === lowerVal) {
-      sel.selectedIndex = i;
-      return true;
-    }
+    if (opts[i].value && opts[i].value.toLowerCase() === lowerVal) { sel.selectedIndex = i; return true; }
   }
 
-  /* Pass 3: contains match */
   for (i = 0; i < opts.length; i++) {
     if (!opts[i].value) continue;
     var optLower = opts[i].value.toLowerCase();
-    if (optLower.indexOf(lowerVal) !== -1 || lowerVal.indexOf(optLower) !== -1) {
-      sel.selectedIndex = i;
-      return true;
-    }
+    if (optLower.indexOf(lowerVal) !== -1 || lowerVal.indexOf(optLower) !== -1) { sel.selectedIndex = i; return true; }
   }
 
-  /* Pass 4: word-boundary scoring */
   var valWords = lowerVal.replace(/[^a-z0-9]+/g,' ').split(' ').filter(function(w){ return w.length > 2; });
   if (valWords.length > 0) {
     var bestMatch = -1;
@@ -981,10 +1067,7 @@ function setSelectValue(selectId, value) {
         bestMatch = i;
       }
     }
-    if (bestMatch !== -1) {
-      sel.selectedIndex = bestMatch;
-      return true;
-    }
+    if (bestMatch !== -1) { sel.selectedIndex = bestMatch; return true; }
   }
 
   return false;
@@ -1063,76 +1146,42 @@ function checkToken(v){
 
     if(match){
       st.className='token-status prefilled';
-      st.textContent='Token found — all details auto-filled from registration';
-
-      /* === HOUSEHOLD HEAD === */
-      var headName = getRegField(match, 'headName');
-      if(!headName){
-        var fn = getRegField(match, 'firstName');
-        var ln = getRegField(match, 'lastName');
-        headName = (fn + ' ' + ln).trim();
-      }
-      if(headName){
-        document.getElementById('headName').value = headName;
-        document.getElementById('headName').setAttribute('readonly', true);
-        document.getElementById('headNameTag').style.display = 'inline-block';
-      }
-
-      /* === PHONE === */
-      var phone = getRegField(match, 'phone');
-      if(phone){
-        document.getElementById('phone').value = phone;
-        document.getElementById('phone').setAttribute('readonly', true);
-        document.getElementById('phoneTag').style.display = 'inline-block';
-      }
-
-      /* === MEMBERS === */
-      var members = getRegField(match, 'members');
-      if(members){
-        document.getElementById('totalMembers').value = members;
-        document.getElementById('totalMembers').setAttribute('readonly', true);
-        document.getElementById('membersTag').style.display = 'inline-block';
-        calcITN();
-      }
-
-      /* === LOCATION === */
-      var region = getRegField(match, 'region');
-      var district = getRegField(match, 'district');
-      var chiefdom = getRegField(match, 'chiefdom');
-      var facility = getRegField(match, 'facility');
-      var community = getRegField(match, 'community');
-
-      if(region && setSelectValue('region', region)){
-        document.getElementById('region').setAttribute('disabled', true);
-        document.getElementById('regionTag').style.display = 'inline-block';
-        fillDistricts();
-        if(district && setSelectValue('district', district)){
-          document.getElementById('district').setAttribute('disabled', true);
-          document.getElementById('districtTag').style.display = 'inline-block';
-          fillChiefdoms();
-          if(chiefdom && setSelectValue('chiefdom', chiefdom)){
-            document.getElementById('chiefdom').setAttribute('disabled', true);
-            document.getElementById('chiefdomTag').style.display = 'inline-block';
-          }
+      st.textContent='Token found — all details auto-filled';
+      var hName = getRegField(match,'headName');
+      if(!hName){ var fn=getRegField(match,'firstName'); var ln=getRegField(match,'lastName'); hName=(fn+' '+ln).trim(); }
+      if(hName){ document.getElementById('headName').value=hName; showTags(['headNameTag']); }
+      var ph=getRegField(match,'phone');
+      if(ph){ document.getElementById('phone').value=ph; showTags(['phoneTag']); }
+      var mem=getRegField(match,'members');
+      if(mem){ document.getElementById('totalMembers').value=mem; showTags(['membersTag']); calcITN(); }
+      var reg=getRegField(match,'region');
+      if(reg){
+        setSelectValue('region',reg); showTags(['regionTag']);
+        var dist=getRegField(match,'district');
+        if(dist){
+          setTimeout(function(){
+            setSelectValue('district',dist); showTags(['districtTag']);
+            var chief=getRegField(match,'chiefdom');
+            if(chief){
+              setTimeout(function(){
+                setSelectValue('chiefdom',chief); showTags(['chiefdomTag']);
+              },50);
+            }
+          },50);
         }
       }
-      if(facility){
-        document.getElementById('facility').value = facility;
-        document.getElementById('facility').setAttribute('readonly', true);
-        document.getElementById('facilityTag').style.display = 'inline-block';
-      }
-      if(community){
-        document.getElementById('community').value = community;
-        document.getElementById('community').setAttribute('readonly', true);
-        document.getElementById('communityTag').style.display = 'inline-block';
-      }
+      var fac=getRegField(match,'facility');
+      if(fac){ document.getElementById('facility').value=fac; showTags(['facilityTag']); }
+      var comm=getRegField(match,'community');
+      if(comm){ document.getElementById('community').value=comm; showTags(['communityTag']); }
+      lockFields(allAutoFields);
     } else {
       st.className='token-status available';
-      st.textContent='New token — fill details manually';
+      st.textContent='Token not found — enter details manually';
       unlockFields(allAutoFields);
       hideTags(allAutoTags);
     }
-  }, 400);
+  },300);
 }
 
 /* ── ITN CALCULATION ── */
@@ -1142,161 +1191,178 @@ function calcITN(){
   document.getElementById('itnNum').textContent=n;
 }
 
-/* ── RADIO HELPERS ── */
-function selectRadio(el, groupName, value){
-  document.querySelectorAll('input[name="'+groupName+'"]').forEach(function(r){ r.checked=false; r.parentElement.classList.remove('sel'); });
+/* ── RADIO SELECTION ── */
+function selectRadio(el,name,val){
+  document.querySelectorAll('input[name="'+name+'"]').forEach(function(r){ r.checked=false; r.parentElement.classList.remove('sel'); });
   el.querySelector('input').checked=true;
   el.classList.add('sel');
 }
 
 /* ── BUILD SUMMARY ── */
 function buildSummary(){
-  var box=document.getElementById('summaryBox');
-  var h='<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> Household</div>';
-  h+=sRow('Token',gv('token'));
-  h+=sRow('Head Name',gv('headName'));
-  h+=sRow('Phone',gv('phone'));
-  h+=sRow('Members',gv('totalMembers'));
-  h+='</div>';
-  h+='<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Location</div>';
-  h+=sRow('Region',gv('region'));
-  h+=sRow('District',gv('district'));
-  h+=sRow('Chiefdom',gv('chiefdom'));
-  h+=sRow('Facility',gv('facility'));
-  h+=sRow('Community',gv('community'));
-  h+=sRow('GPS',gv('gpsCoords'));
-  h+='</div>';
-  h+='<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2e6e28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Distribution</div>';
   var con=document.querySelector('input[name="consent"]:checked');
-  h+=sRow('Consent',con?con.value==='yes'?'Given':'Refused':'—');
-  h+=sRow('ITNs Allocated',document.getElementById('itnNum').textContent);
-  h+=sRow('ITNs Delivered',gv('itnDelivered'));
   var meth=document.querySelector('input[name="method"]:checked');
-  h+=sRow('Method',meth?(meth.value==='door'?'Door-to-door':'Fixed site'):'—');
-  h+='</div>';
-  box.innerHTML=h;
+  var html=
+    '<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2b6cb0" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Household Info</div>'+
+    '<div class="sum-row"><span class="sk">Token</span><span class="sv">'+(document.getElementById('token').value||'—')+'</span></div>'+
+    '<div class="sum-row"><span class="sk">Head Name</span><span class="sv">'+(document.getElementById('headName').value||'—')+'</span></div>'+
+    '<div class="sum-row"><span class="sk">Phone</span><span class="sv">'+(document.getElementById('phone').value||'—')+'</span></div>'+
+    '<div class="sum-row"><span class="sk">Members</span><span class="sv">'+(document.getElementById('totalMembers').value||'—')+'</span></div></div>'+
+    '<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#2f855a" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Location</div>'+
+    '<div class="sum-row"><span class="sk">Region</span><span class="sv">'+(document.getElementById('region').value||'—')+'</span></div>'+
+    '<div class="sum-row"><span class="sk">District</span><span class="sv">'+(document.getElementById('district').value||'—')+'</span></div>'+
+    '<div class="sum-row"><span class="sk">Chiefdom</span><span class="sv">'+(document.getElementById('chiefdom').value||'—')+'</span></div>'+
+    '<div class="sum-row"><span class="sk">Facility</span><span class="sv">'+(document.getElementById('facility').value||'—')+'</span></div>'+
+    '<div class="sum-row"><span class="sk">Community</span><span class="sv">'+(document.getElementById('community').value||'—')+'</span></div>'+
+    '<div class="sum-row"><span class="sk">GPS</span><span class="sv">'+(document.getElementById('gpsCoords').value||'—')+'</span></div></div>'+
+    '<div class="sum-card"><div class="sum-card-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="#b7791f" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>ITN Delivery</div>'+
+    '<div class="sum-row"><span class="sk">Consent</span><span class="sv">'+(con?con.value==='yes'?'Given':'Refused':'—')+'</span></div>'+
+    '<div class="sum-row"><span class="sk">Allocated</span><span class="sv">'+document.getElementById('itnNum').textContent+'</span></div>'+
+    '<div class="sum-row"><span class="sk">Delivered</span><span class="sv">'+(document.getElementById('itnDelivered').value||'—')+'</span></div>'+
+    '<div class="sum-row"><span class="sk">Method</span><span class="sv">'+(meth?meth.value==='door'?'Door-to-door':'Fixed site':'—')+'</span></div></div>';
+  document.getElementById('summaryBox').innerHTML=html;
 }
-function sRow(k,v){ return '<div class="sum-row"><span class="sk">'+k+'</span><span class="sv">'+(v||'—')+'</span></div>'; }
-function gv(id){ var el=document.getElementById(id); return el?el.value.trim():''; }
 
 /* ── SUBMIT ── */
 function submitDist(){
   var rec={
-    token:gv('token'),headName:gv('headName'),phone:gv('phone'),totalMembers:gv('totalMembers'),
-    region:gv('region'),district:gv('district'),chiefdom:gv('chiefdom'),facility:gv('facility'),
-    community:gv('community'),gps:gv('gpsCoords'),
-    itnAllocated:document.getElementById('itnNum').textContent,itnDelivered:gv('itnDelivered'),
-    consent:document.querySelector('input[name="consent"]:checked')?document.querySelector('input[name="consent"]:checked').value:'',
-    method:document.querySelector('input[name="method"]:checked')?document.querySelector('input[name="method"]:checked').value:'',
-    distName:gv('distName'),distUsername:gv('distUsername'),distPhone:gv('distPhone'),
-    timestamp:new Date().toISOString()
+    id:Date.now(),
+    timestamp:new Date().toISOString(),
+    token:document.getElementById('token').value.trim(),
+    headName:document.getElementById('headName').value.trim(),
+    phone:document.getElementById('phone').value.trim(),
+    totalMembers:parseInt(document.getElementById('totalMembers').value)||0,
+    region:document.getElementById('region').value,
+    district:document.getElementById('district').value,
+    chiefdom:document.getElementById('chiefdom').value,
+    facility:document.getElementById('facility').value.trim(),
+    community:document.getElementById('community').value.trim(),
+    gps:document.getElementById('gpsCoords').value.trim(),
+    consent:document.querySelector('input[name="consent"]:checked').value,
+    itnAllocated:parseInt(document.getElementById('itnNum').textContent)||0,
+    itnDelivered:parseInt(document.getElementById('itnDelivered').value)||0,
+    method:document.querySelector('input[name="method"]:checked').value,
+    distName:document.getElementById('distName').value.trim(),
+    distUsername:document.getElementById('distUsername').value.trim(),
+    distPhone:document.getElementById('distPhone').value.trim()
   };
-  var list=loadDist(); list.push(rec); localStorage.setItem('icfsl_distributions',JSON.stringify(list));
-  showToast('Distribution saved successfully');
-  stopGPS(); currentStep=1; updateStep(); clearForm(); goBack();
+  var dists=loadDist();
+  dists.push(rec);
+  localStorage.setItem('icfsl_distributions',JSON.stringify(dists));
+  showToast('Distribution saved successfully!');
+  stopGPS();
+  currentStep=1; updateStep(); clearForm();
+  goBack();
 }
 
-/* ── CLEAR FORM ── */
-function clearForm(){
-  ['token','headName','phone','totalMembers','facility','community','gpsCoords','itnDelivered','distName','distUsername','distPhone'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.value='';
-  });
-  ['region','district','chiefdom'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.selectedIndex=0;
-  });
-  document.querySelectorAll('.rpill').forEach(function(p){ p.classList.remove('sel'); p.querySelector('input').checked=false; });
-  document.querySelectorAll('.field').forEach(function(f){ f.classList.remove('err'); });
-  document.getElementById('tokenStatus').style.display='none';
-  document.getElementById('itnNum').textContent='0';
-  unlockFields(allAutoFields); hideTags(allAutoTags);
-  ['distName','distUsername','distPhone'].forEach(function(id){
-    var el=document.getElementById(id); if(el){ el.removeAttribute('readonly'); }
-  });
-  ['distNameTag','distUsernameTag','distPhoneTag'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.style.display='none';
-  });
-  fillDistricts(); fillChiefdoms();
-}
-
-/* ── LOAD DIST RECORDS ── */
+/* ── RECORDS ── */
 function loadDist(){
-  try{ return JSON.parse(localStorage.getItem('icfsl_distributions'))||[]; }catch(e){ return []; }
+  try{ return JSON.parse(localStorage.getItem('icfsl_distributions')||'[]'); }
+  catch(e){ return []; }
 }
-
-/* ── RENDER RECORDS ── */
 function renderRecords(){
-  var list=loadDist();
-  var wrap=document.getElementById('recordsWrap');
-  document.getElementById('recCount').textContent=list.length+' record'+(list.length!==1?'s':'');
-  if(!list.length){ wrap.innerHTML='<div class="no-records">No distribution records yet.<br>Complete a distribution to see data here.</div>'; return; }
-  var h='<table class="rec-table"><thead><tr><th>Token</th><th>Head</th><th>ITNs</th><th>Date</th></tr></thead><tbody>';
-  list.slice().reverse().forEach(function(r){
-    var d=r.timestamp?new Date(r.timestamp):'';
-    h+='<tr><td>'+(r.token||'')+'</td><td>'+(r.headName||'')+'</td><td>'+(r.itnDelivered||0)+'</td><td>'+(d?d.toLocaleDateString():'')+'</td></tr>';
-  });
-  h+='</tbody></table>';
-  wrap.innerHTML=h;
+  var dists=loadDist();
+  document.getElementById('recCount').textContent=dists.length+' records';
+  if(!dists.length){
+    document.getElementById('recordsWrap').innerHTML='<div class="no-records">No distribution records yet.<br>Complete a distribution to see data here.</div>';
+    return;
+  }
+  var html='<table class="rec-table"><thead><tr><th>#</th><th>Token</th><th>Head</th><th>Members</th><th>ITNs</th><th>District</th><th>Date</th></tr></thead><tbody>';
+  for(var i=0;i<dists.length;i++){
+    var r=dists[i];
+    var d=r.timestamp?new Date(r.timestamp).toLocaleDateString():'—';
+    html+='<tr><td>'+(i+1)+'</td><td>'+esc(r.token)+'</td><td>'+esc(r.headName)+'</td><td>'+r.totalMembers+'</td><td>'+r.itnDelivered+'</td><td>'+esc(r.district)+'</td><td>'+d+'</td></tr>';
+  }
+  html+='</tbody></table>';
+  document.getElementById('recordsWrap').innerHTML=html;
 }
+function esc(s){ return s?String(s).replace(/</g,'&lt;').replace(/>/g,'&gt;'):'—'; }
 
 /* ── EXPORT CSV ── */
 function exportCSV(){
-  var list=loadDist();
-  if(!list.length){ showToast('No records to export'); return; }
-  var headers=['token','headName','phone','totalMembers','region','district','chiefdom','facility','community','gps','itnAllocated','itnDelivered','consent','method','distName','distUsername','distPhone','timestamp'];
+  var dists=loadDist();
+  if(!dists.length){ showToast('No records to export'); return; }
+  var headers=['ID','Timestamp','Token','Head Name','Phone','Members','Region','District','Chiefdom','Facility','Community','GPS','Consent','ITN Allocated','ITN Delivered','Method','Dist Name','Dist Username','Dist Phone'];
   var csv=headers.join(',')+'\n';
-  list.forEach(function(r){
-    csv+=headers.map(function(h){
-      var v=r[h]||'';
-      return '"'+String(v).replace(/"/g,'""')+'"';
-    }).join(',')+'\n';
-  });
+  for(var i=0;i<dists.length;i++){
+    var r=dists[i];
+    csv+=[r.id,r.timestamp,r.token,r.headName,r.phone,r.totalMembers,r.region,r.district,r.chiefdom,r.facility,r.community,r.gps,r.consent,r.itnAllocated,r.itnDelivered,r.method,r.distName,r.distUsername,r.distPhone].map(function(v){ return '"'+(v||'').toString().replace(/"/g,'""')+'"'; }).join(',')+'\n';
+  }
   var blob=new Blob([csv],{type:'text/csv'});
-  var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
-  a.download='icfsl_distributions_'+new Date().toISOString().slice(0,10)+'.csv';
-  a.click(); URL.revokeObjectURL(a.href);
-  showToast('CSV exported');
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='distributions_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+  showToast('CSV exported!');
 }
 
 /* ── TARGET ── */
 function updateTarget(){
-  var list=loadDist();
-  var tgt=parseInt(localStorage.getItem('icfsl_target'))||500;
-  document.getElementById('newTarget').value=tgt;
-  document.getElementById('tgt-total').textContent=tgt;
-  var done=list.length;
-  var itns=list.reduce(function(s,r){ return s+parseInt(r.itnDelivered||0); },0);
-  var rem=Math.max(0,tgt-done);
-  var pct=tgt?Math.round(done/tgt*100):0;
+  var dists=loadDist();
+  var target=parseInt(localStorage.getItem('icfsl_target'))||500;
+  document.getElementById('newTarget').value=target;
+  var done=dists.length;
+  var itns=dists.reduce(function(s,r){ return s+(r.itnDelivered||0); },0);
+  var pct=target?Math.round(done/target*100):0;
   document.getElementById('tgt-done').textContent=done;
-  document.getElementById('tgt-rem').textContent=rem;
-  document.getElementById('tgt-itn').textContent=itns;
+  document.getElementById('tgt-total').textContent=target;
   document.getElementById('tgt-pct').textContent=pct+'% complete';
-  document.getElementById('tgt-bar').style.width=Math.min(100,pct)+'%';
+  document.getElementById('tgt-bar').style.width=Math.min(pct,100)+'%';
+  document.getElementById('tgt-rem').textContent=Math.max(target-done,0);
+  document.getElementById('tgt-itn').textContent=itns;
 }
 function setDistTarget(){
-  var v=parseInt(document.getElementById('newTarget').value);
-  if(!v||v<1){ showToast('Enter a valid target'); return; }
+  var v=parseInt(document.getElementById('newTarget').value)||500;
   localStorage.setItem('icfsl_target',v);
-  updateTarget(); showToast('Target updated');
+  updateTarget();
+  showToast('Target updated!');
+}
+
+/* ── FORM CLEAR ── */
+function clearForm(){
+  ['token','headName','phone','totalMembers','facility','community','gpsCoords','itnDelivered','distName','distUsername','distPhone'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.value='';
+  });
+  ['region','district','chiefdom'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.selectedIndex=0;
+  });
+  document.querySelectorAll('.rpill').forEach(function(r){ r.classList.remove('sel'); r.querySelector('input').checked=false; });
+  document.querySelectorAll('.field.err').forEach(function(f){ f.classList.remove('err'); });
+  document.getElementById('itnNum').textContent='0';
+  unlockFields(allAutoFields);
+  hideTags(allAutoTags);
+  ['distNameTag','distUsernameTag','distPhoneTag'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.style.display='none';
+  });
+  ['distName','distUsername','distPhone'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el){ el.removeAttribute('readonly'); el.removeAttribute('disabled'); }
+  });
+  document.getElementById('tokenStatus').style.display='none';
 }
 
 /* ── TOAST ── */
 function showToast(msg){
-  var t=document.getElementById('toast'); t.textContent=msg;
+  var t=document.getElementById('toast');
+  t.textContent=msg;
   t.classList.add('show');
   setTimeout(function(){ t.classList.remove('show'); },2500);
 }
 
 /* ── LOGOUT ── */
 function doLogout(){
-  if(confirm('Are you sure you want to logout?')){
-    localStorage.removeItem('icfsl_user');
-    window.location.href='index.html';
-  }
+  sessionStorage.removeItem('currentUser');
+  localStorage.removeItem('icfsl_user');
+  localStorage.removeItem('icfsl_current_user');
+  localStorage.removeItem('currentUser');
+  window.location.href='index.html';
 }
 
-/* ── START ── */
-window.addEventListener('DOMContentLoaded', init);
+/* ── BOOT ── */
+init();
 </script>
 </body>
 </html>
