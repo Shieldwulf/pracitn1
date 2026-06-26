@@ -1,206 +1,226 @@
-username,password,role,assigned_district,assigned_chiefdom,access_level,monitor_role,landing_page,allowed_pages,region,district,chiefdom,health_facility,community
-admin01,12345,admin,All,All,Full System Access,,landing.html,index.html|landing.html|dash.html|monitor.html|recon.html|stock.html|regform.html|dist.html|portal.html,,,,,
-admin02,12345,admin,All,All,Full System Access,,landing.html,index.html|landing.html|dash.html|monitor.html|recon.html|stock.html|regform.html|dist.html|portal.html,,,,,
-admin03,12345,admin,All,All,Full System Access,,landing.html,index.html|landing.html|dash.html|monitor.html|recon.html|stock.html|regform.html|dist.html|portal.html,,,,,
-admin04,12345,admin,All,All,Full System Access,,landing.html,index.html|landing.html|dash.html|monitor.html|recon.html|stock.html|regform.html|dist.html|portal.html,,,,,
-admin05,12345,admin,All,All,Full System Access,,landing.html,index.html|landing.html|dash.html|monitor.html|recon.html|stock.html|regform.html|dist.html|portal.html,,,,,
-nat01,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat02,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat03,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat04,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat05,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat06,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat07,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat08,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat09,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat10,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat11,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat12,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat13,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat14,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat15,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat16,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat17,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat18,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat19,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-nat20,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-dash01,12345,dashboard,All,All,Dashboard Only,,dash.html,index.html|dash.html,,,,,
-dash02,12345,dashboard,All,All,Dashboard Only,,dash.html,index.html|dash.html,,,,,
-dash03,12345,dashboard,All,All,Dashboard Only,,dash.html,index.html|dash.html,,,,,
-dash04,12345,dashboard,All,All,Dashboard Only,,dash.html,index.html|dash.html,,,,,
-dash05,12345,dashboard,All,All,Dashboard Only,,dash.html,index.html|dash.html,,,,,
-dash06,12345,dashboard,All,All,Dashboard Only,,dash.html,index.html|dash.html,,,,,
-dash07,12345,dashboard,All,All,Dashboard Only,,dash.html,index.html|dash.html,,,,,
-dash08,12345,dashboard,All,All,Dashboard Only,,dash.html,index.html|dash.html,,,,,
-dash09,12345,dashboard,All,All,Dashboard Only,,dash.html,index.html|dash.html,,,,,
-dash10,12345,dashboard,All,All,Dashboard Only,,dash.html,index.html|dash.html,,,,,
-whm01,12345,warehouse,All,All,Stock + Dashboard (All Regions),,stock.html,index.html|stock.html|recon.html,,,,,
-whm02,12345,warehouse,All,All,Stock + Dashboard (All Regions),,stock.html,index.html|stock.html|recon.html,,,,,
-whm03,12345,warehouse,All,All,Stock + Dashboard (All Regions),,stock.html,index.html|stock.html|recon.html,,,,,
-whm04,12345,warehouse,All,All,Stock + Dashboard (All Regions),,stock.html,index.html|stock.html|recon.html,,,,,
-whm05,12345,warehouse,All,All,Stock + Dashboard (All Regions),,stock.html,index.html|stock.html|recon.html,,,,,
-whm06,12345,warehouse,All,All,Stock + Dashboard (All Regions),,stock.html,index.html|stock.html|recon.html,,,,,
-whm07,12345,warehouse,All,All,Stock + Dashboard (All Regions),,stock.html,index.html|stock.html|recon.html,,,,,
-whm08,12345,warehouse,All,All,Stock + Dashboard (All Regions),,stock.html,index.html|stock.html|recon.html,,,,,
-whm09,12345,warehouse,All,All,Stock + Dashboard (All Regions),,stock.html,index.html|stock.html|recon.html,,,,,
-whm10,12345,warehouse,All,All,Stock + Dashboard (All Regions),,stock.html,index.html|stock.html|recon.html,,,,,
-whm11,12345,warehouse,All,All,Stock + Dashboard (All Regions),,stock.html,index.html|stock.html|recon.html,,,,,
-whm12,12345,warehouse,All,All,Stock + Dashboard (All Regions),,stock.html,index.html|stock.html|recon.html,,,,,
-whm13,12345,warehouse,All,All,Stock + Dashboard (All Regions),,stock.html,index.html|stock.html|recon.html,,,,,
-whm14,12345,warehouse,All,All,Stock + Dashboard (All Regions),,stock.html,index.html|stock.html|recon.html,,,,,
-whm15,12345,warehouse,All,All,Stock + Dashboard (All Regions),,stock.html,index.html|stock.html|recon.html,,,,,
-whm16,12345,warehouse,All,All,Stock + Dashboard (All Regions),,stock.html,index.html|stock.html|recon.html,,,,,
-reg01,12345,registrar,Bo,,Registration Only,,regform.html,index.html|regform.html,Southern,Bo,,,
-reg02,12345,registrar,Bo,,Registration Only,,regform.html,index.html|regform.html,Southern,Bo,,,
-reg03,12345,registrar,Bombali,,Registration Only,,regform.html,index.html|regform.html,Northern,Bombali,,,
-reg04,12345,registrar,Bombali,,Registration Only,,regform.html,index.html|regform.html,Northern,Bombali,,,
-reg05,12345,registrar,Bonthe,,Registration Only,,regform.html,index.html|regform.html,Southern,Bonthe,,,
-reg06,12345,registrar,Bonthe,,Registration Only,,regform.html,index.html|regform.html,Southern,Bonthe,,,
-reg07,12345,registrar,Falaba,,Registration Only,,regform.html,index.html|regform.html,North East,Falaba,,,
-reg08,12345,registrar,Falaba,,Registration Only,,regform.html,index.html|regform.html,North East,Falaba,,,
-reg09,12345,registrar,Kailahun,,Registration Only,,regform.html,index.html|regform.html,Eastern,Kailahun,,,
-reg10,12345,registrar,Kailahun,,Registration Only,,regform.html,index.html|regform.html,Eastern,Kailahun,,,
-reg11,12345,registrar,Kambia,,Registration Only,,regform.html,index.html|regform.html,North West,Kambia,,,
-reg12,12345,registrar,Kambia,,Registration Only,,regform.html,index.html|regform.html,North West,Kambia,,,
-reg13,12345,registrar,Karene,,Registration Only,,regform.html,index.html|regform.html,North West,Karene,,,
-reg14,12345,registrar,Karene,,Registration Only,,regform.html,index.html|regform.html,North West,Karene,,,
-reg15,12345,registrar,Kenema,,Registration Only,,regform.html,index.html|regform.html,Eastern,Kenema,,,
-reg16,12345,registrar,Kenema,,Registration Only,,regform.html,index.html|regform.html,Eastern,Kenema,,,
-reg17,12345,registrar,Koinadugu,,Registration Only,,regform.html,index.html|regform.html,Northern,Koinadugu,,,
-reg18,12345,registrar,Koinadugu,,Registration Only,,regform.html,index.html|regform.html,Northern,Koinadugu,,,
-reg19,12345,registrar,Kono,,Registration Only,,regform.html,index.html|regform.html,Eastern,Kono,,,
-reg20,12345,registrar,Kono,,Registration Only,,regform.html,index.html|regform.html,Eastern,Kono,,,
-reg21,12345,registrar,Moyamba,,Registration Only,,regform.html,index.html|regform.html,Southern,Moyamba,,,
-reg22,12345,registrar,Moyamba,,Registration Only,,regform.html,index.html|regform.html,Southern,Moyamba,,,
-reg23,12345,registrar,Port Loko,,Registration Only,,regform.html,index.html|regform.html,North West,Port Loko,,,
-reg24,12345,registrar,Port Loko,,Registration Only,,regform.html,index.html|regform.html,North West,Port Loko,,,
-reg25,12345,registrar,Pujehun,,Registration Only,,regform.html,index.html|regform.html,Southern,Pujehun,,,
-reg26,12345,registrar,Pujehun,,Registration Only,,regform.html,index.html|regform.html,Southern,Pujehun,,,
-reg27,12345,registrar,Tonkolili,,Registration Only,,regform.html,index.html|regform.html,Northern,Tonkolili,,,
-reg28,12345,registrar,Tonkolili,,Registration Only,,regform.html,index.html|regform.html,Northern,Tonkolili,,,
-reg29,12345,registrar,Western Area Rural,,Registration Only,,regform.html,index.html|regform.html,Western Area,Western Area Rural,,,
-reg30,12345,registrar,Western Area Rural,,Registration Only,,regform.html,index.html|regform.html,Western Area,Western Area Rural,,,
-reg31,12345,registrar,Western Area Urban,,Registration Only,,regform.html,index.html|regform.html,Western Area,Western Area Urban,,,
-reg32,12345,registrar,Western Area Urban,,Registration Only,,regform.html,index.html|regform.html,Western Area,Western Area Urban,,,
-reg33,12345,registrar,Bo,,Registration Only,,regform.html,index.html|regform.html,Southern,Bo,,,
-reg34,12345,registrar,Bombali,,Registration Only,,regform.html,index.html|regform.html,Northern,Bombali,,,
-reg35,12345,registrar,Bonthe,,Registration Only,,regform.html,index.html|regform.html,Southern,Bonthe,,,
-reg36,12345,registrar,Falaba,,Registration Only,,regform.html,index.html|regform.html,North East,Falaba,,,
-reg37,12345,registrar,Kailahun,,Registration Only,,regform.html,index.html|regform.html,Eastern,Kailahun,,,
-reg38,12345,registrar,Kambia,,Registration Only,,regform.html,index.html|regform.html,North West,Kambia,,,
-reg39,12345,registrar,Karene,,Registration Only,,regform.html,index.html|regform.html,North West,Karene,,,
-reg40,12345,registrar,Kenema,,Registration Only,,regform.html,index.html|regform.html,Eastern,Kenema,,,
-reg41,12345,registrar,Koinadugu,,Registration Only,,regform.html,index.html|regform.html,Northern,Koinadugu,,,
-reg42,12345,registrar,Kono,,Registration Only,,regform.html,index.html|regform.html,Eastern,Kono,,,
-reg43,12345,registrar,Moyamba,,Registration Only,,regform.html,index.html|regform.html,Southern,Moyamba,,,
-reg44,12345,registrar,Port Loko,,Registration Only,,regform.html,index.html|regform.html,North West,Port Loko,,,
-reg45,12345,registrar,Pujehun,,Registration Only,,regform.html,index.html|regform.html,Southern,Pujehun,,,
-reg46,12345,registrar,Tonkolili,,Registration Only,,regform.html,index.html|regform.html,Northern,Tonkolili,,,
-reg47,12345,registrar,Western Area Rural,,Registration Only,,regform.html,index.html|regform.html,Western Area,Western Area Rural,,,
-reg48,12345,registrar,Western Area Urban,,Registration Only,,regform.html,index.html|regform.html,Western Area,Western Area Urban,,,
-reg49,12345,registrar,Bo,,Registration Only,,regform.html,index.html|regform.html,Southern,Bo,,,
-reg50,12345,registrar,Bombali,,Registration Only,,regform.html,index.html|regform.html,Northern,Bombali,,,
-dist01,12345,distributor,Bo,,Distribution Only,,dist.html,index.html|dist.html,Southern,Bo,,,
-dist02,12345,distributor,Bo,,Distribution Only,,dist.html,index.html|dist.html,Southern,Bo,,,
-dist03,12345,distributor,Bombali,,Distribution Only,,dist.html,index.html|dist.html,Northern,Bombali,,,
-dist04,12345,distributor,Bombali,,Distribution Only,,dist.html,index.html|dist.html,Northern,Bombali,,,
-dist05,12345,distributor,Bonthe,,Distribution Only,,dist.html,index.html|dist.html,Southern,Bonthe,,,
-dist06,12345,distributor,Bonthe,,Distribution Only,,dist.html,index.html|dist.html,Southern,Bonthe,,,
-dist07,12345,distributor,Falaba,,Distribution Only,,dist.html,index.html|dist.html,North East,Falaba,,,
-dist08,12345,distributor,Falaba,,Distribution Only,,dist.html,index.html|dist.html,North East,Falaba,,,
-dist09,12345,distributor,Kailahun,,Distribution Only,,dist.html,index.html|dist.html,Eastern,Kailahun,,,
-dist10,12345,distributor,Kailahun,,Distribution Only,,dist.html,index.html|dist.html,Eastern,Kailahun,,,
-dist11,12345,distributor,Kambia,,Distribution Only,,dist.html,index.html|dist.html,North West,Kambia,,,
-dist12,12345,distributor,Kambia,,Distribution Only,,dist.html,index.html|dist.html,North West,Kambia,,,
-dist13,12345,distributor,Karene,,Distribution Only,,dist.html,index.html|dist.html,North West,Karene,,,
-dist14,12345,distributor,Karene,,Distribution Only,,dist.html,index.html|dist.html,North West,Karene,,,
-dist15,12345,distributor,Kenema,,Distribution Only,,dist.html,index.html|dist.html,Eastern,Kenema,,,
-dist16,12345,distributor,Kenema,,Distribution Only,,dist.html,index.html|dist.html,Eastern,Kenema,,,
-dist17,12345,distributor,Koinadugu,,Distribution Only,,dist.html,index.html|dist.html,Northern,Koinadugu,,,
-dist18,12345,distributor,Koinadugu,,Distribution Only,,dist.html,index.html|dist.html,Northern,Koinadugu,,,
-dist19,12345,distributor,Kono,,Distribution Only,,dist.html,index.html|dist.html,Eastern,Kono,,,
-dist20,12345,distributor,Kono,,Distribution Only,,dist.html,index.html|dist.html,Eastern,Kono,,,
-dist21,12345,distributor,Moyamba,,Distribution Only,,dist.html,index.html|dist.html,Southern,Moyamba,,,
-dist22,12345,distributor,Moyamba,,Distribution Only,,dist.html,index.html|dist.html,Southern,Moyamba,,,
-dist23,12345,distributor,Port Loko,,Distribution Only,,dist.html,index.html|dist.html,North West,Port Loko,,,
-dist24,12345,distributor,Port Loko,,Distribution Only,,dist.html,index.html|dist.html,North West,Port Loko,,,
-dist25,12345,distributor,Pujehun,,Distribution Only,,dist.html,index.html|dist.html,Southern,Pujehun,,,
-dist26,12345,distributor,Pujehun,,Distribution Only,,dist.html,index.html|dist.html,Southern,Pujehun,,,
-dist27,12345,distributor,Tonkolili,,Distribution Only,,dist.html,index.html|dist.html,Northern,Tonkolili,,,
-dist28,12345,distributor,Tonkolili,,Distribution Only,,dist.html,index.html|dist.html,Northern,Tonkolili,,,
-dist29,12345,distributor,Western Area Rural,,Distribution Only,,dist.html,index.html|dist.html,Western Area,Western Area Rural,,,
-dist30,12345,distributor,Western Area Rural,,Distribution Only,,dist.html,index.html|dist.html,Western Area,Western Area Rural,,,
-dist31,12345,distributor,Western Area Urban,,Distribution Only,,dist.html,index.html|dist.html,Western Area,Western Area Urban,,,
-dist32,12345,distributor,Western Area Urban,,Distribution Only,,dist.html,index.html|dist.html,Western Area,Western Area Urban,,,
-dist33,12345,distributor,Bo,,Distribution Only,,dist.html,index.html|dist.html,Southern,Bo,,,
-dist34,12345,distributor,Bombali,,Distribution Only,,dist.html,index.html|dist.html,Northern,Bombali,,,
-dist35,12345,distributor,Bonthe,,Distribution Only,,dist.html,index.html|dist.html,Southern,Bonthe,,,
-dist36,12345,distributor,Falaba,,Distribution Only,,dist.html,index.html|dist.html,North East,Falaba,,,
-dist37,12345,distributor,Kailahun,,Distribution Only,,dist.html,index.html|dist.html,Eastern,Kailahun,,,
-dist38,12345,distributor,Kambia,,Distribution Only,,dist.html,index.html|dist.html,North West,Kambia,,,
-dist39,12345,distributor,Karene,,Distribution Only,,dist.html,index.html|dist.html,North West,Karene,,,
-dist40,12345,distributor,Kenema,,Distribution Only,,dist.html,index.html|dist.html,Eastern,Kenema,,,
-dist41,12345,distributor,Koinadugu,,Distribution Only,,dist.html,index.html|dist.html,Northern,Koinadugu,,,
-dist42,12345,distributor,Kono,,Distribution Only,,dist.html,index.html|dist.html,Eastern,Kono,,,
-dist43,12345,distributor,Moyamba,,Distribution Only,,dist.html,index.html|dist.html,Southern,Moyamba,,,
-dist44,12345,distributor,Port Loko,,Distribution Only,,dist.html,index.html|dist.html,North West,Port Loko,,,
-dist45,12345,distributor,Pujehun,,Distribution Only,,dist.html,index.html|dist.html,Southern,Pujehun,,,
-dist46,12345,distributor,Tonkolili,,Distribution Only,,dist.html,index.html|dist.html,Northern,Tonkolili,,,
-dist47,12345,distributor,Western Area Rural,,Distribution Only,,dist.html,index.html|dist.html,Western Area,Western Area Rural,,,
-dist48,12345,distributor,Western Area Urban,,Distribution Only,,dist.html,index.html|dist.html,Western Area,Western Area Urban,,,
-dist49,12345,distributor,Bo,,Distribution Only,,dist.html,index.html|dist.html,Southern,Bo,,,
-dist50,12345,distributor,Bombali,,Distribution Only,,dist.html,index.html|dist.html,Northern,Bombali,,,
-chisup01,12345,chisup,Bo,Bo City Council,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Southern,Bo,Bo City Council,,
-chisup02,12345,chisup,Bo,Badjia,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Southern,Bo,Badjia,,
-chisup03,12345,chisup,Bo,Bagbwe,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Southern,Bo,Bagbwe,,
-chisup04,12345,chisup,Bo,Baoma,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Southern,Bo,Baoma,,
-chisup05,12345,chisup,Bo,Bargbo,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Southern,Bo,Bargbo,,
-chisup06,12345,chisup,Bo,Bumpe Ngao,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Southern,Bo,Bumpe Ngao,,
-chisup07,12345,chisup,Bombali,Biriwa,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Northern,Bombali,Biriwa,,
-chisup08,12345,chisup,Bombali,Bombali Sebora,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Northern,Bombali,Bombali Sebora,,
-chisup09,12345,chisup,Bo,Bumpe Ngao,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Southern,Bo,Bumpe Ngao,,
-chisup10,12345,chisup,Bonthe,Dema,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Southern,Bonthe,Dema,,
-chisup11,12345,chisup,Kenema,Gaura,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Eastern,Kenema,Gaura,,
-chisup12,12345,chisup,Bonthe,Imperi,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Southern,Bonthe,Imperi,,
-chisup13,12345,chisup,,Jong,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,,,Jong,,
-chisup14,12345,chisup,Port Loko,Kaffu Bullom,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,North West,Port Loko,Kaffu Bullom,,
-chisup15,12345,chisup,Moyamba,Kaiyamba,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Southern,Moyamba,Kaiyamba,,
-chisup16,12345,chisup,Tonkolili,Kholifa Rowalla,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Northern,Tonkolili,Kholifa Rowalla,,
-chisup17,12345,chisup,Moyamba,Kori,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Southern,Moyamba,Kori,,
-chisup18,12345,chisup,Port Loko,Koya (Port Loko),Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,North West,Port Loko,Koya (Port Loko),,
-chisup19,12345,chisup,Pujehun,Kpanga,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Southern,Pujehun,Kpanga,,
-chisup20,12345,chisup,Kailahun,Luawa,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Eastern,Kailahun,Luawa,,
-chisup21,12345,chisup,Kambia,Magbema,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,North West,Kambia,Magbema,,
-chisup22,12345,chisup,Bombali,Makarie,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Northern,Bombali,Makarie,,
-chisup23,12345,chisup,Port Loko,Marampa,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,North West,Port Loko,Marampa,,
-chisup24,12345,chisup,Kono,Nimikoro,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Eastern,Kono,Nimikoro,,
-chisup25,12345,chisup,Kenema,Nongowa,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Eastern,Kenema,Nongowa,,
-chisup26,12345,chisup,Bombali,Safroko Limba,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Northern,Bombali,Safroko Limba,,
-chisup27,12345,chisup,Kambia,Samu,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,North West,Kambia,Samu,,
-chisup28,12345,chisup,Bombali,Sanda Loko,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Northern,Bombali,Sanda Loko,,
-chisup29,12345,chisup,Bombali,Sella Limba,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Northern,Bombali,Sella Limba,,
-chisup30,12345,chisup,Bo,Tikonko,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,Southern,Bo,Tikonko,,
-inde01,12345,independent,All,All,Independent Monitoring,independent,monitor.html,index.html|monitor.html,Southern,,,,
-inde02,12345,independent,All,All,Independent Monitoring,independent,monitor.html,index.html|monitor.html,Northern,,,,
-inde03,12345,independent,All,All,Independent Monitoring,independent,monitor.html,index.html|monitor.html,Eastern,,,,
-inde04,12345,independent,All,All,Independent Monitoring,independent,monitor.html,index.html|monitor.html,North West,,,,
-inde05,12345,independent,Bo,All,Independent Monitoring,independent,monitor.html,index.html|monitor.html,Southern,Bo,,,
-inde06,12345,independent,Bombali,All,Independent Monitoring,independent,monitor.html,index.html|monitor.html,Northern,Bombali,,,
-inde07,12345,independent,Kenema,All,Independent Monitoring,independent,monitor.html,index.html|monitor.html,Eastern,Kenema,,,
-inde08,12345,independent,Kambia,All,Independent Monitoring,independent,monitor.html,index.html|monitor.html,North West,Kambia,,,
-inde09,12345,independent,Bo,Badjia,Independent Monitoring,independent,monitor.html,index.html|monitor.html,Southern,Bo,Badjia,,
-inde10,12345,independent,Bombali,Biriwa,Independent Monitoring,independent,monitor.html,index.html|monitor.html,Northern,Bombali,Biriwa,,
-inde11,12345,independent,Kenema,Nongowa,Independent Monitoring,independent,monitor.html,index.html|monitor.html,Eastern,Kenema,Nongowa,,
-inde12,12345,independent,Kambia,Samu,Independent Monitoring,independent,monitor.html,index.html|monitor.html,North West,Kambia,Samu,,
-inde13,12345,independent,Bo,Badjia,Independent Monitoring,independent,monitor.html,index.html|monitor.html,Southern,Bo,Badjia,CHC - Community Health Centre,
-inde14,12345,independent,Bombali,Biriwa,Independent Monitoring,independent,monitor.html,index.html|monitor.html,Northern,Bombali,Biriwa,MCHP - Community Health Post,
-inde15,12345,independent,Kenema,Nongowa,Independent Monitoring,independent,monitor.html,index.html|monitor.html,Eastern,Kenema,Nongowa,Peripheral Health Unit,Village A
-inde16,12345,independent,Kambia,Samu,Independent Monitoring,independent,monitor.html,index.html|monitor.html,North West,Kambia,Samu,Community Clinic,Village B
-admin,12345,admin,All,All,Full System Access,,landing.html,index.html|landing.html|dash.html|monitor.html|recon.html|stock.html|regform.html|dist.html|portal.html,,,,,
-nat,12345,national,All,All,All Districts + Monitoring,national,portal.html,index.html|portal.html|dash.html|monitor.html|recon.html,,,,,
-dash,12345,dashboard,All,All,Dashboard Only,,dash.html,index.html|dash.html,,,,,
-whm,12345,warehouse,All,All,Stock + Dashboard (All Regions),,stock.html,index.html|stock.html|recon.html,,,,,
-inde,12345,independent,All,All,Independent Monitoring,independent,monitor.html,index.html|monitor.html,,,,,
-chisup,12345,chisup,All,All,Chiefdom Level Only (Monitoring + Stock),chiefdom,monitor.html,index.html|monitor.html,,,,,
-reg,12345,registrar,All,,Registration Only,,regform.html,index.html|regform.html,,,,,
-dist,12345,distributor,All,,Distribution Only,,dist.html,index.html|dist.html,,,,,
+username,password,role,assigned_district,assigned_chiefdom,access_level,monitor_role,landing_page,allowed_pages,region,district,chiefdom,health_facility,community,full_name,telephone
+whm001,ITN2027!,warehouse,Kailahun,Dea,district,whm,warehouse.html,"warehouse.html,inventory.html,dashboard.html",Eastern Province,Kailahun,Dea,Dea MCHP,Kailahun Town,Francis Johnson,077218196
+whm002,ITN2027!,warehouse,Kenema,Dama,district,whm,warehouse.html,"warehouse.html,inventory.html,dashboard.html",Eastern Province,Kenema,Dama,Dama MCHP,Kenema City,David Williams,033908386
+whm003,ITN2027!,warehouse,Kono,Fiama,district,whm,warehouse.html,"warehouse.html,inventory.html,dashboard.html",Eastern Province,Kono,Fiama,Fiama CHP,Koidu Town,Francis Kamara,077654235
+whm004,ITN2027!,warehouse,Bombali,Biriwa,district,whm,warehouse.html,"warehouse.html,inventory.html,dashboard.html",Northern Province,Bombali,Biriwa,Biriwa MCHP,Rogbom,Saidu Foday,078940781
+whm005,ITN2027!,warehouse,Falaba,Wara Wara Zagala,district,whm,warehouse.html,"warehouse.html,inventory.html,dashboard.html",Northern Province,Falaba,Wara Wara Zagala,Wara Wara Zagala Community Hospital,Foindu,Abdul Dumbuya,078931034
+whm006,ITN2027!,warehouse,Koinadugu,Dansogoia,district,whm,warehouse.html,"warehouse.html,inventory.html,dashboard.html",Northern Province,Koinadugu,Dansogoia,Dansogoia MCHP,Kabala,Yabom Bockarie,078752553
+whm007,ITN2027!,warehouse,Tonkolili,Gbonkolenken,district,whm,warehouse.html,"warehouse.html,inventory.html,dashboard.html",Northern Province,Tonkolili,Gbonkolenken,Gbonkolenken CHC,Mile 91,Aminata Mansaray,030283276
+whm008,ITN2027!,warehouse,Kambia,Dixon,district,whm,warehouse.html,"warehouse.html,inventory.html,dashboard.html",North West Province,Kambia,Dixon,Dixon CHC,Kambia Town,Cecilia Williams,030503056
+whm009,ITN2027!,warehouse,Karene,Sambaia,district,whm,warehouse.html,"warehouse.html,inventory.html,dashboard.html",North West Province,Karene,Sambaia,Sambaia CHC,Karene Town,Martin Tarawally,077767242
+whm010,ITN2027!,warehouse,Port Loko,Bureh,district,whm,warehouse.html,"warehouse.html,inventory.html,dashboard.html",North West Province,Port Loko,Bureh,Bureh CHP,Port Loko Town,Victoria Cole,030969653
+whm011,ITN2027!,warehouse,Bo,Badjia,district,whm,warehouse.html,"warehouse.html,inventory.html,dashboard.html",Southern Province,Bo,Badjia,Badjia CHP,Bo Town,Kadiatu Fofanah,076226916
+whm012,ITN2027!,warehouse,Bonthe,Bendu,district,whm,warehouse.html,"warehouse.html,inventory.html,dashboard.html",Southern Province,Bonthe,Bendu,Bendu Community Hospital,Bonthe Town,Joyce Bangura,078801845
+whm013,ITN2027!,warehouse,Moyamba,Bagruwa,district,whm,warehouse.html,"warehouse.html,inventory.html,dashboard.html",Southern Province,Moyamba,Bagruwa,Bagruwa MCHP,Moyamba Town,Alpha Sankoh,076482814
+whm014,ITN2027!,warehouse,Pujehun,Barri,district,whm,warehouse.html,"warehouse.html,inventory.html,dashboard.html",Southern Province,Pujehun,Barri,Barri CHP,Pujehun Town,Alpha Fofanah,033095701
+whm015,ITN2027!,warehouse,Western Area Rural,Waterloo,district,whm,warehouse.html,"warehouse.html,inventory.html,dashboard.html",Western Area,Western Area Rural,Waterloo,Waterloo CHC,Waterloo,Jenneh Johnson,076391171
+whm016,ITN2027!,warehouse,Western Area Urban,Waterloo,district,whm,warehouse.html,"warehouse.html,inventory.html,dashboard.html",Western Area,Western Area Urban,Waterloo,Waterloo CHP,Freetown,Andrew Turay,077489638
+reg001,ITN2027!,registrar,Kailahun,Dea,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Eastern Province,Kailahun,Dea,Dea CHP,Kailahun Town,Ya Lahai,079871331
+reg002,ITN2027!,registrar,Kailahun,Jawei,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Eastern Province,Kailahun,Jawei,Jawei CHC,Pendembu,Christopher Williams,033301031
+reg003,ITN2027!,registrar,Kailahun,Kissi Kama,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Eastern Province,Kailahun,Kissi Kama,Kissi Kama MCHP,Koindu,Aminata Sesay,077473829
+reg004,ITN2027!,registrar,Kailahun,Kissi Teng,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Eastern Province,Kailahun,Kissi Teng,Kissi Teng Community Hospital,Mobai,Andrew Kowa,077116566
+reg005,ITN2027!,registrar,Kenema,Dama,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Eastern Province,Kenema,Dama,Dama Community Hospital,Kenema City,Hawa Koroma,076651333
+reg006,ITN2027!,registrar,Kenema,Dodo,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Eastern Province,Kenema,Dodo,Dodo Community Hospital,Tongo,Samuel Davies,079317810
+reg007,ITN2027!,registrar,Kenema,Gorama Kono,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Eastern Province,Kenema,Gorama Kono,Gorama Kono MCHP,Koidu,Rebecca Kargbo,079773602
+reg008,ITN2027!,registrar,Kenema,Kandu Leppiama,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Eastern Province,Kenema,Kandu Leppiama,Kandu Leppiama Community Hospital,Segbwema,Musa Cole,079468723
+reg009,ITN2027!,registrar,Kono,Fiama,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Eastern Province,Kono,Fiama,Fiama CHC,Koidu Town,Sahr Koroma,030805009
+reg010,ITN2027!,registrar,Kono,Gbane,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Eastern Province,Kono,Gbane,Gbane Community Hospital,Tombodu,Grace Kargbo,076812191
+reg011,ITN2027!,registrar,Kono,Gbense,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Eastern Province,Kono,Gbense,Gbense CHP,Sefadu,Martin Johnson,033909169
+reg012,ITN2027!,registrar,Kono,Gorama,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Eastern Province,Kono,Gorama,Gorama CHC,Yengema,Kadi Tarawally,077462475
+reg013,ITN2027!,registrar,Bombali,Biriwa,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Northern Province,Bombali,Biriwa,Biriwa MCHP,Rogbom,George Conteh,076183842
+reg014,ITN2027!,registrar,Bombali,Gbanti Kamaranka,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Northern Province,Bombali,Gbanti Kamaranka,Gbanti Kamaranka CHC,Masongbo,Rebecca Lahai,078278498
+reg015,ITN2027!,registrar,Bombali,Libeisaygahun,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Northern Province,Bombali,Libeisaygahun,Libeisaygahun MCHP,Matene,Cecilia Sei,030124118
+reg016,ITN2027!,registrar,Bombali,Makari Gbanti,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Northern Province,Bombali,Makari Gbanti,Makari Gbanti CHP,Binkolo,Frank Suma,030534874
+reg017,ITN2027!,registrar,Falaba,Wara Wara Zagala,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Northern Province,Falaba,Wara Wara Zagala,Wara Wara Zagala MCHP,Foindu,Augustine Davies,076052427
+reg018,ITN2027!,registrar,Falaba,Wara Wara Yagala,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Northern Province,Falaba,Wara Wara Yagala,Wara Wara Yagala Community Hospital,Bandajuma,Mabinty Turay,030280598
+reg019,ITN2027!,registrar,Falaba,Biriwa,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Northern Province,Falaba,Biriwa,Biriwa CHP,Sembehun,Alhaji Sei,078053315
+reg020,ITN2027!,registrar,Falaba,Sella Limba,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Northern Province,Falaba,Sella Limba,Sella Limba Community Hospital,Kpetema,Rugiatu Johnson,077260256
+reg021,ITN2027!,registrar,Koinadugu,Dansogoia,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Northern Province,Koinadugu,Dansogoia,Dansogoia CHP,Kabala,Saidu Bockarie,076733754
+reg022,ITN2027!,registrar,Koinadugu,Diang,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Northern Province,Koinadugu,Diang,Diang CHP,Fadugu,Joseph Sowa,078414586
+reg023,ITN2027!,registrar,Koinadugu,Folasaba,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Northern Province,Koinadugu,Folasaba,Folasaba CHC,Kondembaia,Mabinty Cole,077940196
+reg024,ITN2027!,registrar,Koinadugu,Kasunko,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Northern Province,Koinadugu,Kasunko,Kasunko CHC,Yiffin,Nemata Kai,033816934
+reg025,ITN2027!,registrar,Tonkolili,Gbonkolenken,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Northern Province,Tonkolili,Gbonkolenken,Gbonkolenken MCHP,Mile 91,Isatu Bangura,033356159
+reg026,ITN2027!,registrar,Tonkolili,Kafe Simiria,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Northern Province,Tonkolili,Kafe Simiria,Kafe Simiria CHC,Yele,Mabinty Sei,033465648
+reg027,ITN2027!,registrar,Tonkolili,Kholifa Mabang,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Northern Province,Tonkolili,Kholifa Mabang,Kholifa Mabang CHP,Magbaima,Musa Samba,033946804
+reg028,ITN2027!,registrar,Tonkolili,Kholifa Rowalla,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Northern Province,Tonkolili,Kholifa Rowalla,Kholifa Rowalla CHC,Mamanso,Peter Mansaray,030577738
+reg029,ITN2027!,registrar,Kambia,Dixon,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",North West Province,Kambia,Dixon,Dixon Community Hospital,Kambia Town,Zainab Conteh,078895134
+reg030,ITN2027!,registrar,Kambia,Gbinle,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",North West Province,Kambia,Gbinle,Gbinle CHP,Rokupr,Rugiatu Sesay,076379176
+reg031,ITN2027!,registrar,Kambia,Samu,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",North West Province,Kambia,Samu,Samu CHP,Mambolo,Fanta Kamara,079320163
+reg032,ITN2027!,registrar,Kambia,Tunkia,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",North West Province,Kambia,Tunkia,Tunkia CHP,Tawuya,Grace Sankoh,076831727
+reg033,ITN2027!,registrar,Karene,Sambaia,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",North West Province,Karene,Sambaia,Sambaia CHC,Karene Town,Alice Dumbuya,030868727
+reg034,ITN2027!,registrar,Karene,Gbanti,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",North West Province,Karene,Gbanti,Gbanti Community Hospital,Kamaranka,Emmanuel Davies,033734714
+reg035,ITN2027!,registrar,Karene,Kamaranka,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",North West Province,Karene,Kamaranka,Kamaranka CHP,Rokupr,Santigie Fofanah,076223623
+reg036,ITN2027!,registrar,Karene,Tambakha,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",North West Province,Karene,Tambakha,Tambakha MCHP,Sambaia,Tamba Fofanah,079603669
+reg037,ITN2027!,registrar,Port Loko,Bureh,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",North West Province,Port Loko,Bureh,Bureh MCHP,Port Loko Town,Theresa Bockarie,079054668
+reg038,ITN2027!,registrar,Port Loko,Kafu Bullom,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",North West Province,Port Loko,Kafu Bullom,Kafu Bullom CHP,Lunsar,Francis Kai,079065627
+reg039,ITN2027!,registrar,Port Loko,Lokomasama,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",North West Province,Port Loko,Lokomasama,Lokomasama CHP,Masiaka,Victoria Sesay,079990162
+reg040,ITN2027!,registrar,Port Loko,Marampa,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",North West Province,Port Loko,Marampa,Marampa Community Hospital,Mambolo,Victor Bockarie,078375564
+reg041,ITN2027!,registrar,Bo,Badjia,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Southern Province,Bo,Badjia,Badjia Community Hospital,Bo Town,Abu Kabba,076805310
+reg042,ITN2027!,registrar,Bo,Bagbo,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Southern Province,Bo,Bagbo,Bagbo MCHP,Tikonko,Mariatu Sesay,033232719
+reg043,ITN2027!,registrar,Bo,Bagbwe,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Southern Province,Bo,Bagbwe,Bagbwe CHP,Baoma,Victor Lahai,077991241
+reg044,ITN2027!,registrar,Bo,Bargbe,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Southern Province,Bo,Bargbe,Bargbe MCHP,Koribondo,Joseph Turay,033314919
+reg045,ITN2027!,registrar,Bonthe,Bendu,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Southern Province,Bonthe,Bendu,Bendu MCHP,Bonthe Town,Augustine Lahai,076850671
+reg046,ITN2027!,registrar,Bonthe,Bonthe Municipal,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Southern Province,Bonthe,Bonthe Municipal,Bonthe Municipal Community Hospital,Mattru,Joyce Jalloh,079284987
+reg047,ITN2027!,registrar,Bonthe,Bonthe Island,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Southern Province,Bonthe,Bonthe Island,Bonthe Island Community Hospital,Sogbeni,Peter Davies,078314737
+reg048,ITN2027!,registrar,Bonthe,Dema,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Southern Province,Bonthe,Dema,Dema Community Hospital,Dema,Michael Tarawally,077735454
+reg049,ITN2027!,registrar,Moyamba,Bagruwa,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Southern Province,Moyamba,Bagruwa,Bagruwa CHC,Moyamba Town,Grace Gbunduka,076367837
+reg050,ITN2027!,registrar,Moyamba,Bumpeh,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Southern Province,Moyamba,Bumpeh,Bumpeh Community Hospital,Shenge,Ibrahim Conteh,078363495
+reg051,ITN2027!,registrar,Moyamba,Dasse,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Southern Province,Moyamba,Dasse,Dasse Community Hospital,Ribbi,Sia Kai,030855744
+reg052,ITN2027!,registrar,Moyamba,Fakunya,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Southern Province,Moyamba,Fakunya,Fakunya CHC,Timdale,Joseph Tarawally,076823374
+reg053,ITN2027!,registrar,Pujehun,Barri,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Southern Province,Pujehun,Barri,Barri CHC,Pujehun Town,Mariatu Kanneh,077524082
+reg054,ITN2027!,registrar,Pujehun,Fairo,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Southern Province,Pujehun,Fairo,Fairo CHC,Fairo,Sahr Turay,078271094
+reg055,ITN2027!,registrar,Pujehun,Galliness,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Southern Province,Pujehun,Galliness,Galliness Community Hospital,Barri,Tamba Samba,076471167
+reg056,ITN2027!,registrar,Pujehun,Kpaka,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Southern Province,Pujehun,Kpaka,Kpaka MCHP,Galliness,Hawa Jalloh,077941318
+reg057,ITN2027!,registrar,Western Area Rural,Waterloo,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Western Area,Western Area Rural,Waterloo,Waterloo Community Hospital,Waterloo,Janet Williams,033677496
+reg058,ITN2027!,registrar,Western Area Rural,Newton,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Western Area,Western Area Rural,Newton,Newton CHC,Newton,Hawa Dumbuya,030133412
+reg059,ITN2027!,registrar,Western Area Rural,Benguema,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Western Area,Western Area Rural,Benguema,Benguema CHP,Benguema,Amara Kargbo,076679740
+reg060,ITN2027!,registrar,Western Area Rural,Tombo,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Western Area,Western Area Rural,Tombo,Tombo CHP,Tombo,Abdul Sankoh,076349361
+reg061,ITN2027!,registrar,Western Area Urban,Waterloo,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Western Area,Western Area Urban,Waterloo,Waterloo CHP,Freetown,Hannah Jalloh,076024994
+reg062,ITN2027!,registrar,Western Area Urban,Newton,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Western Area,Western Area Urban,Newton,Newton Community Hospital,Wilberforce,Osman Sowa,078887719
+reg063,ITN2027!,registrar,Western Area Urban,Benguema,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Western Area,Western Area Urban,Benguema,Benguema MCHP,Goderich,Nemata Mansaray,078013990
+reg064,ITN2027!,registrar,Western Area Urban,Tombo,chiefdom,registrar,registration.html,"registration.html,records.html,dashboard.html",Western Area,Western Area Urban,Tombo,Tombo CHC,Congo Cross,Memunatu Kabba,033742967
+dist001,ITN2027!,distributor,Kailahun,Kissi Kama,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Eastern Province,Kailahun,Kissi Kama,Kissi Kama MCHP,Koindu,Kemoh Kalokoh,078125674
+dist002,ITN2027!,distributor,Kailahun,Kissi Teng,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Eastern Province,Kailahun,Kissi Teng,Kissi Teng Community Hospital,Mobai,Cecilia Bangura,079154516
+dist003,ITN2027!,distributor,Kailahun,Kissi Tongi,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Eastern Province,Kailahun,Kissi Tongi,Kissi Tongi MCHP,Jawei,Victoria Sankoh,079038597
+dist004,ITN2027!,distributor,Kailahun,Luawa,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Eastern Province,Kailahun,Luawa,Luawa Community Hospital,Luawa,Kadi Davies,033247710
+dist005,ITN2027!,distributor,Kenema,Gorama Kono,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Eastern Province,Kenema,Gorama Kono,Gorama Kono CHP,Koidu,Jenneh Turay,076861317
+dist006,ITN2027!,distributor,Kenema,Kandu Leppiama,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Eastern Province,Kenema,Kandu Leppiama,Kandu Leppiama MCHP,Segbwema,Rugiatu Kamara,030484677
+dist007,ITN2027!,distributor,Kenema,Koidu Town,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Eastern Province,Kenema,Koidu Town,Koidu Town CHP,Daru,Brima Bockarie,077982146
+dist008,ITN2027!,distributor,Kenema,Langbama,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Eastern Province,Kenema,Langbama,Langbama CHC,Panguma,Mary Davies,076449972
+dist009,ITN2027!,distributor,Kono,Gbense,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Eastern Province,Kono,Gbense,Gbense Community Hospital,Sefadu,Sia Kalokoh,033867533
+dist010,ITN2027!,distributor,Kono,Gorama,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Eastern Province,Kono,Gorama,Gorama Community Hospital,Yengema,Kemoh Bangura,078766270
+dist011,ITN2027!,distributor,Kono,Kamara,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Eastern Province,Kono,Kamara,Kamara CHP,Kono City,Lucia Kalokoh,076718702
+dist012,ITN2027!,distributor,Kono,Lei,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Eastern Province,Kono,Lei,Lei Community Hospital,Tankoro,Rugiatu Turay,079459615
+dist013,ITN2027!,distributor,Bombali,Libeisaygahun,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Northern Province,Bombali,Libeisaygahun,Libeisaygahun Community Hospital,Matene,Martha Fofanah,076913431
+dist014,ITN2027!,distributor,Bombali,Makari Gbanti,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Northern Province,Bombali,Makari Gbanti,Makari Gbanti Community Hospital,Binkolo,Yabom Samura,077400504
+dist015,ITN2027!,distributor,Bombali,Paki Masabong,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Northern Province,Bombali,Paki Masabong,Paki Masabong CHC,Kamalo,Brima Johnson,033692221
+dist016,ITN2027!,distributor,Bombali,Saberi,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Northern Province,Bombali,Saberi,Saberi Community Hospital,Makeni Town,Rebecca Kamara,033237474
+dist017,ITN2027!,distributor,Falaba,Biriwa,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Northern Province,Falaba,Biriwa,Biriwa MCHP,Sembehun,Joyce Kanneh,030821759
+dist018,ITN2027!,distributor,Falaba,Sella Limba,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Northern Province,Falaba,Sella Limba,Sella Limba CHC,Kpetema,Mamie Cole,079436713
+dist019,ITN2027!,distributor,Falaba,Gbanti,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Northern Province,Falaba,Gbanti,Gbanti Community Hospital,Gbo,Theresa Kanneh,030406409
+dist020,ITN2027!,distributor,Falaba,Kasunko,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Northern Province,Falaba,Kasunko,Kasunko MCHP,Kpangba,Martha Kanneh,077953394
+dist021,ITN2027!,distributor,Koinadugu,Folasaba,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Northern Province,Koinadugu,Folasaba,Folasaba CHP,Kondembaia,Fatmata Sei,079095214
+dist022,ITN2027!,distributor,Koinadugu,Kasunko,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Northern Province,Koinadugu,Kasunko,Kasunko CHC,Yiffin,Memunatu Gbunduka,077858842
+dist023,ITN2027!,distributor,Koinadugu,Mongo,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Northern Province,Koinadugu,Mongo,Mongo CHC,Woroma,Esther Kanneh,030517123
+dist024,ITN2027!,distributor,Koinadugu,Neya,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Northern Province,Koinadugu,Neya,Neya Community Hospital,Kamadugu,Cecilia Lahai,076604817
+dist025,ITN2027!,distributor,Tonkolili,Kholifa Mabang,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Northern Province,Tonkolili,Kholifa Mabang,Kholifa Mabang CHC,Magbaima,Elizabeth Koroma,079513709
+dist026,ITN2027!,distributor,Tonkolili,Kholifa Rowalla,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Northern Province,Tonkolili,Kholifa Rowalla,Kholifa Rowalla CHC,Mamanso,Agnes Turay,030746120
+dist027,ITN2027!,distributor,Tonkolili,Kunike Barina,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Northern Province,Tonkolili,Kunike Barina,Kunike Barina MCHP,Kunike,Michael Mansaray,076382675
+dist028,ITN2027!,distributor,Tonkolili,Kunike,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Northern Province,Tonkolili,Kunike,Kunike Community Hospital,Rokulan,Rugiatu Kowa,030179640
+dist029,ITN2027!,distributor,Kambia,Samu,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",North West Province,Kambia,Samu,Samu CHC,Mambolo,Patrick Johnson,078158506
+dist030,ITN2027!,distributor,Kambia,Tunkia,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",North West Province,Kambia,Tunkia,Tunkia CHC,Tawuya,Foday Sankoh,076390053
+dist031,ITN2027!,distributor,Kambia,Dixon,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",North West Province,Kambia,Dixon,Dixon CHP,Gbinle,Kadi Turay,033393352
+dist032,ITN2027!,distributor,Kambia,Gbinle,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",North West Province,Kambia,Gbinle,Gbinle MCHP,Samu,Brima Dumbuya,033421020
+dist033,ITN2027!,distributor,Karene,Kamaranka,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",North West Province,Karene,Kamaranka,Kamaranka CHC,Rokupr,Rebecca Koroma,078024026
+dist034,ITN2027!,distributor,Karene,Tambakha,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",North West Province,Karene,Tambakha,Tambakha MCHP,Sambaia,Esther Samura,078891783
+dist035,ITN2027!,distributor,Karene,Sambaia,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",North West Province,Karene,Sambaia,Sambaia MCHP,Gbanti,Grace Sei,079007661
+dist036,ITN2027!,distributor,Karene,Gbanti,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",North West Province,Karene,Gbanti,Gbanti Community Hospital,Tambakha,Alice Turay,076592124
+dist037,ITN2027!,distributor,Port Loko,Lokomasama,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",North West Province,Port Loko,Lokomasama,Lokomasama CHC,Masiaka,Frank Bangura,078789611
+dist038,ITN2027!,distributor,Port Loko,Marampa,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",North West Province,Port Loko,Marampa,Marampa CHP,Mambolo,Daniel Kowa,078766156
+dist039,ITN2027!,distributor,Port Loko,Masimera,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",North West Province,Port Loko,Masimera,Masimera CHC,Kafu Bullom,Nabintu Jalloh,030711116
+dist040,ITN2027!,distributor,Port Loko,Bureh,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",North West Province,Port Loko,Bureh,Bureh MCHP,Masimera,Nabintu Dumbuya,033098851
+dist041,ITN2027!,distributor,Bo,Bagbwe,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Southern Province,Bo,Bagbwe,Bagbwe Community Hospital,Baoma,Augustine Fofanah,078945198
+dist042,ITN2027!,distributor,Bo,Bargbe,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Southern Province,Bo,Bargbe,Bargbe CHP,Koribondo,Andrew Williams,076585149
+dist043,ITN2027!,distributor,Bo,Bongor,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Southern Province,Bo,Bongor,Bongor CHP,Mongeri,Cecilia Dumbuya,033809402
+dist044,ITN2027!,distributor,Bo,Jaiama Bongor,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Southern Province,Bo,Jaiama Bongor,Jaiama Bongor CHC,Sumbuya,Jenneh Kalokoh,078022961
+dist045,ITN2027!,distributor,Bonthe,Bonthe Island,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Southern Province,Bonthe,Bonthe Island,Bonthe Island CHP,Sogbeni,Mariama Conteh,030836675
+dist046,ITN2027!,distributor,Bonthe,Dema,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Southern Province,Bonthe,Dema,Dema CHP,Dema,Santigie Conteh,033102290
+dist047,ITN2027!,distributor,Bonthe,Imperri,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Southern Province,Bonthe,Imperri,Imperri MCHP,Imperri,Augustine Kamara,033764381
+dist048,ITN2027!,distributor,Bonthe,Jong,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Southern Province,Bonthe,Jong,Jong CHC,Bendu,Abdul Koroma,079840369
+dist049,ITN2027!,distributor,Moyamba,Dasse,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Southern Province,Moyamba,Dasse,Dasse MCHP,Ribbi,Osman Suma,077445107
+dist050,ITN2027!,distributor,Moyamba,Fakunya,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Southern Province,Moyamba,Fakunya,Fakunya Community Hospital,Timdale,Musa Fofanah,030388516
+dist051,ITN2027!,distributor,Moyamba,Kaiyamba,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Southern Province,Moyamba,Kaiyamba,Kaiyamba MCHP,Bagruwa,John Turay,078969664
+dist052,ITN2027!,distributor,Moyamba,Kori,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Southern Province,Moyamba,Kori,Kori MCHP,Fakunya,Santigie Kargbo,033751613
+dist053,ITN2027!,distributor,Pujehun,Galliness,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Southern Province,Pujehun,Galliness,Galliness Community Hospital,Barri,Grace Conteh,079453521
+dist054,ITN2027!,distributor,Pujehun,Kpaka,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Southern Province,Pujehun,Kpaka,Kpaka MCHP,Galliness,Mariatu Foday,078231243
+dist055,ITN2027!,distributor,Pujehun,Kpanga Kabonde,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Southern Province,Pujehun,Kpanga Kabonde,Kpanga Kabonde CHP,Kpaka,Aminata Samba,030779979
+dist056,ITN2027!,distributor,Pujehun,Makpele,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Southern Province,Pujehun,Makpele,Makpele CHC,Makpele,Nemata Jalloh,079177449
+dist057,ITN2027!,distributor,Western Area Rural,Benguema,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Western Area,Western Area Rural,Benguema,Benguema MCHP,Benguema,Amara Sei,079700541
+dist058,ITN2027!,distributor,Western Area Rural,Tombo,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Western Area,Western Area Rural,Tombo,Tombo MCHP,Tombo,Mary Bockarie,079980793
+dist059,ITN2027!,distributor,Western Area Rural,Central,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Western Area,Western Area Rural,Central,Central CHC,Grafton,Mary Jalloh,076715182
+dist060,ITN2027!,distributor,Western Area Rural,East,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Western Area,Western Area Rural,East,East MCHP,Hastings,Patrick Samura,033892554
+dist061,ITN2027!,distributor,Western Area Urban,Benguema,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Western Area,Western Area Urban,Benguema,Benguema Community Hospital,Goderich,Tamba Mansaray,076515186
+dist062,ITN2027!,distributor,Western Area Urban,Tombo,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Western Area,Western Area Urban,Tombo,Tombo CHC,Congo Cross,Frank Jalloh,078192546
+dist063,ITN2027!,distributor,Western Area Urban,Central,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Western Area,Western Area Urban,Central,Central CHP,Tower Hill,Kadiatu Sei,033652816
+dist064,ITN2027!,distributor,Western Area Urban,East,chiefdom,distributor,distribution.html,"distribution.html,records.html,dashboard.html",Western Area,Western Area Urban,East,East CHC,Kroo Bay,Osman Samba,077573322
+admin001,Admin2027!,admin,All,All,national,admin,admin.html,"admin.html,user-management.html,reports.html,settings.html",All,All,All,National,Freetown,Saidu Sesay,033805929
+admin002,Admin2027!,admin,All,All,national,admin,admin.html,"admin.html,user-management.html,reports.html,settings.html",All,All,All,National,Freetown,Alpha Samba,030927065
+admin003,Admin2027!,admin,All,All,national,admin,admin.html,"admin.html,user-management.html,reports.html,settings.html",All,All,All,National,Freetown,Rebecca Samura,033473834
+admin004,Admin2027!,admin,All,All,national,admin,admin.html,"admin.html,user-management.html,reports.html,settings.html",All,All,All,National,Freetown,Esther Gbunduka,078977468
+admin005,Admin2027!,admin,All,All,national,admin,admin.html,"admin.html,user-management.html,reports.html,settings.html",All,All,All,National,Freetown,Zainab Gbunduka,033240758
+nat001,ITN2027!,national,Bombali,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",Northern Province,Bombali,All,Regional Office,Rogbom,Grace Mansaray,078124782
+nat002,ITN2027!,national,Pujehun,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",Southern Province,Pujehun,All,Regional Office,Pujehun Town,Daniel Samura,078060685
+nat003,ITN2027!,national,Kambia,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",North West Province,Kambia,All,Regional Office,Kambia Town,Abu Lahai,077051522
+nat004,ITN2027!,national,Kenema,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",Eastern Province,Kenema,All,Regional Office,Kenema City,Andrew Dumbuya,030779010
+nat005,ITN2027!,national,Karene,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",North West Province,Karene,All,Regional Office,Karene Town,Brima Turay,030986143
+nat006,ITN2027!,national,Port Loko,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",North West Province,Port Loko,All,Regional Office,Port Loko Town,Emmanuel Kowa,030971179
+nat007,ITN2027!,national,Kailahun,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",Eastern Province,Kailahun,All,Regional Office,Kailahun Town,Theresa Johnson,030246095
+nat008,ITN2027!,national,Kambia,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",North West Province,Kambia,All,Regional Office,Kambia Town,Memunatu Conteh,033518888
+nat009,ITN2027!,national,Kailahun,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",Eastern Province,Kailahun,All,Regional Office,Kailahun Town,Andrew Bangura,030654051
+nat010,ITN2027!,national,Bonthe,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",Southern Province,Bonthe,All,Regional Office,Bonthe Town,Saidu Koroma,030520585
+nat011,ITN2027!,national,Koinadugu,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",Northern Province,Koinadugu,All,Regional Office,Kabala,Joyce Kabba,030221704
+nat012,ITN2027!,national,Tonkolili,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",Northern Province,Tonkolili,All,Regional Office,Mile 91,Joseph Bangura,078486874
+nat013,ITN2027!,national,Kenema,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",Eastern Province,Kenema,All,Regional Office,Kenema City,Sahr Kalokoh,078156676
+nat014,ITN2027!,national,Bo,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",Southern Province,Bo,All,Regional Office,Bo Town,Martha Kamara,078841616
+nat015,ITN2027!,national,Koinadugu,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",Northern Province,Koinadugu,All,Regional Office,Kabala,Nemata Koroma,076544796
+nat016,ITN2027!,national,Koinadugu,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",Northern Province,Koinadugu,All,Regional Office,Kabala,Sia Samura,076596401
+nat017,ITN2027!,national,Moyamba,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",Southern Province,Moyamba,All,Regional Office,Moyamba Town,Alpha Sesay,077970213
+nat018,ITN2027!,national,Bonthe,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",Southern Province,Bonthe,All,Regional Office,Bonthe Town,Martin Bangura,033275571
+nat019,ITN2027!,national,Falaba,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",Northern Province,Falaba,All,Regional Office,Foindu,Ya Tarawally,030431027
+nat020,ITN2027!,national,Moyamba,All,national,national_monitor,national.html,"national.html,dashboard.html,reports.html,monitor.html",Southern Province,Moyamba,All,Regional Office,Moyamba Town,Alice Suma,033473121
+dash001,ITN2027!,dashboard,Western Area Rural,All,national,dashboard,dashboard.html,"dashboard.html,reports.html,analytics.html",Western Area,Western Area Rural,All,District Office,Waterloo,Patrick Conteh,030551884
+dash002,ITN2027!,dashboard,Port Loko,All,national,dashboard,dashboard.html,"dashboard.html,reports.html,analytics.html",North West Province,Port Loko,All,District Office,Port Loko Town,Memunatu Lahai,033313237
+dash003,ITN2027!,dashboard,Kailahun,All,national,dashboard,dashboard.html,"dashboard.html,reports.html,analytics.html",Eastern Province,Kailahun,All,District Office,Kailahun Town,Martin Lahai,079829114
+dash004,ITN2027!,dashboard,Moyamba,All,national,dashboard,dashboard.html,"dashboard.html,reports.html,analytics.html",Southern Province,Moyamba,All,District Office,Moyamba Town,Esther Bangura,079691251
+dash005,ITN2027!,dashboard,Western Area Rural,All,national,dashboard,dashboard.html,"dashboard.html,reports.html,analytics.html",Western Area,Western Area Rural,All,District Office,Waterloo,Paul Foday,077892268
+dash006,ITN2027!,dashboard,Kenema,All,national,dashboard,dashboard.html,"dashboard.html,reports.html,analytics.html",Eastern Province,Kenema,All,District Office,Kenema City,Grace Jalloh,078225358
+dash007,ITN2027!,dashboard,Port Loko,All,national,dashboard,dashboard.html,"dashboard.html,reports.html,analytics.html",North West Province,Port Loko,All,District Office,Port Loko Town,Elizabeth Gbunduka,030842498
+dash008,ITN2027!,dashboard,Kono,All,national,dashboard,dashboard.html,"dashboard.html,reports.html,analytics.html",Eastern Province,Kono,All,District Office,Koidu Town,Zainab Koroma,033229959
+dash009,ITN2027!,dashboard,Kenema,All,national,dashboard,dashboard.html,"dashboard.html,reports.html,analytics.html",Eastern Province,Kenema,All,District Office,Kenema City,Martin Cole,030396907
+dash010,ITN2027!,dashboard,Port Loko,All,national,dashboard,dashboard.html,"dashboard.html,reports.html,analytics.html",North West Province,Port Loko,All,District Office,Port Loko Town,Jenneh Kabba,077647102
+chisup001,ITN2027!,chisup,Kailahun,Dea,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Eastern Province,Kailahun,Dea,Dea Community Hospital,Kailahun Town,John Suma,078925556
+chisup002,ITN2027!,chisup,Kenema,Dodo,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Eastern Province,Kenema,Dodo,Dodo CHP,Tongo,Mary Turay,076537147
+chisup003,ITN2027!,chisup,Kono,Gbense,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Eastern Province,Kono,Gbense,Gbense CHP,Sefadu,Sahr Kanneh,079963259
+chisup004,ITN2027!,chisup,Bombali,Makari Gbanti,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Northern Province,Bombali,Makari Gbanti,Makari Gbanti CHC,Binkolo,Alpha Kamara,033774701
+chisup005,ITN2027!,chisup,Falaba,Gbanti,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Northern Province,Falaba,Gbanti,Gbanti Community Hospital,Gbo,Rebecca Suma,033500479
+chisup006,ITN2027!,chisup,Koinadugu,Neya,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Northern Province,Koinadugu,Neya,Neya Community Hospital,Kamadugu,Mohamed Koroma,079245650
+chisup007,ITN2027!,chisup,Tonkolili,Malal Mara,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Northern Province,Tonkolili,Malal Mara,Malal Mara Community Hospital,Makali,Christopher Gbunduka,078841687
+chisup008,ITN2027!,chisup,Kambia,Tunkia,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",North West Province,Kambia,Tunkia,Tunkia CHC,Kasirie,Janet Dumbuya,076216558
+chisup009,ITN2027!,chisup,Karene,Sambaia,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",North West Province,Karene,Sambaia,Sambaia CHC,Mayatta,Mariatu Mansaray,033680002
+chisup010,ITN2027!,chisup,Port Loko,Masimera,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",North West Province,Port Loko,Masimera,Masimera CHC,Kamasondo,James Dumbuya,078952694
+chisup011,ITN2027!,chisup,Bo,Selenga,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Southern Province,Bo,Selenga,Selenga CHC,Bo Town,Mary Fofanah,079947055
+chisup012,ITN2027!,chisup,Bonthe,Sogbeni,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Southern Province,Bonthe,Sogbeni,Sogbeni MCHP,Mattru,Lucia Sei,030097499
+chisup013,ITN2027!,chisup,Moyamba,Bagruwa,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Southern Province,Moyamba,Bagruwa,Bagruwa CHP,Ribbi,Lucia Kabba,077896230
+chisup014,ITN2027!,chisup,Pujehun,Galliness,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Southern Province,Pujehun,Galliness,Galliness MCHP,Galliness,Patrick Tarawally,079263689
+chisup015,ITN2027!,chisup,Western Area Rural,Benguema,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Western Area,Western Area Rural,Benguema,Benguema Community Hospital,Grafton,Cecilia Tarawally,030786527
+chisup016,ITN2027!,chisup,Western Area Urban,Tombo,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Western Area,Western Area Urban,Tombo,Tombo CHC,Kroo Bay,Elizabeth Dumbuya,079334843
+chisup017,ITN2027!,chisup,Kailahun,Kissi Tongi,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Eastern Province,Kailahun,Kissi Tongi,Kissi Tongi CHC,Penguia,Kadi Kamara,078758441
+chisup018,ITN2027!,chisup,Kenema,Koidu Town,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Eastern Province,Kenema,Koidu Town,Koidu Town Community Hospital,Joru,Ya Foday,077404157
+chisup019,ITN2027!,chisup,Kono,Lei,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Eastern Province,Kono,Lei,Lei CHC,Nimikoro,Kadi Gbunduka,033484219
+chisup020,ITN2027!,chisup,Bombali,Saberi,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Northern Province,Bombali,Saberi,Saberi CHP,Kagbane,Paul Williams,030301657
+chisup021,ITN2027!,chisup,Falaba,Biriwa,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Northern Province,Falaba,Biriwa,Biriwa MCHP,Foindu,Adama Kamara,033267734
+chisup022,ITN2027!,chisup,Koinadugu,Diang,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Northern Province,Koinadugu,Diang,Diang CHC,Fadugu,Sahr Conteh,030938026
+chisup023,ITN2027!,chisup,Tonkolili,Kunike Barina,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Northern Province,Tonkolili,Kunike Barina,Kunike Barina CHP,Magbaima,Fatmata Sowa,079240049
+chisup024,ITN2027!,chisup,Kambia,Tunkia,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",North West Province,Kambia,Tunkia,Tunkia MCHP,Tawuya,Kumba Kanneh,079887287
+chisup025,ITN2027!,chisup,Karene,Sambaia,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",North West Province,Karene,Sambaia,Sambaia CHC,Gbanti,Foday Kalokoh,077742054
+chisup026,ITN2027!,chisup,Port Loko,Bureh,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",North West Province,Port Loko,Bureh,Bureh CHP,Masimera,Sorie Kai,033516122
+chisup027,ITN2027!,chisup,Bo,Valunia,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Southern Province,Bo,Valunia,Valunia Community Hospital,Bumpeh,Emmanuel Kamara,078637454
+chisup028,ITN2027!,chisup,Bonthe,Bonthe Municipal,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Southern Province,Bonthe,Bonthe Municipal,Bonthe Municipal MCHP,Largor,Lamin Johnson,076174268
+chisup029,ITN2027!,chisup,Moyamba,Kaiyamba,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Southern Province,Moyamba,Kaiyamba,Kaiyamba CHC,Dasse,Lucy Lahai,033332727
+chisup030,ITN2027!,chisup,Pujehun,Peje,district,chw_supervisor,chisup.html,"chisup.html,monitor.html,records.html",Southern Province,Pujehun,Peje,Peje CHC,Yakemo Kpukumu,Christopher Kabba,033339187
+ind001,ITN2027!,independent,Kailahun,Jawei,district,independent_monitor,monitor.html,"monitor.html,forms.html,records.html",Eastern Province,Kailahun,Jawei,Jawei CHC,Pendembu,Martin Mansaray,076883982
+ind002,ITN2027!,independent,Kenema,Dodo,district,independent_monitor,monitor.html,"monitor.html,forms.html,records.html",Eastern Province,Kenema,Dodo,Dodo CHP,Tongo,Paul Samura,076397187
+ind003,ITN2027!,independent,Kono,Gbane,district,independent_monitor,monitor.html,"monitor.html,forms.html,records.html",Eastern Province,Kono,Gbane,Gbane MCHP,Tombodu,James Kowa,079908740
+ind004,ITN2027!,independent,Bombali,Gbanti Kamaranka,district,independent_monitor,monitor.html,"monitor.html,forms.html,records.html",Northern Province,Bombali,Gbanti Kamaranka,Gbanti Kamaranka Community Hospital,Masongbo,Mohamed Suma,033106518
+ind005,ITN2027!,independent,Falaba,Wara Wara Yagala,district,independent_monitor,monitor.html,"monitor.html,forms.html,records.html",Northern Province,Falaba,Wara Wara Yagala,Wara Wara Yagala MCHP,Bandajuma,Aminata Kabba,076462265
+ind006,ITN2027!,independent,Koinadugu,Diang,district,independent_monitor,monitor.html,"monitor.html,forms.html,records.html",Northern Province,Koinadugu,Diang,Diang Community Hospital,Fadugu,Musa Bockarie,076825128
+ind007,ITN2027!,independent,Tonkolili,Kafe Simiria,district,independent_monitor,monitor.html,"monitor.html,forms.html,records.html",Northern Province,Tonkolili,Kafe Simiria,Kafe Simiria Community Hospital,Yele,Agnes Kamara,076478686
+ind008,ITN2027!,independent,Kambia,Gbinle,district,independent_monitor,monitor.html,"monitor.html,forms.html,records.html",North West Province,Kambia,Gbinle,Gbinle CHP,Rokupr,Komba Jalloh,078310690
+ind009,ITN2027!,independent,Karene,Gbanti,district,independent_monitor,monitor.html,"monitor.html,forms.html,records.html",North West Province,Karene,Gbanti,Gbanti CHP,Kamaranka,Saidu Mansaray,076790306
+ind010,ITN2027!,independent,Port Loko,Kafu Bullom,district,independent_monitor,monitor.html,"monitor.html,forms.html,records.html",North West Province,Port Loko,Kafu Bullom,Kafu Bullom Community Hospital,Lunsar,David Fofanah,077843959
+ind011,ITN2027!,independent,Bo,Bagbo,district,independent_monitor,monitor.html,"monitor.html,forms.html,records.html",Southern Province,Bo,Bagbo,Bagbo CHC,Tikonko,Brima Bangura,077644089
+ind012,ITN2027!,independent,Bonthe,Bonthe Municipal,district,independent_monitor,monitor.html,"monitor.html,forms.html,records.html",Southern Province,Bonthe,Bonthe Municipal,Bonthe Municipal CHP,Mattru,Mamie Turay,079056856
+ind013,ITN2027!,independent,Moyamba,Bumpeh,district,independent_monitor,monitor.html,"monitor.html,forms.html,records.html",Southern Province,Moyamba,Bumpeh,Bumpeh Community Hospital,Shenge,Esther Johnson,077427086
+ind014,ITN2027!,independent,Pujehun,Fairo,district,independent_monitor,monitor.html,"monitor.html,forms.html,records.html",Southern Province,Pujehun,Fairo,Fairo Community Hospital,Fairo,Adama Bockarie,077435175
+ind015,ITN2027!,independent,Western Area Rural,Newton,district,independent_monitor,monitor.html,"monitor.html,forms.html,records.html",Western Area,Western Area Rural,Newton,Newton MCHP,Newton,Mariatu Fofanah,078699013
+ind016,ITN2027!,independent,Western Area Urban,Newton,district,independent_monitor,monitor.html,"monitor.html,forms.html,records.html",Western Area,Western Area Urban,Newton,Newton CHP,Wilberforce,Tamba Sei,076331739
